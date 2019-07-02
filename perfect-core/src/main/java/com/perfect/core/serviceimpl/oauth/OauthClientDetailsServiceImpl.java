@@ -1,10 +1,10 @@
-package com.perfect.serviceimpl.oauth;
+package com.perfect.core.serviceimpl.oauth;
 
-import com.perfect.base.service.impl.v1.BaseServiceImpl;
 import com.perfect.bean.entity.oauth.OauthClientDetailsEntity;
-import com.perfect.mapper.oauth.OauthClientDetailsMapper;
-import com.perfect.security.bean.BootClientDetails;
-import com.perfect.service.oauth.IOauthClientDetailsService;
+import com.perfect.common.base.service.impl.v1.BaseServiceImpl;
+import com.perfect.common.security.bean.BootClientDetails;
+import com.perfect.core.mapper.oauth.OauthClientDetailsMapper;
+import com.perfect.core.service.oauth.IOauthClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientRegistrationException;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @since 2019-05-17
  */
 @Service
-public class OauthClientDetailsServiceImpl extends BaseServiceImpl<OauthClientDetailsMapper, OauthClientDetailsEntity> implements IOauthClientDetailsService  {
+public class OauthClientDetailsServiceImpl extends BaseServiceImpl<OauthClientDetailsMapper, OauthClientDetailsEntity> implements IOauthClientDetailsService {
     @Autowired
     private OauthClientDetailsMapper oauthClientDetailsMapper;
 

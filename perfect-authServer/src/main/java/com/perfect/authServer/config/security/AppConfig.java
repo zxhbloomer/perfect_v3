@@ -1,4 +1,4 @@
-package com.perfect.config.security;
+package com.perfect.authServer.config.security;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

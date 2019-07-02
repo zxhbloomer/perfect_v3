@@ -1,6 +1,6 @@
-package com.perfect.handler;
+package com.perfect.authServer.handler;
 
-import com.perfect.Enum.ResultEnum;
+import com.perfect.common.Enum.ResultEnum;
 import com.perfect.utils.ExceptionUtil;
 import com.perfect.utils.ResultUtil;
 import org.springframework.http.HttpStatus;

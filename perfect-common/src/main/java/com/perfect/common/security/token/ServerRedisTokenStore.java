@@ -1,4 +1,4 @@
-package com.perfect.security.token;
+package com.perfect.common.security.token;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

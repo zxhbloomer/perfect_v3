@@ -1,8 +1,8 @@
-package com.perfect.utils;
+package com.perfect.common.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.Enum.ResultEnum;
-import com.perfect.exception.ValidateCodeException;
+import com.perfect.common.Enum.ResultEnum;
+import com.perfect.common.exception.ValidateCodeException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

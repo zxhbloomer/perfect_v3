@@ -1,9 +1,9 @@
-package com.perfect.config.security.bean;
+package com.perfect.managerStarter.config.security.bean;
 
-import com.perfect.config.security.handler.MyLogoutSuccessHandler;
-import com.perfect.config.security.properties.SecurityProperties;
-import com.perfect.security.session.MyExpiredSessionStrategy;
-import com.perfect.security.session.MyInvalidSessionStrategy;
+import com.perfect.common.security.session.MyExpiredSessionStrategy;
+import com.perfect.common.security.session.MyInvalidSessionStrategy;
+import com.perfect.managerStarter.config.security.handler.MyLogoutSuccessHandler;
+import com.perfect.managerStarter.config.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.perfect.constant;
+package com.perfect.common.constant;
 
 /**
  * 登录成功处理

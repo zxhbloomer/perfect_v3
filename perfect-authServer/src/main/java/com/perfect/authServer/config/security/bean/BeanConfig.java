@@ -1,4 +1,4 @@
-package com.perfect.config.security.bean;
+package com.perfect.authServer.config.security.bean;
 
 import com.perfect.serviceimpl.oauth.OauthUserServiceImpl;
 import org.springframework.context.annotation.Bean;

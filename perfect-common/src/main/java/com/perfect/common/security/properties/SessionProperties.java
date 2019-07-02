@@ -1,6 +1,6 @@
-package com.perfect.security.properties;
+package com.perfect.common.security.properties;
 
-import com.perfect.constant.SecurityConstants;
+import com.perfect.common.constant.SecurityConstants;
 import lombok.Data;
 
 @Data

@@ -1,4 +1,4 @@
-package com.perfect.config.redis;
+package com.perfect.managerStarter.config.redis;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;

@@ -1,4 +1,4 @@
-package com.perfect.config.security.filter;
+package com.perfect.authServer.config.security.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

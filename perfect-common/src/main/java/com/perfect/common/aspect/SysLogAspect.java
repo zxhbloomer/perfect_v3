@@ -3,10 +3,12 @@ package com.perfect.common.aspect;
 
 import com.perfect.bean.bo.sys.SysLogBO;
 import com.perfect.common.annotation.SysLog;
-import com.perfect.utils.IPUtil;
+import com.perfect.common.utils.IPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;

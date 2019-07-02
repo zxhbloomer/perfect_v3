@@ -1,7 +1,7 @@
-package com.perfect.security.bean;
+package com.perfect.common.security.bean;
 
 import com.perfect.bean.entity.oauth.OauthClientDetailsEntity;
-import com.perfect.utils.CommonUtil;
+import com.perfect.common.utils.CommonUtil;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

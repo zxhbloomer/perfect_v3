@@ -2,7 +2,7 @@
  * 所属产品: 互联网供应链金融平台
  * 版权信息: © XXX金服
  */
-package com.perfect.constant;
+package com.perfect.common.constant;
 
 /**
  * 带UTF-8 charset 定义的MediaType.

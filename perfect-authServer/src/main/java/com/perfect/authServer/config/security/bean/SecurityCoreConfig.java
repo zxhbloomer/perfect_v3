@@ -1,6 +1,6 @@
-package com.perfect.config.security.bean;
+package com.perfect.authServer.config.security.bean;
 
-import com.perfect.config.security.properties.SecurityProperties;
+import com.perfect.authServer.config.security.properties.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

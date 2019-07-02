@@ -1,4 +1,4 @@
-package com.perfect.base.bean.v1;
+package com.perfect.common.base.bean.v1;
 
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.beanutils.BeanUtils;

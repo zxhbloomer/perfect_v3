@@ -1,4 +1,4 @@
-package com.perfect.service.client.user;
+package com.perfect.core.service.client.user;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.perfect.bean.entity.client.login.MUserEntity;

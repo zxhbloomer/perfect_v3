@@ -1,4 +1,4 @@
-package com.perfect.controller;
+package com.perfect.authServer.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

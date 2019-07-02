@@ -1,4 +1,4 @@
-package com.perfect.utils;
+package com.perfect.common.utils;
 
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.StringUtils;

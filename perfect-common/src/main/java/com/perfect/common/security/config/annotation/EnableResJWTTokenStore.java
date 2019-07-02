@@ -1,6 +1,6 @@
-package com.perfect.security.config.annotation;
+package com.perfect.common.security.config.annotation;
 
-import com.perfect.security.token.ResJWTTokenStore;
+import com.perfect.common.security.token.ResJWTTokenStore;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;

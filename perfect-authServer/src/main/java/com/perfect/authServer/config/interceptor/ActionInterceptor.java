@@ -1,4 +1,4 @@
-package com.perfect.config.interceptor;
+package com.perfect.authServer.config.interceptor;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

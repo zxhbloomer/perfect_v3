@@ -1,10 +1,10 @@
-package com.perfect.serviceimpl.oauth;
+package com.perfect.core.serviceimpl.oauth;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.bo.security.OauthUserBo;
 import com.perfect.bean.entity.oauth.OauthUserEntity;
-import com.perfect.mapper.oauth.OauthUserMapper;
-import com.perfect.service.oauth.IOauthUserService;
+import com.perfect.core.mapper.oauth.OauthUserMapper;
+import com.perfect.core.service.oauth.IOauthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

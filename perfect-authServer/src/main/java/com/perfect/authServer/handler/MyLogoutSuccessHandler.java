@@ -1,8 +1,8 @@
-package com.perfect.handler;
+package com.perfect.authServer.handler;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.Enum.ResultEnum;
+import com.perfect.common.Enum.ResultEnum;
 import com.perfect.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

@@ -1,6 +1,6 @@
 package com.linyuan.authenticationserver.web.rest;
 
-import com.perfect.starter.AuthServerStarter;
+import com.perfect.authServer.starter.AuthServerStarter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.junit.Assert;

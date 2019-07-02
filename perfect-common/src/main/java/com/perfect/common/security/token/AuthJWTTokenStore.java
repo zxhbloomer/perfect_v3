@@ -1,4 +1,4 @@
-package com.perfect.security.token;
+package com.perfect.common.security.token;
 
 import org.springframework.cloud.bootstrap.encrypt.KeyProperties;
 import org.springframework.context.annotation.Bean;

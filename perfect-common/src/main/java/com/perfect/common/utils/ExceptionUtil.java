@@ -1,4 +1,4 @@
-package com.perfect.utils;
+package com.perfect.common.utils;
 
 
 import java.io.IOException;

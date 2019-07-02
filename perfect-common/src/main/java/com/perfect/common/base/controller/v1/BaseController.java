@@ -1,9 +1,9 @@
-package com.perfect.base.controller.v1;
+package com.perfect.common.base.controller.v1;
 
-import com.perfect.Enum.ResultEnum;
 import com.perfect.bean.pojo.JSONResult;
-import com.perfect.utils.DateTimeUtil;
-import com.perfect.utils.IPUtil;
+import com.perfect.common.Enum.ResultEnum;
+import com.perfect.common.utils.DateTimeUtil;
+import com.perfect.common.utils.IPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

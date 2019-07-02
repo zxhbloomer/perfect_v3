@@ -1,6 +1,6 @@
-package com.perfect.security.config.annotation;
+package com.perfect.common.security.config.annotation;
 
-import com.perfect.security.token.ServerRedisTokenStore;
+import com.perfect.common.security.token.ServerRedisTokenStore;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;

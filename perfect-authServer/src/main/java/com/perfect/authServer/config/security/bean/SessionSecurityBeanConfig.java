@@ -1,7 +1,7 @@
-package com.perfect.config.security.bean;
+package com.perfect.authServer.config.security.bean;
 
-import com.perfect.config.security.properties.SecurityProperties;
-import com.perfect.handler.MyLogoutSuccessHandler;
+import com.perfect.authServer.config.security.properties.SecurityProperties;
+import com.perfect.authServer.handler.MyLogoutSuccessHandler;
 import com.perfect.security.session.MyExpiredSessionStrategy;
 import com.perfect.security.session.MyInvalidSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;

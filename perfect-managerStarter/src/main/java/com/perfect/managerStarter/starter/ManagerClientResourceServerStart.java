@@ -1,6 +1,6 @@
-package com.perfect.starter;
+package com.perfect.managerStarter.starter;
 
-import com.perfect.security.config.annotation.EnableResource1JWTRSATokenStore;
+import com.perfect.common.security.config.annotation.EnableResource1JWTRSATokenStore;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -20,7 +20,7 @@ import java.util.List;
 @EnableTransactionManagement
 @EnableRedisHttpSession
 @MapperScan("com.perfect.mapper")
-@ComponentScan({"com.perfect.controller", "com.perfect.*"})
+@ComponentScan({"com.perfect.manager.controller", "com.perfect.*"})
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j
 @EnableResource1JWTRSATokenStore

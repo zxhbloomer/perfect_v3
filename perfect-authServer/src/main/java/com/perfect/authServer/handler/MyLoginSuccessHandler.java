@@ -1,7 +1,7 @@
-package com.perfect.handler;
+package com.perfect.authServer.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.Enum.ResultEnum;
+import com.perfect.common.Enum.ResultEnum;
 import com.perfect.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

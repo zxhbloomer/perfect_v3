@@ -1,4 +1,4 @@
-package com.perfect.config.security.handler;
+package com.perfect.authServer.config.security.handler;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

@@ -1,8 +1,10 @@
-package com.perfect.controller;
+package com.perfect.manager.controller;
 
-import com.perfect.base.controller.v1.BaseController;
+import com.perfect.common.base.controller.v1.BaseController;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/v1/login")

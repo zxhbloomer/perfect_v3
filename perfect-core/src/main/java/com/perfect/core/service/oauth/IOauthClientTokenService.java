@@ -1,7 +1,7 @@
-package com.perfect.service.oauth;
+package com.perfect.core.service.oauth;
 
-import com.perfect.base.service.v1.IBaseService;
 import com.perfect.bean.entity.oauth.OauthClientTokenEntity;
+import com.perfect.common.base.service.v1.IBaseService;
 
 /**
  * <p>

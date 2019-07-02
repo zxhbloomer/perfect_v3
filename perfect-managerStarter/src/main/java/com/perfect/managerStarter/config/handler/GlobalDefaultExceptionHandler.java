@@ -1,8 +1,8 @@
-package com.perfect.config.handler;
+package com.perfect.managerStarter.config.handler;
 
-import com.perfect.Enum.ResultEnum;
-import com.perfect.utils.ExceptionUtil;
-import com.perfect.utils.ResultUtil;
+import com.perfect.common.Enum.ResultEnum;
+import com.perfect.common.utils.ExceptionUtil;
+import com.perfect.common.utils.ResultUtil;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

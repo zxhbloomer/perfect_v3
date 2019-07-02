@@ -1,4 +1,4 @@
-package com.perfect.config;
+package com.perfect.core.config;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;

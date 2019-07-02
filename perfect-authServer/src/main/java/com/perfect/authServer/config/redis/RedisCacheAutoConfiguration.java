@@ -1,4 +1,4 @@
-package com.perfect.config.redis;
+package com.perfect.authServer.config.redis;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;

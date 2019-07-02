@@ -1,4 +1,4 @@
-package com.perfect.constant;
+package com.perfect.common.constant;
 
 public interface SecurityConstants {
 

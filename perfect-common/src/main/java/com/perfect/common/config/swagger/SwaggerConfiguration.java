@@ -1,4 +1,4 @@
-package com.perfect.config.swagger;
+package com.perfect.common.config.swagger;
 
 import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.ApiInfoBuilder;

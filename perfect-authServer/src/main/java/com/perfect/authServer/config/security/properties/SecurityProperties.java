@@ -1,4 +1,4 @@
-package com.perfect.config.security.properties;
+package com.perfect.authServer.config.security.properties;
 
 import com.perfect.constant.LoginType;
 import com.perfect.security.properties.SessionProperties;

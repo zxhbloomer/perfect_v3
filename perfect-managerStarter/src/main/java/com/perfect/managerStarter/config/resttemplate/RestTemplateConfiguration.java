@@ -1,6 +1,6 @@
-package com.perfect.config.resttemplate;
+package com.perfect.managerStarter.config.resttemplate;
 
-import com.perfect.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
+import com.perfect.common.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

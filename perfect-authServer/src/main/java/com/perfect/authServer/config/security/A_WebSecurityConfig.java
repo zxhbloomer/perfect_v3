@@ -1,9 +1,9 @@
-package com.perfect.config.security;
+package com.perfect.authServer.config.security;
 
+import com.perfect.authServer.config.security.properties.SecurityProperties;
+import com.perfect.authServer.handler.MyAuthenticationfailureHandler;
+import com.perfect.authServer.handler.MyLoginSuccessHandler;
 import com.perfect.config.PasswordEncoderSetting;
-import com.perfect.config.security.properties.SecurityProperties;
-import com.perfect.handler.MyAuthenticationfailureHandler;
-import com.perfect.handler.MyLoginSuccessHandler;
 import com.perfect.service.oauth.IOauthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

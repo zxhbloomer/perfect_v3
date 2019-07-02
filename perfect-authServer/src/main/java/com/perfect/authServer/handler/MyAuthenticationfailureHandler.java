@@ -1,4 +1,4 @@
-package com.perfect.handler;
+package com.perfect.authServer.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfect.utils.ResponseResultUtil;

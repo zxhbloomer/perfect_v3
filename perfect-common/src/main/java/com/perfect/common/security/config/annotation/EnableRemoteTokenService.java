@@ -1,6 +1,6 @@
-package com.perfect.security.config.annotation;
+package com.perfect.common.security.config.annotation;
 
-import com.perfect.security.service.RemoteTokenService;
+import com.perfect.common.security.service.RemoteTokenService;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.ElementType;

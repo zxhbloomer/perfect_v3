@@ -1,4 +1,4 @@
-package com.perfect.config.security.general;
+package com.perfect.authServer.config.security.general;
 
 //@Configuration
 //public class RedisTokenStoreConfiguration {

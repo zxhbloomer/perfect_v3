@@ -1,4 +1,4 @@
-package com.perfect.controller;
+package com.perfect.authServer.controller;
 
 import org.springframework.security.oauth2.provider.AuthorizationRequest;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
-package com.perfect.config.security;
+package com.perfect.authServer.config.security;
 
-import com.perfect.config.security.filter.BootBasicAuthenticationFilter;
+import com.perfect.authServer.config.security.filter.BootBasicAuthenticationFilter;
 import com.perfect.security.entryPoint.RestAuthenticationEntryPoint;
 import com.perfect.service.oauth.IOauthClientDetailsService;
 import com.perfect.service.oauth.IOauthUserService;

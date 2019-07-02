@@ -1,9 +1,9 @@
-package com.perfect.serviceimpl.oauth;
+package com.perfect.core.serviceimpl.oauth;
 
-import com.perfect.base.service.impl.v1.BaseServiceImpl;
 import com.perfect.bean.entity.oauth.OauthApprovalsEntity;
-import com.perfect.mapper.oauth.OauthApprovalsMapper;
-import com.perfect.service.oauth.IOauthApprovalsService;
+import com.perfect.common.base.service.impl.v1.BaseServiceImpl;
+import com.perfect.core.mapper.oauth.OauthApprovalsMapper;
+import com.perfect.core.service.oauth.IOauthApprovalsService;
 import org.springframework.stereotype.Service;
 
 /**

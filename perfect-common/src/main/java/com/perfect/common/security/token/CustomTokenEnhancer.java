@@ -1,4 +1,4 @@
-package com.perfect.security.token;
+package com.perfect.common.security.token;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;

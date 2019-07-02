@@ -1,4 +1,4 @@
-package com.perfect.starter;
+package com.perfect.authServer.starter;
 
 import com.perfect.security.config.annotation.EnableServerJWTRSATokenStore;
 import lombok.extern.slf4j.Slf4j;

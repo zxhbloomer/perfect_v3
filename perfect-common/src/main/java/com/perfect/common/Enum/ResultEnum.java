@@ -1,4 +1,4 @@
-package com.perfect.Enum;
+package com.perfect.common.Enum;
 
 
 public enum ResultEnum {

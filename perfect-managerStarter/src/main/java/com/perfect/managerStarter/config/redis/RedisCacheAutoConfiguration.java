@@ -1,4 +1,4 @@
-package com.perfect.config.redis;
+package com.perfect.managerStarter.config.redis;
 
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;

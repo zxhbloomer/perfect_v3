@@ -1,4 +1,4 @@
-package com.perfect.config.security.cors;
+package com.perfect.authServer.config.security.cors;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;

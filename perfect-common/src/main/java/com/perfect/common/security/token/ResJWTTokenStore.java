@@ -1,4 +1,4 @@
-package com.perfect.security.token;
+package com.perfect.common.security.token;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

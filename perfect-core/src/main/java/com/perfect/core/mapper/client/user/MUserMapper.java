@@ -1,4 +1,4 @@
-package com.perfect.mapper.client.user;
+package com.perfect.core.mapper.client.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.client.login.MUserEntity;

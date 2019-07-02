@@ -1,5 +1,6 @@
-package com.perfect.config.swagger;
+package com.perfect.managerStarter.config.swagger;
 
+import com.perfect.common.config.swagger.SwaggerConfiguration;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 

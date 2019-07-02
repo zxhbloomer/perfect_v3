@@ -1,4 +1,4 @@
-package com.perfect.security.session;
+package com.perfect.common.security.session;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;

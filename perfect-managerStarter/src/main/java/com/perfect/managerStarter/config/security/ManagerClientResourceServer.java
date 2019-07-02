@@ -1,7 +1,7 @@
-package com.perfect.config.security;
+package com.perfect.managerStarter.config.security;
 
-import com.perfect.config.handler.SimpleAccessDeniedHandler;
-import com.perfect.security.entryPoint.RestAuthenticationEntryPoint;
+import com.perfect.common.security.entryPoint.RestAuthenticationEntryPoint;
+import com.perfect.managerStarter.config.handler.SimpleAccessDeniedHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

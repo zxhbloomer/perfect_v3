@@ -1,4 +1,4 @@
-package com.perfect.mapper.oauth;
+package com.perfect.core.mapper.oauth;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.oauth.OauthUserEntity;

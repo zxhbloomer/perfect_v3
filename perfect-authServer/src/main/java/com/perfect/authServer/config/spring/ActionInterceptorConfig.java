@@ -1,6 +1,6 @@
-package com.perfect.config.spring;
+package com.perfect.authServer.config.spring;
 
-import com.perfect.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
+import com.perfect.common.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;

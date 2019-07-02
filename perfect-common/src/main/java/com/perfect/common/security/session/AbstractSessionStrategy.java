@@ -1,8 +1,8 @@
-package com.perfect.security.session;
+package com.perfect.common.security.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.Enum.ResultEnum;
-import com.perfect.utils.ResultUtil;
+import com.perfect.common.Enum.ResultEnum;
+import com.perfect.common.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -31,7 +31,6 @@ public class AbstractSessionStrategy {
     private boolean createNewSession = true;
 
     private ObjectMapper objectMapper = new ObjectMapper();
-
 
     public AbstractSessionStrategy(String invalidSessionUrl) {
         this.destinationUrl = invalidSessionUrl;

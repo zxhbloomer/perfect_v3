@@ -1,7 +1,7 @@
-package com.perfect.config.security.properties;
+package com.perfect.managerStarter.config.security.properties;
 
-import com.perfect.constant.LoginType;
-import com.perfect.security.properties.SessionProperties;
+import com.perfect.common.constant.LoginType;
+import com.perfect.common.security.properties.SessionProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 

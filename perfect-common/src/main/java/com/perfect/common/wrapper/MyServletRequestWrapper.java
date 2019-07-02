@@ -1,4 +1,4 @@
-package com.perfect.wrapper;
+package com.perfect.common.wrapper;
 
 import org.springframework.security.web.savedrequest.Enumerator;
 

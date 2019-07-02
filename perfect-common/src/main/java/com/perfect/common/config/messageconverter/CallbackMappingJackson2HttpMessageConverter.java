@@ -1,4 +1,4 @@
-package com.perfect.config.messageconverter;
+package com.perfect.common.config.messageconverter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;

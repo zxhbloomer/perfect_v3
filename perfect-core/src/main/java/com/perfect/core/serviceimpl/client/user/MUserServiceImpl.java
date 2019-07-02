@@ -1,10 +1,10 @@
-package com.perfect.serviceimpl.client.user;
+package com.perfect.core.serviceimpl.client.user;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.bo.login.MUserBo;
 import com.perfect.bean.entity.client.login.MUserEntity;
-import com.perfect.mapper.client.user.MUserMapper;
-import com.perfect.service.client.user.IMUserService;
+import com.perfect.core.mapper.client.user.MUserMapper;
+import com.perfect.core.service.client.user.IMUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;

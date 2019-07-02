@@ -1,4 +1,4 @@
-package com.perfect.utils;
+package com.perfect.common.utils;
 
 import com.perfect.bean.pojo.JSONResult;
 

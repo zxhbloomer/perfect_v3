@@ -1,6 +1,6 @@
-package com.perfect.exception;
+package com.perfect.common.exception;
 
-import com.perfect.Enum.ResultEnum;
+import com.perfect.common.Enum.ResultEnum;
 import org.springframework.security.core.AuthenticationException;
 
 public class ValidateCodeException extends AuthenticationException {
