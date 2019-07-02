@@ -19,7 +19,7 @@ import java.util.List;
 @SpringBootApplication(scanBasePackages = {"com.perfect.*"})
 @EnableTransactionManagement
 @EnableRedisHttpSession
-@MapperScan("com.perfect.mapper")
+@MapperScan("com.perfect.core.mapper")
 @ComponentScan({"com.perfect.manager.controller", "com.perfect.*"})
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(scanBasePackages = {"com.perfect.*"})
 @EnableTransactionManagement(proxyTargetClass = true)
 @EnableRedisHttpSession
-@MapperScan("com.perfect.mapper")
+@MapperScan("com.perfect.core.mapper")
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j
 @EnableScheduling

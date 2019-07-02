@@ -26,7 +26,7 @@ import java.util.Date;
 @Slf4j
 public class SysLogAspect {
 
-    @Pointcut("@annotation(com.perfect.spring.aspect.annotation.SysLog)")
+    @Pointcut("@annotation(com.perfect.common.annotation.SysLog)")
     public void sysLogAspect(){}
 
 //    @Before("webLog()")
