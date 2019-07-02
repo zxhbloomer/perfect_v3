@@ -2,8 +2,8 @@ package com.perfect.authServer.config.security.bean;
 
 import com.perfect.authServer.config.security.properties.SecurityProperties;
 import com.perfect.authServer.handler.MyLogoutSuccessHandler;
-import com.perfect.security.session.MyExpiredSessionStrategy;
-import com.perfect.security.session.MyInvalidSessionStrategy;
+import com.perfect.common.security.session.MyExpiredSessionStrategy;
+import com.perfect.common.security.session.MyInvalidSessionStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

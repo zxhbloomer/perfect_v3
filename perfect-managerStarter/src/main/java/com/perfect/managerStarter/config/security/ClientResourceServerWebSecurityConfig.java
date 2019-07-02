@@ -1,12 +1,12 @@
 package com.perfect.managerStarter.config.security;
 
 import com.perfect.common.security.entryPoint.RestAuthenticationEntryPoint;
-import com.perfect.config.security.properties.SecurityProperties;
 import com.perfect.core.config.PasswordEncoderSetting;
 import com.perfect.core.service.client.user.IMUserService;
 import com.perfect.managerStarter.config.handler.SimpleAccessDeniedHandler;
 import com.perfect.managerStarter.config.security.handler.MyAuthenticationfailureHandler;
 import com.perfect.managerStarter.config.security.handler.MyLoginSuccessHandler;
+import com.perfect.managerStarter.config.security.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
 package com.perfect.authServer.starter;
 
-import com.perfect.security.config.annotation.EnableServerJWTRSATokenStore;
+import com.perfect.common.security.config.annotation.EnableServerJWTRSATokenStore;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

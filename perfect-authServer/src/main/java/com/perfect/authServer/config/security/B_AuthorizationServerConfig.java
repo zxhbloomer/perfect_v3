@@ -1,9 +1,9 @@
 package com.perfect.authServer.config.security;
 
 import com.perfect.authServer.config.security.filter.BootBasicAuthenticationFilter;
-import com.perfect.security.entryPoint.RestAuthenticationEntryPoint;
-import com.perfect.service.oauth.IOauthClientDetailsService;
-import com.perfect.service.oauth.IOauthUserService;
+import com.perfect.common.security.entryPoint.RestAuthenticationEntryPoint;
+import com.perfect.core.service.oauth.IOauthClientDetailsService;
+import com.perfect.core.service.oauth.IOauthUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;

@@ -1,8 +1,8 @@
 package com.perfect.authServer.handler;
 
 import com.perfect.common.Enum.ResultEnum;
-import com.perfect.utils.ExceptionUtil;
-import com.perfect.utils.ResultUtil;
+import com.perfect.common.utils.ExceptionUtil;
+import com.perfect.common.utils.ResultUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

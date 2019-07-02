@@ -3,7 +3,7 @@ package com.perfect.authServer.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfect.common.Enum.ResultEnum;
-import com.perfect.utils.ResultUtil;
+import com.perfect.common.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
