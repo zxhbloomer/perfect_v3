@@ -1,0 +1,81 @@
+package com.zxh.config.security;
+
+import com.zxh.config.security.entryPoint.RestAuthenticationEntryPoint;
+import com.zxh.config.security.handler.SavedRequestAwareAuthenticationFailureHandler;
+import com.zxh.config.security.handler.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+
+
+/**
+ * 资源服务配置
+ */
+//@Order(4)
+//@Configuration
+//@EnableResourceServer
+public class C_ResourcesServerConfig extends ResourceServerConfigurerAdapter {
+
+    @Autowired
+    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+//    @Autowired
+//    private AuthenticationSuccessHandler successHandler;
+//    @Autowired
+//    private AuthenticationFailureHandler failureHandler;
+
+    /**
+     * OAuth2 Token（令牌）持久化接口，用于定义 Token 如何存储，它有几个实现类：
+     * InMemoryTokenStore：实现了在内存中存储令牌
+     * JdbcTokenStore：通过 JDBC 方式存储令牌
+     * JwtTokenStore：通过 JWT 方式存储令牌
+     */
+    @Autowired
+    private TokenStore tokenStore;
+
+    /**
+     * 添加资源服务器特定的属性（如资源ID），默认值适用于很多情况，但至少需要修改下ID
+     * @param resources
+     * @throws Exception
+     */
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        resources.tokenStore(tokenStore);
+    }
+
+    /**
+     * 配置资源的访问规则
+     * @param http
+     * @throws Exception
+     */
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http.antMatcher("/api/**")
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
+                .authorizeRequests()
+                //				.anyRequest().hasIpAddress("10.32.49.0/24")
+                .anyRequest()
+                .authenticated()
+                .anyRequest()
+                .access("#oauth2.isUser()")
+                .and()
+                .formLogin()
+                .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
+                .failureHandler(new SavedRequestAwareAuthenticationFailureHandler())
+                .and()
+                .logout();
+    }
+
+//    @Bean
+//    public static AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
+//        return new SavedRequestAwareAuthenticationSuccessHandler();
+//    }
+//
+//    @Bean
+//    public static AuthenticationFailureHandler myAuthenticationFailureHandler() {
+//        return new SavedRequestAwareAuthenticationFailureHandler();
+//    }
+}
