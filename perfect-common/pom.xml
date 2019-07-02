@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.zxh</groupId>
-        <artifactId>perfect</artifactId>
+        <groupId>com.perfect</groupId>
+        <artifactId>perfect-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.zxh</groupId>
+    <groupId>com.perfect</groupId>
     <artifactId>perfect-common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -72,7 +72,7 @@
                 <artifactId>commons-lang3</artifactId>
             </dependency>
             <dependency>
-                <groupId>com.zxh</groupId>
+                <groupId>com.perfect</groupId>
                 <artifactId>perfect-bean</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
