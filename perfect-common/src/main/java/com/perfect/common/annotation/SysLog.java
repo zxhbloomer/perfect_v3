@@ -1,4 +1,4 @@
-package com.perfect.spring.aspect.annotation;
+package com.perfect.common.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

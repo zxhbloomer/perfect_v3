@@ -1,8 +1,8 @@
-package com.perfect.spring.aspect;
+package com.perfect.common.aspect;
 
 
 import com.perfect.bean.bo.sys.SysLogBO;
-import com.perfect.spring.aspect.annotation.SysLog;
+import com.perfect.common.annotation.SysLog;
 import com.perfect.utils.IPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -100,7 +100,7 @@ public class SysLogAspect {
 
         log.debug("======================日志开始================================");
         log.debug("日志名称         : " + sysLogBO.getRemark());
-        log.debug("URL              : " + sysLogBO.getUrl());
+        log.debug("URL             : " + sysLogBO.getUrl());
         log.debug("HTTP方法         : " + sysLogBO.getHttpMethod());
         log.debug("IP               : " + sysLogBO.getIp());
         log.debug("类名             : " + sysLogBO.getClassName());
