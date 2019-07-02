@@ -12,12 +12,12 @@
     <description>prefect frame work</description>
     <!--管理所有的模块-->
     <modules>
-        <module>./authserver</module>
-        <module>./bean</module>
-        <module>./common</module>
-        <module>./core</module>
-        <module>./manager</module>
-        <module>./managerStarter</module>
+        <module>./perfect-authserver</module>
+        <module>./perfect-bean</module>
+        <module>./perfect-common</module>
+        <module>./perfect-core</module>
+        <module>./perfect-manager</module>
+        <module>./perfect-managerStarter</module>
         <module>./00autoCreateCode</module>
     </modules>
     <parent>

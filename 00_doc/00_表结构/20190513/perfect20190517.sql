@@ -49,7 +49,7 @@ CREATE TABLE `m_user`  (
 -- ----------------------------
 -- Records of m_user
 -- ----------------------------
-INSERT INTO `m_user` VALUES (1, '2019-03-28 13:23:21', 1, '2019-03-28 13:23:26', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'zxh', NULL, '$2a$10$x66JhJCybrBiq..3Q1mfcerbPCI1064U0H20ziP0mHrwqIj15hX7e', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `m_user` VALUES (1, '2019-03-28 13:23:21', 1, '2019-03-28 13:23:26', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'perfect', NULL, '$2a$10$x66JhJCybrBiq..3Q1mfcerbPCI1064U0H20ziP0mHrwqIj15hX7e', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for oauth_access_token
