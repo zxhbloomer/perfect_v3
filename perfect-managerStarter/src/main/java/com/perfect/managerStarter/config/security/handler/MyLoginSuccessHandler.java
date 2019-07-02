@@ -2,7 +2,7 @@ package com.perfect.config.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfect.Enum.ResultEnum;
-import com.perfect.spring.aspect.annotation.SysLog;
+import com.perfect.common.annotation.SysLog;
 import com.perfect.utils.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
