@@ -3,7 +3,7 @@ package com.perfect.security.config;
 import com.perfect.core.service.client.user.IMUserService;
 import com.perfect.security.code.sms.SmsCodeAuthenticationFilter;
 import com.perfect.security.code.sms.SmsCodeAuthenticationProvider;
-import com.perfect.security.properties.SecurityProperties;
+import com.perfect.security.properties.PerfectSecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -27,7 +27,7 @@ public class PerfectSmsCodeAuthenticationSecurityConfig extends SecurityConfigur
     private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Autowired
-    private SecurityProperties securityProperties;
+    private PerfectSecurityProperties securityProperties;
 
     @Autowired
     private IMUserService userDetailService;

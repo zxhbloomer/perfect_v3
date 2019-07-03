@@ -2,7 +2,15 @@ package com.perfect.security.code.img;
 
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.security.exception.ValidateCodeException;
-import com.perfect.security.properties.SecurityProperties;
+import com.perfect.security.properties.PerfectSecurityProperties;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -14,15 +22,6 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 public class ImageCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     private AuthenticationFailureHandler authenticationFailureHandler;
@@ -31,7 +30,7 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
 
     private Set<String> url = new HashSet<>();
 
-    private SecurityProperties securityProperties;
+    private PerfectSecurityProperties securityProperties;
 
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
@@ -88,7 +87,7 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
         this.authenticationFailureHandler = authenticationFailureHandler;
     }
 
-    public void setSecurityProperties(SecurityProperties securityProperties) {
+    public void setSecurityProperties(PerfectSecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 }

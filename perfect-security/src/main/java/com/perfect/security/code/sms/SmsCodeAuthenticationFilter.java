@@ -1,15 +1,14 @@
 package com.perfect.security.code.sms;
 
-import com.perfect.security.properties.SecurityProperties;
+import com.perfect.security.properties.PerfectSecurityProperties;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.util.Assert;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
@@ -19,7 +18,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
     private String mobileParameter = MOBILE_KEY;
     private boolean postOnly = true;
 
-    public SmsCodeAuthenticationFilter(SecurityProperties securityProperties) {
+    public SmsCodeAuthenticationFilter(PerfectSecurityProperties securityProperties) {
         super(new AntPathRequestMatcher(securityProperties.getCode().getSms().getLoginProcessingUrl(), HttpMethod.POST.toString()));
     }
 

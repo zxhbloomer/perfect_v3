@@ -1,6 +1,6 @@
 package com.perfect.security.session;
 
-import com.perfect.security.properties.SecurityProperties;
+import com.perfect.security.properties.PerfectSecurityProperties;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +13,7 @@ import org.springframework.security.web.session.InvalidSessionStrategy;
  */
 public class PerfectInvalidSessionStrategy implements InvalidSessionStrategy {
 
-    private SecurityProperties securityProperties;
+    private PerfectSecurityProperties securityProperties;
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
@@ -22,11 +22,7 @@ public class PerfectInvalidSessionStrategy implements InvalidSessionStrategy {
         redirectStrategy.sendRedirect(request, response, securityProperties.getLogoutUrl());
     }
 
-    public SecurityProperties getSecurityProperties() {
-        return securityProperties;
-    }
-
-    public void setSecurityProperties(SecurityProperties securityProperties) {
+    public void setSecurityProperties(PerfectSecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 }

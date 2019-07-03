@@ -1,15 +1,16 @@
 package com.perfect.security.code.img;
 
 import com.perfect.security.code.ValidateCodeGenerator;
-import com.perfect.security.properties.SecurityProperties;
-
-import java.awt.*;
+import com.perfect.security.properties.PerfectSecurityProperties;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class ImageCodeGenerator implements ValidateCodeGenerator {
 
-    private SecurityProperties securityProperties;
+    private PerfectSecurityProperties securityProperties;
 
     @Override
     public ImageCode createCode() {
@@ -57,11 +58,11 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
         return new Color(r, g, b);
     }
 
-    public SecurityProperties getSecurityProperties() {
+    public PerfectSecurityProperties getSecurityProperties() {
         return securityProperties;
     }
 
-    public void setSecurityProperties(SecurityProperties securityProperties) {
+    public void setSecurityProperties(PerfectSecurityProperties securityProperties) {
         this.securityProperties = securityProperties;
     }
 }

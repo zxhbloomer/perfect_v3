@@ -12,7 +12,7 @@ import com.perfect.security.handler.PerfectAuthenticationAccessDeniedHandler;
 import com.perfect.security.handler.PerfectAuthenticationFailureHandler;
 import com.perfect.security.handler.PerfectAuthenticationSucessHandler;
 import com.perfect.security.handler.PerfectLogoutHandler;
-import com.perfect.security.properties.SecurityProperties;
+import com.perfect.security.properties.PerfectSecurityProperties;
 import com.perfect.security.session.PerfectExpiredSessionStrategy;
 import com.perfect.security.session.PerfectInvalidSessionStrategy;
 import com.perfect.security.xss.XssFilter;
@@ -54,7 +54,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
     private PerfectAuthenticationFailureHandler perfectAuthenticationFailureHandler;
 
     @Autowired
-    private SecurityProperties securityProperties;
+    private PerfectSecurityProperties securityProperties;
 
     @Autowired
     private PerfectSmsCodeAuthenticationSecurityConfig perfectSmsCodeAuthenticationSecurityConfig;

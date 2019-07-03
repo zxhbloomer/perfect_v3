@@ -3,7 +3,7 @@ package com.perfect.security.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "perfect.security")
-public class SecurityProperties {
+public class PerfectSecurityProperties {
 
     // 登录 URL
     private String loginUrl;

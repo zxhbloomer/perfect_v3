@@ -1,21 +1,23 @@
 package com.perfect.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.utils.ResponseResultUtil;
 import com.perfect.security.exception.CredentialExcetion;
 import com.perfect.security.exception.ValidateCodeException;
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AccountExpiredException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.CredentialsExpiredException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * 登录失败处理器
@@ -47,7 +49,6 @@ public class PerfectAuthenticationFailureHandler implements AuthenticationFailur
         } else {
             message = "认证失败，请联系网站管理员！";
         }
-        response.setContentType(PerfectConstant.JSON_UTF8);
 //        response.getWriter().write(mapper.writeValueAsString(ResponseBo.error(message)));
         ResponseResultUtil.responseWriteError(mapper,request,response,exception, HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
