@@ -1,31 +1,32 @@
 package com.perfect.managerStarter.starter;
 
-import com.perfect.common.security.config.annotation.EnableResource1JWTRSATokenStore;
+import com.perfect.security.properties.PerfectSecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
 
-@SpringBootApplication(scanBasePackages = {"com.perfect.*"})
+@SpringBootApplication(scanBasePackages = {"com.perfect.*", "com.perfect.security"})
 @EnableTransactionManagement
 @EnableRedisHttpSession
 @MapperScan("com.perfect.core.mapper")
-@ComponentScan({"com.perfect.manager.controller", "com.perfect.*"})
+@ComponentScan({"com.perfect.manager.controller", "com.perfect.security", "com.perfect.*"})
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j
-@EnableResource1JWTRSATokenStore
-@EnableResourceServer
-@EnableOAuth2Sso
+@EnableConfigurationProperties({PerfectSecurityProperties.class})
+@EnableCaching
+@EnableAsync
 public class ManagerClientResourceServerStart {
 
     public static ConfigurableApplicationContext config;

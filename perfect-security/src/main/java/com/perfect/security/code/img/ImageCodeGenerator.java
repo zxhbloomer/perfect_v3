@@ -10,14 +10,14 @@ import java.util.Random;
 
 public class ImageCodeGenerator implements ValidateCodeGenerator {
 
-    private PerfectSecurityProperties securityProperties;
+    private PerfectSecurityProperties perfectSecurityProperties;
 
     @Override
     public ImageCode createCode() {
-        int width = securityProperties.getCode().getImage().getWidth(); // 验证码图片宽度
-        int height =  securityProperties.getCode().getImage().getHeight(); // 验证码图片长度
-        int length = securityProperties.getCode().getImage().getLength(); // 验证码位数
-        int expireIn = securityProperties.getCode().getImage().getExpireIn(); // 验证码有效时间
+        int width = perfectSecurityProperties.getCode().getImage().getWidth(); // 验证码图片宽度
+        int height =  perfectSecurityProperties.getCode().getImage().getHeight(); // 验证码图片长度
+        int length = perfectSecurityProperties.getCode().getImage().getLength(); // 验证码位数
+        int expireIn = perfectSecurityProperties.getCode().getImage().getExpireIn(); // 验证码有效时间
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
         Graphics g = image.getGraphics();
@@ -58,11 +58,11 @@ public class ImageCodeGenerator implements ValidateCodeGenerator {
         return new Color(r, g, b);
     }
 
-    public PerfectSecurityProperties getSecurityProperties() {
-        return securityProperties;
+    public PerfectSecurityProperties getPerfectSecurityProperties() {
+        return perfectSecurityProperties;
     }
 
-    public void setSecurityProperties(PerfectSecurityProperties securityProperties) {
-        this.securityProperties = securityProperties;
+    public void setPerfectSecurityProperties(PerfectSecurityProperties perfectSecurityProperties) {
+        this.perfectSecurityProperties = perfectSecurityProperties;
     }
 }

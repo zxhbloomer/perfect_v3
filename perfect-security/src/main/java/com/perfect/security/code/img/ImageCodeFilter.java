@@ -3,14 +3,6 @@ package com.perfect.security.code.img;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.security.exception.ValidateCodeException;
 import com.perfect.security.properties.PerfectSecurityProperties;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -22,6 +14,15 @@ import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class ImageCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     private AuthenticationFailureHandler authenticationFailureHandler;
@@ -30,16 +31,16 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
 
     private Set<String> url = new HashSet<>();
 
-    private PerfectSecurityProperties securityProperties;
+    private PerfectSecurityProperties perfectSecurityProperties;
 
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImage().getUrl(), ",");
+        String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(perfectSecurityProperties.getCode().getImage().getUrl(), ",");
         url.addAll(Arrays.asList(configUrls));
-        url.add(securityProperties.getCode().getImage().getLoginProcessingUrl());
+        url.add(perfectSecurityProperties.getCode().getImage().getLoginProcessingUrl());
     }
 
     @Override
@@ -87,7 +88,7 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
         this.authenticationFailureHandler = authenticationFailureHandler;
     }
 
-    public void setSecurityProperties(PerfectSecurityProperties securityProperties) {
-        this.securityProperties = securityProperties;
+    public void setPerfectSecurityProperties(PerfectSecurityProperties perfectSecurityProperties) {
+        this.perfectSecurityProperties = perfectSecurityProperties;
     }
 }

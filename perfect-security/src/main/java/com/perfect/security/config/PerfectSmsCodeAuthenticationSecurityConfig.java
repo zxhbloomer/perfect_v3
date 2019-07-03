@@ -27,7 +27,7 @@ public class PerfectSmsCodeAuthenticationSecurityConfig extends SecurityConfigur
     private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Autowired
-    private PerfectSecurityProperties securityProperties;
+    private PerfectSecurityProperties perfectSecurityProperties;
 
     @Autowired
     private IMUserService userDetailService;
@@ -35,7 +35,7 @@ public class PerfectSmsCodeAuthenticationSecurityConfig extends SecurityConfigur
     @Override
     public void configure(HttpSecurity http) {
         SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter(
-            securityProperties);
+                perfectSecurityProperties);
         smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
         smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
         smsCodeAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);

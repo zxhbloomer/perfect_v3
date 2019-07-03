@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 public class SmsCodeGenerator implements ValidateCodeGenerator {
 
     @Autowired
-    private PerfectSecurityProperties securityProperties;
+    private PerfectSecurityProperties perfectSecurityProperties;
 
     @Override
     public ValidateCode createCode() {
-        String code = RandomStringUtils.randomNumeric(securityProperties.getCode().getSms().getLength());
-        return new ValidateCode(code, securityProperties.getCode().getSms().getExpireIn());
+        String code = RandomStringUtils.randomNumeric(perfectSecurityProperties.getCode().getSms().getLength());
+        return new ValidateCode(code, perfectSecurityProperties.getCode().getSms().getExpireIn());
     }
 }

@@ -23,7 +23,7 @@ public class PerfectSecurityProperties {
 
     private ValidateCodeProperties code = new ValidateCodeProperties();
 
-    private SocialProperties social = new SocialProperties();
+//    private SocialProperties social = new SocialProperties();
 
     private SessionProperties session = new SessionProperties();
 
@@ -68,13 +68,13 @@ public class PerfectSecurityProperties {
         this.logoutUrl = logoutUrl;
     }
 
-    public SocialProperties getSocial() {
-        return social;
-    }
+//    public SocialProperties getSocial() {
+//        return social;
+//    }
 
-    public void setSocial(SocialProperties social) {
-        this.social = social;
-    }
+//    public void setSocial(SocialProperties social) {
+//        this.social = social;
+//    }
 
     public SessionProperties getSession() {
         return session;

@@ -18,8 +18,8 @@
         <module>./perfect-core</module>
         <module>./perfect-manager</module>
         <module>./perfect-managerStarter</module>
+        <module>./perfect-security</module>
         <module>./00autoCreateCode</module>
-        <module>perfect-security</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
