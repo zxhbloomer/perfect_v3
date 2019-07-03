@@ -21,7 +21,7 @@ import java.util.List;
 @EnableTransactionManagement
 @EnableRedisHttpSession
 @MapperScan("com.perfect.core.mapper")
-@ComponentScan({"com.perfect.manager.controller", "com.perfect.security", "com.perfect.*"})
+@ComponentScan({"com.perfect.manager.controller", "com.perfect.security.*", "com.perfect.*"})
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j
 @EnableConfigurationProperties({PerfectSecurityProperties.class})
