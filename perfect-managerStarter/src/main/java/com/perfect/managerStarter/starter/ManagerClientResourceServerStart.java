@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
 
-@SpringBootApplication(scanBasePackages = {"com.perfect.*", "com.perfect.security"})
+@SpringBootApplication(scanBasePackages = {"com.perfect.*", "com.perfect.security.*"})
 @EnableTransactionManagement
 @EnableRedisHttpSession
 @MapperScan("com.perfect.core.mapper")
