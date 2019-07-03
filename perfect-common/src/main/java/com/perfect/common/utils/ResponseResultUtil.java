@@ -2,14 +2,13 @@ package com.perfect.common.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfect.common.Enum.ResultEnum;
+import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.ValidateCodeException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import javax.servlet.ServletException;
+import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public class ResponseResultUtil {
 
@@ -24,14 +23,27 @@ public class ResponseResultUtil {
 //
 //    }
 
+    public static void responseWriteOK(ObjectMapper objectMapper,
+                                        HttpServletRequest request,
+                                        HttpServletResponse response
+    ) throws IOException {
+        response.getWriter().write(objectMapper.writeValueAsString(
+            ResultUtil.success(ResultEnum.OK.getCode()
+                , ResultEnum.OK.getMsg()
+                , request.getContextPath()
+                , null
+            )
+        ));
+    }
+
     public static void responseWriteError(ObjectMapper objectMapper,
                                                 HttpServletRequest request,
                                                HttpServletResponse response,
                                                Exception exception,
                                           int httpStatus
-                                          ) throws IOException, ServletException {
+                                          ) throws IOException {
         String message = "";
-        response.setContentType("application/json;charset=UTF-8");
+        response.setContentType(PerfectConstant.JSON_UTF8);
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){
             message = "用户名或密码错误";
             response.getWriter().write(objectMapper.writeValueAsString(

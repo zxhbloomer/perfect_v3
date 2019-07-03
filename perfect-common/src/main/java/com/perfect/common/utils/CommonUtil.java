@@ -1,14 +1,21 @@
 package com.perfect.common.utils;
 
 
-
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.commons.lang3.StringUtils;
 
 
 /**
@@ -241,6 +248,29 @@ public final class CommonUtil {
         return uuidStr;
     }
 
+    /**
+     * 简单判断是否为手机号
+     *
+     * @param phoneNo 手机号
+     * @return boolean
+     */
+    public static boolean isPhoneNo(String phoneNo) {
+        String regex = "[1]\\d{10}";
+        if (StringUtils.isBlank(phoneNo))
+            return false;
+        else
+            return phoneNo.matches(regex);
+    }
 
+    /**
+     * 判断是否为 AJAX 请求
+     *
+     * @param request HttpServletRequest
+     * @return boolean
+     */
+    public static boolean isAjaxRequest(HttpServletRequest request) {
+        return (request.getHeader("X-Requested-With") != null
+            && "XMLHttpRequest".equals(request.getHeader("X-Requested-With")));
+    }
 
 }
