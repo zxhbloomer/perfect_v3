@@ -1,8 +1,13 @@
 package com.perfect.security.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
 
+
+@EnableConfigurationProperties({PerfectSecurityProperties.class})
 @ConfigurationProperties(prefix = "perfect.security")
+@Component
 public class PerfectSecurityProperties {
 
     // 登录 URL

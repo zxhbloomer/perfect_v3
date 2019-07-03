@@ -46,9 +46,11 @@ import org.springframework.social.security.SpringSocialConfigurer;
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
-
     @Autowired
     private PerfectAuthenticationSucessHandler perfectAuthenticationSucessHandler;
+
+    @Autowired
+    private IMUserService userDetailService;
 
     @Autowired
     private PerfectAuthenticationFailureHandler perfectAuthenticationFailureHandler;
@@ -60,13 +62,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
     private PerfectSmsCodeAuthenticationSecurityConfig perfectSmsCodeAuthenticationSecurityConfig;
 
     @Autowired
-    private IMUserService febsUserDetailService;
-
-    @Autowired
     private DataSource dataSource;
-
-    @Autowired
-    private SpringSocialConfigurer febsSocialSecurityConfig;
 
     // spring security自带的密码加密工具类
     @Bean
@@ -113,7 +109,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe() // 添加记住我功能
                 .tokenRepository(persistentTokenRepository()) // 配置 token 持久化仓库
                 .tokenValiditySeconds(securityProperties.getRememberMeTimeout()) // rememberMe 过期时间，单为秒
-                .userDetailsService(febsUserDetailService) // 处理自动登录逻辑
+                .userDetailsService(userDetailService) // 处理自动登录逻辑
             .and()
                 .sessionManagement() // 配置 session管理器
                 .invalidSessionStrategy(invalidSessionStrategy()) // 处理 session失效
@@ -144,8 +140,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .csrf().disable()
                 .apply(perfectSmsCodeAuthenticationSecurityConfig) // 添加短信验证码认证流程
-            .and()
-                .apply(febsSocialSecurityConfig); // social 配置
+        ; // social 配置
     }
 
 
@@ -170,7 +165,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
 
     // 使用 javaconfig 的方式配置是为了注入 sessionRegistry
     @Bean
-    public PerfectAuthenticationSucessHandler febsAuthenticationSucessHandler() {
+    public PerfectAuthenticationSucessHandler perfectAuthenticationSucessHandler() {
         PerfectAuthenticationSucessHandler authenticationSucessHandler = new PerfectAuthenticationSucessHandler();
         authenticationSucessHandler.setSessionRegistry(sessionRegistry());
         return authenticationSucessHandler;
