@@ -42,8 +42,10 @@ public class CodeGenerator {
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("jobob");
+        gc.setAuthor("zxh");
         gc.setOpen(false);
+        gc.setEntityName("%sEntity");
+        gc.setFileOverride(true);
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -98,9 +100,7 @@ public class CodeGenerator {
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         //需要包含的表名，允许正则表达式
         strategy.setInclude(
-                "j_job_log",
-                "j_job_master",
-                "m_user"
+                "s_log"
                 //,
 //                "oauth_access_token",
 //                "oauth_approvals",
