@@ -46,6 +46,11 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
+        // 如果是develop模式，则不需要考虑验证码
+        if (perfectSecurityProperties.getDevelopModel()){
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
         boolean match = false;
         for (String u : url) {
             if (pathMatcher.match(u, httpServletRequest.getRequestURI())) {

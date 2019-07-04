@@ -2,8 +2,6 @@ package com.perfect.security.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.stereotype.Component;
-
 
 @EnableConfigurationProperties({PerfectSecurityProperties.class})
 @ConfigurationProperties(prefix = "perfect.security")
@@ -19,6 +17,28 @@ public class PerfectSecurityProperties {
     private String logoutUrl;
     // 主页 URL
     private String indexUrl;
+    // 开发者模式，可以跳过验证码
+    private Boolean developModel;
+    // 错误日志输出简易模式
+    private Boolean logSampleModel;
+
+
+    public Boolean getLogSampleModel() {
+        return logSampleModel;
+    }
+
+    public void setLogSampleModel(Boolean logSampleModel) {
+        this.logSampleModel = logSampleModel;
+    }
+    public Boolean getDevelopModel() {
+        return developModel;
+    }
+
+    public void setDevelopModel(Boolean developModel) {
+        this.developModel = developModel;
+    }
+
+
 
     private ValidateCodeProperties code = new ValidateCodeProperties();
 

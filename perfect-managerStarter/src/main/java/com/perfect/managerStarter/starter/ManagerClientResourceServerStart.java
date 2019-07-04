@@ -1,6 +1,7 @@
 package com.perfect.managerStarter.starter;
 
 import com.perfect.security.properties.PerfectSecurityProperties;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -10,18 +11,14 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import java.util.List;
-
-@SpringBootApplication(scanBasePackages = {"com.perfect.*", "com.perfect.security.*"})
+@SpringBootApplication(scanBasePackages = {"com.perfect.*", "com.perfect.security.*", "com.perfect.manager.controller",})
 @EnableTransactionManagement
 @EnableRedisHttpSession
 @MapperScan("com.perfect.core.mapper")
-@ComponentScan({"com.perfect.manager.controller", "com.perfect.security.*", "com.perfect.*"})
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j
 @EnableConfigurationProperties({PerfectSecurityProperties.class})

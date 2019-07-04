@@ -1,7 +1,7 @@
 package com.perfect.managerStarter.config.spring;
 
 import com.perfect.common.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
-import com.perfect.managerStarter.interceptor.ActionInterceptor;
+import com.perfect.managerStarter.config.interceptor.ActionInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;

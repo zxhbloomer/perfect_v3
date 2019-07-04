@@ -1,4 +1,4 @@
-package com.perfect.managerStarter.interceptor;
+package com.perfect.managerStarter.config.interceptor;
 
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

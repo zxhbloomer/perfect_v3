@@ -1,4 +1,4 @@
-package com.perfect.managerStarter.config.handler;
+package com.perfect.managerStarter.handler;
 
 import com.perfect.common.Enum.ResultEnum;
 import com.perfect.common.utils.ExceptionUtil;

@@ -70,7 +70,10 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    // 处理 rememberMe 自动登录认证
+    /**
+     * 处理 rememberMe 自动登录认证
+     * @return
+     */
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
@@ -160,7 +163,10 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
         return new SessionRegistryImpl();
     }
 
-    // 使用 javaconfig 的方式配置是为了注入 sessionRegistry
+    /**
+     * 使用 javaconfig 的方式配置是为了注入 sessionRegistry
+     * @return
+     */
     @Bean
     public PerfectAuthenticationSucessHandler perfectAuthenticationSucessHandler() {
         PerfectAuthenticationSucessHandler authenticationSucessHandler = new PerfectAuthenticationSucessHandler();
@@ -168,7 +174,10 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
         return authenticationSucessHandler;
     }
 
-    // 配置登出处理器
+    /**
+     * 配置登出处理器
+     * @return
+     */
     @Bean
     public LogoutHandler logoutHandler(){
         PerfectLogoutHandler perfectLogoutHandler = new PerfectLogoutHandler();

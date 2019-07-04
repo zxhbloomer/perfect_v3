@@ -6,6 +6,7 @@ import com.perfect.security.exception.ValidateCodeException;
 import com.perfect.security.properties.PerfectSecurityProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
@@ -25,6 +26,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 短信验证码
+ */
 public class SmsCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     private AuthenticationFailureHandler authenticationFailureHandler;
@@ -32,7 +36,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     private Set<String> url = new HashSet<>();
-
+    @Autowired
     private PerfectSecurityProperties perfectSecurityProperties;
 
     private AntPathMatcher pathMatcher = new AntPathMatcher();
@@ -49,6 +53,11 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+        // 如果是develop模式，则不需要考虑验证码
+        if (perfectSecurityProperties.getDevelopModel()){
+            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            return;
+        }
 
         boolean match = false;
         for (String u : url) {
