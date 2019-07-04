@@ -12,14 +12,15 @@
     <description>prefect frame work</description>
     <!--管理所有的模块-->
     <modules>
-        <module>./perfect-authserver</module>
         <module>./perfect-bean</module>
         <module>./perfect-common</module>
         <module>./perfect-core</module>
         <module>./perfect-manager</module>
         <module>./perfect-managerStarter</module>
         <module>./perfect-security</module>
+        <module>./perfect-quartz</module>
         <module>./00autoCreateCode</module>
+        <module>perfect-quartz</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -249,7 +250,12 @@
                 <artifactId>jsoup</artifactId>
                 <version>1.11.2</version>
             </dependency>
-
+            <!-- quartz -->
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>2.3.0</version>
+            </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>

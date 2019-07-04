@@ -1,14 +1,14 @@
 package com.perfect.bean.entity.client.login;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -16,13 +16,15 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author jobob
- * @since 2019-06-24
+ * @since 2019-07-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 @TableName("m_user")
 public class MUserEntity implements Serializable {
-    private static final long serialVersionUID = 1361286240767999313L;
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键
@@ -143,7 +145,7 @@ public class MUserEntity implements Serializable {
     @TableField("office_telno")
     private String officeTelno;
 
-    @TableField("cell telno")
+    @TableField("cell_telno")
     private String cellTelno;
 
     @TableField("c_id")

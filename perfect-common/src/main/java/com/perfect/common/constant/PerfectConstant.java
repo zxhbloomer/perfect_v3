@@ -53,4 +53,8 @@ public class PerfectConstant {
     public static final String TIME_MOVIE_COMING_URL = "https://api-m.mtime.cn/Movie/MovieComingNew.api";
     public static final String TIME_MOVIE_COMMENTS_URL = "https://ticket-api-m.mtime.cn/movie/hotComment.api";
 
+    /**
+     * 任务调度参数key
+     */
+    public static final String JOB_PARAM_KEY = "JOB_PARAM_KEY";
 }
