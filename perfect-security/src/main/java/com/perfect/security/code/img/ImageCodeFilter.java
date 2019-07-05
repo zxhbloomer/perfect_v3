@@ -1,6 +1,7 @@
 package com.perfect.security.code.img;
 
 import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.utils.CommonUtil;
 import com.perfect.security.exception.ValidateCodeException;
 import com.perfect.security.properties.PerfectSecurityProperties;
 import org.apache.commons.lang3.StringUtils;
@@ -48,7 +49,7 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
 
         // 如果是develop模式，则不需要考虑验证码
         if (perfectSecurityProperties.getDevelopModel()){
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            filterChain.doFilter(CommonUtil.convertJsonType2FormData(httpServletRequest), httpServletResponse);
             return;
         }
         boolean match = false;
@@ -65,7 +66,7 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
                 return;
             }
         }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        filterChain.doFilter(CommonUtil.convertJsonType2FormData(httpServletRequest), httpServletResponse);
     }
 
     private void validateCode(ServletWebRequest servletWebRequest) throws ServletRequestBindingException {

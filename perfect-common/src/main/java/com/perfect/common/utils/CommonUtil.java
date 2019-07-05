@@ -1,19 +1,30 @@
 package com.perfect.common.utils;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
+import com.perfect.common.wrapper.MyServletRequestWrapper;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 
@@ -271,6 +282,39 @@ public final class CommonUtil {
     public static boolean isAjaxRequest(HttpServletRequest request) {
         return (request.getHeader("X-Requested-With") != null
             && "XMLHttpRequest".equals(request.getHeader("X-Requested-With")));
+    }
+
+    /**
+     * 由于security不支持json，所以要修改成formdata的方式来提交
+     * @param request
+     * @return
+     */
+    public static HttpServletRequest convertJsonType2FormData(HttpServletRequest request) throws ServletException, IOException {
+        if (StringUtils.contains(request.getContentType(), "application/json")
+            && Objects.equals( request.getServletPath(), "/api/v1/login_process")) {
+
+            BufferedReader streamReader = new BufferedReader( new InputStreamReader(request.getInputStream(), "UTF-8"));
+            StringBuilder responseStrBuilder = new StringBuilder();
+            String inputStr;
+            while ((inputStr = streamReader.readLine()) != null)
+                responseStrBuilder.append(inputStr);
+            if(StringUtils.isBlank(responseStrBuilder.toString())){
+                return request;
+            }
+            Map<String, String> map = JSON.parseObject(responseStrBuilder.toString(), new TypeReference<Map<String, String>>() {});
+            Map<String, String[]> convertMap = new HashMap<String, String[]>();
+
+            for (String key : map.keySet()) {
+                String value = map.get(key);
+                String[] convertMapValue = new String[]{value};
+                convertMap.put(key,convertMapValue);
+            }
+
+            HttpServletRequest s = new MyServletRequestWrapper(((HttpServletRequest) request), convertMap);
+            return s;
+        } else {
+            return request;
+        }
     }
 
 }

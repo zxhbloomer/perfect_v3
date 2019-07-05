@@ -105,6 +105,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
                 .formLogin() // 表单方式
                 .loginPage(perfectSecurityProperties.getLoginUrl()) // 未认证跳转 URL
+                    .usernameParameter("username").passwordParameter("password")
                 .loginProcessingUrl(perfectSecurityProperties.getCode().getImage().getLoginProcessingUrl()) // 处理登录认证 URL
                 .successHandler(perfectAuthenticationSucessHandler) // 处理登录成功
                 .failureHandler(perfectAuthenticationFailureHandler) // 处理登录失败

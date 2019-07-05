@@ -1,6 +1,7 @@
 package com.perfect.security.code.sms;
 
 import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.utils.CommonUtil;
 import com.perfect.security.code.ValidateCode;
 import com.perfect.security.exception.ValidateCodeException;
 import com.perfect.security.properties.PerfectSecurityProperties;
@@ -55,7 +56,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         // 如果是develop模式，则不需要考虑验证码
         if (perfectSecurityProperties.getDevelopModel()){
-            filterChain.doFilter(httpServletRequest, httpServletResponse);
+            filterChain.doFilter(CommonUtil.convertJsonType2FormData(httpServletRequest), httpServletResponse);
             return;
         }
 
@@ -73,7 +74,7 @@ public class SmsCodeFilter extends OncePerRequestFilter implements InitializingB
                 return;
             }
         }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+        filterChain.doFilter(CommonUtil.convertJsonType2FormData(httpServletRequest), httpServletResponse);
     }
 
     private void validateSmsCode(ServletWebRequest servletWebRequest) throws ServletRequestBindingException {
