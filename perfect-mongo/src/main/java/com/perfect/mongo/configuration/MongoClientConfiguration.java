@@ -54,7 +54,7 @@ public class MongoClientConfiguration {
                 .maxConnectionLifeTime(maxConnectionLifeTime)
                 .connectTimeout(connectTimeout)
                 .socketTimeout(socketTimeout)
-                .socketKeepAlive(socketKeepAlive)
+//                .socketKeepAlive(socketKeepAlive)
                 .sslEnabled(sslEnabled)
                 .sslInvalidHostNameAllowed(sslInvalidHostNameAllowed)
                 .alwaysUseMBeans(alwaysUseMBeans)

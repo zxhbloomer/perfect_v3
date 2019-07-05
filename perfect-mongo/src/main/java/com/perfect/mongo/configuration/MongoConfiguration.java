@@ -19,7 +19,7 @@ import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
  * 2018年03月21日 16:24:00
  */
 @Configuration
-@ConfigurationProperties(prefix = "spring.data.mongodb.client")
+@ConfigurationProperties(prefix = "spring.data.mongodb")
 public class MongoConfiguration {
     @Bean
     public MappingMongoConverter mappingMongoConverter(MongoDbFactory mongoDbFactory, MongoMappingContext mongoMappingContext, BeanFactory beanFactory) {

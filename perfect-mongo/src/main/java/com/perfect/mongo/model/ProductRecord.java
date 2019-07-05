@@ -1,6 +1,7 @@
 package com.perfect.mongo.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -17,6 +18,7 @@ import java.util.Map;
  */
 @Document(collection = "product_record")
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class ProductRecord extends MongoRecord {
     private static final long serialVersionUID = -5883569854710510646L;
     // 请求报文
