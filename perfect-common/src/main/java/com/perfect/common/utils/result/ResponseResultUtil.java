@@ -45,7 +45,6 @@ public class ResponseResultUtil {
             message = "用户名或密码错误";
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.error(HttpStatus.UNAUTHORIZED.value(),
-                                    message,
                                     exception,
                                     exception.getMessage(),
                                     request)
@@ -54,7 +53,6 @@ public class ResponseResultUtil {
         }else if(exception instanceof ValidateCodeException){
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                                    exception.getMessage(),
                                     exception,
                                     exception.getMessage(),
                                     request)
@@ -62,7 +60,6 @@ public class ResponseResultUtil {
         }else{
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                                    exception.getMessage(),
                                     exception,
                                     exception.getMessage(),
                                     request)

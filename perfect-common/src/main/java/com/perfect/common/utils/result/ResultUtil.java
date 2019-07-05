@@ -15,18 +15,20 @@ public class ResultUtil {
                 .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
                 .status(HttpStatus.OK.value())
                 .message("调用成功")
-                .path(CommonUtil.getRequest().getContextPath())
+                .path(CommonUtil.getRequest().getRequestURL().toString())
+                .method(CommonUtil.getRequest().getMethod())
                 .success(true)
                 .data(data)
                 .build();
     }
 
-    public static Object success(Integer status, String message, String path, Object data) {
+    public static Object success(Integer status, String message, String path, String method, Object data) {
         return JSONResult.builder()
                 .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
                 .status(status)
                 .message(message)
                 .path(path)
+                .method(method)
                 .success(true)
                 .data(data)
                 .build();
@@ -37,7 +39,7 @@ public class ResultUtil {
 //        return (Result) success(null);
 //    }
 
-    public static Object error(Integer status, String error, Exception exception, String message, HttpServletRequest request) {
+    public static Object error(Integer status, Exception exception, String message, HttpServletRequest request) {
 
         return JSONResult
                 .<String>builder()
@@ -45,6 +47,7 @@ public class ResultUtil {
                 .status(status)
                 .message(message)
                 .path(request.getRequestURL().toString())
+                .method(request.getMethod())
                 .success(false)
                 .data(ExceptionUtil.getException(exception))
                 .build();

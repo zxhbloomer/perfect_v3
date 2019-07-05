@@ -18,7 +18,6 @@ public class GlobalDefaultExceptionHandler {
     @ResponseBody
     public Object defaultExceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception e){
         return ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                e.getMessage(),
                 e,
                 e.getMessage(),
                 request);

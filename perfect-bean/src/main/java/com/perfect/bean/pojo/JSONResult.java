@@ -20,6 +20,8 @@ public class JSONResult<T> implements Serializable {
     private String message;
     // 调用路径
     private String path;
+    // 调用路径
+    private String method;
     // 是否成功[true:成功;false:失败]，默认失败
     private boolean success;
     // 返回数据，如果类型是数组且为null，返回[]
