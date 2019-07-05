@@ -13,6 +13,9 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.access.AccessDeniedHandler;
 
+/**
+ * 权限不足处理
+ */
 public class PerfectAuthenticationAccessDeniedHandler implements AccessDeniedHandler {
 
     private ObjectMapper mapper = new ObjectMapper();
