@@ -2,9 +2,16 @@ package com.perfect.common.utils;
 
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.perfect.common.wrapper.MyServletRequestWrapper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -14,21 +21,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import java.util.*;
 
 
 /**
@@ -325,6 +318,15 @@ public final class CommonUtil {
         } else {
             return request;
         }
+    }
+
+    /**
+     * 获取request
+     * @return
+     */
+    public static HttpServletRequest getRequest(){
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            return request;
     }
 
 }

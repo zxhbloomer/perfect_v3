@@ -18,12 +18,12 @@ public class DateTimeUtil {
 	/**
 	 * 日期时间格式 yyyy-MM-dd HH:mm:ss
 	 */
-	public static String dateTimeString = "yyyy-MM-dd HH:mm:ss";
+	public final static String dateTimeString = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 日期格式 yyyy-MM-dd
 	 */
-	public static String dateString = "yyyy-MM-dd";
+	public final static String dateString = "yyyy-MM-dd";
 
 	/**
 	 * 日期时间格式For 文件名 yyyy_MM_dd_HH_mm_ss

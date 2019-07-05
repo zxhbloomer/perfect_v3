@@ -1,16 +1,15 @@
 package com.perfect.common.utils.result;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.common.Enum.ResultEnum;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.ValidateCodeException;
-import com.perfect.common.utils.ExceptionUtil;
-import java.io.IOException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class ResponseResultUtil {
 
@@ -25,25 +24,21 @@ public class ResponseResultUtil {
 //
 //    }
 
-    public static void responseWriteOK(ObjectMapper objectMapper,
-                                        HttpServletRequest request,
-                                        HttpServletResponse response
-    ) throws IOException {
+    public static void responseWriteOK(Object data, HttpServletResponse response) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+
         response.getWriter().write(objectMapper.writeValueAsString(
-            ResultUtil.success(ResultEnum.OK.getCode()
-                , ResultEnum.OK.getMsg()
-                , request.getContextPath()
-                , null
-            )
+            ResultUtil.success(data)
         ));
     }
 
-    public static void responseWriteError(ObjectMapper objectMapper,
+    public static void responseWriteError(
                                             HttpServletRequest request,
                                             HttpServletResponse response,
                                             Exception exception,
                                             int httpStatus
                                           ) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
         String message = "";
         response.setContentType(PerfectConstant.JSON_UTF8);
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){
@@ -51,24 +46,24 @@ public class ResponseResultUtil {
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.error(HttpStatus.UNAUTHORIZED.value(),
                                     message,
-                                    ExceptionUtil.getException(exception),
+                                    exception,
                                     exception.getMessage(),
                                     request)
                             )
             );
         }else if(exception instanceof ValidateCodeException){
             response.getWriter().write(objectMapper.writeValueAsString(
-                    ResultUtil.error(ResultEnum.CODE_ERROT.getCode(),
-                                    ResultEnum.CODE_ERROT.getMsg(),
-                                    ExceptionUtil.getException(exception),
+                    ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                                    exception.getMessage(),
+                                    exception,
                                     exception.getMessage(),
                                     request)
             ));
         }else{
             response.getWriter().write(objectMapper.writeValueAsString(
-                    ResultUtil.error(ResultEnum.FAIL.getCode(),
-                                    ResultEnum.FAIL.getMsg(),
-                                    ExceptionUtil.getException(exception),
+                    ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                                    exception.getMessage(),
+                                    exception,
                                     exception.getMessage(),
                                     request)
             ));

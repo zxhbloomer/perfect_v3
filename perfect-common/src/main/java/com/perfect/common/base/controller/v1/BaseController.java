@@ -1,8 +1,5 @@
 package com.perfect.common.base.controller.v1;
 
-import com.perfect.bean.pojo.JSONResult;
-import com.perfect.common.Enum.ResultEnum;
-import com.perfect.common.utils.DateTimeUtil;
 import com.perfect.common.utils.IPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -21,22 +18,6 @@ public class BaseController {
 //    @PutMapping = @RequestMapping(method = RequestMethod.PUT)          --不用
 //    @DeleteMapping = @RequestMapping(method = RequestMethod.DELETE)    --不用
 
-    /**
-     * 失败返回
-     * @param retmsg
-     * @return
-     */
-    public JSONResult returnNG(String retmsg, HttpServletRequest request) {
-        return JSONResult
-                .builder()
-                .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
-                .status(ResultEnum.FAIL.getCode())
-                .message(retmsg)
-                .path(request.getRequestURL().toString())
-                .success(false)
-                .data(null)
-                .build();
-    }
 
     /**
      * 得到request对象

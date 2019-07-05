@@ -1,8 +1,8 @@
 package com.perfect.security.code.img;
 
 import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.exception.ValidateCodeException;
 import com.perfect.common.utils.CommonUtil;
-import com.perfect.security.exception.ValidateCodeException;
 import com.perfect.security.properties.PerfectSecurityProperties;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
