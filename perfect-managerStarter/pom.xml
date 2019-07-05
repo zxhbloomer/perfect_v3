@@ -139,6 +139,16 @@
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
+                <groupId>com.perfect</groupId>
+                <artifactId>perfect-mongo</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.perfect</groupId>
+                <artifactId>perfect-redis</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpcore</artifactId>
             </dependency>

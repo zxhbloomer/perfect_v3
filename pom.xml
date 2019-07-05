@@ -20,9 +20,11 @@
         <module>./perfect-security</module>
         <module>./perfect-quartz</module>
         <module>./perfect-mongo</module>
+        <module>./perfect-redis</module>
         <module>./00autoCreateCode</module>
         <module>perfect-quartz</module>
       <module>perfect-mongo</module>
+        <module>perfect-redis</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

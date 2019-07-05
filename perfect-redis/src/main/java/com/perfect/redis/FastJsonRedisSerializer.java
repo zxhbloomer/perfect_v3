@@ -1,0 +1,50 @@
+package com.perfect.redis; /**
+ * 版权信息: © 中金财金服
+ */
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.SerializationException;
+
+import java.nio.charset.Charset;
+
+/*****************************************************************************
+ *创建时间 : 2017年7月3日
+ *实现功能 : FastJson 序列化和反序列化规则
+ *作者 : yanping.shi
+ *版本 : v0.0.1
+-----------------------------------------------------------------------------
+ *修改记录:
+ *日 期 版本 修改人 修改内容
+ *2017年7月3日 v0.0.1 yanping.shi 创建
+ *****************************************************************************/
+public class FastJsonRedisSerializer<T> implements RedisSerializer<T> {
+
+	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+
+	private Class<T> clazz;
+
+	public FastJsonRedisSerializer(Class<T> clazz) {
+		super();
+		this.clazz = clazz;
+	}
+
+	@Override
+	public byte[] serialize(T t) throws SerializationException {
+		if (t == null) {
+			return new byte[0];
+		}
+		return JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);
+	}
+
+	@Override
+	public T deserialize(byte[] bytes) throws SerializationException {
+		if (bytes == null || bytes.length <= 0) {
+			return null;
+		}
+		String str = new String(bytes, DEFAULT_CHARSET);
+
+		return (T) JSON.parseObject(str, clazz);
+	}
+}
