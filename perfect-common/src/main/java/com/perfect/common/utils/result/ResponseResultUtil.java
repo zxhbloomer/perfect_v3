@@ -8,6 +8,7 @@ import com.perfect.common.utils.ExceptionUtil;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
@@ -38,17 +39,17 @@ public class ResponseResultUtil {
     }
 
     public static void responseWriteError(ObjectMapper objectMapper,
-                                                HttpServletRequest request,
-                                               HttpServletResponse response,
-                                               Exception exception,
-                                          int httpStatus
+                                            HttpServletRequest request,
+                                            HttpServletResponse response,
+                                            Exception exception,
+                                            int httpStatus
                                           ) throws IOException {
         String message = "";
         response.setContentType(PerfectConstant.JSON_UTF8);
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){
             message = "用户名或密码错误";
             response.getWriter().write(objectMapper.writeValueAsString(
-                    ResultUtil.error(ResultEnum.FAIL.getCode(),
+                    ResultUtil.error(HttpStatus.UNAUTHORIZED.value(),
                                     message,
                                     ExceptionUtil.getException(exception),
                                     exception.getMessage(),
