@@ -2,7 +2,7 @@ package com.perfect.managerStarter.handler;
 
 import com.perfect.common.Enum.ResultEnum;
 import com.perfect.common.utils.ExceptionUtil;
-import com.perfect.common.utils.ResultUtil;
+import com.perfect.common.utils.result.ResultUtil;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

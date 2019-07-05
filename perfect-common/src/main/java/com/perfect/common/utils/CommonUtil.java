@@ -27,6 +27,8 @@ import java.util.UUID;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -34,8 +36,16 @@ import org.apache.commons.lang3.StringUtils;
  * @create Time 2018/8/7 14:56
  *
  **/
-@SuppressWarnings("all")
+@Component
 public final class CommonUtil {
+
+    private static String LOGIN_PROCESSING_URL;
+
+    @Value("${perfect.security.code.image.login-processing-url}")
+    public void setLOGIN_PROCESSING_URL(String LOGIN_PROCESSING_URL) {
+        this.LOGIN_PROCESSING_URL = LOGIN_PROCESSING_URL;
+    }
+
 
     /*public static String stringFormat(String target, Object... source) {
         StringExpression expression = StringFormatter.format(target, source);
@@ -291,7 +301,7 @@ public final class CommonUtil {
      */
     public static HttpServletRequest convertJsonType2FormData(HttpServletRequest request) throws ServletException, IOException {
         if (StringUtils.contains(request.getContentType(), "application/json")
-            && Objects.equals( request.getServletPath(), "/api/v1/login_process")) {
+            && Objects.equals( request.getServletPath(), LOGIN_PROCESSING_URL)) {
 
             BufferedReader streamReader = new BufferedReader( new InputStreamReader(request.getInputStream(), "UTF-8"));
             StringBuilder responseStrBuilder = new StringBuilder();

@@ -1,7 +1,7 @@
 package com.perfect.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.common.utils.ResponseResultUtil;
+import com.perfect.common.utils.result.ResponseResultUtil;
 import com.perfect.security.exception.CredentialExcetion;
 import com.perfect.security.exception.ValidateCodeException;
 import java.io.IOException;

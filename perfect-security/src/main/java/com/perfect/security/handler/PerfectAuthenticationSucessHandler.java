@@ -2,7 +2,7 @@ package com.perfect.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfect.common.constant.PerfectConstant;
-import com.perfect.common.utils.ResponseResultUtil;
+import com.perfect.common.utils.result.ResponseResultUtil;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

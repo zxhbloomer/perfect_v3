@@ -2,7 +2,7 @@ package com.perfect.common.security.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfect.common.Enum.ResultEnum;
-import com.perfect.common.utils.ResultUtil;
+import com.perfect.common.utils.result.ResultUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;

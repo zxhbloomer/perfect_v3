@@ -1,7 +1,7 @@
 package com.perfect.security.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.common.utils.ResponseResultUtil;
+import com.perfect.common.utils.result.ResponseResultUtil;
 import java.io.IOException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;

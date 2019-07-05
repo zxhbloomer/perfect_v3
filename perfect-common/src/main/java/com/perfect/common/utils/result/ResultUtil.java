@@ -1,7 +1,8 @@
-package com.perfect.common.utils;
+package com.perfect.common.utils.result;
 
 import com.perfect.bean.pojo.JSONResult;
 
+import com.perfect.common.utils.DateTimeUtil;
 import javax.servlet.http.HttpServletRequest;
 
 public class ResultUtil {
