@@ -11,7 +11,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
@@ -20,11 +19,10 @@ import java.util.List;
         {
                 "com.perfect.*",
                 "com.perfect.security.*",
-                "com.perfect.redis.*",
+                "com.perfect.redis",
                 "com.perfect.manager.controller",
         })
 @EnableTransactionManagement
-@EnableRedisHttpSession
 @MapperScan("com.perfect.core.mapper")
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j
