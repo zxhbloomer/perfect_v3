@@ -8,6 +8,7 @@ import com.perfect.security.code.img.ImageCodeGenerator;
 import com.perfect.security.code.sms.DefaultSmsSender;
 import com.perfect.security.code.sms.SmsCodeFilter;
 import com.perfect.security.code.sms.SmsCodeSender;
+import com.perfect.security.cors.CorsFilter;
 import com.perfect.security.handler.PerfectAuthenticationAccessDeniedHandler;
 import com.perfect.security.handler.PerfectAuthenticationFailureHandler;
 import com.perfect.security.handler.PerfectAuthenticationSucessHandler;
@@ -30,6 +31,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
@@ -63,6 +65,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
 
     // spring security自带的密码加密工具类
     @Bean
@@ -101,6 +104,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler()) // 权限不足处理器
              .and()
+                .addFilterBefore(new CorsFilter(), ChannelProcessingFilter.class)
                 .addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class) // 短信验证码校验
                 .addFilterBefore(imageCodeFilter, UsernamePasswordAuthenticationFilter.class) // 添加图形证码校验过滤器
                 .formLogin() // 表单方式

@@ -42,7 +42,7 @@ public class PerfectAuthenticationFailureHandler implements AuthenticationFailur
             message = "认证失败，请联系网站管理员！";
         }
 //        response.getWriter().write(mapper.writeValueAsString(ResponseBo.error(message)));
-        ResponseResultUtil.responseWriteError(request,response,exception, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        ResponseResultUtil.responseWriteError(request,response,exception, HttpStatus.UNAUTHORIZED.value());
     }
 }
 
