@@ -10,6 +10,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 登录成功处理器
@@ -26,7 +28,9 @@ public class PerfectAuthenticationSucessHandler implements AuthenticationSuccess
 
         response.setContentType(PerfectConstant.JSON_UTF8);
 //        response.getWriter().write(mapper.writeValueAsString(ResponseBo.ok()));
-        ResponseResultUtil.responseWriteOK(details, response);
+        Map<String,String> token = new HashMap<String,String>();
+        token.put("token",details.getSessionId());
+        ResponseResultUtil.responseWriteOK(token, response);
     }
     public void setSessionRegistry(SessionRegistry sessionRegistry) {
         this.sessionRegistry = sessionRegistry;
