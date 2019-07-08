@@ -21,6 +21,7 @@ public class PerfectAuthenticationSucessHandler implements AuthenticationSuccess
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
+        // 设置返回值
         WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 
         response.setContentType(PerfectConstant.JSON_UTF8);
