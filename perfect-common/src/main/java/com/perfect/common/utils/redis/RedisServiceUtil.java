@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisServiceUtil {
     @Autowired
-    private RedisTemplate<String, String> redisTemplate;
+    private RedisTemplate<Object, Object> redisTemplate;
 
     public boolean existsKey(String key) {
         return redisTemplate.hasKey(key);

@@ -30,7 +30,7 @@ public class RedisClient {
 	private Logger logger = LogManager.getLogger(getClass());
 
 	@Autowired
-	private RedisTemplate<String, Object> redisTemplate;
+	private RedisTemplate<Object, Object> redisTemplate;
 
 	/** 
 	 * 批量删除对应的value 
@@ -49,7 +49,7 @@ public class RedisClient {
 	 * @param pattern 
 	 */
 	public void removePattern(final String pattern) {
-		Set<String> keys = redisTemplate.keys(pattern);
+		Set<Object> keys = redisTemplate.keys(pattern);
 		if (keys.size() > 0)
 			redisTemplate.delete(keys);
 	}
@@ -83,7 +83,7 @@ public class RedisClient {
 	 */
 	public Object get(final String key) {
 		Object result = null;
-		ValueOperations<String, Object> operations = redisTemplate.opsForValue();
+		ValueOperations<Object, Object> operations = redisTemplate.opsForValue();
 		result = operations.get(key);
 		return result;
 	}
@@ -98,7 +98,7 @@ public class RedisClient {
 	public boolean set(final String key, Object value) {
 		boolean result = false;
 		try {
-			ValueOperations<String, Object> operations = redisTemplate.opsForValue();
+			ValueOperations<Object, Object> operations = redisTemplate.opsForValue();
 			operations.set(key, value);
 			result = true;
 		} catch (Exception e) {
@@ -117,7 +117,7 @@ public class RedisClient {
 	public boolean set(final String key, Object value, Long expireTime) {
 		boolean result = false;
 		try {
-			ValueOperations<String, Object> operations = redisTemplate.opsForValue();
+			ValueOperations<Object, Object> operations = redisTemplate.opsForValue();
 			operations.set(key, value);
 			redisTemplate.expire(key, expireTime, TimeUnit.SECONDS);
 			result = true;
