@@ -59,6 +59,7 @@ public class RedisCacheAutoConfiguration extends CachingConfigurerSupport {
         // 设置值（value）的序列化采用FastJsonRedisSerializer。
         redisTemplate.setValueSerializer(fastJsonRedisSerializer);
         redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);
+        redisTemplate.setDefaultSerializer(fastJsonRedisSerializer);
         // 设置键（key）的序列化采用StringRedisSerializer。
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());

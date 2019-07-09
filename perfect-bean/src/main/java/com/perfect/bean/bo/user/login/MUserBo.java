@@ -1,4 +1,4 @@
-package com.perfect.bean.bo.login;
+package com.perfect.bean.bo.user.login;
 
 import com.perfect.bean.entity.client.login.MUserEntity;
 import lombok.Getter;
