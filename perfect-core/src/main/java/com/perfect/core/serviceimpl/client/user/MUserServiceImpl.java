@@ -3,6 +3,7 @@ package com.perfect.core.serviceimpl.client.user;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.bo.user.login.MUserBo;
 import com.perfect.bean.entity.client.login.MUserEntity;
+import com.perfect.bean.vo.user.info.UserInfoVo;
 import com.perfect.core.mapper.client.user.MUserMapper;
 import com.perfect.core.service.client.user.IMUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,16 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUserEntity> impl
                 user.getPwd(),
                 AuthorityUtils.createAuthorityList(permissions.toArray(new String[]{})))
                 .setUser(user);
+    }
+
+    @Override
+    public UserInfoVo getUserInfo(String userName){
+        UserInfoVo ui = new UserInfoVo();
+        ui.setAvatar("Avatar");
+        ui.setIntroduction("setIntroduction");
+        ui.setName("setName");
+        ui.setRoles(new String[]{"setRoles"});
+        return ui;
     }
 
 }

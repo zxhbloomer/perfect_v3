@@ -55,9 +55,15 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+      <!-- perfect -->
         <dependency>
             <groupId>com.perfect</groupId>
             <artifactId>perfect-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.perfect</groupId>
+            <artifactId>perfect-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

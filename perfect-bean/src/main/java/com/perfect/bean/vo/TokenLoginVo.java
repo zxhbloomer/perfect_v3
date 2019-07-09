@@ -1,4 +1,4 @@
-package com.perfect.bean.model;
+package com.perfect.bean.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

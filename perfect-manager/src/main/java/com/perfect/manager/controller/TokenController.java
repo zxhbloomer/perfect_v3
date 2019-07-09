@@ -2,7 +2,7 @@ package com.perfect.manager.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.perfect.bean.model.TokenLoginVo;
+import com.perfect.bean.vo.TokenLoginVo;
 import com.perfect.common.base.controller.v1.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,5 +1,6 @@
 package com.perfect.managerStarter.config.interceptor;
 
+import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -42,5 +43,12 @@ public class ActionInterceptor extends HandlerInterceptorAdapter {
     }
 
 
-
+    /**
+     * This implementation is empty.
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+        @Nullable Exception ex) throws Exception {
+        System.out.println("xxxxxxxxxxxxafterCompletionxxxxxxxxxxxxxxx");
+    }
 }
