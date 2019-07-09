@@ -34,7 +34,7 @@ public class UserInfoController extends BaseController {
     public UserInfoVo userInfo(@RequestParam("token") String token) {
 
         UserInfoVo rtnBean = imUserService.getUserInfo(token);
-
+//        ResponseEntity<OAuth2AccessToken
         return rtnBean;
     }
 }
