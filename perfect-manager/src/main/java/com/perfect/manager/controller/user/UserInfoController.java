@@ -4,6 +4,7 @@ import com.perfect.bean.pojo.JSONResult;
 import com.perfect.bean.vo.user.info.UserInfoVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.base.controller.v1.BaseController;
+import com.perfect.common.utils.result.ResultUtil;
 import com.perfect.core.service.client.user.IMUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,8 +28,9 @@ public class UserInfoController extends BaseController {
     @ResponseBody
     public ResponseEntity<JSONResult<UserInfoVo>> userInfo(@RequestParam("token") String token) {
 
-        UserInfoVo rtnBean = imUserService.getUserInfo(token);
+        UserInfoVo xx = imUserService.getUserInfo(token);
+
 //        ResponseEntity<OAuth2AccessToken
-        return rtnBean;
+        return ResponseEntity.ok().body(ResultUtil.success(xx));
     }
 }

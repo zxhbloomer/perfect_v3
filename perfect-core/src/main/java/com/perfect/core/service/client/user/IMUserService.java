@@ -14,5 +14,5 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @since 2019-06-24
  */
 public interface IMUserService extends IService<MUserEntity> , UserDetailsService {
-    public UserInfoVo getUserInfo(String userName);
+    UserInfoVo getUserInfo(String userName);
 }

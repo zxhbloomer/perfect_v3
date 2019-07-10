@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class ResultUtil {
 
-    public static Object success(Object data) {
-        return JSONResult.builder()
+    public static <T>JSONResult<T> success(T data) {
+        return JSONResult.<T>builder()
                 .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
                 .http_status(HttpStatus.OK.value())
                 .code(ResultEnum.OK.getCode())
@@ -41,9 +41,9 @@ public class ResultUtil {
 //        return (Result) success(null);
 //    }
 
-    public static Object error(Integer status, Exception exception, String message, HttpServletRequest request) {
+    public static <T>JSONResult<T> error(Integer status, Exception exception, String message, HttpServletRequest request) {
 
-        return JSONResult.builder()
+        return JSONResult.<T>builder()
                 .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
                 .http_status(status)
                 .code(ResultEnum.FAIL.getCode())
@@ -51,7 +51,7 @@ public class ResultUtil {
                 .path(request.getRequestURL().toString())
                 .method(request.getMethod())
                 .success(false)
-                .data(ExceptionUtil.getException(exception))
+                .data((T) ExceptionUtil.getException(exception))
                 .build();
     }
 }
