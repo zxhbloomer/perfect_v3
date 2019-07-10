@@ -24,15 +24,25 @@ public class PerfectAuthenticationSucessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException {
         // 设置返回值
-        WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
+//        WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
 
         response.setContentType(PerfectConstant.JSON_UTF8);
 //        response.getWriter().write(mapper.writeValueAsString(ResponseBo.ok()));
         Map<String,String> token = new HashMap<String,String>();
-        token.put("token",details.getSessionId());
+        token.put("token",getSessionId(authentication, request.getSession().getId()));
         ResponseResultUtil.responseWriteOK(token, response);
     }
     public void setSessionRegistry(SessionRegistry sessionRegistry) {
         this.sessionRegistry = sessionRegistry;
+    }
+
+    private String getSessionId(Authentication authentication, String dflt) {
+        if (authentication != null && authentication.isAuthenticated() && authentication.getDetails() instanceof WebAuthenticationDetails) {
+            String sessionId = ((WebAuthenticationDetails) authentication.getDetails()).getSessionId();
+            return sessionId == null ? dflt : sessionId;
+        } else {
+            // anonymous
+            return dflt;
+        }
     }
 }

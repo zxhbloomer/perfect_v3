@@ -1,5 +1,6 @@
 package com.perfect.security.properties;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.CacheConfig;
@@ -23,6 +24,12 @@ public class PerfectSecurityProperties {
     // 错误日志输出简易模式
     private Boolean logSampleModel;
 
+    @Value("${perfect.security.session.maximum-sessions}")
+    private Integer MAX_SESSIONS;
+
+    public Integer getMAX_SESSIONS() {
+        return MAX_SESSIONS;
+    }
 
     public Boolean getLogSampleModel() {
         return logSampleModel;
@@ -44,9 +51,6 @@ public class PerfectSecurityProperties {
     private ValidateCodeProperties code = new ValidateCodeProperties();
 
 //    private SocialProperties social = new SocialProperties();
-
-    private SessionProperties session = new SessionProperties();
-
 
     public String getLoginUrl() {
         return loginUrl;
@@ -95,15 +99,6 @@ public class PerfectSecurityProperties {
 //    public void setSocial(SocialProperties social) {
 //        this.social = social;
 //    }
-
-    public SessionProperties getSession() {
-        return session;
-    }
-
-    public void setSession(SessionProperties session) {
-        this.session = session;
-    }
-
     public String getIndexUrl() {
         return indexUrl;
     }

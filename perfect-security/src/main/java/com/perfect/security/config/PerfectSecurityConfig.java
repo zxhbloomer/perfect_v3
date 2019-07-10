@@ -19,6 +19,7 @@ import com.perfect.security.session.PerfectInvalidSessionStrategy;
 import com.perfect.security.xss.XssFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -65,7 +66,6 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
-
 
     // spring security自带的密码加密工具类
     @Bean
@@ -121,7 +121,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .sessionManagement() // 配置 session管理器
                 .invalidSessionStrategy(invalidSessionStrategy()) // 处理 session失效
-                .maximumSessions(perfectSecurityProperties.getSession().getMaximumSessions()) // 最大并发登录数量
+                .maximumSessions(perfectSecurityProperties.getMAX_SESSIONS()) // 最大并发登录数量
                 .expiredSessionStrategy(new PerfectExpiredSessionStrategy()) // 处理并发登录被踢出
                 .sessionRegistry(sessionRegistry()) // 配置 session注册中心
             .and()
