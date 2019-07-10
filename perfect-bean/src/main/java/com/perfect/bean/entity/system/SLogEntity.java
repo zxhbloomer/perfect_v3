@@ -48,11 +48,17 @@ public class SLogEntity implements Serializable {
     @TableField("time")
     private Long time;
 
+    @TableField("class_name")
+    private String className;
+
+    @TableField("class_method")
+    private String classMethod;
+
     /**
-     * 操作方法
+     * HTTP方法
      */
-    @TableField("method")
-    private String method;
+    @TableField("http_method")
+    private String httpMethod;
 
     /**
      * 参数
@@ -66,14 +72,7 @@ public class SLogEntity implements Serializable {
     @TableField("ip")
     private String ip;
 
-    @TableField(value="c_time", fill = FieldFill.INSERT)
+    @TableField("c_time")
     private LocalDateTime cTime;
-
-    /**
-     * 地点
-     */
-    @TableField("location")
-    private String location;
-
 
 }

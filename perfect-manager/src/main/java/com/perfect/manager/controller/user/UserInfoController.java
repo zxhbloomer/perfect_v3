@@ -28,9 +28,9 @@ public class UserInfoController extends BaseController {
     @ResponseBody
     public ResponseEntity<JSONResult<UserInfoVo>> userInfo(@RequestParam("token") String token) {
 
-        UserInfoVo xx = imUserService.getUserInfo(token);
+        UserInfoVo userInfoVo = imUserService.getUserInfo(token);
 
 //        ResponseEntity<OAuth2AccessToken
-        return ResponseEntity.ok().body(ResultUtil.success(xx));
+        return ResponseEntity.ok().body(ResultUtil.success(userInfoVo));
     }
 }

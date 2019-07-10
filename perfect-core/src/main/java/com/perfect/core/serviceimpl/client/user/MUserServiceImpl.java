@@ -61,13 +61,20 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUserEntity> impl
                 .setUser(user);
     }
 
+    /**
+     * 获取use的基本信息
+     * @param userName
+     * @return
+     */
     @Override
     public UserInfoVo getUserInfo(String userName){
+
+        // TODO 测试bean
         UserInfoVo ui = new UserInfoVo();
-        ui.setAvatar("Avatar");
-        ui.setIntroduction("setIntroduction");
-        ui.setName("setName");
-        ui.setRoles(new String[]{"setRoles"});
+        ui.setAvatar("https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        ui.setIntroduction("我是超级管理员");
+        ui.setName("超级管理员");
+        ui.setRoles(new String[]{"admin"});
         return ui;
     }
 

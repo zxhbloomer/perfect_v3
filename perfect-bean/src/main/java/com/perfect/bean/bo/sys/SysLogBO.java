@@ -1,5 +1,6 @@
 package com.perfect.bean.bo.sys;
 
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,11 +25,11 @@ public class SysLogBO implements Serializable {
 
     private String params;
 
-    private String execTime;
+    private Long execTime;
 
     private String remark;
 
-    private String createDate;
+    private LocalDateTime createDate;
 
     private String url;
 
