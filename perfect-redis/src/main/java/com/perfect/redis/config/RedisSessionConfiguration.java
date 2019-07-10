@@ -1,4 +1,4 @@
-package com.perfect.redis;
+package com.perfect.redis.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;

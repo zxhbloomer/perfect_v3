@@ -1,4 +1,4 @@
-package com.perfect.redis;
+package com.perfect.redis.config;
 
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;

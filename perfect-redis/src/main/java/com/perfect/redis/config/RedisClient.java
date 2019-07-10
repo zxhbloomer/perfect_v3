@@ -1,4 +1,4 @@
-package com.perfect.redis; /**
+package com.perfect.redis.config; /**
  * 所属产品: 互联网供应链金融平台
  * 版权信息: © 中金财金服
  */

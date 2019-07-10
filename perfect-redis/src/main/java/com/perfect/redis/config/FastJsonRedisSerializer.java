@@ -1,4 +1,4 @@
-package com.perfect.redis; /**
+package com.perfect.redis.config; /**
  * 版权信息: © 中金财金服
  */
 
