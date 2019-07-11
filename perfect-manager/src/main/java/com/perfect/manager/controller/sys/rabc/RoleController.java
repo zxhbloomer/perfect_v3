@@ -1,25 +1,19 @@
 package com.perfect.manager.controller.sys.rabc;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.pojo.JSONResult;
-import com.perfect.bean.vo.sys.rabc.SysRoleVo;
-import com.perfect.bean.vo.user.info.UserInfoVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.base.controller.v1.BaseController;
 import com.perfect.common.utils.result.ResultUtil;
-import com.perfect.core.service.client.user.IMUserService;
 import com.perfect.core.service.system.rabc.ISRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/v1/role")
@@ -44,12 +38,14 @@ public class RoleController extends BaseController {
 
     @SysLog("根据参数id，获取角色信息")
     @ApiOperation("根据参数id，获取角色信息")
-    @PostMapping("{ id }")
+//    @PostMapping("{ id }")
+    @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JSONResult<SRoleEntity>> search(@RequestParam("id") String id) {
+    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list() {
 
-        SRoleEntity sRoleEntity = isRoleService.getById(id);
-
+        Page<SRoleEntity> xx=new Page<>(1,2);
+        IPage<SRoleEntity> sRoleEntity = isRoleService.page(xx);
+        System.out.println("xxxxxxx`");
 //        ResponseEntity<OAuth2AccessToken
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
