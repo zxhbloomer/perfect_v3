@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/v1/user")
 @Slf4j
 @Api("用户相关")
-public class UserInfoController extends BaseController {
+public class UserController extends BaseController {
 
     @Autowired
     private IMUserService imUserService;

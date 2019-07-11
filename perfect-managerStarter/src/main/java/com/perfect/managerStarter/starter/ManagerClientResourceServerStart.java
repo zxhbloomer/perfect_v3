@@ -23,7 +23,6 @@ import java.util.List;
                 "com.perfect.manager.controller",
         })
 @EnableTransactionManagement
-@MapperScan("com.perfect.core.mapper")
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j
 @EnableConfigurationProperties({PerfectSecurityProperties.class})

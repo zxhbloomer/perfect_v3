@@ -2,7 +2,7 @@ package com.perfect.core.serviceimpl.client.user;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.bo.user.login.MUserBo;
-import com.perfect.bean.entity.client.login.MUserEntity;
+import com.perfect.bean.entity.client.user.MUserEntity;
 import com.perfect.bean.vo.user.info.UserInfoVo;
 import com.perfect.core.mapper.client.user.MUserMapper;
 import com.perfect.core.service.client.user.IMUserService;

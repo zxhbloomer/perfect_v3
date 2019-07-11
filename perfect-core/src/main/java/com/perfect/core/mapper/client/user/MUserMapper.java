@@ -1,7 +1,7 @@
 package com.perfect.core.mapper.client.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.perfect.bean.entity.client.login.MUserEntity;
+import com.perfect.bean.entity.client.user.MUserEntity;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;

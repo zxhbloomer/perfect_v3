@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@ApiModel(value = "用户基本信息获取", description = "用户基本信息获取bean")
+@ApiModel(value = "用户基本信息", description = "用户基本信息vo_bean")
 public class UserInfoVo implements Serializable {
 
     private static final long serialVersionUID = 574627344179000681L;

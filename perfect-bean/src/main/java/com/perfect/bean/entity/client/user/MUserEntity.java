@@ -1,22 +1,23 @@
-package com.perfect.bean.entity.client.login;
+package com.perfect.bean.entity.client.user;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ * 用户主表
  * </p>
  *
- * @author jobob
- * @since 2019-07-04
+ * @author zxh
+ * @since 2019-07-11
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -34,6 +35,12 @@ public class MUserEntity implements Serializable {
 
     @TableField("name")
     private String name;
+
+    /**
+     * 简称
+     */
+    @TableField("simple_name")
+    private String simpleName;
 
     /**
      * 系统用户=10,职员=20,客户=30,供应商=40,其他=50,认证管理员=60,审计管理员=70
@@ -115,12 +122,21 @@ public class MUserEntity implements Serializable {
     @TableField("pwd_effective_date")
     private LocalDateTime pwdEffectiveDate;
 
+    /**
+     * 用户锁定时间
+     */
     @TableField("locked_time")
     private LocalDateTime lockedTime;
 
+    /**
+     * 是否为业务管理员
+     */
     @TableField("is_biz_admin")
     private Boolean isBizAdmin;
 
+    /**
+     * 是否修改过密码
+     */
     @TableField("is_changed_pwd")
     private Boolean isChangedPwd;
 
@@ -139,25 +155,46 @@ public class MUserEntity implements Serializable {
     @TableField("email")
     private String email;
 
+    /**
+     * 家庭电话
+     */
     @TableField("home_telno")
     private String homeTelno;
 
+    /**
+     * 办公室电话
+     */
     @TableField("office_telno")
     private String officeTelno;
 
+    /**
+     * 手机号码
+     */
     @TableField("cell_telno")
     private String cellTelno;
 
-    @TableField("c_id")
+    /**
+     * 租户代码
+     */
+    @TableField("corp_code")
+    private String corpCode;
+
+    /**
+     * 租户名称
+     */
+    @TableField("corp_name")
+    private String corpName;
+
+    @TableField(value="c_id", fill = FieldFill.INSERT)
     private Long cId;
 
-    @TableField("c_time")
+    @TableField(value="c_time", fill = FieldFill.INSERT)
     private LocalDateTime cTime;
 
-    @TableField("u_id")
+    @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
     private Long uId;
 
-    @TableField("u_time")
+    @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime uTime;
 
 
