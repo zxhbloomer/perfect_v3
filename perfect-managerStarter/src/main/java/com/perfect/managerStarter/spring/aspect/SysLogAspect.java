@@ -84,6 +84,7 @@ public class SysLogAspect {
             if (log_db_save){
                 SLogEntity sLogEntity = new SLogEntity();
                 sLogEntity.setOperation(sysLogBO.getRemark());
+                sLogEntity.setUrl(sysLogBO.getUrl());
                 sLogEntity.setTime(sysLogBO.getExecTime());
                 sLogEntity.setHttpMethod(sysLogBO.getHttpMethod());
                 sLogEntity.setClassName(sysLogBO.getClassName());

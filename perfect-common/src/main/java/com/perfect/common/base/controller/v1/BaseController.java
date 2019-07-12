@@ -1,5 +1,6 @@
 package com.perfect.common.base.controller.v1;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.common.utils.IPUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -17,15 +18,6 @@ public class BaseController {
 //    @PostMapping = @RequestMapping(method = RequestMethod.POST)
 //    @PutMapping = @RequestMapping(method = RequestMethod.PUT)          --不用
 //    @DeleteMapping = @RequestMapping(method = RequestMethod.DELETE)    --不用
-
-
-    /**
-     * 得到request对象
-     * @return
-     */
-    public static HttpServletRequest getRequest() {
-        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-    }
 
 //    /** ajax登录异常处理 **/
 //    @ExceptionHandler({ AjaxLoginException.class })
@@ -81,11 +73,4 @@ public class BaseController {
 //        log.error(sb.toString(), e);
 //        return "common/500";
 //    }
-
-    public void logBefore(String desc) {
-        HttpServletRequest request = getRequest();
-        log.error("");
-        StringBuilder sb = new StringBuilder(IPUtil.getIpAdd(request)).append(desc).append(":").append(request.getServletPath());
-        log.error(sb.toString());
-    }
 }

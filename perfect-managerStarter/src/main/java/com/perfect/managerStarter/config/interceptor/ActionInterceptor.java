@@ -1,5 +1,6 @@
 package com.perfect.managerStarter.config.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -7,6 +8,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 public class ActionInterceptor extends HandlerInterceptorAdapter {
 
     /**
@@ -20,10 +22,12 @@ public class ActionInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        System.out.println("xxxxxxxxxxxxpreHandlepreHandlexxxxxxxxxxxxxxx");
-        return true;// 只有返回true才会继续向下执行，返回false取消当前请求
-        // TODO： 处理BeforeAction：比如：记录日志、参数验证、权限验证
-        // 验证
+        // 处理BeforeAction：比如：记录日志、参数验证、权限验证
+        log.debug("===========Controller前进行调用preHandle操作 开始===========");
+
+        log.debug("===========Controller前进行调用preHandle操作 结束===========");
+        // 只有返回true才会继续向下执行，返回false取消当前请求
+        return true;
     }
 
 

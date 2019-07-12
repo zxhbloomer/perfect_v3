@@ -38,15 +38,10 @@ public class RoleController extends BaseController {
 
     @SysLog("根据参数id，获取角色信息")
     @ApiOperation("根据参数id，获取角色信息")
-//    @PostMapping("{ id }")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list() {
-
-        Page<SRoleEntity> xx=new Page<>(1,2);
-        IPage<SRoleEntity> sRoleEntity = isRoleService.page(xx);
-        System.out.println("xxxxxxx`");
-//        ResponseEntity<OAuth2AccessToken
+    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(Page pageVo) {
+        IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageVo);
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
 }

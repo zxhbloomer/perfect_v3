@@ -37,6 +37,12 @@ public class SLogEntity implements Serializable {
     private String userName;
 
     /**
+     * url
+     */
+    @TableField("url")
+    private String url;
+
+    /**
      * 操作描述
      */
     @TableField("operation")

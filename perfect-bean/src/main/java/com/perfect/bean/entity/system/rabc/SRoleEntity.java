@@ -48,8 +48,8 @@ public class SRoleEntity implements Serializable {
     /**
      * 描述
      */
-    @TableField("describe")
-    private String describe;
+    @TableField("descr")
+    private String descr;
 
     /**
      * 简称

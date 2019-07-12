@@ -51,8 +51,8 @@ public class MUserEntity implements Serializable {
     /**
      * 描述
      */
-    @TableField("desc")
-    private String desc;
+    @TableField("descr")
+    private String descr;
 
     /**
      * 密码

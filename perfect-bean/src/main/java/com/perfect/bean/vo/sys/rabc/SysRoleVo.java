@@ -34,7 +34,7 @@ public class SysRoleVo implements Serializable {
     /**
      * 描述
      */
-    private String desc;
+    private String descr;
 
     /**
      * 简称

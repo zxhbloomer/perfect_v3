@@ -248,11 +248,11 @@
                 <version>6.0.16.Final</version>
             </dependency>
             <!--分页插件 -->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper</artifactId>
-                <version>5.1.8</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.github.pagehelper</groupId>-->
+<!--                <artifactId>pagehelper</artifactId>-->
+<!--                <version>5.1.8</version>-->
+<!--            </dependency>-->
             <!-- xss过滤 -->
             <dependency>
                 <groupId>org.jsoup</groupId>
