@@ -1,23 +1,23 @@
 package com.perfect.bean.entity.quartz;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 /**
  * <p>
- * 
+ * 任务主表
  * </p>
  *
- * @author jobob
- * @since 2019-07-04
+ * @author zxh
+ * @since 2019-07-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

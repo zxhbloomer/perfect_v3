@@ -6,11 +6,12 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
  * <p>
- * 用户表 简单
+ * 员工
  * </p>
  *
  * @author zxh
@@ -19,31 +20,28 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("m_user_lite")
-public class MUserLiteEntity implements Serializable {
+@TableName("m_staff")
+public class MStaffEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @TableField("login_name")
-    private String loginName;
+    /**
+     * 用户
+     */
+    @TableField("userid")
+    private Long userid;
 
-    @TableField("name")
-    private String name;
-
-    @TableField("simple_name")
-    private String simpleName;
+    @TableField("deptid")
+    private Long deptid;
 
     /**
-     * 系统用户=10,职员=20,客户=30,供应商=40,其他=50,认证管理员=60,审计管理员=70
+     * 编码
      */
-    @TableField("type")
-    private String type;
+    @TableField("code")
+    private String code;
 
     /**
      * 描述
@@ -52,26 +50,35 @@ public class MUserLiteEntity implements Serializable {
     private String descr;
 
     /**
-     * 密码
-
+     * 生日
      */
-    @TableField("pwd")
-    private String pwd;
+    @TableField("birthday")
+    private LocalDate birthday;
+
+    @TableField("office_telno")
+    private String officeTelno;
+
+    @TableField("idcardno")
+    private String idcardno;
 
     /**
-     * 租户代码
+     * 婚否
      */
-    @TableField("corp_code")
-    private String corpCode;
+    @TableField("iswed")
+    private Boolean iswed;
 
     /**
-     * 租户名称
+     * 名族
      */
-    @TableField("corp_name")
-    private String corpName;
+    @TableField("nation")
+    private String nation;
 
-    @TableField("avatar")
-    private String avatar;
+    /**
+     * 是否在职
+在职=1,不在职=0,离职=2,离退休=3,返聘=4
+     */
+    @TableField("service")
+    private Boolean service;
 
     @TableField(value="c_id", fill = FieldFill.INSERT)
     private Long cId;
@@ -84,5 +91,6 @@ public class MUserLiteEntity implements Serializable {
 
     @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime uTime;
+
 
 }

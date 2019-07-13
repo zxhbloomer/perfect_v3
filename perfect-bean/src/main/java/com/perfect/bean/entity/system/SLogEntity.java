@@ -1,23 +1,23 @@
 package com.perfect.bean.entity.system;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
 /**
  * <p>
- * 
+ * 日志表
  * </p>
  *
  * @author zxh
- * @since 2019-07-04
+ * @since 2019-07-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,12 +35,6 @@ public class SLogEntity implements Serializable {
      */
     @TableField("user_name")
     private String userName;
-
-    /**
-     * url
-     */
-    @TableField("url")
-    private String url;
 
     /**
      * 操作描述
@@ -80,5 +74,6 @@ public class SLogEntity implements Serializable {
 
     @TableField("c_time")
     private LocalDateTime cTime;
+
 
 }

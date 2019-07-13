@@ -1,9 +1,9 @@
-package com.perfect.common.utils;
+package com.perfect.common.utils.bean;
+
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.BeanUtils;
 
 /**
  *

@@ -1,15 +1,12 @@
 package com.perfect.bean.entity.client.user;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -17,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zxh
- * @since 2019-07-11
+ * @since 2019-07-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -33,6 +30,12 @@ public class MUserEntity implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    @TableField("login_name")
+    private String loginName;
+
+    /**
+     * 用户实名
+     */
     @TableField("name")
     private String name;
 
@@ -184,6 +187,24 @@ public class MUserEntity implements Serializable {
      */
     @TableField("corp_name")
     private String corpName;
+
+    /**
+     * 性别
+     */
+    @TableField("sex")
+    private Boolean sex;
+
+    /**
+     * 头像路径
+     */
+    @TableField("avatar")
+    private String avatar;
+
+    /**
+     * 最后登陆时间
+     */
+    @TableField("last_login_date")
+    private LocalDateTime lastLoginDate;
 
     @TableField(value="c_id", fill = FieldFill.INSERT)
     private Long cId;

@@ -54,7 +54,7 @@ public class CodeGenerator {
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("123456");
+        dsc.setPassword("1q2w3e4r");
         mpg.setDataSource(dsc);
 
         // 包配置
@@ -100,8 +100,12 @@ public class CodeGenerator {
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         //需要包含的表名，允许正则表达式
         strategy.setInclude(
+                "j_job_log",
+                "j_job_master",
+                "m_staff",
                 "m_user",
                 "m_user_lite",
+                "s_log",
                 "s_role"
                 //,
 //                "oauth_access_token",

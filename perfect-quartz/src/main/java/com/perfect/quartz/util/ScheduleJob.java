@@ -3,7 +3,7 @@ package com.perfect.quartz.util;
 import com.perfect.bean.entity.quartz.JJobLogEntity;
 import com.perfect.bean.entity.quartz.JJobMasterEntity;
 import com.perfect.common.constant.PerfectConstant;
-import com.perfect.common.utils.BeanUtilsSupport;
+import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.quartz.IJJobLogService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
