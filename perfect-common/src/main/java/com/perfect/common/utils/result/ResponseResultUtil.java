@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * response返回值工具类
+ */
 public class ResponseResultUtil {
 
 //    public static void responseWriteError(ObjectMapper objectMapper,

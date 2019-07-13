@@ -3,6 +3,7 @@ package com.perfect.security.handler;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.utils.result.ResponseResultUtil;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -29,6 +30,7 @@ public class PerfectAuthenticationSucessHandler implements AuthenticationSuccess
         response.setContentType(PerfectConstant.JSON_UTF8);
 //        response.getWriter().write(mapper.writeValueAsString(ResponseBo.ok()));
         Map<String,String> token = new HashMap<String,String>();
+        Authentication xxx = SecurityContextHolder.getContext().getAuthentication();
         token.put("token",getSessionId(authentication, request.getSession().getId()));
         ResponseResultUtil.responseWriteOK(token, response);
     }
@@ -44,5 +46,14 @@ public class PerfectAuthenticationSucessHandler implements AuthenticationSuccess
             // anonymous
             return dflt;
         }
+    }
+
+    /**
+     * 执行usersession往session中保存的逻辑
+     * @param request
+     */
+    private void setUserSession(HttpServletRequest request){
+        // todo：xxxxxxxxxxx
+
     }
 }

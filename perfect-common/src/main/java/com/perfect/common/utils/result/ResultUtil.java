@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * json返回值工具类
+ */
 public class ResultUtil {
 
     public static <T>JSONResult<T> success(T data) {

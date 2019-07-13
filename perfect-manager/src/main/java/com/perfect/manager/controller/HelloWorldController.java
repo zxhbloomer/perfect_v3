@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+
 @RestController
 @RequestMapping(value = "/api/v1/login")
 public class HelloWorldController extends BaseController {
@@ -16,9 +19,9 @@ public class HelloWorldController extends BaseController {
 
     @ApiOperation(value = "登录认证服务器")
     @RequestMapping(value="/oauth",method = {RequestMethod.POST,RequestMethod.GET})
-    public String oauth() {
+    public String oauth(HttpServletRequest request) {
         // http://127.0.0.1:8089/oauth/authorize?response_type=code&client_id=client&redirect_uri=http://127.0.0.1:8088&scope=select
-
+        Principal principal = request.getUserPrincipal();
         return "oauth";
     }
 }

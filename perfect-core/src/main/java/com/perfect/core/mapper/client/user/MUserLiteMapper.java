@@ -2,6 +2,7 @@ package com.perfect.core.mapper.client.user;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.client.user.MUserLiteEntity;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.perfect.bean.entity.client.user.MUserLiteEntity;
  * @author zxh
  * @since 2019-07-13
  */
+@Repository
 public interface MUserLiteMapper extends BaseMapper<MUserLiteEntity> {
 
 }

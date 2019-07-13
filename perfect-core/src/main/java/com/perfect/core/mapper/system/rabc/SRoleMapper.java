@@ -1,7 +1,8 @@
 package com.perfect.core.mapper.system.rabc;
 
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.perfect.bean.entity.system.rabc.SRoleEntity;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author zxh
  * @since 2019-07-11
  */
+@Repository
 public interface SRoleMapper extends BaseMapper<SRoleEntity> {
 
 }

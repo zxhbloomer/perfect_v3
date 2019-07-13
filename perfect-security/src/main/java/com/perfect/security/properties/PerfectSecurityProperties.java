@@ -3,8 +3,10 @@ package com.perfect.security.properties;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cache.annotation.CacheConfig;
 
+/**
+ * security配置文件读取
+ */
 @EnableConfigurationProperties({PerfectSecurityProperties.class})
 @ConfigurationProperties(prefix = "perfect.security")
 public class PerfectSecurityProperties {

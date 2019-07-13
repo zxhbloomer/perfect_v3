@@ -20,6 +20,8 @@ public interface MUserMapper extends BaseMapper<MUserEntity> {
     @Select( "   " +
             " select t.* " +
             "   from m_user t " +
-            "  where t.name = #{p1}")
-    public MUserEntity getDataByName(@Param("p1") String p1);
+            "  where t.login_name = #{p1}")
+    MUserEntity getDataByName(@Param("p1") String p1);
+
+
 }

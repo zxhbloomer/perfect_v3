@@ -2,8 +2,11 @@ package com.perfect.core.serviceimpl.client.user;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.bo.user.login.MUserBo;
+import com.perfect.bean.entity.client.user.MStaffEntity;
 import com.perfect.bean.entity.client.user.MUserEntity;
+import com.perfect.bean.pojo.redis.user.UserInSessionPojo;
 import com.perfect.bean.vo.user.info.UserInfoVo;
+import com.perfect.core.mapper.client.user.MStaffMapper;
 import com.perfect.core.mapper.client.user.MUserMapper;
 import com.perfect.core.service.client.user.IMUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +33,8 @@ import java.util.List;
 public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUserEntity> implements IMUserService {
     @Autowired
     private MUserMapper mUserMapper;
+    @Autowired
+    private MStaffMapper mStaffMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -78,4 +83,18 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUserEntity> impl
         return ui;
     }
 
+    /**
+     * 获取保存到session中的userbean
+     * @param userName
+     * @return
+     */
+    @Override
+    public UserInSessionPojo getUserInSession(String userName){
+        MUserEntity mUserEntity = mUserMapper.getDataByName(userName);
+        MStaffEntity mStaffEntity = mStaffMapper.getDataByUserId(mUserEntity.getId());
+        UserInSessionPojo userInSessionPojo = new UserInSessionPojo();
+        userInSessionPojo.setUser_info(mUserEntity);
+        userInSessionPojo.setStaff_info(mStaffEntity);
+        return userInSessionPojo;
+    }
 }

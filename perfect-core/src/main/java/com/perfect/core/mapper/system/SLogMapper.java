@@ -2,6 +2,7 @@ package com.perfect.core.mapper.system;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.entity.system.SLogEntity;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.perfect.bean.entity.system.SLogEntity;
  * @author zxh
  * @since 2019-07-04
  */
+@Repository
 public interface SLogMapper extends BaseMapper<SLogEntity> {
 
 }

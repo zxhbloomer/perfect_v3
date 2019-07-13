@@ -67,6 +67,12 @@ public class SLogEntity implements Serializable {
     private String params;
 
     /**
+     * url
+     */
+    @TableField("url")
+    private String url;
+
+    /**
      * IP地址
      */
     @TableField("ip")
