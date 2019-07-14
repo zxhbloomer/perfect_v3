@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.pojo.JSONResult;
+import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.base.controller.v1.BaseController;
 import com.perfect.common.utils.result.ResultUtil;
@@ -36,12 +37,23 @@ public class RoleController extends BaseController {
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
 
-    @SysLog("根据参数id，获取角色信息")
+    @SysLog("根据查询条件，获取角色信息")
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(Page pageVo) {
-        IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageVo);
+    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition) {
+        IPage<SRoleEntity> sRoleEntity = isRoleService.page(
+                new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize())
+        );
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
+    }
+
+    @SysLog("角色数据保存")
+    @ApiOperation("根据参数id，获取角色信息")
+    @PostMapping("/save")
+    @ResponseBody
+    public ResponseEntity<JSONResult<String>> save(@RequestBody(required = false) SRoleEntity sRoleEntity) {
+        isRoleService.save(sRoleEntity);
+        return ResponseEntity.ok().body(ResultUtil.success("执行成功"));
     }
 }

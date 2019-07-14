@@ -1,10 +1,9 @@
 package com.perfect.common.base.controller.v1;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.common.utils.IPUtil;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.perfect.bean.vo.condition.common.PageCondition;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +17,7 @@ public class BaseController {
 //    @PostMapping = @RequestMapping(method = RequestMethod.POST)
 //    @PutMapping = @RequestMapping(method = RequestMethod.PUT)          --不用
 //    @DeleteMapping = @RequestMapping(method = RequestMethod.DELETE)    --不用
+
 
 //    /** ajax登录异常处理 **/
 //    @ExceptionHandler({ AjaxLoginException.class })

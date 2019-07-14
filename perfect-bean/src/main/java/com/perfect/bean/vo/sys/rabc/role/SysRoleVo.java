@@ -1,10 +1,12 @@
-package com.perfect.bean.vo.sys.rabc;
+package com.perfect.bean.vo.sys.rabc.role;
 
+import com.perfect.bean.vo.condition.common.PageCondition;
 import io.swagger.annotations.ApiModel;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
@@ -50,4 +52,19 @@ public class SysRoleVo implements Serializable {
      * 租户名称
      */
     private String corpName;
+
+    /**
+     * 换页条件
+     */
+    private PageCondition pageCondition;
+
+    /**
+     * 排序
+     */
+    private String [] sorts;
+
+    /**
+     * 查询条件：
+     */
+    private String condition_role_name;
 }

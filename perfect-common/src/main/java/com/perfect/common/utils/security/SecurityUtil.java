@@ -14,7 +14,7 @@ public class SecurityUtil {
      * 获取login的Authentication
      * @return
      */
-    private static Authentication getAuthentication(){
+    public static Authentication getAuthentication(){
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
@@ -23,7 +23,7 @@ public class SecurityUtil {
      * 获取 MUserEntity
      * @return
      */
-    private static MUserEntity getLoginUserEntity(){
+    public static MUserEntity getLoginUserEntity(){
         return ((MUserBo) SecurityUtil.getAuthentication().getPrincipal()).getMUserEntity();
     }
 
@@ -31,7 +31,7 @@ public class SecurityUtil {
      * 获取login的userid
      * @return
      */
-    private static Long getLoginUserId(){
+    public static long getLoginUserId(){
         return SecurityUtil.getLoginUserEntity().getId();
     }
 
@@ -39,7 +39,7 @@ public class SecurityUtil {
      * 获取Principal
      * @return
      */
-    private static Object getPrincipal(){
+    public static Object getPrincipal(){
         return SecurityUtil.getAuthentication().getPrincipal();
     }
 }

@@ -82,8 +82,8 @@ public class JJobLogEntity implements Serializable {
      * 是否是已经删除
 
      */
-    @TableField("delete")
-    private Boolean delete;
+    @TableField("isdel")
+    private Boolean isdel;
 
     /**
      * 是否有效

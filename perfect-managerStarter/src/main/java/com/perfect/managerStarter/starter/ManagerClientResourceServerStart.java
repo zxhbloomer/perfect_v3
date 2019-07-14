@@ -2,7 +2,6 @@ package com.perfect.managerStarter.starter;
 
 import com.perfect.security.properties.PerfectSecurityProperties;
 import lombok.extern.slf4j.Slf4j;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,7 +9,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.List;
@@ -27,7 +25,6 @@ import java.util.List;
 @Slf4j
 @EnableConfigurationProperties({PerfectSecurityProperties.class})
 @EnableCaching
-@EnableAsync
 public class ManagerClientResourceServerStart {
 
     public static ConfigurableApplicationContext config;

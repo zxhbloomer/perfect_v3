@@ -2,6 +2,9 @@ package com.perfect.security.handler;
 
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.utils.result.ResponseResultUtil;
+import com.perfect.common.utils.security.SecurityUtil;
+import com.perfect.core.service.client.user.IMUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
@@ -19,6 +22,9 @@ import java.util.Map;
  */
 public class PerfectAuthenticationSucessHandler implements AuthenticationSuccessHandler {
 
+    @Autowired
+    private IMUserService iMUserService;
+
     private SessionRegistry sessionRegistry;
 
     @Override
@@ -32,12 +38,22 @@ public class PerfectAuthenticationSucessHandler implements AuthenticationSuccess
         Map<String,String> token = new HashMap<String,String>();
         Authentication xxx = SecurityContextHolder.getContext().getAuthentication();
         token.put("token",getSessionId(authentication, request.getSession().getId()));
+
+        // 处理缓存
+        setUserSession(SecurityUtil.getLoginUserId());
+
         ResponseResultUtil.responseWriteOK(token, response);
     }
     public void setSessionRegistry(SessionRegistry sessionRegistry) {
         this.sessionRegistry = sessionRegistry;
     }
 
+    /**
+     * 获取sessionid
+     * @param authentication
+     * @param dflt
+     * @return
+     */
     private String getSessionId(Authentication authentication, String dflt) {
         if (authentication != null && authentication.isAuthenticated() && authentication.getDetails() instanceof WebAuthenticationDetails) {
             String sessionId = ((WebAuthenticationDetails) authentication.getDetails()).getSessionId();
@@ -50,10 +66,9 @@ public class PerfectAuthenticationSucessHandler implements AuthenticationSuccess
 
     /**
      * 执行usersession往session中保存的逻辑
-     * @param request
+     * @param userid
      */
-    private void setUserSession(HttpServletRequest request){
-        // todo：xxxxxxxxxxx
-
+    public void setUserSession(long userid){
+        iMUserService.getUserInSessionBean(userid);
     }
 }
