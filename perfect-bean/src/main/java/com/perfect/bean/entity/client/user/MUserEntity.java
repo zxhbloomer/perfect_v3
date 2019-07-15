@@ -215,6 +215,7 @@ public class MUserEntity implements Serializable {
     @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
     private Long uId;
 
+    @Version
     @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime uTime;
 

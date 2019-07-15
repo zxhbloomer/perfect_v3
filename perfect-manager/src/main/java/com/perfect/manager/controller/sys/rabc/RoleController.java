@@ -53,7 +53,7 @@ public class RoleController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public ResponseEntity<JSONResult<String>> save(@RequestBody(required = false) SRoleEntity sRoleEntity) {
-        isRoleService.saveOrUpdate(sRoleEntity);
+        boolean x = isRoleService.updateById(sRoleEntity);
         return ResponseEntity.ok().body(ResultUtil.success("执行成功"));
     }
 }
