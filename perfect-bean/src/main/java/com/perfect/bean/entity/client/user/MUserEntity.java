@@ -75,8 +75,8 @@ public class MUserEntity implements Serializable {
      * 是否锁定
 
      */
-    @TableField("locked")
-    private Boolean locked;
+    @TableField("islock")
+    private Boolean islock;
 
     /**
      * 是否禁用
