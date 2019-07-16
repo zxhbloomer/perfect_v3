@@ -93,5 +93,10 @@ public class MStaffEntity implements Serializable {
     @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime uTime;
 
-
+    /**
+     * 数据版本，乐观锁使用
+     */
+    @Version
+    @TableField(value="dbversion", fill = FieldFill.INSERT_UPDATE)
+    private Integer dbversion;
 }

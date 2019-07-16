@@ -78,9 +78,13 @@ public class SRoleEntity implements Serializable {
     @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
     private Long uId;
 
-    @Version
     @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime uTime;
 
-
+    /**
+     * 数据版本，乐观锁使用
+     */
+    @Version
+    @TableField(value="dbversion", fill = FieldFill.INSERT_UPDATE)
+    private Integer dbversion;
 }

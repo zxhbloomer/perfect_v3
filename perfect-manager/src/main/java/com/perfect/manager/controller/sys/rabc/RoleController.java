@@ -7,6 +7,8 @@ import com.perfect.bean.pojo.JSONResult;
 import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.base.controller.v1.BaseController;
+import com.perfect.common.exception.InsertErrorException;
+import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.result.ResultUtil;
 import com.perfect.core.service.system.rabc.ISRoleService;
 import io.swagger.annotations.Api;
@@ -48,12 +50,27 @@ public class RoleController extends BaseController {
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
 
-    @SysLog("角色数据保存")
+    @SysLog("角色数据更新保存")
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<JSONResult<String>> save(@RequestBody(required = false) SRoleEntity sRoleEntity) {
-        boolean x = isRoleService.updateById(sRoleEntity);
-        return ResponseEntity.ok().body(ResultUtil.success("执行成功"));
+    public ResponseEntity<JSONResult<SRoleEntity>> save(@RequestBody(required = false) SRoleEntity sRoleEntity) {
+        if(isRoleService.updateById(sRoleEntity)){
+            return ResponseEntity.ok().body(ResultUtil.success(isRoleService.getById(sRoleEntity.getId()),"更新成功"));
+        } else {
+            throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
+        }
+    }
+
+    @SysLog("角色数据更新保存")
+    @ApiOperation("根据参数id，获取角色信息")
+    @PostMapping("/insert")
+    @ResponseBody
+    public ResponseEntity<JSONResult<SRoleEntity>> insert(@RequestBody(required = false) SRoleEntity sRoleEntity) {
+        if(isRoleService.save(sRoleEntity)){
+            return ResponseEntity.ok().body(ResultUtil.success(isRoleService.getById(sRoleEntity.getId()),"插入成功"));
+        } else {
+            throw new InsertErrorException("新增保存失败。");
+        }
     }
 }

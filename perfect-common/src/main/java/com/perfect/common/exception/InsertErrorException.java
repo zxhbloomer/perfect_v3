@@ -2,13 +2,13 @@ package com.perfect.common.exception;
 import org.springframework.security.core.AuthenticationException;
 
 /**
- * 验证码错误异常
+ * 插入出错异常
  */
-public class ValidateCodeException extends AuthenticationException {
+public class InsertErrorException extends AuthenticationException {
 
     private static final long serialVersionUID = 5022575393500654458L;
 
-    public ValidateCodeException(String message) {
+    public InsertErrorException(String message) {
         super(message);
     }
 }

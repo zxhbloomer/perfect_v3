@@ -14,6 +14,19 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class ResultUtil {
 
+    public static <T>JSONResult<T> success(T data, String message) {
+        return JSONResult.<T>builder()
+            .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
+            .http_status(HttpStatus.OK.value())
+            .code(ResultEnum.OK.getCode())
+            .message(message)
+            .path(CommonUtil.getRequest().getRequestURL().toString())
+            .method(CommonUtil.getRequest().getMethod())
+            .success(true)
+            .data(data)
+            .build();
+    }
+
     public static <T>JSONResult<T> success(T data) {
         return JSONResult.<T>builder()
                 .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
