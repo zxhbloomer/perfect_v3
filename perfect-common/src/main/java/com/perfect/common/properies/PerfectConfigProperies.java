@@ -20,5 +20,7 @@ public class PerfectConfigProperies {
     // 临时文件夹
     private String saveTempPath;
 
+    private String saveUpdatePath;
+
 
 }

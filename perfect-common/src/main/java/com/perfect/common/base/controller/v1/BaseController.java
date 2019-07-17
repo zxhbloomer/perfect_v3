@@ -1,11 +1,15 @@
 package com.perfect.common.base.controller.v1;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.perfect.bean.vo.condition.common.PageCondition;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.perfect.common.utils.file.FileUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * controller父类
@@ -73,4 +77,48 @@ public class BaseController {
 //        log.error(sb.toString(), e);
 //        return "common/500";
 //    }
+
+    /**
+     * 通用下载请求
+     *
+     * @param fileName 文件名称
+     * @param delete 是否删除
+     */
+    @GetMapping("common/download")
+    public void fileDownload(String fileName, Boolean delete, HttpServletResponse response, HttpServletRequest request)
+    {
+        try
+        {
+            if (!FileUtil.isValidFilename(fileName))
+            {
+                throw new Exception(StringUtils.format("文件名称({})非法，不允许下载。 ", fileName));
+            }
+            String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
+            String filePath = "" + fileName;
+
+            response.setCharacterEncoding("utf-8");
+            response.setContentType("multipart/form-data");
+            response.setHeader("Content-Disposition",
+                    "attachment;fileName=" + FileUtil.setFileDownloadHeader(request, realFileName));
+            FileUtil.writeBytes(filePath, response.getOutputStream());
+            if (delete)
+            {
+                FileUtil.deleteFile(filePath);
+            }
+        }
+        catch (Exception e)
+        {
+            log.error("下载文件失败", e);
+        }
+    }
+
+    /**
+     * 通用上传请求
+     */
+    @PostMapping("/common/upload")
+    @ResponseBody
+    public boolean uploadFile(MultipartFile file) throws Exception
+    {
+        return true;
+    }
 }

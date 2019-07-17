@@ -22,9 +22,10 @@
         <module>./perfect-mongo</module>
         <module>./perfect-redis</module>
         <module>./00autoCreateCode</module>
-        <module>perfect-quartz</module>
-      <module>perfect-mongo</module>
-        <module>perfect-redis</module>
+        <module>./perfect-quartz</module>
+        <module>./perfect-mongo</module>
+        <module>./perfect-redis</module>
+        <module>./perfect-excel</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -291,6 +292,12 @@
                 <groupId>net.sourceforge.javacsv</groupId>
                 <artifactId>javacsv</artifactId>
                 <version>2.0</version>
+            </dependency>
+            <!-- io常用工具类 -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>2.6</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
