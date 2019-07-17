@@ -1,4 +1,4 @@
-package com.perfect.common.utils.framework;
+package com.perfect.common.utils.servlet;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -6,7 +6,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class FrameWorkUtil {
+public class ServletUtil {
 
     /**
      * 获取session

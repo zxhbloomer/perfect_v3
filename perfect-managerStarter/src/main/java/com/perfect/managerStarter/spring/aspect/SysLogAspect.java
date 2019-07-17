@@ -5,18 +5,10 @@ import com.alibaba.fastjson.JSON;
 import com.perfect.bean.bo.sys.SysLogBO;
 import com.perfect.bean.entity.system.SLogEntity;
 import com.perfect.common.annotation.SysLog;
+import com.perfect.common.properies.PerfectConfigProperies;
 import com.perfect.common.utils.IPUtil;
-import com.perfect.common.utils.LocalDateTimeUtils;
 import com.perfect.core.service.system.ISLogService;
-import java.lang.reflect.Method;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Date;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.time.StopWatch;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -24,18 +16,22 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Aspect
 @Component
 @Slf4j
 public class SysLogAspect {
 
-    @Value("${perfect.config.log.save.db}")
-    private boolean log_db_save;
+    @Autowired
+    private PerfectConfigProperies perfectConfigProperies;
 
     @Value("${perfect.config.log.print}")
     private boolean log_print;
@@ -81,7 +77,7 @@ public class SysLogAspect {
         BigDecimal time =  new BigDecimal(System.currentTimeMillis() - beginTime);
         try {
             SysLogBO sysLogBO = printLog(point, time.longValue());
-            if (log_db_save){
+            if (perfectConfigProperies.isLogSaveDb()){
                 SLogEntity sLogEntity = new SLogEntity();
                 sLogEntity.setOperation(sysLogBO.getRemark());
                 sLogEntity.setUrl(sysLogBO.getUrl());

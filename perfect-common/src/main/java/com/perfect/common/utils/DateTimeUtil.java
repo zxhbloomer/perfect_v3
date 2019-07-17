@@ -1,328 +1,156 @@
 package com.perfect.common.utils;
 
-import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateFormatUtils;
 
+import java.lang.management.ManagementFactory;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 时间日期工具类
- *
- * @author Tommy
- *
+ * 时间工具类
+ * 
+ * @author ruoyi
  */
-@Slf4j
-public class DateTimeUtil {
-	/**
-	 * 日期时间格式 yyyy-MM-dd HH:mm:ss
-	 */
-	public final static String dateTimeString = "yyyy-MM-dd HH:mm:ss";
+public class DateTimeUtil extends org.apache.commons.lang3.time.DateUtils
+{
+    public static String YYYY = "yyyy";
 
-	/**
-	 * 日期格式 yyyy-MM-dd
-	 */
-	public final static String dateString = "yyyy-MM-dd";
+    public static String YYYY_MM = "yyyy-MM";
 
-	/**
-	 * 日期时间格式For 文件名 yyyy_MM_dd_HH_mm_ss
-	 */
-	public static String dateTimeString4FileName = "yyyy_MM_dd_HH_mm_ss";
+    public static String YYYY_MM_DD = "yyyy-MM-dd";
 
-	public final static String YYYY = "yyyy";
-	public final static String YYYY_MM = "yyyy-MM";
-	public final static String YYYY_MM_DD = "yyyy-MM-dd";
-	public final static String YYYY_MM_DD_HH = "yyyy-MM-dd HH";
-	public final static String YYYY_MM_DD_HH_mm = "yyyy-MM-dd HH:mm";
-	public final static String YYYY_MM_DD_HH_mm_ss = "yyyy-MM-dd HH:mm:ss";
-	public final static String YYYY_MM_DD_HH_mm_ss_SSS = "yyyy-MM-dd HH:mm:ss:SSS";
+    public static String YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
 
-	/**
-	 * 日
-	 */
-	public final static int INTERVAL_DAY = 1;
-	/**
-	 * 周
-	 */
-	public final static int INTERVAL_WEEK = 2;
-	/**
-	 * 月
-	 */
-	public final static int INTERVAL_MONTH = 3;
-	/**
-	 * 年
-	 */
-	public final static int INTERVAL_YEAR = 4;
-	/**
-	 * 小时
-	 */
-	public final static int INTERVAL_HOUR = 5;
-	/**
-	 * 分钟
-	 */
-	public final static int INTERVAL_MINUTE = 6;
-	/**
-	 * 秒
-	 */
-	public final static int INTERVAL_SECOND = 7;
+    public static String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
+    
+    private static String[] parsePatterns = {
+            "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM", 
+            "yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm", "yyyy/MM",
+            "yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
 
+    /**
+     * 获取当前Date型日期
+     * 
+     * @return Date() 当前日期
+     */
+    public static Date getNowDate()
+    {
+        return new Date();
+    }
 
-	public static String getSystemDateYYYYMMDDHHMMSS(){
+    /**
+     * 获取当前日期, 默认格式为yyyy-MM-dd
+     * 
+     * @return String
+     */
+    public static String getDate()
+    {
+        return dateTimeNow(YYYY_MM_DD);
+    }
+
+    public static final String getTime()
+    {
+        return dateTimeNow(YYYY_MM_DD_HH_MM_SS);
+    }
+
+    public static final String dateTimeNow()
+    {
+        return dateTimeNow(YYYYMMDDHHMMSS);
+    }
+
+    public static final String dateTimeNow(final String format)
+    {
+        return parseDateToStr(format, new Date());
+    }
+
+    public static final String dateTime(final Date date)
+    {
+        return parseDateToStr(YYYY_MM_DD, date);
+    }
+
+    public static final String parseDateToStr(final String format, final Date date)
+    {
+        return new SimpleDateFormat(format).format(date);
+    }
+
+    public static final Date dateTime(final String format, final String ts)
+    {
+        try
+        {
+            return new SimpleDateFormat(format).parse(ts);
+        }
+        catch (ParseException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 日期路径 即年/月/日 如2018/08/08
+     */
+    public static final String datePath()
+    {
         Date now = new Date();
-        return format(now,YYYY_MM_DD_HH_mm_ss_SSS);
-	}
+        return DateFormatUtils.format(now, "yyyy/MM/dd");
+    }
 
+    /**
+     * 日期路径 即年/月/日 如20180808
+     */
+    public static final String dateTime()
+    {
+        Date now = new Date();
+        return DateFormatUtils.format(now, "yyyyMMdd");
+    }
 
-	/**
-	 * 解决日期字符串,日期格式为： yyyy-MM-dd HH:mm:ss
-	 * @param dateStr
-	 * @return
-	 */
-	public static Date parseStr(String dateStr){
-		return parseStr(dateStr, dateTimeString);
-	}
+    /**
+     * 日期型字符串转化为日期 格式
+     */
+    public static Date parseDate(Object str)
+    {
+        if (str == null)
+        {
+            return null;
+        }
+        try
+        {
+            return parseDate(str.toString(), parsePatterns);
+        }
+        catch (ParseException e)
+        {
+            return null;
+        }
+    }
+    
+    /**
+     * 获取服务器启动时间
+     */
+    public static Date getServerStartDate()
+    {
+        long time = ManagementFactory.getRuntimeMXBean().getStartTime();
+        return new Date(time);
+    }
 
-	/**
-	 * 解决日期字符串
-	 * @param dateStr
-	 * @param pattern
-	 * @return
-	 */
-	public static Date parseStr(String dateStr , String pattern){
-		SimpleDateFormat df = new SimpleDateFormat(pattern);
-		Date resultDate = null;
-		try {
-			resultDate = df.parse(dateStr);
-		} catch (ParseException e) {
-			log.error("日期解析错误,dateStr:"+dateStr,e);
-			resultDate = null;
-		}
-		return resultDate;
-	}
-
-	/**
-	 * @param date
-	 * @param pattern
-	 * @return
-	 */
-	public static String format(Date date, String pattern) {
-		if (date == null || pattern == null) {
-			return "";
-		}
-		SimpleDateFormat df = new SimpleDateFormat(pattern);
-		String result = df.format(date);
-		if(result.equalsIgnoreCase("0001-01-01 00:00:00")){
-			result = "";
-		}
-		return result;
-	}
-
-	 /**
-	 * @param date
-	 * @return
-	 */
-	public static String format(Date date){
-		   return format(date, dateTimeString);
-	  }
-
-	/**
-	 * 两date比较
-	 *
-	 * @param beforeDate
-	 * @param afterDate
-	 * @return
-	 */
-	public static int compareDate(Date beforeDate, Date afterDate) {
-		Calendar beforeCalendar = Calendar.getInstance();
-		Calendar afterCalendar = Calendar.getInstance();
-		beforeCalendar.setTime(beforeDate);
-		afterCalendar.setTime(afterDate);
-		return beforeCalendar.compareTo(afterCalendar);
-	}
-
-	/**
-	 * 判断目标日期是否在时间段类
-	 * @param beforeDate
-	 * @param afterDate
-	 * @param targetDate
-	 * @return
-	 */
-	public static boolean isBetweenDate(Date beforeDate, Date afterDate,Date targetDate){
-		if(targetDate == null){
-			throw new RuntimeException("targetDate should not be null!");
-		}
-		if(beforeDate == null && afterDate == null){
-			return false;
-		}
-		if(afterDate == null){
-			return (compareDate(beforeDate,targetDate) <= 0);
-		}
-		if(beforeDate == null){
-			return (compareDate(targetDate,afterDate)<= 0);
-		}
-		return (compareDate(beforeDate,targetDate) <= 0)&&(compareDate(targetDate,afterDate)<= 0);
-	}
-
-	/**
-	 *
-	 * @param date
-	 * @param month
-	 * @return
-	 */
-	public static Date dateOperateByMonth(Date date,int month){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.MONTH, month);
-		return calendar.getTime();
-	}
-
-	public static Date dateOperateByDay(Date date,int day){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.DAY_OF_MONTH, day);
-		return calendar.getTime();
-	}
-
-	/**
-	 * 邮箱激活，时间操作，对验证时间+24H
-	 * @param date 需要操作的时间，如果为null,就去当前时间
-	 * @param hour 小时，对操作时间增加或减少的量
-	 * @author chj
-	 */
-	public static Date dateOperateByHour(Date date,int hour){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date == null ? new Date() : date);
-		calendar.add(Calendar.HOUR_OF_DAY, hour);
-		return calendar.getTime();
-	}
-
-	/**
-	 * 验证手机验证码过期，时间操作，对验证时间+有效时间
-	 * @param date 需要操作的时间，如果为null,就去当前时间
-	 * @param minute 分钟，对操作时间增加或减少的量
-	 * @author chj
-	 */
-	public static Date dateOperateByMinute(Date date,int minute){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date == null ? new Date() : date);
-		calendar.add(Calendar.MINUTE, minute);
-		return calendar.getTime();
-	}
-
-	public static Date dateOperateBySecond(Date date,int second){
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());
-		calendar.add(Calendar.SECOND, second);
-		return calendar.getTime();
-	}
-
-	public static Date getDateWithoutTime(Date date){
-		Date result = null;
-		String dateStr = format(date,dateString);
-		result = parseStr(dateStr, dateString);
-		return result;
-	}
-
-	/**
-	 * 增加时间
-	 *
-	 * @param interval
-	 *            [INTERVAL_DAY,INTERVAL_WEEK,INTERVAL_MONTH,INTERVAL_YEAR,
-	 *            INTERVAL_HOUR,INTERVAL_MINUTE]
-	 * @param date
-	 * @param n
-	 *            可以为负数
-	 * @return
-	 */
-	public static Date dateAdd(int interval, Date date, int n) {
-		long time = (date.getTime() / 1000); // 单位秒
-		switch (interval) {
-		case INTERVAL_DAY:
-			time = time + n * 86400;// 60 * 60 * 24;
-			break;
-		case INTERVAL_WEEK:
-			time = time + n * 604800;// 60 * 60 * 24 * 7;
-			break;
-		case INTERVAL_MONTH:
-			time = time + n * 2678400;// 60 * 60 * 24 * 31;
-			break;
-		case INTERVAL_YEAR:
-			time = time + n * 31536000;// 60 * 60 * 24 * 365;
-			break;
-		case INTERVAL_HOUR:
-			time = time + n * 3600;// 60 * 60 ;
-			break;
-		case INTERVAL_MINUTE:
-			time = time + n * 60;
-			break;
-		case INTERVAL_SECOND:
-			time = time + n;
-			break;
-		default:
-		}
-
-		Date result = new Date();
-		result.setTime(time * 1000);
-		return result;
-	}
-
-	/**
-	 * 计算两个时间间隔
-	 *
-	 * @param interval
-	 *            [INTERVAL_DAY,INTERVAL_WEEK,INTERVAL_MONTH,INTERVAL_YEAR,
-	 *            INTERVAL_HOUR,INTERVAL_MINUTE]
-	 * @param begin
-	 * @param end
-	 * @return
-	 */
-	public static int dateDiff(int interval, Date begin, Date end) {
-		long beginTime = (begin.getTime() / 1000); // 单位：秒
-		long endTime = (end.getTime() / 1000); // 单位: 秒
-		long tmp = 0;
-		if (endTime == beginTime) {
-			return 0;
-		}
-
-		// 确定endTime 大于 beginTime 结束时间秒数 大于 开始时间秒数
-		if (endTime < beginTime) {
-			tmp = beginTime;
-			beginTime = endTime;
-			endTime = tmp;
-		}
-
-		long intervalTime = endTime - beginTime;
-		long result = 0;
-		switch (interval) {
-		case INTERVAL_DAY:
-			result = intervalTime / 86400;// 60 * 60 * 24;
-			break;
-		case INTERVAL_WEEK:
-			result = intervalTime / 604800;// 60 * 60 * 24 * 7;
-			break;
-		case INTERVAL_MONTH:
-			result = intervalTime / 2678400;// 60 * 60 * 24 * 31;
-			break;
-		case INTERVAL_YEAR:
-			result = intervalTime / 31536000;// 60 * 60 * 24 * 365;
-			break;
-		case INTERVAL_HOUR:
-			result = intervalTime / 3600;// 60 * 60 ;
-			break;
-		case INTERVAL_MINUTE:
-			result = intervalTime / 60;
-			break;
-		case INTERVAL_SECOND:
-			result = intervalTime / 1;
-			break;
-		default:
-		}
-
-		// 做过交换
-		if (tmp > 0) {
-			result = 0 - result;
-		}
-		return (int) result;
-	}
+    /**
+     * 计算两个时间差
+     */
+    public static String getDatePoor(Date endDate, Date nowDate)
+    {
+        long nd = 1000 * 24 * 60 * 60;
+        long nh = 1000 * 60 * 60;
+        long nm = 1000 * 60;
+        // long ns = 1000;
+        // 获得两个时间的毫秒时间差异
+        long diff = endDate.getTime() - nowDate.getTime();
+        // 计算差多少天
+        long day = diff / nd;
+        // 计算差多少小时
+        long hour = diff % nd / nh;
+        // 计算差多少分钟
+        long min = diff % nd % nh / nm;
+        // 计算差多少秒//输出结果
+        // long sec = diff % nd % nh % nm / ns;
+        return day + "天" + hour + "小时" + min + "分钟";
+    }
 }

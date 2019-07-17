@@ -1,9 +1,9 @@
 package com.perfect.common.utils;
 
 
-import com.alibaba.fastjson.JSON;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.perfect.common.properies.PerfectConfigProperies;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,10 +15,17 @@ public class ExceptionUtil {
 
     private static boolean SIMPLE_MODEL;
 
-    @Value("${perfect.config.simple-model}")
-    public void setSIMPLE_MODEL(boolean SIMPLE_MODEL) {
-        this.SIMPLE_MODEL = SIMPLE_MODEL;
+//    @Value("${perfect.config.simple-model}")
+//    public void setSIMPLE_MODEL(boolean SIMPLE_MODEL) {
+//        this.SIMPLE_MODEL = SIMPLE_MODEL;
+//    }
+
+    private static PerfectConfigProperies perfectConfigProperies;
+    @Autowired
+    public void setProperties(PerfectConfigProperies perfectConfigProperies) {
+        this.perfectConfigProperies = perfectConfigProperies;
     }
+
 
     /**
      * 将异常日志转换为字符串
@@ -27,7 +34,7 @@ public class ExceptionUtil {
      */
     public static String getException(Exception e) {
         String rtn = "";
-        if (SIMPLE_MODEL){
+        if (perfectConfigProperies.isSimpleModel()){
             rtn = e.toString();
             return rtn;
         }
