@@ -8,6 +8,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author zhangxh
+ */
 @Slf4j
 public class ActionInterceptor extends HandlerInterceptorAdapter {
 

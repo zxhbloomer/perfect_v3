@@ -36,7 +36,7 @@ public final class CommonUtil {
 
     @Value("${perfect.security.code.image.login-processing-url}")
     public void setLOGIN_PROCESSING_URL(String LOGIN_PROCESSING_URL) {
-        this.LOGIN_PROCESSING_URL = LOGIN_PROCESSING_URL;
+        CommonUtil.LOGIN_PROCESSING_URL = LOGIN_PROCESSING_URL;
     }
 
 

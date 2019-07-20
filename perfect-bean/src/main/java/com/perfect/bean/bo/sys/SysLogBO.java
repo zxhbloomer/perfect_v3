@@ -1,14 +1,15 @@
 package com.perfect.bean.bo.sys;
 
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * 系统日志bo
+ * @author zhangxh
  */
 @Data
 @Builder
