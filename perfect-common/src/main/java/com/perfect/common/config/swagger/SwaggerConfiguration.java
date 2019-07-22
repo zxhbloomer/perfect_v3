@@ -28,7 +28,7 @@ public class SwaggerConfiguration {
                 //页面标题
                 .title("RESTful API")
                 //创建人
-                .contact(new Contact("一润供应链","15648260",""))
+                .contact(new Contact("xxxxxxxxxxx","15648260",""))
                 //版本号
                 .version("1.0")
                 //描述
