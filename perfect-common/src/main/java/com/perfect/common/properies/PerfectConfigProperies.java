@@ -17,10 +17,10 @@ public class PerfectConfigProperies {
 
     private boolean openAopLog;
 
-    // 临时文件夹
-    private String saveTempPath;
-
-    private String saveUpdatePath;
+    /**
+     * 上传url
+     */
+    private String fsUrl;
 
 
 }

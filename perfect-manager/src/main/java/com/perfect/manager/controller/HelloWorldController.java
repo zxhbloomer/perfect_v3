@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 
+/**
+ * @author zxh
+ */
 @RestController
 @RequestMapping(value = "/api/v1/login")
 public class HelloWorldController extends BaseController {

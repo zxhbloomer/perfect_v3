@@ -10,6 +10,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 
+/**
+ * @author zxh
+ */
 @Component
 public class ExceptionUtil {
 
@@ -23,7 +26,7 @@ public class ExceptionUtil {
     private static PerfectConfigProperies perfectConfigProperies;
     @Autowired
     public void setProperties(PerfectConfigProperies perfectConfigProperies) {
-        this.perfectConfigProperies = perfectConfigProperies;
+        ExceptionUtil.perfectConfigProperies = perfectConfigProperies;
     }
 
 
