@@ -51,10 +51,12 @@ public class ExceptionUtil {
             return rtn;
         } finally {
             try {
-                if (writer != null)
+                if (writer != null) {
                     writer.close();
-                if (printWriter != null)
+                }
+                if (printWriter != null) {
                     printWriter.close();
+                }
             } catch (IOException e1) {
             }
         }

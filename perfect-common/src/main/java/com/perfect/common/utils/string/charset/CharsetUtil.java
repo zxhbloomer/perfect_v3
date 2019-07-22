@@ -1,7 +1,6 @@
 package com.perfect.common.utils.string.charset;
 
-import com.perfect.common.utils.string.StringUtils;
-
+import com.perfect.common.utils.string.StringUtil;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -34,7 +33,7 @@ public class CharsetUtil
      */
     public static Charset charset(String charset)
     {
-        return StringUtils.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);
+        return StringUtil.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);
     }
 
     /**
@@ -70,7 +69,7 @@ public class CharsetUtil
             srcCharset = StandardCharsets.UTF_8;
         }
 
-        if (StringUtils.isEmpty(source) || srcCharset.equals(destCharset))
+        if (StringUtil.isEmpty(source) || srcCharset.equals(destCharset))
         {
             return source;
         }

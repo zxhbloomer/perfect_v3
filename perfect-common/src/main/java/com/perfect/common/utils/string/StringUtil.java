@@ -8,7 +8,7 @@ import java.util.Map;
  * 
  * @author
  */
-public class StringUtils extends org.apache.commons.lang3.StringUtils
+public class StringUtil extends org.apache.commons.lang3.StringUtils
 {
     /** 空字符串 */
     private static final String NULLSTR = "";
