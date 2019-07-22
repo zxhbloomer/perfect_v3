@@ -15,7 +15,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -32,9 +31,6 @@ public class SysLogAspect {
 
     @Autowired
     private PerfectConfigProperies perfectConfigProperies;
-
-    @Value("${perfect.config.log.print}")
-    private boolean log_print;
 
     @Autowired
     private ISLogService iSLogService;
@@ -126,7 +122,7 @@ public class SysLogAspect {
                                     .url(request.getRequestURL().toString())
                                     .ip(IPUtil.getIpAdd())
                                     .build();
-        if(log_print){
+        if(perfectConfigProperies.isOpenAopLog()){
             log.debug("======================日志开始================================");
             log.debug("日志名称         : " + sysLogBO.getRemark());
             log.debug("URL             : " + sysLogBO.getUrl());
