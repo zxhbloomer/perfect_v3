@@ -1,6 +1,6 @@
 package com.perfect.excel.conf.validator;
 
-import com.perfect.common.utils.string.StringUtils;
+import com.perfect.common.utils.string.StringUtil;
 
 /**
  * Created by gordian on 2016/1/5.
@@ -14,7 +14,7 @@ public abstract class Validator {
     public abstract boolean validate(String input);
 
     public String getErrorMsg() {
-        if (StringUtils.isEmpty(errorMsg)) {
+        if (StringUtil.isEmpty(errorMsg)) {
             return defaultMsg;
         }
         return errorMsg;

@@ -1,6 +1,6 @@
 package com.perfect.excel.conf.validator;
 
-import com.perfect.common.utils.string.StringUtils;
+import com.perfect.common.utils.string.StringUtil;
 
 /**
  * Created by gordian on 2016/1/5.
@@ -13,6 +13,6 @@ public class RequiredValidator extends Validator {
 
     @Override
     public boolean validate(String input) {
-        return StringUtils.isNotEmpty(input);
+        return StringUtil.isNotEmpty(input);
     }
 }

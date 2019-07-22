@@ -1,6 +1,6 @@
 package com.perfect.excel.conf;
 
-import com.perfect.common.utils.string.StringUtils;
+import com.perfect.common.utils.string.StringUtil;
 import com.perfect.excel.conf.validator.Validator;
 import com.perfect.excel.conf.validator.ValidatorUtil;
 import com.perfect.excel.readwrite.JxlExcelException;
@@ -23,6 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zhangxh
+ */
 public class ExcelTemplateFactory {
 
     private static ExcelTemplateFactory instance = null;
@@ -82,7 +85,7 @@ public class ExcelTemplateFactory {
             List<HierarchicalConfiguration> templates = xmlConfig.configurationsAt("template");
             for (HierarchicalConfiguration templateConf : templates) {
                 String templateName = templateConf.getString("[@name]");
-                if (StringUtils.isEmpty(templateName)) {
+                if (StringUtil.isEmpty(templateName)) {
                     throw new JxlExcelException("模板的名称属性name不能为空");
                 }
                 ExcelTemplate excelTemplate = new ExcelTemplate();
@@ -104,7 +107,7 @@ public class ExcelTemplateFactory {
                 for (HierarchicalConfiguration dataColConf : dataCols) {
                     DataCol dataCol = new DataCol(dataColConf.getString("[@name]"));
                     String convertor = dataColConf.getString("[@convertor]");
-                    if (StringUtils.isNotEmpty(convertor)) {
+                    if (StringUtil.isNotEmpty(convertor)) {
                         dataCol.setConvertor(convertor);
                     }
                     List<HierarchicalConfiguration> validatorConfs = dataColConf.configurationsAt("validator");
