@@ -1,4 +1,4 @@
-package com.perfect.managerStarter.config.interceptor;
+package com.perfect.managerstarter.config.interceptor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.Nullable;

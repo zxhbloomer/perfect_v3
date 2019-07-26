@@ -1,4 +1,4 @@
-package com.perfect.managerStarter.starter;
+package com.perfect.managerstarter.starter;
 
 import com.perfect.security.properties.PerfectSecurityProperties;
 import lombok.extern.slf4j.Slf4j;

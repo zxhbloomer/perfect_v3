@@ -1,4 +1,4 @@
-package com.perfect.managerStarter.handler;
+package com.perfect.managerstarter.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perfect.common.exception.UpdateErrorException;
@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author zxh
+ */
 @ControllerAdvice
 public class GlobalDefaultExceptionHandler {
 

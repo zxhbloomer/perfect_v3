@@ -1,7 +1,7 @@
 package com.perfect.starter;
 
 import com.perfect.bean.dto.LoginDTO;
-import com.perfect.managerStarter.starter.ManagerClientResourceServerStart;
+import com.perfect.managerstarter.starter.ManagerClientResourceServerStart;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.codehaus.jackson.map.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.perfect.managerStarter.spring.aspect;
+package com.perfect.managerstarter.spring.aspect;
 
 
 import com.alibaba.fastjson.JSON;

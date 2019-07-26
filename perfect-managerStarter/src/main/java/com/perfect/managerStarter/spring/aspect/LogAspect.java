@@ -1,4 +1,4 @@
-//package com.perfect.managerStarter.spring.aspect;
+//package com.perfect.managerstarter.spring.aspect;
 //
 //import com.ruoyi.common.annotation.Log;
 //import com.ruoyi.common.enums.BusinessStatus;

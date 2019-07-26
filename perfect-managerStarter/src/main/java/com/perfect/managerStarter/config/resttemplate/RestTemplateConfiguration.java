@@ -1,4 +1,4 @@
-package com.perfect.managerStarter.config.resttemplate;
+package com.perfect.managerstarter.config.resttemplate;
 
 import com.perfect.common.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
