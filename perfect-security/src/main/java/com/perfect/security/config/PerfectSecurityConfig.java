@@ -19,6 +19,7 @@ import com.perfect.security.session.PerfectInvalidSessionStrategy;
 import com.perfect.security.xss.XssFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -65,6 +66,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PerfectSmsCodeAuthenticationSecurityConfig perfectSmsCodeAuthenticationSecurityConfig;
 
+    @Qualifier("perfectDataSource")
     @Autowired
     private DataSource dataSource;
 
@@ -85,6 +87,18 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
         jdbcTokenRepository.setCreateTableOnStartup(false);
         return jdbcTokenRepository;
     }
+//
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList("*"));
+//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+//        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+//        configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

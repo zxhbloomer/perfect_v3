@@ -14,7 +14,12 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,6 +41,7 @@ import java.util.regex.Pattern;
  * @author zxh
  */
 @Slf4j
+@Component
 public class FsDownloadAndUploadUtil {
 
     private static final String UPLOAD_FILE_PATTERN =
@@ -43,7 +49,6 @@ public class FsDownloadAndUploadUtil {
     private static Pattern pattern = Pattern.compile(UPLOAD_FILE_PATTERN);
 
     private static PerfectConfigProperies perfectConfigProperies;
-
     @Autowired
     public void setProperties(PerfectConfigProperies perfectConfigProperies) {
         FsDownloadAndUploadUtil.perfectConfigProperies = perfectConfigProperies;
@@ -88,7 +93,12 @@ public class FsDownloadAndUploadUtil {
      * @return
      */
     public static UploadFileResultPojo uploadFile(MultipartFile multipartFile) {
-        HttpEntity<MultipartFile> requestEntity = new HttpEntity<>(multipartFile);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+        MultiValueMap<String, Object> bodyMap = new LinkedMultiValueMap<>();
+        bodyMap.add("file", multipartFile);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(bodyMap, httpHeaders);
+//        HttpEntity<MultipartFile> requestEntity = new HttpEntity<>(multipartFile);
         String url = perfectConfigProperies.getFsUrl();
         UploadFileResultPojo response = null;
         try {

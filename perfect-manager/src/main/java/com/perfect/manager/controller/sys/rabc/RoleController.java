@@ -1,5 +1,10 @@
 package com.perfect.manager.controller.sys.rabc;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
@@ -11,12 +16,10 @@ import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.result.ResultUtil;
 import com.perfect.core.service.system.rabc.ISRoleService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zhangxh
@@ -47,9 +50,22 @@ public class RoleController extends BaseController {
     @PostMapping("/list")
     @ResponseBody
     public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition) {
-        IPage<SRoleEntity> sRoleEntity = isRoleService.page(
-                new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize())
-        );
+
+        // 分页条件
+        Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
+        // 条件，排序
+        QueryWrapper<SRoleEntity> wrapper = new QueryWrapper<SRoleEntity>();
+        if(searchCondition.getSort() != null){
+            if (searchCondition.getSort().contains("-")){
+                wrapper.orderByDesc(searchCondition.getSort());
+            } else {
+                wrapper.orderByAsc(searchCondition.getSort());
+            }
+        }
+
+        IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageCondition, wrapper);
+
+
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
 

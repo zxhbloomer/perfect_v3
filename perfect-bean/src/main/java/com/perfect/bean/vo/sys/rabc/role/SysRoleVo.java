@@ -8,6 +8,9 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
+/**
+ * @author zhangxh
+ */
 @Data
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -59,9 +62,14 @@ public class SysRoleVo implements Serializable {
     private PageCondition pageCondition;
 
     /**
-     * 排序
+     * 排序数组，基本没啥用
      */
     private String [] sorts;
+
+    /**
+     * 排序
+     */
+    private String sort;
 
     /**
      * 查询条件：
