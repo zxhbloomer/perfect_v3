@@ -2,8 +2,7 @@ package com.perfect.core.utils.mybatis;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.perfect.bean.entity.BaseEntity;
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
-import org.apache.poi.ss.formula.functions.T;
+import com.perfect.common.utils.string.StringUtil;
 
 /**
  * @author zxh
@@ -22,7 +21,7 @@ public class QueryWrapperUtil<T> {
         throws IllegalAccessException, InstantiationException {
         BaseEntity<T> be = (BaseEntity<T>) entityBeanClassName.newInstance();
         QueryWrapper<T> wrapper = new QueryWrapper<T>();
-        if (sortCondition != null) {
+        if (StringUtil.isNotEmpty(sortCondition)) {
             if (sortCondition.startsWith("-")) {
                 // 此为降序
                 wrapper.orderByDesc(be.getProperty2Columnn(sortCondition.substring(1)));
