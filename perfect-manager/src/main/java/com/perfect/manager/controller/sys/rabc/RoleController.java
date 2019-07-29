@@ -1,5 +1,8 @@
 package com.perfect.manager.controller.sys.rabc;
 
+import com.baomidou.mybatisplus.core.metadata.TableInfo;
+import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import com.perfect.core.utils.mybatis.QueryWrapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,19 +52,12 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition) {
-
+    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition)
+        throws InstantiationException, IllegalAccessException {
         // 分页条件
         Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 条件，排序
-        QueryWrapper<SRoleEntity> wrapper = new QueryWrapper<SRoleEntity>();
-        if(searchCondition.getSort() != null){
-            if (searchCondition.getSort().contains("-")){
-                wrapper.orderByDesc(searchCondition.getSort());
-            } else {
-                wrapper.orderByAsc(searchCondition.getSort());
-            }
-        }
+        QueryWrapper<SRoleEntity> wrapper = QueryWrapperUtil.getSortWrapper(SRoleEntity.class, searchCondition.getSort());
 
         IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageCondition, wrapper);
 

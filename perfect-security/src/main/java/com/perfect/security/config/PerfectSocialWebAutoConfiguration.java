@@ -27,6 +27,7 @@ import java.util.List;
 
 /**
  * 见 125行说明
+ * @author zxh
  */
 @Configuration
 @ConditionalOnClass({ConnectController.class, SocialConfigurerAdapter.class})

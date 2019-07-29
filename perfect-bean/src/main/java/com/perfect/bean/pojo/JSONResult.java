@@ -6,6 +6,10 @@ import lombok.Data;
 
 import java.io.Serializable;
 
+/**
+ * @author zxh
+ *
+ */
 @Data
 @Builder
 @AllArgsConstructor

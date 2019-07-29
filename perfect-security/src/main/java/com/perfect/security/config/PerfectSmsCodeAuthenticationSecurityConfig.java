@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 短信认证流程配置
+ * @author zxh
  */
 @Component
 public class PerfectSmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
