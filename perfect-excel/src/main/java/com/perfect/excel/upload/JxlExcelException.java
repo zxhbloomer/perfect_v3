@@ -1,6 +1,11 @@
-package com.perfect.excel.readwrite;
+package com.perfect.excel.upload;
 
+/**
+ * @author zxh
+ */
 public class JxlExcelException extends RuntimeException {
+
+	private static final long serialVersionUID = 1830974553436749465L;
 
 	public JxlExcelException() {
 

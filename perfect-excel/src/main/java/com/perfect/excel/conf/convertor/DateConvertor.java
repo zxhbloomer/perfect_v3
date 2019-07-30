@@ -1,14 +1,15 @@
 package com.perfect.excel.conf.convertor;
 
 import com.perfect.common.utils.DateTimeUtil;
-import com.perfect.excel.readwrite.JxlExcelException;
+import com.perfect.excel.upload.JxlExcelException;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.ParseException;
 import java.util.Date;
 
 /**
- * Created by gordian on 2016/1/10.
+ *
+ * @author zxh
  */
 public class DateConvertor extends BaseConvertor {
     public static final String DATE = "yyyy-MM-dd";

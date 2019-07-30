@@ -1,19 +1,17 @@
-package com.perfect.common.utils.export.poi;
+package com.perfect.excel.export;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
-import com.perfect.common.annotation.Excel;
-import com.perfect.common.annotation.Excels;
-import com.perfect.common.exception.BusinessException;
-import com.perfect.common.utils.DateTimeUtil;
-import com.perfect.common.utils.reflect.ReflectUtils;
-import com.perfect.common.utils.string.StringUtil;
-import com.perfect.common.utils.string.convert.Convert;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
@@ -23,6 +21,11 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.perfect.common.annotation.Excel;
+import com.perfect.common.annotation.Excels;
+import com.perfect.common.exception.BusinessException;
+import com.perfect.common.utils.string.StringUtil;
 
 /**
  * Excel相关处理
@@ -216,10 +219,10 @@ public class ExcelUtil<T> {
             setXSSFPrompt(sheet, "", attr.prompt(), 1, 100, column, column);
         }
         // 如果设置了combo属性则本列只能选择不能输入
-        if (attr.combo().length > 0) {
-            // 这里默认设了2-101列只能选择不能输入.
-            setXSSFValidation(sheet, attr.combo(), 1, 100, column, column);
-        }
+//        if (attr.combo().length > 0) {
+//            // 这里默认设了2-101列只能选择不能输入.
+//            setXSSFValidation(sheet, attr.combo(), 1, 100, column, column);
+//        }
         return cellStyle;
     }
 
@@ -238,18 +241,18 @@ public class ExcelUtil<T> {
                 cell.setCellStyle(cs);
 
                 // 用于读取对象中的属性
-                Object value = getTargetValue(vo, field, attr);
+//                Object value = getTargetValue(vo, field, attr);
                 String dateFormat = attr.dateFormat();
-                String readConverterExp = attr.readConverterExp();
-                if (StringUtil.isNotEmpty(dateFormat) && StringUtil.isNotNull(value)) {
-                    cell.setCellValue(DateTimeUtil.parseDateToStr(dateFormat, (Date)value));
-                } else if (StringUtil.isNotEmpty(readConverterExp) && StringUtil.isNotNull(value)) {
-                    cell.setCellValue(convertByExp(String.valueOf(value), readConverterExp));
-                } else {
-                    cell.setCellType(CellType.STRING);
-                    // 如果数据存在就填入,不存在填入空格.
-                    cell.setCellValue(StringUtil.isNull(value) ? attr.defaultValue() : value + attr.suffix());
-                }
+//                String readConverterExp = attr.readConverterExp();
+//                if (StringUtil.isNotEmpty(dateFormat) && StringUtil.isNotNull(value)) {
+//                    cell.setCellValue(DateTimeUtil.parseDateToStr(dateFormat, (Date)value));
+//                } else if (StringUtil.isNotEmpty(readConverterExp) && StringUtil.isNotNull(value)) {
+//                    cell.setCellValue(convertByExp(String.valueOf(value), readConverterExp));
+//                } else {
+//                    cell.setCellType(CellType.STRING);
+//                    // 如果数据存在就填入,不存在填入空格.
+//                    cell.setCellValue(StringUtil.isNull(value) ? attr.defaultValue() : value + attr.suffix());
+//                }
             }
         } catch (Exception e) {
             log.error("导出Excel失败{}", e);
@@ -377,30 +380,30 @@ public class ExcelUtil<T> {
         return downloadPath;
     }
 
-    /**
-     * 获取bean中的属性值
-     * 
-     * @param vo 实体对象
-     * @param field 字段
-     * @param excel 注解
-     * @return 最终的属性值
-     * @throws Exception
-     */
-    private Object getTargetValue(T vo, Field field, Excel excel) throws Exception {
-        Object o = field.get(vo);
-        if (StringUtil.isNotEmpty(excel.targetAttr())) {
-            String target = excel.targetAttr();
-            if (target.indexOf(".") > -1) {
-                String[] targets = target.split("[.]");
-                for (String name : targets) {
-                    o = getValue(o, name);
-                }
-            } else {
-                o = getValue(o, target);
-            }
-        }
-        return o;
-    }
+//    /**
+//     * 获取bean中的属性值
+//     *
+//     * @param vo 实体对象
+//     * @param field 字段
+//     * @param excel 注解
+//     * @return 最终的属性值
+//     * @throws Exception
+//     */
+//    private Object getTargetValue(T vo, Field field, Excel excel) throws Exception {
+//        Object o = field.get(vo);
+//        if (StringUtil.isNotEmpty(excel.targetAttr())) {
+//            String target = excel.targetAttr();
+//            if (target.indexOf(".") > -1) {
+//                String[] targets = target.split("[.]");
+//                for (String name : targets) {
+//                    o = getValue(o, name);
+//                }
+//            } else {
+//                o = getValue(o, target);
+//            }
+//        }
+//        return o;
+//    }
 
     /**
      * 以类的属性的get方法方法形式获取值

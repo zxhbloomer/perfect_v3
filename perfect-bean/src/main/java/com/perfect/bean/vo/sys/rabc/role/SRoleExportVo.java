@@ -33,61 +33,31 @@ public class SRoleExportVo implements Serializable {
     /**
      * 角色类型
      */
-    @Excel(name = "用户手机")
+    @Excel(name = "角色类型")
     private String type;
 
     /**
      * 角色编码
      */
-    @TableField("code")
+    @Excel(name = "角色编码")
     private String code;
 
     /**
      * 角色名称
      */
-    @TableField("name")
+    @Excel(name = "角色名称")
     private String name;
 
     /**
      * 描述
      */
-    @TableField("descr")
+    @Excel(name = "描述")
     private String descr;
 
     /**
      * 简称
      */
-    @TableField("simple_name")
+    @Excel(name = "简称")
     private String simpleName;
 
-    /**
-     * 租户代码
-     */
-    @TableField("corp_code")
-    private String corpCode;
-
-    /**
-     * 租户名称
-     */
-    @TableField("corp_name")
-    private String corpName;
-
-    @TableField(value="c_id", fill = FieldFill.INSERT)
-    private Long cId;
-
-    @TableField(value="c_time", fill = FieldFill.INSERT)
-    private LocalDateTime cTime;
-
-    @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
-    private Long uId;
-
-    @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime uTime;
-
-    /**
-     * 数据版本，乐观锁使用
-     */
-    @Version
-    @TableField(value="dbversion", fill = FieldFill.INSERT_UPDATE)
-    private Integer dbversion;
 }

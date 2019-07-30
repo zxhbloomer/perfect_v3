@@ -1,4 +1,4 @@
-package com.perfect.excel.readwrite;
+package com.perfect.excel.upload;
 
 import com.perfect.excel.conf.DataCol;
 import com.perfect.excel.conf.DummyTitleCol;
@@ -7,6 +7,7 @@ import com.perfect.excel.conf.TitleRow;
 import com.perfect.excel.conf.convertor.ConvertorUtil;
 import com.perfect.excel.conf.validator.ColValidateResult;
 import com.perfect.excel.conf.validator.RowValidateResult;
+import com.perfect.excel.upload.JxlExcel;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
@@ -23,6 +24,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author zxh
+ */
 public class JxlExcelReader extends JxlExcel {
 
     private static Log logger = LogFactory.getLog(JxlExcelReader.class);

@@ -1,6 +1,6 @@
 package com.perfect.excel.conf.validator;
 
-import com.perfect.excel.readwrite.JxlExcelException;
+import com.perfect.excel.upload.JxlExcelException;
 
 import java.util.HashMap;
 import java.util.Map;

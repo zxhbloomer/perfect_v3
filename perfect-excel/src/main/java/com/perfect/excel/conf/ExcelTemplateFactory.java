@@ -3,7 +3,7 @@ package com.perfect.excel.conf;
 import com.perfect.common.utils.string.StringUtil;
 import com.perfect.excel.conf.validator.Validator;
 import com.perfect.excel.conf.validator.ValidatorUtil;
-import com.perfect.excel.readwrite.JxlExcelException;
+import com.perfect.excel.upload.JxlExcelException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.BeanUtilsBean2;

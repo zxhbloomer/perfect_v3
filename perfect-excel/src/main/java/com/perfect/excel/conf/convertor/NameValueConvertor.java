@@ -1,12 +1,12 @@
 package com.perfect.excel.conf.convertor;
 
-import com.perfect.excel.readwrite.JxlExcelException;
-
+import com.perfect.excel.upload.JxlExcelException;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by gordian on 2016/1/10.
+ *
+ * @author zxh
  */
 public abstract class NameValueConvertor extends BaseConvertor {
 
