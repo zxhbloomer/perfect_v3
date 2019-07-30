@@ -1,9 +1,9 @@
 package com.perfect.security.handler;
 
+import com.perfect.bean.result.v1.ResponseResultUtil;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.CredentialException;
 import com.perfect.common.utils.CommonUtil;
-import com.perfect.common.utils.result.ResponseResultUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.DefaultRedirectStrategy;

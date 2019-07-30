@@ -1,7 +1,7 @@
 package com.perfect.core.config.mybatis;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.perfect.common.utils.security.SecurityUtil;
+import com.perfect.core.utils.security.SecurityUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.reflection.MetaObject;
 

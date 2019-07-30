@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.perfect.bean.entity.base.entity.v1.BaseEntity;
+import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -23,7 +25,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("s_log")
-public class SLogEntity implements Serializable {
+public class SLogEntity extends BaseEntity<SLogEntity> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

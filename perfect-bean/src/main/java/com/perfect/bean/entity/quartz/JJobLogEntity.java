@@ -1,6 +1,8 @@
 package com.perfect.bean.entity.quartz;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.perfect.bean.entity.base.entity.v1.BaseEntity;
+import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -20,7 +22,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("j_job_log")
-public class JJobLogEntity implements Serializable {
+public class JJobLogEntity extends BaseEntity<JJobLogEntity> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

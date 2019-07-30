@@ -1,7 +1,7 @@
 package com.perfect.security.session;
 
+import com.perfect.bean.result.v1.ResponseResultUtil;
 import com.perfect.common.exception.CredentialException;
-import com.perfect.common.utils.result.ResponseResultUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
@@ -19,7 +19,8 @@ public class PerfectExpiredSessionStrategy implements SessionInformationExpiredS
     @Override
     public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException {
 //        event.getResponse().getWriter().write(mapper.writeValueAsString(ResponseBo.unAuthorized("登录已失效")));
-        ResponseResultUtil.responseWriteError(event.getRequest(),event.getResponse(),new CredentialException("登录已失效"), HttpStatus.UNAUTHORIZED.value());
+        ResponseResultUtil
+            .responseWriteError(event.getRequest(),event.getResponse(),new CredentialException("登录已失效"), HttpStatus.UNAUTHORIZED.value());
     }
 
 }

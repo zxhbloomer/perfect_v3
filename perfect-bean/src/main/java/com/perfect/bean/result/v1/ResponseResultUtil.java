@@ -1,18 +1,21 @@
-package com.perfect.common.utils.result;
+package com.perfect.bean.result.v1;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perfect.common.constant.PerfectConstant;
-import com.perfect.common.exception.ValidateCodeException;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.exception.ValidateCodeException;
 
 /**
  * response返回值工具类
+ * @author zxh
  */
 public class ResponseResultUtil {
 

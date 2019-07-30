@@ -1,17 +1,20 @@
-package com.perfect.bean.entity.system.rabc;
-
-import com.baomidou.mybatisplus.annotation.*;
-import com.perfect.bean.entity.base.entity.v1.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+package com.perfect.bean.vo.sys.rabc.role;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.perfect.common.annotation.Excel;
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import com.baomidou.mybatisplus.annotation.*;
+import com.perfect.bean.entity.base.entity.v1.BaseEntity;
+
 /**
  * <p>
- * 角色
+ * 角色导出Bean
  * </p>
  *
  * @author zxh
@@ -20,18 +23,17 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("s_role")
-public class SRoleEntity extends BaseEntity<SRoleEntity> implements Serializable {
+@ApiModel(value = "角色导出Bean", description = "角色导出Bean")
+public class SRoleExportVo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -7449124258332853610L;
 
-    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
      * 角色类型
      */
-    @TableField("type")
+    @Excel(name = "用户手机")
     private String type;
 
     /**

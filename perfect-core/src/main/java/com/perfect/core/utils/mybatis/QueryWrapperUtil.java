@@ -1,7 +1,7 @@
 package com.perfect.core.utils.mybatis;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.perfect.bean.entity.BaseEntity;
+import com.perfect.bean.entity.base.entity.v1.BaseEntity;
 import com.perfect.common.utils.string.StringUtil;
 
 /**

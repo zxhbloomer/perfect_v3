@@ -1,8 +1,8 @@
 package com.perfect.security.handler;
 
+import com.perfect.bean.result.v1.ResponseResultUtil;
 import com.perfect.common.exception.CredentialException;
 import com.perfect.common.exception.ValidateCodeException;
-import com.perfect.common.utils.result.ResponseResultUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;

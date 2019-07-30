@@ -1,10 +1,10 @@
 package com.perfect.manager.controller.user;
 
 import com.perfect.bean.pojo.JSONResult;
+import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.user.info.UserInfoVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.base.controller.v1.BaseController;
-import com.perfect.common.utils.result.ResultUtil;
 import com.perfect.core.service.client.user.IMUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

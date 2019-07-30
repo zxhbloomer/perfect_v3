@@ -1,9 +1,9 @@
 package com.perfect.security.handler;
 
+import com.perfect.bean.result.v1.ResponseResultUtil;
 import com.perfect.common.constant.PerfectConstant;
-import com.perfect.common.utils.result.ResponseResultUtil;
-import com.perfect.common.utils.security.SecurityUtil;
 import com.perfect.core.service.client.user.IMUserService;
+import com.perfect.core.utils.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

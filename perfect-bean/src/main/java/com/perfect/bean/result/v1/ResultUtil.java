@@ -1,16 +1,18 @@
-package com.perfect.common.utils.result;
+package com.perfect.bean.result.v1;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpStatus;
 
 import com.perfect.bean.pojo.JSONResult;
 import com.perfect.common.Enum.ResultEnum;
 import com.perfect.common.utils.CommonUtil;
 import com.perfect.common.utils.DateTimeUtil;
 import com.perfect.common.utils.ExceptionUtil;
-import org.springframework.http.HttpStatus;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * json返回值工具类
+ * @author zxh
  */
 public class ResultUtil {
 

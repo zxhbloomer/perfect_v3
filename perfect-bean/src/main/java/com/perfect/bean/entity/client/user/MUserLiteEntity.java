@@ -1,6 +1,7 @@
 package com.perfect.bean.entity.client.user;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.perfect.bean.entity.base.entity.v1.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("m_user_lite")
-public class MUserLiteEntity implements Serializable {
+public class MUserLiteEntity extends BaseEntity<MUserLiteEntity> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

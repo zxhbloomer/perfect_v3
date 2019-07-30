@@ -72,11 +72,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.perfect</groupId>
-            <artifactId>perfect-bean</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
         <!--分页插件 -->
 <!--            <dependency>-->
 <!--                <groupId>com.github.pagehelper</groupId>-->

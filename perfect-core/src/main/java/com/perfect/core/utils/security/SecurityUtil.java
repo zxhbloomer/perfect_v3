@@ -1,12 +1,14 @@
-package com.perfect.common.utils.security;
+package com.perfect.core.utils.security;
 
-import com.perfect.bean.bo.user.login.MUserBo;
-import com.perfect.bean.entity.client.user.MUserEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.perfect.bean.bo.user.login.MUserBo;
+import com.perfect.bean.entity.client.user.MUserEntity;
+
 /**
  * 安全类工具类
+ * @author Administrator
  */
 public class SecurityUtil {
 
