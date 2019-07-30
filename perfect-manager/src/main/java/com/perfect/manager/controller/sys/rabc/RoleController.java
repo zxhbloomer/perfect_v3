@@ -87,4 +87,17 @@ public class RoleController extends BaseController {
             throw new InsertErrorException("新增保存失败。");
         }
     }
+
+
+    @SysLog("角色数据导出")
+    @ApiOperation("根据选择的数据，角色数据导出")
+    @PostMapping("/download")
+    @ResponseBody
+    public ResponseEntity<JSONResult<SRoleEntity>> download(@RequestBody(required = false) SRoleEntity sRoleEntity) {
+        if(isRoleService.save(sRoleEntity)){
+            return ResponseEntity.ok().body(ResultUtil.success(isRoleService.getById(sRoleEntity.getId()),"插入成功"));
+        } else {
+            throw new InsertErrorException("新增保存失败。");
+        }
+    }
 }
