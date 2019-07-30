@@ -8,7 +8,6 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 import com.perfect.common.annotation.Excel;
-import com.perfect.common.annotation.Excel.Type;
 import com.perfect.common.annotation.Excels;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.DateTimeUtil;
@@ -44,11 +43,6 @@ public class ExcelUtil<T> {
     private String sheetName;
 
     /**
-     * 导出类型（EXPORT:导出数据；IMPORT：导入模板）
-     */
-    private Type type;
-
-    /**
      * 工作薄对象
      */
     private Workbook wb;
@@ -77,133 +71,14 @@ public class ExcelUtil<T> {
         this.clazz = clazz;
     }
 
-    public void init(List<T> list, String sheetName, Type type) {
+    public void init(List<T> list, String sheetName) {
         if (list == null) {
             list = new ArrayList<T>();
         }
         this.list = list;
         this.sheetName = sheetName;
-        this.type = type;
         createExcelField();
         createWorkbook();
-    }
-
-    /**
-     * 对excel表单默认第一个索引名转换成list
-     * 
-     * @param is 输入流
-     * @return 转换后集合
-     */
-    public List<T> importExcel(InputStream is) throws Exception {
-        return importExcel(StringUtil.EMPTY, is);
-    }
-
-    /**
-     * 对excel表单指定表格索引名转换成list
-     * 
-     * @param sheetName 表格索引名
-     * @param is 输入流
-     * @return 转换后集合
-     */
-    public List<T> importExcel(String sheetName, InputStream is) throws Exception {
-        this.type = Type.IMPORT;
-        this.wb = WorkbookFactory.create(is);
-        List<T> list = new ArrayList<T>();
-        Sheet sheet = null;
-        if (StringUtil.isNotEmpty(sheetName)) {
-            // 如果指定sheet名,则取指定sheet中的内容.
-            sheet = wb.getSheet(sheetName);
-        } else {
-            // 如果传入的sheet名不存在则默认指向第1个sheet.
-            sheet = wb.getSheetAt(0);
-        }
-
-        if (sheet == null) {
-            throw new IOException("文件sheet不存在");
-        }
-
-        int rows = sheet.getPhysicalNumberOfRows();
-
-        if (rows > 0) {
-            // 定义一个map用于存放excel列的序号和field.
-            Map<String, Integer> cellMap = new HashMap<String, Integer>();
-            // 获取表头
-            Row heard = sheet.getRow(0);
-            for (int i = 0; i < heard.getPhysicalNumberOfCells(); i++) {
-                Cell cell = heard.getCell(i);
-                if (StringUtil.isNotNull(cell != null)) {
-                    String value = this.getCellValue(heard, i).toString();
-                    cellMap.put(value, i);
-                } else {
-                    cellMap.put(null, i);
-                }
-            }
-            // 有数据时才处理 得到类的所有field.
-            Field[] allFields = clazz.getDeclaredFields();
-            // 定义一个map用于存放列的序号和field.
-            Map<Integer, Field> fieldsMap = new HashMap<Integer, Field>();
-            for (int col = 0; col < allFields.length; col++) {
-                Field field = allFields[col];
-                Excel attr = field.getAnnotation(Excel.class);
-                if (attr != null && (attr.type() == Type.ALL || attr.type() == type)) {
-                    // 设置类的私有字段属性可访问.
-                    field.setAccessible(true);
-                    Integer column = cellMap.get(attr.name());
-                    fieldsMap.put(column, field);
-                }
-            }
-            for (int i = 1; i < rows; i++) {
-                // 从第2行开始取数据,默认第一行是表头.
-                Row row = sheet.getRow(i);
-                T entity = null;
-                for (Map.Entry<Integer, Field> entry : fieldsMap.entrySet()) {
-                    Object val = this.getCellValue(row, entry.getKey());
-
-                    // 如果不存在实例则新建.
-                    entity = (entity == null ? clazz.newInstance() : entity);
-                    // 从map中得到对应列的field.
-                    Field field = fieldsMap.get(entry.getKey());
-                    // 取得类型,并根据对象类型设置值.
-                    Class<?> fieldType = field.getType();
-                    if (String.class == fieldType) {
-                        String s = Convert.toStr(val);
-                        if (StringUtil.endsWith(s, ".0")) {
-                            val = StringUtil.substringBefore(s, ".0");
-                        } else {
-                            val = Convert.toStr(val);
-                        }
-                    } else if ((Integer.TYPE == fieldType) || (Integer.class == fieldType)) {
-                        val = Convert.toInt(val);
-                    } else if ((Long.TYPE == fieldType) || (Long.class == fieldType)) {
-                        val = Convert.toLong(val);
-                    } else if ((Double.TYPE == fieldType) || (Double.class == fieldType)) {
-                        val = Convert.toDouble(val);
-                    } else if ((Float.TYPE == fieldType) || (Float.class == fieldType)) {
-                        val = Convert.toFloat(val);
-                    } else if (BigDecimal.class == fieldType) {
-                        val = Convert.toBigDecimal(val);
-                    } else if (Date.class == fieldType) {
-                        if (val instanceof String) {
-                            val = DateTimeUtil.parseDate(val);
-                        } else if (val instanceof Double) {
-                            val = DateUtil.getJavaDate((Double)val);
-                        }
-                    }
-                    if (StringUtil.isNotNull(fieldType)) {
-                        Excel attr = field.getAnnotation(Excel.class);
-                        String propertyName = field.getName();
-                        if (StringUtil.isNotEmpty(attr.targetAttr())) {
-                            propertyName = field.getName() + "." + attr.targetAttr();
-                        } else if (StringUtil.isNotEmpty(attr.readConverterExp())) {
-                            val = reverseByExp(String.valueOf(val), attr.readConverterExp());
-                        }
-                        ReflectUtils.invokeSetter(entity, propertyName, val);
-                    }
-                }
-                list.add(entity);
-            }
-        }
-        return list;
     }
 
     /**
@@ -214,18 +89,7 @@ public class ExcelUtil<T> {
      * @return 结果
      */
     public String exportExcel(List<T> list, String sheetName) {
-        this.init(list, sheetName, Type.EXPORT);
-        return exportExcel();
-    }
-
-    /**
-     * 对list数据源将其里面的数据导入到excel表单
-     * 
-     * @param sheetName 工作表的名称
-     * @return 结果
-     */
-    public String importTemplateExcel(String sheetName) {
-        this.init(null, sheetName, Type.IMPORT);
+        this.init(list, sheetName);
         return exportExcel();
     }
 
@@ -250,9 +114,7 @@ public class ExcelUtil<T> {
                     Excel excel = (Excel)os[1];
                     this.createCell(excel, row, column++);
                 }
-                if (Type.EXPORT.equals(type)) {
-                    fillExcelData(index, row);
-                }
+                fillExcelData(index, row);
             }
             String filename = encodingFilename(sheetName);
             out = new FileOutputStream(getAbsoluteFile(filename));
@@ -587,7 +449,7 @@ public class ExcelUtil<T> {
      * 放到字段集合中
      */
     private void putToField(Field field, Excel attr) {
-        if (attr != null && (attr.type() == Type.ALL || attr.type() == type)) {
+        if (attr != null ) {
             this.fields.add(new Object[] {field, attr});
         }
     }
