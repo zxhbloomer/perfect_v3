@@ -1,7 +1,9 @@
 package com.perfect.manager.controller.sys.rabc;
 
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
+import com.perfect.core.utils.mybatis.PageUtil;
 import com.perfect.core.utils.mybatis.QueryWrapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,12 +58,9 @@ public class RoleController extends BaseController {
         throws InstantiationException, IllegalAccessException {
         // 分页条件
         Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
-        // 条件，排序
-        QueryWrapper<SRoleEntity> wrapper = QueryWrapperUtil.getSortWrapper(SRoleEntity.class, searchCondition.getSort());
-
-        IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageCondition, wrapper);
-
-
+        // 通过page进行排序
+        PageUtil.setSort(pageCondition, SRoleEntity.class, searchCondition.getSort());
+        IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageCondition);
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
 
