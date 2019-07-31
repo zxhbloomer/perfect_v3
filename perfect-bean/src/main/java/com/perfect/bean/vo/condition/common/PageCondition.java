@@ -15,8 +15,8 @@ public class PageCondition implements Serializable {
 
     private static final long serialVersionUID = 7808161515093912080L;
 
-    // 当前页
-    long current;
-    // 每页显示条数
-    long size;
+    /** 当前页 */
+    private long current;
+    /**  每页显示条数*/
+    private long size;
 }

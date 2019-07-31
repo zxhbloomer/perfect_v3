@@ -17,11 +17,14 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MUserMapper extends BaseMapper<MUserEntity> {
 
+    /**
+     *
+     * @param p1
+     * @return
+     */
     @Select( "   " +
             " select t.* " +
             "   from m_user t " +
             "  where t.login_name = #{p1}")
     MUserEntity getDataByName(@Param("p1") String p1);
-
-
 }

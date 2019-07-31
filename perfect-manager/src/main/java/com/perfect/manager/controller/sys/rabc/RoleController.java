@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.perfect.bean.result.v1.ResultUtil;
+import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.core.utils.mybatis.PageUtil;
 import com.perfect.core.utils.mybatis.QueryWrapperUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,13 +57,18 @@ public class RoleController extends BaseController {
     @ResponseBody
     public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition)
         throws InstantiationException, IllegalAccessException {
-        // 分页条件
-        Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
-        // 通过page进行排序
-        PageUtil.setSort(pageCondition, SRoleEntity.class, searchCondition.getSort());
-        IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageCondition);
+        IPage<SRoleEntity> sRoleEntity = isRoleService.getList(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
+//    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition)
+//        throws InstantiationException, IllegalAccessException {
+//        // 分页条件
+//        Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
+//        // 通过page进行排序
+//        PageUtil.setSort(pageCondition, SRoleEntity.class, searchCondition.getSort());
+//        IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageCondition);
+//        return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
+//    }
 
     @SysLog("角色数据更新保存")
     @ApiOperation("根据参数id，获取角色信息")
@@ -91,13 +97,12 @@ public class RoleController extends BaseController {
 
     @SysLog("角色数据导出")
     @ApiOperation("根据选择的数据，角色数据导出")
-    @PostMapping("/download")
+    @PostMapping("/export")
     @ResponseBody
-    public ResponseEntity<JSONResult<SRoleEntity>> download(@RequestBody(required = false) SRoleEntity sRoleEntity) {
-        if(isRoleService.save(sRoleEntity)){
-            return ResponseEntity.ok().body(ResultUtil.success(isRoleService.getById(sRoleEntity.getId()),"插入成功"));
-        } else {
-            throw new InsertErrorException("新增保存失败。");
-        }
+    public ResponseEntity<JSONResult<SRoleEntity>> export(@RequestBody(required = false) SysRoleVo searchCondition) {
+        SRoleExportVo sRoleExportVo = new SRoleExportVo();
+
+        isRoleService.list();
+        return null;
     }
 }
