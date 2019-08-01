@@ -1,5 +1,8 @@
 package com.perfect.common.constant;
 
+/**
+ * @author zhangxh
+ */
 public class PerfectConstant {
 
     private PerfectConstant() {

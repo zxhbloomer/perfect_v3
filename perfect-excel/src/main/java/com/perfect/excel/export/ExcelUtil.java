@@ -1,16 +1,11 @@
 package com.perfect.excel.export;
 
-import java.io.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.net.URLEncoder;
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-
+import com.perfect.common.annotation.Excel;
+import com.perfect.common.annotation.Excels;
+import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.DateTimeUtil;
+import com.perfect.common.utils.string.StringUtil;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
@@ -22,12 +17,18 @@ import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.perfect.common.annotation.Excel;
-import com.perfect.common.annotation.Excels;
-import com.perfect.common.exception.BusinessException;
-import com.perfect.common.utils.string.StringUtil;
-
 import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+
+import static com.perfect.common.constant.PerfectConstant.XLSX_SUFFIX;
 
 /**
  * Excel相关处理
@@ -36,8 +37,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ExcelUtil<T> {
     private static final Logger log = LoggerFactory.getLogger(ExcelUtil.class);
-
-    public static final String EXCEL_SUFFIX= ".xlsx";
 
     /**
      * Excel sheet最大行数，默认65536
@@ -108,11 +107,13 @@ public class ExcelUtil<T> {
         OutputStream out = response.getOutputStream();
 
         /** 设置导出文件名称 */
-        downLoadFile = downLoadFile + "_" + DateTimeUtil.dateTimeNow();
+        downLoadFile = downLoadFile + "_" + DateTimeUtil.dateTimeNow() + XLSX_SUFFIX;
         /** 弹出下载的框filename:提示用户下载的文件名 */
-        response.addHeader("content-disposition", "attachment;filename="+ URLEncoder.encode(downLoadFile,"utf-8"));
+        String urlEncodeFileName = URLEncoder.encode(downLoadFile,"utf-8");
+        response.addHeader("content-disposition", "attachment;filename="+ urlEncodeFileName);
         response.setContentType("application/octet-stream;charset=UTF-8");
         response.setHeader("Content-Length", String.valueOf(file.length()));
+        response.setHeader("preafectfilename", urlEncodeFileName);
         log.debug("获取responseContentType：" + response.getContentType());
          /** 循环读取 */
         byte[] buff = new byte[1024];
@@ -396,7 +397,7 @@ public class ExcelUtil<T> {
     public String getAbsoluteFile(String filename) throws IOException {
         //生成UUID唯一标识，以防止文件覆盖
         UUID uuid = UUID.randomUUID();
-        File tempFile = TempFile.createTempFile(uuid.toString()+filename, EXCEL_SUFFIX);
+        File tempFile = TempFile.createTempFile(uuid.toString()+filename, PerfectConstant.XLSX_SUFFIX);
         log.debug("生成临时文件，路径为:" + tempFile.getAbsolutePath());
 
 //        String downloadPath = "" + filename;
