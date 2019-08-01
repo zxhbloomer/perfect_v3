@@ -60,10 +60,4 @@ public class SysRoleVo implements Serializable {
      * 换页条件
      */
     private PageCondition pageCondition;
-
-    /**
-     * 排序
-     */
-    private String sort;
-
 }

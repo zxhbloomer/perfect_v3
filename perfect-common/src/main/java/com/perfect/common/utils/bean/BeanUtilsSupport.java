@@ -6,9 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * 
  *  封装调用Spring的BeanUtils进行bean的复制操作
+ * @author zxh
  */
 public class BeanUtilsSupport {
 
@@ -153,10 +152,11 @@ public class BeanUtilsSupport {
 	 */
 	private static void copyProperties(Object source, Object target, Class editable, String[] ignoreProperties) {
 		try {
-			if (editable == null)
+			if (editable == null) {
 				BeanUtils.copyProperties(source, target, ignoreProperties);
-			else if (ignoreProperties == null)
+			} else if (ignoreProperties == null) {
 				BeanUtils.copyProperties(source, target, editable);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

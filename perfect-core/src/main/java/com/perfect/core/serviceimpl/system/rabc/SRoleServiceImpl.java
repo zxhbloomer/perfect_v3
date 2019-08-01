@@ -12,6 +12,8 @@ import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色 服务实现类
@@ -27,12 +29,34 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
     @Autowired
     private SRoleMapper sRoleMapper;
 
+    /**
+     * 获取列表，页面查询
+     * @param searchCondition
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     @Override
-    public IPage<SRoleEntity> getList(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException {
+    public IPage<SRoleEntity> getListPage(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException {
         // 分页条件
         Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
-        PageUtil.setSort(pageCondition, SRoleEntity.class, searchCondition.getSort());
-        return sRoleMapper.getList(searchCondition.getName(), searchCondition.getCode(), searchCondition.getSimpleName(),pageCondition);
+        PageUtil.setSort(pageCondition, SRoleEntity.class, searchCondition.getPageCondition().getSort());
+        return sRoleMapper.getListPage(pageCondition, searchCondition);
     }
+
+    /**
+     * 获取列表，查询所有数据
+     * @param searchCondition
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    @Override public List<SRoleEntity> getAllList(SysRoleVo searchCondition)
+        throws InstantiationException, IllegalAccessException {
+        // 查询 数据
+        List<SRoleEntity> list =sRoleMapper.getAllList(searchCondition);
+        return list;
+    }
+
 }

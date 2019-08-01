@@ -16,6 +16,7 @@ import java.io.IOException;
 
 /**
  * 权限不足处理
+ * @author Administrator
  */
 public class PerfectAuthenticationAccessDeniedHandler implements AccessDeniedHandler {
 

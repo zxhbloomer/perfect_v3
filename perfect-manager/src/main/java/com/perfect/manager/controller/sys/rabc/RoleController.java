@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
+import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.utils.mybatis.PageUtil;
 import com.perfect.core.utils.mybatis.QueryWrapperUtil;
+import com.perfect.excel.export.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,11 @@ import com.perfect.core.service.system.rabc.ISRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author zhangxh
@@ -57,7 +64,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition)
         throws InstantiationException, IllegalAccessException {
-        IPage<SRoleEntity> sRoleEntity = isRoleService.getList(searchCondition);
+        IPage<SRoleEntity> sRoleEntity = isRoleService.getListPage(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
 //    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition)
@@ -98,11 +105,12 @@ public class RoleController extends BaseController {
     @SysLog("角色数据导出")
     @ApiOperation("根据选择的数据，角色数据导出")
     @PostMapping("/export")
-    @ResponseBody
-    public ResponseEntity<JSONResult<SRoleEntity>> export(@RequestBody(required = false) SysRoleVo searchCondition) {
-        SRoleExportVo sRoleExportVo = new SRoleExportVo();
-
-        isRoleService.list();
-        return null;
+    public void export(@RequestBody(required = false) SysRoleVo searchCondition, HttpServletResponse response)
+        throws IllegalAccessException, InstantiationException, IOException {
+//        List<SRoleExportVo> rtnList = new ArrayList<>();
+        List<SRoleEntity> searchResult = isRoleService.getAllList(searchCondition);
+        List<SRoleExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
+        ExcelUtil<SRoleExportVo> util = new ExcelUtil<>(SRoleExportVo.class);
+        util.exportExcel("角色数据导出","角色数据", rtnList, response);
     }
 }

@@ -19,4 +19,6 @@ public class PageCondition implements Serializable {
     private long current;
     /**  每页显示条数*/
     private long size;
+    /**  排序*/
+    private String sort;
 }

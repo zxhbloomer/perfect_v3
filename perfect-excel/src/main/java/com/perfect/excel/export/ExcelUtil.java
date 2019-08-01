@@ -1,22 +1,22 @@
 package com.perfect.excel.export;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.perfect.common.utils.DateTimeUtil;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.util.TempFile;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.slf4j.Logger;
@@ -27,6 +27,8 @@ import com.perfect.common.annotation.Excels;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.string.StringUtil;
 
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Excel相关处理
  * 
@@ -35,10 +37,17 @@ import com.perfect.common.utils.string.StringUtil;
 public class ExcelUtil<T> {
     private static final Logger log = LoggerFactory.getLogger(ExcelUtil.class);
 
+    public static final String EXCEL_SUFFIX= ".xlsx";
+
     /**
      * Excel sheet最大行数，默认65536
      */
     public static final int sheetSize = 65536;
+
+    /**
+     * 文件名称
+     */
+    private String fileName;
 
     /**
      * 工作表名称
@@ -74,26 +83,70 @@ public class ExcelUtil<T> {
         this.clazz = clazz;
     }
 
-    public void init(List<T> list, String sheetName) {
+    public void init(List<T> list, String sheetName, String fileName) {
         if (list == null) {
             list = new ArrayList<T>();
         }
         this.list = list;
         this.sheetName = sheetName;
+        this.fileName = fileName;
         createExcelField();
         createWorkbook();
     }
 
     /**
-     * 对list数据源将其里面的数据导入到excel表单
-     * 
-     * @param list 导出数据集合
-     * @param sheetName 工作表的名称
-     * @return 结果
+     * 下载文件
+     * @param serverFile 服务器端文件路径
+     * @param downLoadFile 下载文件的文件名
+     * @throws IOException
      */
-    public String exportExcel(List<T> list, String sheetName) {
-        this.init(list, sheetName);
-        return exportExcel();
+    public static void download(String serverFile,String downLoadFile, HttpServletResponse response) throws IOException {
+        /** 获取下载文件的路径 */
+        File file = new File(serverFile);
+        InputStream in = new FileInputStream(serverFile);
+        /** 获取输出流 */
+        OutputStream out = response.getOutputStream();
+
+        /** 设置导出文件名称 */
+        downLoadFile = downLoadFile + "_" + DateTimeUtil.dateTimeNow();
+        /** 弹出下载的框filename:提示用户下载的文件名 */
+        response.addHeader("content-disposition", "attachment;filename="+ URLEncoder.encode(downLoadFile,"utf-8"));
+        response.setContentType("application/octet-stream;charset=UTF-8");
+        response.setHeader("Content-Length", String.valueOf(file.length()));
+        log.debug("获取responseContentType：" + response.getContentType());
+         /** 循环读取 */
+        byte[] buff = new byte[1024];
+        int len = 0;
+        while ((len = in.read(buff)) > 0) {
+            out.write(buff,0,len);
+            out.flush();
+        }
+        //关闭流资源
+        in.close();
+        out.close();
+        //删除服务器端生成的下载文件,减轻服务器的压力
+//        File file = new File(serverFile);
+        if(file.exists()){
+            file.delete();
+        }
+    }
+    /**
+     * 对list数据源将其里面的数据导入到excel表单
+     * @param exportFileName
+     * @param sheetName
+     * @param dataList
+     * @param response
+     */
+    public void exportExcel(String exportFileName, String sheetName, List<T> dataList, HttpServletResponse response)
+        throws IOException {
+        this.init(dataList, sheetName, exportFileName);
+        exportExcel(response);
+    }
+
+    private void exportExcel(HttpServletResponse response) throws IOException {
+        String fileNamePath = doExport();
+        /**下载Excel文件*/
+        download(fileNamePath, this.fileName, response);
     }
 
     /**
@@ -101,7 +154,7 @@ public class ExcelUtil<T> {
      * 
      * @return 结果
      */
-    public String exportExcel() {
+    public String doExport() {
         OutputStream out = null;
         try {
             // 取出一共有多少个sheet.
@@ -119,10 +172,10 @@ public class ExcelUtil<T> {
                 }
                 fillExcelData(index, row);
             }
-            String filename = encodingFilename(sheetName);
-            out = new FileOutputStream(getAbsoluteFile(filename));
+            String tmpFilename = getAbsoluteFile(this.fileName);
+            out = new FileOutputStream(tmpFilename);
             wb.write(out);
-            return filename;
+            return tmpFilename;
         } catch (Exception e) {
             log.error("导出Excel异常{}", e.getMessage());
             throw new BusinessException("导出Excel失败，请联系网站管理员！");
@@ -336,48 +389,22 @@ public class ExcelUtil<T> {
     }
 
     /**
-     * 反向解析值 男=0,女=1,未知=2
-     * 
-     * @param propertyValue 参数值
-     * @param converterExp 翻译注解
-     * @return 解析后值
-     * @throws Exception
-     */
-    public static String reverseByExp(String propertyValue, String converterExp) throws Exception {
-        try {
-            String[] convertSource = converterExp.split(",");
-            for (String item : convertSource) {
-                String[] itemArray = item.split("=");
-                if (itemArray[1].equals(propertyValue)) {
-                    return itemArray[0];
-                }
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return propertyValue;
-    }
-
-    /**
-     * 编码文件名
-     */
-    public String encodingFilename(String filename) {
-        filename = UUID.randomUUID().toString() + "_" + filename + ".xlsx";
-        return filename;
-    }
-
-    /**
      * 获取下载路径
      * 
      * @param filename 文件名称
      */
-    public String getAbsoluteFile(String filename) {
-        String downloadPath = "" + filename;
-        File desc = new File(downloadPath);
-        if (!desc.getParentFile().exists()) {
-            desc.getParentFile().mkdirs();
-        }
-        return downloadPath;
+    public String getAbsoluteFile(String filename) throws IOException {
+        //生成UUID唯一标识，以防止文件覆盖
+        UUID uuid = UUID.randomUUID();
+        File tempFile = TempFile.createTempFile(uuid.toString()+filename, EXCEL_SUFFIX);
+        log.debug("生成临时文件，路径为:" + tempFile.getAbsolutePath());
+
+//        String downloadPath = "" + filename;
+//        File desc = new File(downloadPath);
+//        if (!desc.getParentFile().exists()) {
+//            desc.getParentFile().mkdirs();
+//        }
+        return tempFile.getAbsolutePath();
     }
 
 //    /**
