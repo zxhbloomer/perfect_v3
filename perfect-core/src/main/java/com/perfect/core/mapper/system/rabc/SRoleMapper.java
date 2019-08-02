@@ -3,7 +3,6 @@ package com.perfect.core.mapper.system.rabc;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.client.user.MUserEntity;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import org.apache.ibatis.annotations.Param;
@@ -35,13 +34,33 @@ public interface SRoleMapper extends BaseMapper<SRoleEntity> {
         + "  where (t.name        like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
         + "    and (t.code        like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null) "
         + "    and (t.simple_name like CONCAT ('%',#{p1.simpleName,jdbcType=VARCHAR},'%') or #{p1.simpleName,jdbcType=VARCHAR} is null) ")
-    IPage<SRoleEntity> getListPage(Page page, @Param("p1") SysRoleVo searchCondition );
+    IPage<SRoleEntity> selectPage(Page page, @Param("p1") SysRoleVo searchCondition );
 
+    /**
+     * 按条件获取所有数据，没有分页
+     * @param searchCondition
+     * @return
+     */
     @Select("   "
         + " select t.* "
         + "   from s_role t "
         + "  where (t.name        like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
         + "    and (t.code        like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null) "
         + "    and (t.simple_name like CONCAT ('%',#{p1.simpleName,jdbcType=VARCHAR},'%') or #{p1.simpleName,jdbcType=VARCHAR} is null) ")
-    List<SRoleEntity> getAllList(@Param("p1") SysRoleVo searchCondition );
+    List<SRoleEntity> select(@Param("p1") SysRoleVo searchCondition );
+
+    /**
+     * 没有分页，按id筛选条件
+     * @param searchCondition
+     * @return
+     */
+    @Select("<script>"
+        + " select t.* "
+        + "   from s_role t "
+        + "  where t.id in "
+        + "        <foreach collection='p1' item='item' index='index' open='(' separator=',' close=')'>"
+        + "         #{item.id}  "
+        + "        </foreach>"
+        + "  </script>")
+    List<SRoleEntity> selectIdsIn(@Param("p1") List<SysRoleVo> searchCondition );
 }

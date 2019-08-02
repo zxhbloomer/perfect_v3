@@ -21,10 +21,15 @@ public interface ISRoleService extends IService<SRoleEntity> {
     /**
      * 获取列表，页面查询
      */
-    IPage<SRoleEntity> getListPage(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException;
+    IPage<SRoleEntity> selectPage(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
      * 获取所有数据
      */
-    List<SRoleEntity> getAllList(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException;
+    List<SRoleEntity> select(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException;
+
+    /**
+     * 获取所选id的数据
+     */
+    List<SRoleEntity> selectIdsIn(List<SysRoleVo> searchCondition) throws InstantiationException, IllegalAccessException;
 }

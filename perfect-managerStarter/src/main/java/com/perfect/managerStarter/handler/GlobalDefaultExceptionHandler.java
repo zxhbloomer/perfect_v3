@@ -2,6 +2,7 @@ package com.perfect.managerstarter.handler;
 
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.common.exception.UpdateErrorException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author zxh
  */
 @ControllerAdvice
+@Slf4j
 public class GlobalDefaultExceptionHandler {
 
     /**
@@ -27,6 +29,7 @@ public class GlobalDefaultExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ResponseEntity<Object> defaultExceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception e){
+        log.error("错误信息：",e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                  ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                         e,
@@ -45,6 +48,7 @@ public class GlobalDefaultExceptionHandler {
     @ExceptionHandler(value = UpdateErrorException.class)
     @ResponseBody
     public ResponseEntity<Object> updateErrorExceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception e){
+        log.error("错误信息：",e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
             ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 e,

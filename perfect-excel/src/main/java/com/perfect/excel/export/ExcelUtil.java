@@ -5,14 +5,15 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
+import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.utils.DateTimeUtil;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
@@ -29,6 +30,8 @@ import com.perfect.common.utils.string.StringUtil;
 
 import javax.servlet.http.HttpServletResponse;
 
+import static com.perfect.common.constant.PerfectConstant.XLSX_SUFFIX;
+
 /**
  * Excel相关处理
  * 
@@ -36,8 +39,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ExcelUtil<T> {
     private static final Logger log = LoggerFactory.getLogger(ExcelUtil.class);
-
-    public static final String EXCEL_SUFFIX= ".xlsx";
 
     /**
      * Excel sheet最大行数，默认65536
@@ -108,11 +109,13 @@ public class ExcelUtil<T> {
         OutputStream out = response.getOutputStream();
 
         /** 设置导出文件名称 */
-        downLoadFile = downLoadFile + "_" + DateTimeUtil.dateTimeNow();
+        downLoadFile = downLoadFile + "_" + DateTimeUtil.dateTimeNow() + PerfectConstant.XLSX_SUFFIX;
+        downLoadFile = URLEncoder.encode(downLoadFile,"utf-8");
         /** 弹出下载的框filename:提示用户下载的文件名 */
-        response.addHeader("content-disposition", "attachment;filename="+ URLEncoder.encode(downLoadFile,"utf-8"));
+        response.addHeader("content-disposition", "attachment;filename="+ downLoadFile);
         response.setContentType("application/octet-stream;charset=UTF-8");
         response.setHeader("Content-Length", String.valueOf(file.length()));
+        response.setHeader("perfect-filename", downLoadFile);
         log.debug("获取responseContentType：" + response.getContentType());
          /** 循环读取 */
         byte[] buff = new byte[1024];
@@ -168,7 +171,7 @@ public class ExcelUtil<T> {
                 // 写入各个字段的列头名称
                 for (Object[] os : fields) {
                     Excel excel = (Excel)os[1];
-                    this.createCell(excel, row, column++);
+                    this.createRowHeadCell(excel, row, column++);
                 }
                 fillExcelData(index, row);
             }
@@ -207,9 +210,10 @@ public class ExcelUtil<T> {
         int startNo = index * sheetSize;
         int endNo = Math.min(startNo + sheetSize, list.size());
         // 写入各条记录,每条记录对应excel表中的一行
-        CellStyle cs = wb.createCellStyle();
-        cs.setAlignment(HorizontalAlignment.CENTER);
-        cs.setVerticalAlignment(VerticalAlignment.CENTER);
+//        CellStyle cs = wb.createCellStyle();
+//        cs.setAlignment(HorizontalAlignment.CENTER);
+//        cs.setVerticalAlignment(VerticalAlignment.CENTER);
+        CellStyle cs = createDetailStyle();
         for (int i = startNo; i < endNo; i++) {
             row = sheet.createRow(i + 1 - startNo);
             // 得到导出对象.
@@ -226,44 +230,45 @@ public class ExcelUtil<T> {
     }
 
     /**
-     * 创建单元格
+     * 创建head单元格
      */
-    public Cell createCell(Excel attr, Row row, int column) {
+    public Cell createRowHeadCell(Excel attr, Row row, int column) {
         // 创建列
         Cell cell = row.createCell(column);
         // 设置列中写入内容为String类型
         cell.setCellType(CellType.STRING);
         // 写入列名
         cell.setCellValue(attr.name());
-        CellStyle cellStyle = createStyle(attr, row, column);
+        CellStyle cellStyle = createHeadStyle(attr, row, column);
         cell.setCellStyle(cellStyle);
         return cell;
     }
 
     /**
-     * 创建表格样式
+     * 创建head表格样式
      */
-    public CellStyle createStyle(Excel attr, Row row, int column) {
+    public CellStyle createHeadStyle(Excel attr, Row row, int column) {
         CellStyle cellStyle = wb.createCellStyle();
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-        if (attr.name().indexOf("注：") >= 0) {
-            Font font = wb.createFont();
-            font.setColor(HSSFFont.COLOR_RED);
-            cellStyle.setFont(font);
-            cellStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
-            sheet.setColumnWidth(column, 6000);
-        } else {
-            Font font = wb.createFont();
-            // 粗体显示
-            font.setBold(true);
-            // 选择需要用到的字体格式
-            cellStyle.setFont(font);
-            cellStyle.setFillForegroundColor(HSSFColorPredefined.LIGHT_YELLOW.getIndex());
-            // 设置列宽
-            sheet.setColumnWidth(column, (int)((attr.width() + 0.72) * 256));
-            row.setHeight((short)(attr.height() * 20));
-        }
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+
+        Font font = wb.createFont();
+        font.setFontName("微软雅黑");
+        // 粗体显示
+        font.setBold(true);
+        font.setColor(IndexedColors.WHITE.index);
+        // 选择需要用到的字体格式
+        cellStyle.setFont(font);
+        cellStyle.setFillForegroundColor(IndexedColors.ROYAL_BLUE.index);
+        cellStyle.setFillBackgroundColor(IndexedColors.GREY_40_PERCENT.index);
+        // 设置列宽
+        sheet.setColumnWidth(column, (int)((attr.width() + 0.72) * 256));
+        row.setHeight((short)(attr.height() * 20));
+
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyle.setWrapText(true);
         // 如果设置了提示信息则鼠标放上去提示.
@@ -271,11 +276,31 @@ public class ExcelUtil<T> {
             // 这里默认设了2-101列提示.
             setXSSFPrompt(sheet, "", attr.prompt(), 1, 100, column, column);
         }
-        // 如果设置了combo属性则本列只能选择不能输入
-//        if (attr.combo().length > 0) {
-//            // 这里默认设了2-101列只能选择不能输入.
-//            setXSSFValidation(sheet, attr.combo(), 1, 100, column, column);
-//        }
+        return cellStyle;
+    }
+
+    /**
+     * 创建head表格样式
+     */
+    public CellStyle createDetailStyle() {
+        CellStyle cellStyle = wb.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+
+        Font font = wb.createFont();
+        font.setFontName("微软雅黑");
+        // 粗体显示
+//        font.setBold(true);
+//        font.setColor(IndexedColors.WHITE.index);
+        // 选择需要用到的字体格式
+        cellStyle.setFont(font);
+
+//        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cellStyle.setWrapText(true);
         return cellStyle;
     }
 
@@ -294,23 +319,33 @@ public class ExcelUtil<T> {
                 cell.setCellStyle(cs);
 
                 // 用于读取对象中的属性
-//                Object value = getTargetValue(vo, field, attr);
+                Object value = getTargetValue(vo, field);
                 String dateFormat = attr.dateFormat();
-//                String readConverterExp = attr.readConverterExp();
-//                if (StringUtil.isNotEmpty(dateFormat) && StringUtil.isNotNull(value)) {
-//                    cell.setCellValue(DateTimeUtil.parseDateToStr(dateFormat, (Date)value));
-//                } else if (StringUtil.isNotEmpty(readConverterExp) && StringUtil.isNotNull(value)) {
-//                    cell.setCellValue(convertByExp(String.valueOf(value), readConverterExp));
-//                } else {
-//                    cell.setCellType(CellType.STRING);
-//                    // 如果数据存在就填入,不存在填入空格.
-//                    cell.setCellValue(StringUtil.isNull(value) ? attr.defaultValue() : value + attr.suffix());
-//                }
+                if (StringUtil.isNotEmpty(dateFormat) && StringUtil.isNotNull(value)) {
+                    cell.setCellValue(DateTimeUtil.parseDateToStr(dateFormat, (Date)value));
+                } else {
+                    cell.setCellType(CellType.STRING);
+                    // 如果数据存在就填入,不存在填入空格.
+                    cell.setCellValue(StringUtil.isNull(value) ? attr.defaultValue() : value + attr.suffix());
+                }
             }
         } catch (Exception e) {
             log.error("导出Excel失败{}", e);
         }
         return cell;
+    }
+
+    /**
+     * 获取bean中的属性值
+     *
+     * @param vo 实体对象
+     * @param field 字段
+     * @return 最终的属性值
+     * @throws Exception
+     */
+    private Object getTargetValue(T vo, Field field) throws Exception {
+        Object o = field.get(vo);
+        return o;
     }
 
     /**
@@ -336,59 +371,6 @@ public class ExcelUtil<T> {
     }
 
     /**
-     * 设置某些列的值只能输入预制的数据,显示下拉框.
-     * 
-     * @param sheet 要设置的sheet.
-     * @param textlist 下拉框显示的内容
-     * @param firstRow 开始行
-     * @param endRow 结束行
-     * @param firstCol 开始列
-     * @param endCol 结束列
-     * @return 设置好的sheet.
-     */
-    public void setXSSFValidation(Sheet sheet, String[] textlist, int firstRow, int endRow, int firstCol, int endCol) {
-        DataValidationHelper helper = sheet.getDataValidationHelper();
-        // 加载下拉列表内容
-        DataValidationConstraint constraint = helper.createExplicitListConstraint(textlist);
-        // 设置数据有效性加载在哪个单元格上,四个参数分别是：起始行、终止行、起始列、终止列
-        CellRangeAddressList regions = new CellRangeAddressList(firstRow, endRow, firstCol, endCol);
-        // 数据有效性对象
-        DataValidation dataValidation = helper.createValidation(constraint, regions);
-        // 处理Excel兼容性问题
-        if (dataValidation instanceof XSSFDataValidation) {
-            dataValidation.setSuppressDropDownArrow(true);
-            dataValidation.setShowErrorBox(true);
-        } else {
-            dataValidation.setSuppressDropDownArrow(false);
-        }
-
-        sheet.addValidationData(dataValidation);
-    }
-
-    /**
-     * 解析导出值 0=男,1=女,2=未知
-     * 
-     * @param propertyValue 参数值
-     * @param converterExp 翻译注解
-     * @return 解析后值
-     * @throws Exception
-     */
-    public static String convertByExp(String propertyValue, String converterExp) throws Exception {
-        try {
-            String[] convertSource = converterExp.split(",");
-            for (String item : convertSource) {
-                String[] itemArray = item.split("=");
-                if (itemArray[0].equals(propertyValue)) {
-                    return itemArray[1];
-                }
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return propertyValue;
-    }
-
-    /**
      * 获取下载路径
      * 
      * @param filename 文件名称
@@ -396,7 +378,7 @@ public class ExcelUtil<T> {
     public String getAbsoluteFile(String filename) throws IOException {
         //生成UUID唯一标识，以防止文件覆盖
         UUID uuid = UUID.randomUUID();
-        File tempFile = TempFile.createTempFile(uuid.toString()+filename, EXCEL_SUFFIX);
+        File tempFile = TempFile.createTempFile(uuid.toString()+filename, PerfectConstant.XLSX_SUFFIX);
         log.debug("生成临时文件，路径为:" + tempFile.getAbsolutePath());
 
 //        String downloadPath = "" + filename;
@@ -406,31 +388,6 @@ public class ExcelUtil<T> {
 //        }
         return tempFile.getAbsolutePath();
     }
-
-//    /**
-//     * 获取bean中的属性值
-//     *
-//     * @param vo 实体对象
-//     * @param field 字段
-//     * @param excel 注解
-//     * @return 最终的属性值
-//     * @throws Exception
-//     */
-//    private Object getTargetValue(T vo, Field field, Excel excel) throws Exception {
-//        Object o = field.get(vo);
-//        if (StringUtil.isNotEmpty(excel.targetAttr())) {
-//            String target = excel.targetAttr();
-//            if (target.indexOf(".") > -1) {
-//                String[] targets = target.split("[.]");
-//                for (String name : targets) {
-//                    o = getValue(o, name);
-//                }
-//            } else {
-//                o = getValue(o, target);
-//            }
-//        }
-//        return o;
-//    }
 
     /**
      * 以类的属性的get方法方法形式获取值

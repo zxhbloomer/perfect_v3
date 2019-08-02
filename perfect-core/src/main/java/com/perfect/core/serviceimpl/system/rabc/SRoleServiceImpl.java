@@ -37,12 +37,12 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
      * @throws IllegalAccessException
      */
     @Override
-    public IPage<SRoleEntity> getListPage(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException {
+    public IPage<SRoleEntity> selectPage(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException {
         // 分页条件
         Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
         PageUtil.setSort(pageCondition, SRoleEntity.class, searchCondition.getPageCondition().getSort());
-        return sRoleMapper.getListPage(pageCondition, searchCondition);
+        return sRoleMapper.selectPage(pageCondition, searchCondition);
     }
 
     /**
@@ -52,11 +52,27 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    @Override public List<SRoleEntity> getAllList(SysRoleVo searchCondition)
+    @Override public List<SRoleEntity> select(SysRoleVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         // 查询 数据
-        List<SRoleEntity> list =sRoleMapper.getAllList(searchCondition);
+        List<SRoleEntity> list =sRoleMapper.select(searchCondition);
         return list;
     }
+
+    /**
+     * 获取列表，根据id查询所有数据
+     * @param searchCondition
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    @Override
+    public List<SRoleEntity> selectIdsIn(List<SysRoleVo> searchCondition)
+        throws InstantiationException, IllegalAccessException {
+        // 查询 数据
+        List<SRoleEntity> list =sRoleMapper.selectIdsIn(searchCondition);
+        return list;
+    }
+
 
 }
