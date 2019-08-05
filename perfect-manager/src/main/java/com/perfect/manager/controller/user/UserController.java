@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author zxh
+ */
 @RestController
 @RequestMapping(value = "/api/v1/user")
 @Slf4j

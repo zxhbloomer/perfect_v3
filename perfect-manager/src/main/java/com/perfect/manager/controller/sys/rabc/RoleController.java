@@ -28,11 +28,11 @@ import com.perfect.core.service.system.rabc.ISRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,6 +46,9 @@ public class RoleController extends BaseController {
 
     @Autowired
     private ISRoleService isRoleService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @SysLog("根据参数id，获取角色信息")
     @ApiOperation("根据参数id，获取角色信息")
@@ -68,15 +71,6 @@ public class RoleController extends BaseController {
         IPage<SRoleEntity> sRoleEntity = isRoleService.selectPage(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
     }
-//    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SysRoleVo searchCondition)
-//        throws InstantiationException, IllegalAccessException {
-//        // 分页条件
-//        Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
-//        // 通过page进行排序
-//        PageUtil.setSort(pageCondition, SRoleEntity.class, searchCondition.getSort());
-//        IPage<SRoleEntity> sRoleEntity = isRoleService.page(pageCondition);
-//        return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
-//    }
 
     @SysLog("角色数据更新保存")
     @ApiOperation("根据参数id，获取角色信息")
@@ -90,7 +84,7 @@ public class RoleController extends BaseController {
         }
     }
 
-    @SysLog("角色数据更新保存")
+    @SysLog("角色数据新增保存")
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/insert")
     @ResponseBody
@@ -124,5 +118,14 @@ public class RoleController extends BaseController {
         List<SRoleExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
         ExcelUtil<SRoleExportVo> util = new ExcelUtil<>(SRoleExportVo.class);
         util.exportExcel("角色数据导出", "角色数据", rtnList, response);
+    }
+
+    @SysLog("角色数据导入")
+    @ApiOperation("角色数据模板导入")
+    @PostMapping("/upload")
+    public void upload(@RequestParam MultipartFile file,
+        HttpServletResponse response)
+        throws IllegalAccessException, InstantiationException, IOException {
+        System.out.println("xxxx");
     }
 }
