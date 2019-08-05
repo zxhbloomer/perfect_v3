@@ -1,35 +1,25 @@
 package com.perfect.manager.controller.sys.rabc;
 
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.perfect.bean.result.v1.ResultUtil;
-import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
-import com.perfect.common.utils.bean.BeanUtilsSupport;
-import com.perfect.core.utils.mybatis.PageUtil;
-import com.perfect.core.utils.mybatis.QueryWrapperUtil;
-import com.perfect.excel.export.ExcelUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.pojo.JSONResult;
+import com.perfect.bean.result.v1.ResultUtil;
+import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.base.controller.v1.BaseController;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
+import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.system.rabc.ISRoleService;
-
+import com.perfect.excel.export.ExcelUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -99,7 +89,7 @@ public class RoleController extends BaseController {
     @SysLog("角色数据导出")
     @ApiOperation("根据选择的数据，角色数据导出")
     @PostMapping("/export_all")
-    public void export(@RequestBody(required = false) SysRoleVo searchCondition, HttpServletResponse response)
+    public void exportAll(@RequestBody(required = false) SysRoleVo searchCondition, HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
         // List<SRoleExportVo> rtnList = new ArrayList<>();
         List<SRoleEntity> searchResult = isRoleService.select(searchCondition);
@@ -111,7 +101,7 @@ public class RoleController extends BaseController {
     @SysLog("角色数据导出")
     @ApiOperation("根据选择的数据，角色数据导出")
     @PostMapping("/export_selection")
-    public void export(@RequestBody(required = false) List<SysRoleVo> searchConditionList,
+    public void exportSelection(@RequestBody(required = false) List<SysRoleVo> searchConditionList,
         HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
         List<SRoleEntity> searchResult = isRoleService.selectIdsIn(searchConditionList);
@@ -122,10 +112,18 @@ public class RoleController extends BaseController {
 
     @SysLog("角色数据导入")
     @ApiOperation("角色数据模板导入")
-    @PostMapping("/upload")
-    public void upload(@RequestParam MultipartFile file,
-        HttpServletResponse response)
-        throws IllegalAccessException, InstantiationException, IOException {
-        System.out.println("xxxx");
+    @PostMapping("/import")
+    public void importData(@RequestBody(required = false) SysRoleVo uploadData,
+        HttpServletResponse response){
+
+        // file bean 保存数据库
+
+        // 文件下载
+
+        // 文件分析
+
+        // 文件导入
+
+        System.out.println("uploadData");
     }
 }

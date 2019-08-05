@@ -198,8 +198,9 @@ public class JxlExcelWriter extends JxlExcel {
             Cell[] cells = sheet.getColumn(i);
             int longestStrLen = -1;
 
-            if (cells.length == 0)
+            if (cells.length == 0) {
                 continue;
+            }
 
 			/* Find the widest cell in the column. */
             for (Cell cell : cells) {
@@ -211,12 +212,14 @@ public class JxlExcelWriter extends JxlExcel {
             }
 
 			/* If not found, skip the column. */
-            if (longestStrLen == -1)
+            if (longestStrLen == -1) {
                 continue;
+            }
 
 			/* If wider than the max width, crop width */
-            if (longestStrLen > 255)
+            if (longestStrLen > 255) {
                 longestStrLen = 255;
+            }
             /*
              * resize it.
 			 */
