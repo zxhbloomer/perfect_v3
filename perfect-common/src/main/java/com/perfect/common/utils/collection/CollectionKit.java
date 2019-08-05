@@ -1,4 +1,4 @@
-package com.perfect.core.datascope;
+package com.perfect.common.utils.collection;
 
 
 import java.lang.reflect.Array;

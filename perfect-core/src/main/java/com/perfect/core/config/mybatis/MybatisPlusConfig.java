@@ -3,6 +3,8 @@ package com.perfect.core.config.mybatis;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
+import com.perfect.core.config.mybatis.plugin.datascope.DataScopeInterceptor;
+import com.perfect.core.config.mybatis.plugin.autofill.MyBatisAutoFillHandel;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -42,5 +44,13 @@ public class MybatisPlusConfig  {
     @Bean
     public MetaObjectHandler commonFieldFillHandler() {
         return new MyBatisAutoFillHandel();
+    }
+
+    /**
+     * 数据范围mybatis插件,数据权限
+     */
+    @Bean
+    public DataScopeInterceptor dataScopeInterceptor() {
+        return new DataScopeInterceptor();
     }
 }

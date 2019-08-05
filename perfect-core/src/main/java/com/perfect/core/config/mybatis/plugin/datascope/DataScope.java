@@ -1,9 +1,9 @@
-package com.perfect.core.datascope;
+package com.perfect.core.config.mybatis.plugin.datascope;
 
 import java.util.List;
 
 /**
- * 数据范围
+ * 数据范围，数据权限Bean
  *
  * @author zxh
  */

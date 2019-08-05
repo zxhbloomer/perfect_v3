@@ -1,4 +1,4 @@
-package com.perfect.core.config.mybatis;
+package com.perfect.core.config.mybatis.plugin.autofill;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.perfect.core.utils.security.SecurityUtil;

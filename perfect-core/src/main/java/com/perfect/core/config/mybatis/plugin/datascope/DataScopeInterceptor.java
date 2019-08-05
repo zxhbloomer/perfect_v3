@@ -1,4 +1,4 @@
-package com.perfect.core.datascope;
+package com.perfect.core.config.mybatis.plugin.datascope;
 
 
 import java.sql.Connection;
@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.perfect.common.utils.collection.CollectionKit;
+import com.perfect.core.config.mybatis.plugin.datascope.DataScope;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -17,7 +19,7 @@ import org.apache.ibatis.reflection.SystemMetaObject;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 
 /**
- * 数据范围的拦截器
+ * 数据范围的拦截器，数据权限
  *
  * @author zxh
  */

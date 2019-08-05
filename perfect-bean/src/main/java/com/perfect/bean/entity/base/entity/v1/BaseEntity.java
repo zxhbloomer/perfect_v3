@@ -44,29 +44,32 @@ public class BaseEntity<T> {
     /** 数据权限_租户 */
     @Getter
     @Setter
+    @TableField(exist = false)
     private Long authorityTenant;
 
     /** 数据权限_角色 */
     @Getter
     @Setter
+    @TableField(exist = false)
     private Long authorityRole;
 
     /** 数据权限_个人 */
     @Getter
     @Setter
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT,exist = false)
     private Long authorityUser;
 
     /** 数据权限_组织 */
     @Getter
     @Setter
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT,exist = false)
     private Long authorityOrg;
 
     /** 数据范围（1：所有数据权限；2：自定义数据权限；3：本部门数据权限；4：本部门及以下数据权限） */
     @Getter
     @Setter
 //    @Excel(name = "数据范围", readConverterExp = "1=所有数据权限,2=自定义数据权限,3=本部门数据权限,4=本部门及以下数据权限")
+    @TableField(exist = false)
     private String dataScope;
 
     /**
