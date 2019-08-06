@@ -10,8 +10,9 @@ import com.perfect.common.utils.string.StringUtil;
 public abstract class BaseConvertor implements Convertor {
     @Override
     public String convert(Object input) {
-        if (isEmptyObj(input))
+        if (isEmptyObj(input)) {
             return "";
+        }
         return doConvert(input);
     }
 

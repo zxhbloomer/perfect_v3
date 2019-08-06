@@ -1,5 +1,6 @@
 package com.perfect.excel.bean.importconfig.template.row;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.perfect.excel.bean.importconfig.template.col.DataCol;
 import lombok.Getter;
 import java.io.Serializable;
@@ -18,6 +19,7 @@ public class DataRow implements Serializable {
      * 列数据
      */
     @Getter
+    @JSONField
     private List<DataCol> dataCols = new ArrayList<DataCol>();
 
     /**
