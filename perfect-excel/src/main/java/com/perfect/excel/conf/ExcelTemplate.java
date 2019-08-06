@@ -3,6 +3,10 @@ package com.perfect.excel.conf;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * excel模板配置类
+ * @author zxh
+ */
 public class ExcelTemplate {
 
     private List<TitleRow> titleRows = new ArrayList<TitleRow>();
