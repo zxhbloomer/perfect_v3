@@ -1,4 +1,4 @@
-package com.perfect.excel.bean.importconfig.template.col;
+package com.perfect.excel.bean.importconfig.template.title;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Getter;

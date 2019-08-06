@@ -1,7 +1,6 @@
-package com.perfect.excel.bean.importconfig.template.row;
+package com.perfect.excel.bean.importconfig.template.title;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.perfect.excel.bean.importconfig.template.col.TitleCol;
 import com.perfect.excel.conf.DummyTitleCol;
 import lombok.Getter;
 

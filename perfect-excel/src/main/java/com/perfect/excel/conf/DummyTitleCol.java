@@ -1,6 +1,6 @@
 package com.perfect.excel.conf;
 
-import com.perfect.excel.bean.importconfig.template.col.TitleCol;
+import com.perfect.excel.bean.importconfig.template.title.TitleCol;
 
 /**
  * @author zxh

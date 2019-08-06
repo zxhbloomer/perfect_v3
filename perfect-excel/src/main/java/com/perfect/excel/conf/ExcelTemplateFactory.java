@@ -1,10 +1,10 @@
 package com.perfect.excel.conf;
 
 import com.perfect.common.utils.string.StringUtil;
-import com.perfect.excel.bean.importconfig.template.col.DataCol;
-import com.perfect.excel.bean.importconfig.template.row.DataRow;
+import com.perfect.excel.bean.importconfig.template.data.DataCol;
+import com.perfect.excel.bean.importconfig.template.data.DataRow;
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
-import com.perfect.excel.bean.importconfig.template.row.TitleRow;
+import com.perfect.excel.bean.importconfig.template.title.TitleRow;
 import com.perfect.excel.conf.validator.Validator;
 import com.perfect.excel.conf.validator.ValidatorUtil;
 import com.perfect.excel.upload.JxlExcelException;

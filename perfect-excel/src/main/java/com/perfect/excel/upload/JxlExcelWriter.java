@@ -1,8 +1,8 @@
 package com.perfect.excel.upload;
 
-import com.perfect.excel.bean.importconfig.template.col.DataCol;
-import com.perfect.excel.bean.importconfig.template.col.TitleCol;
-import com.perfect.excel.bean.importconfig.template.row.TitleRow;
+import com.perfect.excel.bean.importconfig.template.data.DataCol;
+import com.perfect.excel.bean.importconfig.template.title.TitleCol;
+import com.perfect.excel.bean.importconfig.template.title.TitleRow;
 import com.perfect.excel.conf.convertor.ConvertorUtil;
 import jxl.Cell;
 import jxl.Workbook;

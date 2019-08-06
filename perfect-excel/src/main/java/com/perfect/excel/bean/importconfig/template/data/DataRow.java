@@ -1,7 +1,6 @@
-package com.perfect.excel.bean.importconfig.template.row;
+package com.perfect.excel.bean.importconfig.template.data;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.perfect.excel.bean.importconfig.template.col.DataCol;
 import lombok.Getter;
 import java.io.Serializable;
 import java.util.ArrayList;

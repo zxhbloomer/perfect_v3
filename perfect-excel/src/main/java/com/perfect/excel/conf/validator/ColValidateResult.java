@@ -1,6 +1,6 @@
 package com.perfect.excel.conf.validator;
 
-import com.perfect.excel.bean.importconfig.template.col.DataCol;
+import com.perfect.excel.bean.importconfig.template.data.DataCol;
 
 /**
  * Created by gordian on 2016/1/12.

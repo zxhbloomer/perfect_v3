@@ -2,7 +2,7 @@ package com.perfect.excel.upload;
 
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
 import com.perfect.excel.conf.ExcelTemplateFactory;
-import com.perfect.excel.bean.importconfig.template.row.TitleRow;
+import com.perfect.excel.bean.importconfig.template.title.TitleRow;
 
 import java.util.List;
 

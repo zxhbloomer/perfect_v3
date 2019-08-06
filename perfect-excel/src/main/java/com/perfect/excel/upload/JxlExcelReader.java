@@ -1,10 +1,10 @@
 package com.perfect.excel.upload;
 
 import com.perfect.common.utils.string.StringUtil;
-import com.perfect.excel.bean.importconfig.template.col.DataCol;
+import com.perfect.excel.bean.importconfig.template.data.DataCol;
 import com.perfect.excel.conf.DummyTitleCol;
-import com.perfect.excel.bean.importconfig.template.col.TitleCol;
-import com.perfect.excel.bean.importconfig.template.row.TitleRow;
+import com.perfect.excel.bean.importconfig.template.title.TitleCol;
+import com.perfect.excel.bean.importconfig.template.title.TitleRow;
 import com.perfect.excel.conf.convertor.ConvertorUtil;
 import com.perfect.excel.conf.validator.ColValidateResult;
 import com.perfect.excel.conf.validator.RowValidateResult;
@@ -14,9 +14,6 @@ import jxl.read.biff.BiffException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;

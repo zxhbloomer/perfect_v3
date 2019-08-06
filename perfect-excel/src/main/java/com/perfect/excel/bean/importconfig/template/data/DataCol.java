@@ -1,4 +1,4 @@
-package com.perfect.excel.bean.importconfig.template.col;
+package com.perfect.excel.bean.importconfig.template.data;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.perfect.excel.bean.importconfig.template.validator.ValidatorBean;
@@ -46,7 +46,6 @@ public class DataCol implements Serializable {
     @Setter
     @JSONField
     private List<ValidatorBean> listValiDatorBean;
-
 
     /**
      * check类

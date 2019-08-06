@@ -23,6 +23,9 @@ public class Convertors {
         return instance;
     }
 
+    /**
+     * map名称就是使用名称
+     */
     private void initDefaultConvertors() {
         convertorMap.put("date", new DateConvertor());
         convertorMap.put("datetime", new DateTimeConvertor());
