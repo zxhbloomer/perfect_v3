@@ -1,6 +1,10 @@
 package com.perfect.excel.conf;
 
 import com.perfect.common.utils.string.StringUtil;
+import com.perfect.excel.bean.importconfig.template.col.DataCol;
+import com.perfect.excel.bean.importconfig.template.row.DataRow;
+import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
+import com.perfect.excel.bean.importconfig.template.row.TitleRow;
 import com.perfect.excel.conf.validator.Validator;
 import com.perfect.excel.conf.validator.ValidatorUtil;
 import com.perfect.excel.upload.JxlExcelException;
@@ -24,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * excel模板工厂类
  * @author zhangxh
  */
 public class ExcelTemplateFactory {

@@ -1,7 +1,11 @@
 package com.perfect.excel.conf.validator;
 
 /**
- * Created by gordian on 2016/1/11.
+ *
+ * validator工具类
+ *
+ * @author zxh
+ * @date 2019/1/11
  */
 public class ValidatorUtil {
 

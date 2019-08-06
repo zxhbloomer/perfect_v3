@@ -6,10 +6,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by gordian on 2016/1/11.
+ *
+ * validators 类
+ *
+ * @author zxh
+ * @date 2019/1/11
  */
 public class Validators {
+
     private static Validators instance = null;
+
     private Map<String, Class> validatorMap = new HashMap<String, Class>();
 
     private Validators() {
@@ -23,6 +29,9 @@ public class Validators {
         return instance;
     }
 
+    /**
+     * 初始化所有的validator
+     */
     private void initDefaultValidators() {
         validatorMap.put("num", NumValidator.class);
         validatorMap.put("min", MinValidator.class);
@@ -39,6 +48,11 @@ public class Validators {
         validatorMap.put("datetime", DateTimeValidator.class);
     }
 
+    /**
+     * 获取相应的validator
+     * @param name
+     * @return
+     */
     public Validator getValidator(String name) {
         if (!validatorMap.containsKey(name)) {
             throw new IllegalArgumentException(String.format("Validator:%s不存在", name));
@@ -52,6 +66,11 @@ public class Validators {
         }
     }
 
+    /**
+     * 注册validator到map中
+     * @param name
+     * @param clasz
+     */
     public void registValidator(String name, Class clasz) {
         if (validatorMap.containsKey(name)) {
             throw new IllegalArgumentException(String.format("Validator:%s已存在", name));

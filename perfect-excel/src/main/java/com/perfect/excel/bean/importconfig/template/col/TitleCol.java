@@ -1,0 +1,40 @@
+package com.perfect.excel.bean.importconfig.template.col;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * 标题模板：列
+ * @author zhangxh
+ */
+public class TitleCol {
+
+    /**
+     * 列名
+     */
+    @Getter @Setter
+	private String title;
+    /**
+     * 列跨度
+     */
+	@Getter @Setter
+	private int colSpan = 1;
+
+	/**
+	 * 构造函数
+	 * @param title
+	 */
+	public TitleCol(String title) {
+		this(title, 1);
+	}
+
+	/**
+	 * 构造函数
+	 * @param title
+	 * @param colSpan
+	 */
+	public TitleCol(String title, int colSpan) {
+		this.colSpan = colSpan;
+		this.title = title;
+	}
+}

@@ -3,7 +3,11 @@ package com.perfect.excel.conf.validator;
 import com.perfect.common.utils.string.StringUtil;
 
 /**
- * Created by gordian on 2016/1/5.
+ *
+ * validator 类
+ *
+ * @author zxh
+ * @date 2016/1/5
  */
 public abstract class Validator {
 
@@ -11,6 +15,11 @@ public abstract class Validator {
 
     protected String defaultMsg;
 
+    /**
+     * 抽象方法，验证
+     * @param input
+     * @return
+     */
     public abstract boolean validate(String input);
 
     public String getErrorMsg() {

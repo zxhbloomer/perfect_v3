@@ -1,6 +1,7 @@
 package com.perfect.excel.upload;
 
 /**
+ * 异常类
  * @author zxh
  */
 public class JxlExcelException extends RuntimeException {

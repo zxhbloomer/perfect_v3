@@ -1,16 +1,17 @@
 package com.perfect.excel.upload;
 
-import com.perfect.excel.conf.DataCol;
+import com.perfect.common.utils.string.StringUtil;
+import com.perfect.excel.bean.importconfig.template.col.DataCol;
 import com.perfect.excel.conf.DummyTitleCol;
-import com.perfect.excel.conf.TitleCol;
-import com.perfect.excel.conf.TitleRow;
+import com.perfect.excel.bean.importconfig.template.col.TitleCol;
+import com.perfect.excel.bean.importconfig.template.row.TitleRow;
 import com.perfect.excel.conf.convertor.ConvertorUtil;
 import com.perfect.excel.conf.validator.ColValidateResult;
 import com.perfect.excel.conf.validator.RowValidateResult;
-import com.perfect.excel.upload.JxlExcel;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
@@ -25,32 +26,55 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * excel导入类
  * @author zxh
  */
+@Slf4j
 public class JxlExcelReader extends JxlExcel {
-
-    private static Log logger = LogFactory.getLog(JxlExcelReader.class);
 
     private InputStream is;
 
     private List<RowValidateResult> rowValidateResults = new ArrayList<RowValidateResult>();
 
+    /**
+     * 读取文件
+     * @param excelFile
+     * @throws FileNotFoundException
+     */
     public JxlExcelReader(File excelFile) throws FileNotFoundException {
         this(new FileInputStream(excelFile));
     }
 
+    /**
+     * 读取流
+     * @param is
+     */
     public JxlExcelReader(InputStream is) {
         this.is = is;
     }
 
+    /**
+     * 数据是否有异常
+     * @return
+     */
     public boolean isDataValid() {
         return rowValidateResults.size() == 0;
     }
 
+    /**
+     * 返回异常数据
+     * @return
+     */
     public List<RowValidateResult> getRowValidateResults() {
         return rowValidateResults;
     }
 
+    /**
+     * 读取后，泛型返回
+     * @param clasz
+     * @param <T>
+     * @return
+     */
     public <T> List<T> readBeans(final Class<T> clasz) {
         return read(new ReadPolicy<T>() {
             @Override
@@ -78,6 +102,10 @@ public class JxlExcelReader extends JxlExcel {
         });
     }
 
+    /**
+     * 读取后，以数组方式来返回
+     * @return
+     */
     public List<String[]> readArrays() {
         return read(new ReadPolicy<String[]>() {
             @Override
@@ -87,12 +115,15 @@ public class JxlExcelReader extends JxlExcel {
 
             @Override
             protected void setColData(String[] rowData, DataCol dataCol, Object colDataVal) {
-                rowData[dataCol.getColIndex()] = ObjectUtils.toString(colDataVal);
+                rowData[dataCol.getColIndex()] = StringUtil.toString(colDataVal);
             }
-
         });
     }
 
+    /**
+     * 读取后，以List<Map>方式来返回
+     * @return
+     */
     public List<Map<String, Object>> readMaps() {
         return read(new ReadPolicy<Map<String, Object>>() {
             @Override
@@ -107,6 +138,12 @@ public class JxlExcelReader extends JxlExcel {
         });
     }
 
+    /**
+     * 以 读取策略方式来进行读取，这个是的核心
+     * @param readPolicy
+     * @param <T>
+     * @return
+     */
     private <T> List<T> read(ReadPolicy<T> readPolicy) {
         checkTemplate();
         Workbook wb;
@@ -126,7 +163,25 @@ public class JxlExcelReader extends JxlExcel {
         }
     }
 
+    /**
+     * 获取读取excel的策略，并执行策略（check）
+     * @param <T>
+     */
     abstract class ReadPolicy<T> {
+        /**
+         * 设置列数据
+         * @param rowData
+         * @param dataCol
+         * @param colDataVal
+         */
+        protected abstract void setColData(T rowData, DataCol dataCol, Object colDataVal);
+
+        /**
+         * 新的一行数据
+         * @return
+         */
+        protected abstract T newRowData();
+
         List<T> readDatasFromSheet(Sheet sheet) {
             List<T> datas = new ArrayList<T>();
             for (int row = excelTemplate.getDataRowIndex(); row < sheet
@@ -169,10 +224,10 @@ public class JxlExcelReader extends JxlExcel {
             return datas;
         }
 
-        protected abstract void setColData(T rowData, DataCol dataCol, Object colDataVal);
-
-        protected abstract T newRowData();
-
+        /**
+         * 检查模板和excel是否匹配
+         * @param sheet
+         */
         void checkTemplateTitles(Sheet sheet) {
             if (sheet.getColumns() != excelTemplate.getColSize()) {
                 throw new JxlExcelException(String.format(

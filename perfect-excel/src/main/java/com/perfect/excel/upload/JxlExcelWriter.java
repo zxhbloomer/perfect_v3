@@ -1,8 +1,8 @@
 package com.perfect.excel.upload;
 
-import com.perfect.excel.conf.DataCol;
-import com.perfect.excel.conf.TitleCol;
-import com.perfect.excel.conf.TitleRow;
+import com.perfect.excel.bean.importconfig.template.col.DataCol;
+import com.perfect.excel.bean.importconfig.template.col.TitleCol;
+import com.perfect.excel.bean.importconfig.template.row.TitleRow;
 import com.perfect.excel.conf.convertor.ConvertorUtil;
 import jxl.Cell;
 import jxl.Workbook;
@@ -25,6 +25,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * excel导出，主要是负责把错误信息导出到excel中
+ */
 public class JxlExcelWriter extends JxlExcel {
 
     private OutputStream os;
