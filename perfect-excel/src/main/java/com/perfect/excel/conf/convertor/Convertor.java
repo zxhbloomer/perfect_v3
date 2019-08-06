@@ -1,7 +1,9 @@
 package com.perfect.excel.conf.convertor;
 
 /**
- * Created by gordian on 2016/1/10.
+ *
+ * @author zxh
+ * @date 2019/8/10
  */
 public interface Convertor {
     public String convert(Object input);

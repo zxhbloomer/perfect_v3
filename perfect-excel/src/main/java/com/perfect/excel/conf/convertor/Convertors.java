@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by gordian on 2016/1/10.
+ *
+ * @author zxh
+ * @date 2019/8/10
  */
 public class Convertors {
     private static Convertors instance = null;

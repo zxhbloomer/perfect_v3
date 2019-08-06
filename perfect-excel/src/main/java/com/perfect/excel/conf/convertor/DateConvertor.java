@@ -10,6 +10,7 @@ import java.util.Date;
 /**
  *
  * @author zxh
+ * @date 2019/8/10
  */
 public class DateConvertor extends BaseConvertor {
     public static final String DATE = "yyyy-MM-dd";

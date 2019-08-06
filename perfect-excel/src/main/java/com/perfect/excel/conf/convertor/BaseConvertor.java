@@ -4,8 +4,8 @@ import com.perfect.common.utils.string.StringUtil;
 
 /**
  *
- * @author gordian
- * @date 2016/1/10
+ * @author zxh
+ * @date 2019/8/10
  */
 public abstract class BaseConvertor implements Convertor {
     @Override
