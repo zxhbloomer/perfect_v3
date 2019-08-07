@@ -1,4 +1,4 @@
-package com.perfect.excel.conf;
+package com.perfect.excel.bean.importconfig.template.title;
 
 import com.perfect.excel.bean.importconfig.template.title.TitleCol;
 

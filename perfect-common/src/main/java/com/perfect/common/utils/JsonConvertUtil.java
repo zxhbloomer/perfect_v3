@@ -21,9 +21,7 @@ public class JsonConvertUtil {
 	 */
 	public static <T> T json2Obj(String jsonName, Class<T> tClass) {
 		try {
-			InputStream jsonInStream = JsonConvertUtil.class.getClassLoader().getResourceAsStream(jsonName);
-			String jsonStr = convertStream2Json(jsonInStream);
-			return JSON.parseObject(jsonStr, tClass);
+			return JSON.parseObject(jsonName, tClass);
 		} catch (Exception e) {
 			return null;
 		}

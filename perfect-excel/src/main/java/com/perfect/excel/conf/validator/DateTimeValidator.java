@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * Created by gordian on 2016/1/12.
+ *
+ * @author zxh
+ * @date 2019/1/12
  */
 public class DateTimeValidator extends Validator {
   private String dateFormat;

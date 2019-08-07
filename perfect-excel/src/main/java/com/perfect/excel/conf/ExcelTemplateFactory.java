@@ -31,6 +31,7 @@ import java.util.Map;
  * excel模板工厂类
  * @author zhangxh
  */
+@Deprecated
 public class ExcelTemplateFactory {
 
     private static ExcelTemplateFactory instance = null;

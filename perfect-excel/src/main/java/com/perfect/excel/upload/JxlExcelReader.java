@@ -2,7 +2,7 @@ package com.perfect.excel.upload;
 
 import com.perfect.common.utils.string.StringUtil;
 import com.perfect.excel.bean.importconfig.template.data.DataCol;
-import com.perfect.excel.conf.DummyTitleCol;
+import com.perfect.excel.bean.importconfig.template.title.DummyTitleCol;
 import com.perfect.excel.bean.importconfig.template.title.TitleCol;
 import com.perfect.excel.bean.importconfig.template.title.TitleRow;
 import com.perfect.excel.conf.convertor.ConvertorUtil;

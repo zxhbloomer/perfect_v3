@@ -21,5 +21,5 @@ public class ValidatorBean implements Serializable {
     /**
      * 参数
      */
-    private List<NameAndValue> nv;
+    private List<NameAndValue> param;
 }

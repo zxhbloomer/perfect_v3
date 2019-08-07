@@ -1,8 +1,8 @@
 package com.perfect.excel.bean.importconfig.template.title;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.perfect.excel.conf.DummyTitleCol;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ public class TitleRow {
 	/**
 	 * 列
 	 */
+	@Setter
 	@Getter
 	@JSONField
 	private List<TitleCol> cols = new ArrayList<>();
