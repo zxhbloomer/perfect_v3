@@ -14,6 +14,12 @@ import jxl.read.biff.BiffException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.poifs.filesystem.FileMagic;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -72,7 +78,7 @@ public class JxlExcelReader extends JxlExcel {
      * @param <T>
      * @return
      */
-    public <T> List<T> readBeans(final Class<T> clasz) {
+    public <T> List<T> readBeans(final Class<T> clasz) throws IOException {
         return read(new ReadPolicy<T>() {
             @Override
             protected T newRowData() {
@@ -103,7 +109,7 @@ public class JxlExcelReader extends JxlExcel {
      * 读取后，以数组方式来返回
      * @return
      */
-    public List<String[]> readArrays() {
+    public List<String[]> readArrays() throws IOException {
         return read(new ReadPolicy<String[]>() {
             @Override
             protected String[] newRowData() {
@@ -121,7 +127,7 @@ public class JxlExcelReader extends JxlExcel {
      * 读取后，以List<Map>方式来返回
      * @return
      */
-    public List<Map<String, Object>> readMaps() {
+    public List<Map<String, Object>> readMaps() throws IOException {
         return read(new ReadPolicy<Map<String, Object>>() {
             @Override
             protected Map<String, Object> newRowData() {
@@ -141,22 +147,60 @@ public class JxlExcelReader extends JxlExcel {
      * @param <T>
      * @return
      */
-    private <T> List<T> read(ReadPolicy<T> readPolicy) {
+    private <T> List<T> read(ReadPolicy<T> readPolicy) throws IOException {
         checkTemplate();
-        Workbook wb;
-        try {
-            wb = Workbook.getWorkbook(is);
-        } catch (BiffException e) {
-            throw new JxlExcelException(e);
-        } catch (IOException e) {
-            throw new JxlExcelException(e);
+        // 文件分析，判断是否是excel文档
+        if (FileMagic.valueOf(is) == FileMagic.OLE2){
+            // Office 2003 ，xls
+            Workbook workbook = null;
+            try {
+                workbook = Workbook.getWorkbook(is);
+            } catch (BiffException e) {
+                throw new JxlExcelException(e);
+            } catch (IOException e) {
+                throw new JxlExcelException(e);
+            }
+            try {
+                Sheet sheet = workbook.getSheet(0);
+                readPolicy.checkTemplateTitles(sheet);
+                return readPolicy.readDatasFromSheet(sheet);
+            } finally {
+                if(workbook != null) {
+                    workbook.close();
+                }
+            }
+        } else {
+            // Office 2007 +，xlsx
+            XSSFWorkbook xssfWorkbook;
+            try {
+                xssfWorkbook = new XSSFWorkbook(is);
+            } catch (Exception e) {
+                throw new JxlExcelException(e);
+            }
+            try {
+                XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
+                readPolicy.checkTemplateTitles(xssfSheet);
+                return readPolicy.readDatasFromSheet(xssfSheet);
+            } finally {
+                if(xssfWorkbook != null) {
+                    xssfWorkbook.close();
+                }
+            }
         }
-        try {
-            Sheet sheet = wb.getSheet(0);
-            readPolicy.checkTemplateTitles(sheet);
-            return readPolicy.readDatasFromSheet(sheet);
-        } finally {
-            wb.close();
+    }
+
+    /**
+     * 判断是否诗xlsx or xls
+     * @return
+     */
+    private boolean getXlsOrXlsx() throws IOException {
+        // 文件分析，判断是否是excel文档
+        if (FileMagic.valueOf(is) == FileMagic.OLE2){
+            // Office 2003 ，xls
+            return true;
+        } else {
+            // Office 2007 +，xlsx
+            return false;
         }
     }
 
@@ -179,6 +223,56 @@ public class JxlExcelReader extends JxlExcel {
          */
         protected abstract T newRowData();
 
+        /**
+         * 读取数据
+         * @param sheet
+         * @return
+         */
+        List<T> readDatasFromSheet(XSSFSheet sheet) {
+            List<T> datas = new ArrayList<T>();
+            for (int row = excelTemplate.getDataRowIndex(); row <= sheet.getLastRowNum(); row++) {
+                List<DataCol> dataCols = excelTemplate.getDataCols();
+                T rowData = newRowData();
+
+                boolean isRowDataValid = true;
+                RowValidateResult rowValidateResult = new RowValidateResult();
+                for (int col = 0; col < dataCols.size(); col++) {
+                    String value = getCellValue(row,col,sheet).trim();
+                    DataCol dataCol = dataCols.get(col);
+                    if (dataCol.hasValidator()) {
+                        ColValidateResult colValidateResult = dataCol.validate(value);
+                        rowValidateResult.setRowIndex(row);
+                        boolean isColDataValid = colValidateResult.isSuccess();
+                        isRowDataValid = isRowDataValid && isColDataValid;
+                        if (!isColDataValid) {
+                            rowValidateResult.addColValidateResult(colValidateResult);
+                        }
+                    }
+                    if (isRowDataValid) {
+                        String convertor = dataCol.getConvertor();
+                        Object colDataVal = null;
+                        if (StringUtils.isNotEmpty(convertor)) {
+                            colDataVal = ConvertorUtil.convertToType(value, convertor);
+                        } else {
+                            colDataVal = value;
+                        }
+                        setColData(rowData, dataCol, colDataVal);
+                    }
+                }
+                if (isRowDataValid) {
+                    datas.add(rowData);
+                } else {
+                    rowValidateResults.add(rowValidateResult);
+                }
+            }
+            return datas;
+        }
+
+        /**
+         * 读取数据
+         * @param sheet
+         * @return
+         */
         List<T> readDatasFromSheet(Sheet sheet) {
             List<T> datas = new ArrayList<T>();
             for (int row = excelTemplate.getDataRowIndex(); row < sheet
@@ -252,6 +346,71 @@ public class JxlExcelReader extends JxlExcel {
                 errorMsg.deleteCharAt(errorMsg.length() - 1);
                 throw new JxlExcelException("读取的excel与模板不匹配：" + errorMsg);
             }
+        }
+
+        /**
+         * 检查模板和excel是否匹配
+         * @param sheet
+         */
+        void checkTemplateTitles(XSSFSheet sheet) {
+            if (sheet.getRow(0).getPhysicalNumberOfCells() != excelTemplate.getColSize()) {
+                throw new JxlExcelException(String.format(
+                        "读取的excel与模板不匹配：期望%s列，实际为%s列",
+                        excelTemplate.getColSize(), sheet.getRow(0).getPhysicalNumberOfCells()));
+            }
+            List<TitleRow> titleRows = excelTemplate.getTitleRows();
+            StringBuffer errorMsg = new StringBuffer();
+            for (int row = 0; row < titleRows.size(); row++) {
+                TitleRow titleRow = titleRows.get(row);
+                for (int col = 0; col < titleRow.colSize(); col++) {
+                    TitleCol titleCol = titleRow.getCol(col);
+                    if (titleCol instanceof DummyTitleCol) {
+                        continue;
+                    }
+                    //String value = sheet.getCell(col, row).getContents().trim();
+                    String value = getCellValue(row,col, sheet).trim();
+                    if (!value.equals(titleCol.getTitle())) {
+                        errorMsg.append(String.format(
+                                "第%s行第%s列期望[%s]，实际为[%s]\n", row + 1, col + 1,
+                                titleCol.getTitle(), value));
+                    }
+                }
+            }
+            if (errorMsg.length() > 0) {
+                errorMsg.deleteCharAt(errorMsg.length() - 1);
+                throw new JxlExcelException("读取的excel与模板不匹配：" + errorMsg);
+            }
+        }
+
+        /**
+         * 获取单元格中的值
+         * @return
+         */
+        String getCellValue(int rowId,int col,XSSFSheet sheet){
+            XSSFRow row = sheet.getRow(rowId);
+            XSSFCell cell = row.getCell(col);
+
+            //返回值
+            String rtn ="";
+            //如果cell中没有值
+            if (cell == null){
+                log.debug("cell的value: rowid=" + rowId + "；col=" + col + "；cellvalue:"+rtn);
+                return rtn;
+            }
+
+            if(cell.getCellType() == CellType.NUMERIC){
+                rtn = String.valueOf(cell.getNumericCellValue());
+            } else if(cell.getCellType() == CellType.BOOLEAN){
+                rtn = String.valueOf(cell.getBooleanCellValue());
+            } else if(cell.getCellType() == CellType.STRING){
+                rtn = String.valueOf(cell.getStringCellValue());
+            } else if(cell.getCellType() == CellType.BLANK){
+                rtn = "";
+            } else {
+                rtn = cell.getStringCellValue();
+            }
+            log.debug("cell的value: rowid=" + rowId + "；col=" + col + "；cellvalue:"+rtn);
+            return rtn;
         }
     }
 
