@@ -16,7 +16,7 @@ public class ToJsonString {
         BeanSetting dt = new BeanSetting();
         ExcelTemplate et = new ExcelTemplate();
         // 设置表头
-        et.setTitleRow(dt.getTitleRow());
+        et.setTitleRows(dt.getTitleRows());
         et.setDataRow(dt.getDataRow());
         String jsonString = JSON.toJSONString(et);
         System.out.println(jsonString);

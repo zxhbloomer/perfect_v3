@@ -26,14 +26,12 @@ public class ExcelTemplate implements Serializable {
 
     @Getter
     @Setter
-    @Deprecated
-    @JSONField(serialize = false)
     private List<TitleRow> titleRows = new ArrayList<TitleRow>();
 
-    @Setter
-    @Getter
-    @JSONField
-    private TitleRow titleRow;
+//    @Setter
+//    @Getter
+//    @JSONField
+//    private TitleRow titleRow;
 
     @Setter
     @Getter

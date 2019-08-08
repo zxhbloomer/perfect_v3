@@ -17,6 +17,11 @@ import java.util.List;
  */
 public class BeanSetting {
 
+    public List<TitleRow> getTitleRows(){
+        List<TitleRow> lst = new ArrayList<>();
+        lst.add(getTitleRow());
+        return lst;
+    }
 
     public TitleRow getTitleRow(){
         TitleRow titleRow = new TitleRow();
