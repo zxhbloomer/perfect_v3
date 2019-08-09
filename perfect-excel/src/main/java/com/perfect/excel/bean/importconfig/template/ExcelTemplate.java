@@ -10,6 +10,9 @@ import com.perfect.excel.upload.JxlExcelException;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
+
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -91,23 +94,40 @@ public class ExcelTemplate implements Serializable {
         dr.getDataCols().forEach(
             bean -> {
                 // 添加验证validator，存在多条情况
+                if(bean.getListValiDator() == null){
+                    return;
+                }
                 bean.getListValiDator().forEach(
                     v -> {
                         // 获取validator 验证类
                         Validator validator = ValidatorUtil.getValidator(v.getValidtorName());
-                        // 获取validator 验证类，对应的参数，存在多个参数情况
-                        v.getParam().forEach(
-                            p -> {
-                                // 设置validator 验证类的参数
-                                try {
-                                    BeanUtils.setProperty(validator, p.getName(), p.getValue());
-                                } catch (IllegalAccessException e) {
-                                    throw new JxlExcelException(e);
-                                } catch (InvocationTargetException e) {
-                                    throw new JxlExcelException(e);
+
+                        if(v.getParam() != null){
+                            // 获取validator 验证类，对应的参数，存在多个参数情况
+                            v.getParam().forEach(
+                                p -> {
+                                    // 设置validator 验证类的参数
+                                    try {
+//                                        MethodUtils.invokeMethod(validator, p.getName(), p.getValue());
+                                        BeanUtils.setProperty(validator, p.getName(), p.getValue());
+                                    } catch (IllegalAccessException e) {
+                                        throw new JxlExcelException(e);
+                                    } catch (InvocationTargetException e) {
+                                        throw new JxlExcelException(e);
+                                    }
                                 }
-                            }
-                        );
+                            );
+                        }
+                        // 添加验证，validator
+                        try {
+                            MethodUtils.invokeMethod(bean, "addValidator", validator);
+                        } catch (NoSuchMethodException e) {
+                            throw new JxlExcelException(e);
+                        } catch (IllegalAccessException e) {
+                            throw new JxlExcelException(e);
+                        } catch (InvocationTargetException e) {
+                            throw new JxlExcelException(e);
+                        }
                     }
 
                 );

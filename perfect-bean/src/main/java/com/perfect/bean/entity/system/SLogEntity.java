@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("s_log")
 public class SLogEntity extends BaseEntity<SLogEntity> implements Serializable {
 

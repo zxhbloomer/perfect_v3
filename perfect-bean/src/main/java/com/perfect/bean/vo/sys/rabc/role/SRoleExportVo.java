@@ -22,7 +22,6 @@ import com.perfect.bean.entity.base.entity.v1.BaseEntity;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @ApiModel(value = "角色导出Bean", description = "角色导出Bean")
 public class SRoleExportVo implements Serializable {
 

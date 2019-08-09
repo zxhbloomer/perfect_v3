@@ -14,7 +14,6 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-@Accessors(chain = true)
 @ApiModel(value = "角色返回信息", description = "角色返回vo_bean")
 public class SysRoleVo extends UploadFileResultPojo implements Serializable {
 

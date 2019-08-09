@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 public class UserInSessionPojo implements Serializable {
 
     private static final long serialVersionUID = -5257629364895826626L;

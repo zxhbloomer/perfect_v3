@@ -47,15 +47,14 @@ public class BeanSetting {
         DataRow row = new DataRow();
 
         DataCol dataCol1 = new DataCol("type");
-        dataCol1.setConvertor("datetime");
         DataCol dataCol2 = new DataCol("code");
         dataCol2.setConvertor("date");
         // 添加类
-        List<ValidatorBean> listValiDator = new ArrayList<>();
-        listValiDator.add(getValidatorRequired());
-        listValiDator.add(getValidatorDateTime());
+        List<ValidatorBean> listValiDatorBean = new ArrayList<>();
+        listValiDatorBean.add(getValidatorRequired());
+        listValiDatorBean.add(getValidatorDateTime());
         // 添加验证
-        dataCol2.setListValiDator(listValiDator);
+        dataCol2.setListValiDator(listValiDatorBean);
 
         DataCol dataCol3 = new DataCol("name");
         DataCol dataCol4 = new DataCol("descr");
@@ -92,6 +91,9 @@ public class BeanSetting {
         NameAndValue nv = new NameAndValue();
         nv.setName("dateFormat");
         nv.setValue("yyyy-MM-dd HH:mm:ss");
+        param.add(nv);
+
+        bean.setParam(param);
         return bean;
     }
 }

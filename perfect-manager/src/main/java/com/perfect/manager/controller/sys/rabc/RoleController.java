@@ -151,8 +151,8 @@ public class RoleController extends BaseController {
 
         // 文件导入
         // 1、获取模板配置类
-        String json = "{\"dataRows\":{\"dataCols\":[{\"colIndex\":0,\"convertor\":\"datetime\",\"name\":\"type\"},{\"colIndex\":1,\"convertor\":\"date\",\"listValiDator\":[{\"validtorName\":\"required\"},{\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"colIndex\":2,\"name\":\"name\"},{\"colIndex\":3,\"name\":\"descr\"},{\"colIndex\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}\n";
-        ExcelTemplate et =  JSON.parseObject(json, ExcelTemplate.class);
+        String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}\n";
+        ExcelTemplate et = JSON.parseObject(json, ExcelTemplate.class);
         // 初始化
         et.initValidator();
         JxlExcelReader reader = new JxlExcelReader(is);

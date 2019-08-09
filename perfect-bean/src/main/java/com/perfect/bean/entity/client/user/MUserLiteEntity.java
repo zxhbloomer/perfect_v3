@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("m_user_lite")
 public class MUserLiteEntity extends BaseEntity<MUserLiteEntity> implements Serializable {
 

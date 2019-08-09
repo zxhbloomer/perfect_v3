@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("j_job_log")
 public class JJobLogEntity extends BaseEntity<JJobLogEntity> implements Serializable {
 

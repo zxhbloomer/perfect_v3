@@ -9,7 +9,6 @@ import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
-@Accessors(chain = true)
 @ApiModel(value = "分页条件bean", description = "分页条件bean")
 public class PageCondition implements Serializable {
 

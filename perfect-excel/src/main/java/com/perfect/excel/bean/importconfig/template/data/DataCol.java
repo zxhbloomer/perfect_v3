@@ -55,6 +55,8 @@ public class DataCol implements Serializable {
      * check类
      */
     @JSONField(serialize = false)
+    @Getter
+    @Setter
     private List<Validator> validators = new ArrayList<Validator>();
 
     /**

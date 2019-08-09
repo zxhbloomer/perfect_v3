@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("s_role")
 public class SRoleEntity extends BaseEntity<SRoleEntity> implements Serializable {
 

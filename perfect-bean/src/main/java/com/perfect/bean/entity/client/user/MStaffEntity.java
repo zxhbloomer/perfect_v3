@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
 @TableName("m_staff")
 public class MStaffEntity extends BaseEntity<MStaffEntity> implements Serializable {
 
