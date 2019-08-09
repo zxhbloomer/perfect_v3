@@ -118,7 +118,7 @@ public class JxlExcelReader extends JxlExcel {
 
             @Override
             protected void setColData(String[] rowData, DataCol dataCol, Object colDataVal) {
-                rowData[dataCol.getColIndex()] = StringUtil.toString(colDataVal);
+                rowData[dataCol.getIndex()] = StringUtil.toString(colDataVal);
             }
         });
     }

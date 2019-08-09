@@ -4,7 +4,9 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.perfect.excel.bean.importconfig.template.validator.ValidatorBean;
 import com.perfect.excel.conf.validator.ColValidateResult;
 import com.perfect.excel.conf.validator.Validator;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
@@ -15,6 +17,8 @@ import java.util.List;
  * excel列模板bean
  * @author zxh
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public class DataCol implements Serializable {
 
     private static final long serialVersionUID = 1246107721629872424L;
@@ -32,7 +36,7 @@ public class DataCol implements Serializable {
     @Getter
     @Setter
     @JSONField
-    private int colIndex;
+    private int index;
 
     /**
      * 转换类
@@ -45,7 +49,7 @@ public class DataCol implements Serializable {
     @Getter
     @Setter
     @JSONField
-    private List<ValidatorBean> listValiDatorBean;
+    private List<ValidatorBean> listValiDator;
 
     /**
      * check类

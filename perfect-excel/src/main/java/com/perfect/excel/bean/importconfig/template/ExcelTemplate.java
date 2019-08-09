@@ -36,7 +36,7 @@ public class ExcelTemplate implements Serializable {
     @Setter
     @Getter
     @JSONField
-    private DataRow dataRow;
+    private DataRow dataRows;
 
     @Setter
     @Getter
@@ -79,7 +79,7 @@ public class ExcelTemplate implements Serializable {
      */
     @JSONField(serialize = false)
     public List<DataCol> getDataCols() {
-        return dataRow.getDataCols();
+        return dataRows.getDataCols();
     }
 
     /**
@@ -87,11 +87,11 @@ public class ExcelTemplate implements Serializable {
      */
     public void initValidator() {
         // dataCols:数据列，存在多条情况
-        DataRow dr = this.dataRow;
+        DataRow dr = this.dataRows;
         dr.getDataCols().forEach(
             bean -> {
                 // 添加验证validator，存在多条情况
-                bean.getListValiDatorBean().forEach(
+                bean.getListValiDator().forEach(
                     v -> {
                         // 获取validator 验证类
                         Validator validator = ValidatorUtil.getValidator(v.getValidtorName());

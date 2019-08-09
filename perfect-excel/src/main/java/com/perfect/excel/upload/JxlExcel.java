@@ -58,8 +58,8 @@ public class JxlExcel {
                 throw new JxlExcelException("标题行列数必须一致");
             }
         }
-        if (excelTemplate.getDataRow() != null) {
-            if (colSize != excelTemplate.getDataRow().colSize()) {
+        if (excelTemplate.getDataRows() != null) {
+            if (colSize != excelTemplate.getDataRows().colSize()) {
                 throw new JxlExcelException("标题行列数必须与数据行列数一致");
             }
         }

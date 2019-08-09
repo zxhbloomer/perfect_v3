@@ -51,11 +51,11 @@ public class BeanSetting {
         DataCol dataCol2 = new DataCol("code");
         dataCol2.setConvertor("date");
         // 添加类
-        List<ValidatorBean> listValiDatorBean = new ArrayList<>();
-        listValiDatorBean.add(getValidatorRequired());
-        listValiDatorBean.add(getValidatorDateTime());
+        List<ValidatorBean> listValiDator = new ArrayList<>();
+        listValiDator.add(getValidatorRequired());
+        listValiDator.add(getValidatorDateTime());
         // 添加验证
-        dataCol2.setListValiDatorBean(listValiDatorBean);
+        dataCol2.setListValiDator(listValiDator);
 
         DataCol dataCol3 = new DataCol("name");
         DataCol dataCol4 = new DataCol("descr");

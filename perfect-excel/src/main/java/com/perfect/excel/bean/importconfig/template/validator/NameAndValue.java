@@ -1,6 +1,8 @@
 package com.perfect.excel.bean.importconfig.template.validator;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.poi.ss.formula.functions.T;
 
 import java.io.Serializable;
@@ -10,6 +12,8 @@ import java.io.Serializable;
  * @date 2019-08-06
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class NameAndValue implements Serializable {
     private static final long serialVersionUID = 467871600970028042L;
 

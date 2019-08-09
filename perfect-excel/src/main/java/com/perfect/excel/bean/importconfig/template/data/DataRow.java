@@ -1,7 +1,11 @@
 package com.perfect.excel.bean.importconfig.template.data;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +14,8 @@ import java.util.List;
  * excel行模板类
  * @author zxh
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public class DataRow implements Serializable {
 
     private static final long serialVersionUID = -3512002550272910844L;
@@ -18,6 +24,7 @@ public class DataRow implements Serializable {
      * 列数据
      */
     @Getter
+    @Setter
     @JSONField
     private List<DataCol> dataCols = new ArrayList<DataCol>();
 
@@ -36,7 +43,7 @@ public class DataRow implements Serializable {
      * @param dataCol
      */
     public void addDataCol(DataCol dataCol) {
-        dataCol.setColIndex(dataCols.size());
+        dataCol.setIndex(dataCols.size());
         dataCols.add(dataCol);
     }
 

@@ -1,6 +1,8 @@
 package com.perfect.excel.bean.importconfig.template.validator;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
  * @date 2019-08-06
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ValidatorBean implements Serializable {
     private static final long serialVersionUID = 5715390875407475426L;
 

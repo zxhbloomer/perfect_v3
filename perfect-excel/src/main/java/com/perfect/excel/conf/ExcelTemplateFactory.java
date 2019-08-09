@@ -133,7 +133,7 @@ public class ExcelTemplateFactory {
                     }
                     dataRow.addDataCol(dataCol);
                 }
-                excelTemplate.setDataRow(dataRow);
+                excelTemplate.setDataRows(dataRow);
                 templateMap.put(templateName, excelTemplate);
                 logger.debug(String.format("加载了excel模板：%s", templateName));
             }
