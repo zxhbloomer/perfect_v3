@@ -1,4 +1,4 @@
-package com.perfect.common.base.swagger.v1;
+package com.perfect.framework.base.swagger.v1;
 
 public class Description {
 //    swagger2使用说明：

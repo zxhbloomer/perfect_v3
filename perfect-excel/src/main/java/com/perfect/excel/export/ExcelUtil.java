@@ -1,36 +1,26 @@
 package com.perfect.excel.export;
 
+import com.perfect.common.annotation.Excel;
+import com.perfect.common.annotation.Excels;
+import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.exception.BusinessException;
+import com.perfect.common.utils.DateTimeUtil;
+import com.perfect.common.utils.string.StringUtil;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.util.TempFile;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.*;
-
-import com.perfect.common.constant.PerfectConstant;
-import com.perfect.common.utils.DateTimeUtil;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.hssf.util.HSSFColor.HSSFColorPredefined;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddressList;
-import org.apache.poi.util.TempFile;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFDataValidation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.perfect.common.annotation.Excel;
-import com.perfect.common.annotation.Excels;
-import com.perfect.common.exception.BusinessException;
-import com.perfect.common.utils.string.StringUtil;
-
-import javax.servlet.http.HttpServletResponse;
-
-import static com.perfect.common.constant.PerfectConstant.XLSX_SUFFIX;
 
 /**
  * Excel相关处理
@@ -97,11 +87,13 @@ public class ExcelUtil<T> {
 
     /**
      * 下载文件
+     * 
      * @param serverFile 服务器端文件路径
      * @param downLoadFile 下载文件的文件名
      * @throws IOException
      */
-    public static void download(String serverFile,String downLoadFile, HttpServletResponse response) throws IOException {
+    public static void download(String serverFile, String downLoadFile, HttpServletResponse response)
+        throws IOException {
         /** 获取下载文件的路径 */
         File file = new File(serverFile);
         InputStream in = new FileInputStream(serverFile);
@@ -110,31 +102,38 @@ public class ExcelUtil<T> {
 
         /** 设置导出文件名称 */
         downLoadFile = downLoadFile + "_" + DateTimeUtil.dateTimeNow() + PerfectConstant.XLSX_SUFFIX;
-        downLoadFile = URLEncoder.encode(downLoadFile,"utf-8");
+        downLoadFile = URLEncoder.encode(downLoadFile, "utf-8");
         /** 弹出下载的框filename:提示用户下载的文件名 */
-        response.addHeader("content-disposition", "attachment;filename="+ downLoadFile);
+        response.addHeader("content-disposition", "attachment;filename=" + downLoadFile);
         response.setContentType("application/octet-stream;charset=UTF-8");
         response.setHeader("Content-Length", String.valueOf(file.length()));
         response.setHeader("perfect-filename", downLoadFile);
         log.debug("获取responseContentType：" + response.getContentType());
-         /** 循环读取 */
+        /** 循环读取 */
         byte[] buff = new byte[1024];
         int len = 0;
-        while ((len = in.read(buff)) > 0) {
-            out.write(buff,0,len);
+        while ((len = in.read()) > 0) {
+            out.write(len);
             out.flush();
         }
-        //关闭流资源
+//        while ((len = in.read(buff)) > 0) {
+//            out.write(buff, 0, len);
+//            out.flush();
+//        }
+
+        // 关闭流资源
         in.close();
         out.close();
-        //删除服务器端生成的下载文件,减轻服务器的压力
-//        File file = new File(serverFile);
-        if(file.exists()){
+        // 删除服务器端生成的下载文件,减轻服务器的压力
+        // File file = new File(serverFile);
+        if (file.exists()) {
             file.delete();
         }
     }
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
+     * 
      * @param exportFileName
      * @param sheetName
      * @param dataList
@@ -148,7 +147,7 @@ public class ExcelUtil<T> {
 
     private void exportExcel(HttpServletResponse response) throws IOException {
         String fileNamePath = doExport();
-        /**下载Excel文件*/
+        /** 下载Excel文件 */
         download(fileNamePath, this.fileName, response);
     }
 
@@ -210,9 +209,9 @@ public class ExcelUtil<T> {
         int startNo = index * sheetSize;
         int endNo = Math.min(startNo + sheetSize, list.size());
         // 写入各条记录,每条记录对应excel表中的一行
-//        CellStyle cs = wb.createCellStyle();
-//        cs.setAlignment(HorizontalAlignment.CENTER);
-//        cs.setVerticalAlignment(VerticalAlignment.CENTER);
+        // CellStyle cs = wb.createCellStyle();
+        // cs.setAlignment(HorizontalAlignment.CENTER);
+        // cs.setVerticalAlignment(VerticalAlignment.CENTER);
         CellStyle cs = createDetailStyle();
         for (int i = startNo; i < endNo; i++) {
             row = sheet.createRow(i + 1 - startNo);
@@ -294,12 +293,12 @@ public class ExcelUtil<T> {
         Font font = wb.createFont();
         font.setFontName("微软雅黑");
         // 粗体显示
-//        font.setBold(true);
-//        font.setColor(IndexedColors.WHITE.index);
+        // font.setBold(true);
+        // font.setColor(IndexedColors.WHITE.index);
         // 选择需要用到的字体格式
         cellStyle.setFont(font);
 
-//        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        // cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cellStyle.setWrapText(true);
         return cellStyle;
     }
@@ -376,16 +375,16 @@ public class ExcelUtil<T> {
      * @param filename 文件名称
      */
     public String getAbsoluteFile(String filename) throws IOException {
-        //生成UUID唯一标识，以防止文件覆盖
+        // 生成UUID唯一标识，以防止文件覆盖
         UUID uuid = UUID.randomUUID();
-        File tempFile = TempFile.createTempFile(uuid.toString()+filename, PerfectConstant.XLSX_SUFFIX);
+        File tempFile = TempFile.createTempFile(uuid.toString() + filename, PerfectConstant.XLSX_SUFFIX);
         log.debug("生成临时文件，路径为:" + tempFile.getAbsolutePath());
 
-//        String downloadPath = "" + filename;
-//        File desc = new File(downloadPath);
-//        if (!desc.getParentFile().exists()) {
-//            desc.getParentFile().mkdirs();
-//        }
+        // String downloadPath = "" + filename;
+        // File desc = new File(downloadPath);
+        // if (!desc.getParentFile().exists()) {
+        // desc.getParentFile().mkdirs();
+        // }
         return tempFile.getAbsolutePath();
     }
 
@@ -436,7 +435,7 @@ public class ExcelUtil<T> {
      * 放到字段集合中
      */
     private void putToField(Field field, Excel attr) {
-        if (attr != null ) {
+        if (attr != null) {
             this.fields.add(new Object[] {field, attr});
         }
     }

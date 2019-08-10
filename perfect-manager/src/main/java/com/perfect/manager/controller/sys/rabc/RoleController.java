@@ -1,6 +1,5 @@
 package com.perfect.manager.controller.sys.rabc;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.pojo.JSONResult;
@@ -8,28 +7,24 @@ import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import com.perfect.common.annotation.SysLog;
-import com.perfect.common.base.controller.v1.BaseController;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.system.rabc.ISRoleService;
-import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
-import com.perfect.excel.conf.validator.RowValidateResult;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.excel.upload.PerfectExcelReader;
+import com.perfect.framework.base.controller.v1.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.poifs.filesystem.FileMagic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -125,34 +120,20 @@ public class RoleController extends BaseController {
 
         // file bean 保存数据库
 
-        // 文件下载到流
-        String fileUrl = uploadData.getFsType2Url();
-        ResponseEntity<byte[]> rtnResponse = restTemplate.getForEntity(fileUrl, byte[].class);
-        InputStream is =  new ByteArrayInputStream(rtnResponse.getBody());
-
-        // 文件分析，判断是否是excel文档
-        if (FileMagic.valueOf(is) == FileMagic.OLE2){
-            // Office 2003 ，xls
-        } else if (FileMagic.valueOf(is) == FileMagic.OOXML) {
-            // Office 2007 +，xlsx
-        } else {
-            // 非excel文档，报错
-            throw new IllegalArgumentException("导入的文件不是office excel，请选择正确的文件来进行上传");
-        }
-        // 文件导入
+        // 文件下载并check类型
         // 1、获取模板配置类
         String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"param\":[{\"name\":\"dateFormat\",\"value\":\"yyyy-MM-dd HH:mm:ss\"}],\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
-        ExcelTemplate et = JSON.parseObject(json, ExcelTemplate.class);
-        // 初始化
-        et.initValidator();
-        PerfectExcelReader reader = new PerfectExcelReader(is);
-        reader.setExcelTemplate(et);
-        List<SRoleEntity> beans = reader.readBeans(SRoleEntity.class);
-        List<RowValidateResult> rowValidateResults = reader.getRowValidateResults();
+        PerfectExcelReader pr = super.downloadExcelAndImportData(uploadData.getFsType2Url(), json);
+        List<SRoleEntity> beans = pr.readBeans(SRoleEntity.class);
 
-        reader.getValidateResultsInFIle();
-
-        is.close();
-        System.out.println("uploadData");
+        if (pr.isDataValid()) {
+            // 读取没有错误
+            beans.size();
+        } else {
+            // 读取失败，需要返回错误
+            File rtnFile = pr.getValidateResultsInFile();
+            ExcelUtil.download(rtnFile.getAbsolutePath(),"xx.xlsx" , response);
+        }
+        pr.closeAll();
     }
 }

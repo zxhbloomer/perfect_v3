@@ -1,17 +1,19 @@
 package com.perfect.manager.controller.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
 import com.perfect.bean.pojo.JSONResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.user.info.UserInfoVo;
 import com.perfect.common.annotation.SysLog;
-import com.perfect.common.base.controller.v1.BaseController;
 import com.perfect.core.service.client.user.IMUserService;
+import com.perfect.framework.base.controller.v1.BaseController;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 /**
  * @author zxh

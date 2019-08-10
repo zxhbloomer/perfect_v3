@@ -10,7 +10,6 @@ import com.perfect.excel.upload.PerfectExcelException;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 
 import java.io.Serializable;
@@ -31,10 +30,10 @@ public class ExcelTemplate implements Serializable {
     @Setter
     private List<TitleRow> titleRows = new ArrayList<TitleRow>();
 
-//    @Setter
-//    @Getter
-//    @JSONField
-//    private TitleRow titleRow;
+
+    @JSONField(serialize = false)
+    @Getter
+    private boolean isInit = false;
 
     @Setter
     @Getter
@@ -134,7 +133,7 @@ public class ExcelTemplate implements Serializable {
                 // converter为动态自动判断，此处无需考虑
             }
         );
-
+        isInit = true;
     }
 
 }

@@ -26,6 +26,7 @@
         <module>./perfect-mongo</module>
         <module>./perfect-redis</module>
         <module>./perfect-excel</module>
+        <module>./perfect-framework</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

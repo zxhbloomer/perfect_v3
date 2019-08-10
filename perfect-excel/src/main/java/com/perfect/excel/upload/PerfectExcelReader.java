@@ -2,6 +2,7 @@ package com.perfect.excel.upload;
 
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.utils.string.StringUtil;
+import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
 import com.perfect.excel.bean.importconfig.template.data.DataCol;
 import com.perfect.excel.bean.importconfig.template.title.DummyTitleCol;
 import com.perfect.excel.bean.importconfig.template.title.TitleCol;
@@ -49,8 +50,8 @@ public class PerfectExcelReader extends PerfectExcelBase {
      * @param excelFile
      * @throws FileNotFoundException
      */
-    public PerfectExcelReader(File excelFile) throws Exception {
-        this(new FileInputStream(excelFile));
+    public PerfectExcelReader(File excelFile, ExcelTemplate et) throws Exception {
+        this(new FileInputStream(excelFile), et);
     }
 
     /**
@@ -58,8 +59,24 @@ public class PerfectExcelReader extends PerfectExcelBase {
      * 
      * @param is
      */
-    public PerfectExcelReader(InputStream is) throws Exception {
+    public PerfectExcelReader(InputStream is, ExcelTemplate et) {
         this.is = is;
+        et.initValidator();
+        super.setExcelTemplate(et);
+    }
+
+    /**
+     * 关闭对象
+     */
+    public void closeAll(){
+        try {
+            wb.close();
+        } catch (IOException e) {
+        }
+        try {
+            is.close();
+        } catch (IOException e) {
+        }
     }
 
     /**
@@ -80,18 +97,23 @@ public class PerfectExcelReader extends PerfectExcelBase {
         return rowValidateResults;
     }
 
-    public File getValidateResultsInFIle() throws IOException {
+    /**
+     * 获取包含错误的excel
+     * @return
+     * @throws IOException
+     */
+    public File getValidateResultsInFile() throws IOException {
         //生成UUID唯一标识，以防止文件覆盖
         UUID uuid = UUID.randomUUID();
         File tempFile = null;
         OutputStream fos = null;
         try {
+            tempFile = TempFile.createTempFile(uuid.toString()+"filename", PerfectConstant.XLSX_SUFFIX);
+            fos = new FileOutputStream(tempFile);
             // ws => outputstream
             if(xlsOrXlsx){
                 wb.write(fos);
             }
-            tempFile = TempFile.createTempFile(uuid.toString()+"filename", PerfectConstant.XLSX_SUFFIX);
-            fos = new FileOutputStream(tempFile);
         } catch (IOException e) {
             throw new PerfectExcelException(e);
         } catch (Exception e) {
@@ -334,10 +356,11 @@ public class PerfectExcelReader extends PerfectExcelBase {
             cellStyle.setFont(font);
 
             Row row = sheet.getRow(rowId);
+            Row rowHead = sheet.getRow(0);
             // 创建头部head
-            Cell cellHead = row.createCell(0);
+            Cell cellHead = rowHead.createCell(col);
             cellHead.setCellStyle(cellStyle);
-            cellHead.setCellValue("导入错误");
+            cellHead.setCellValue("导入错误信息");
             // 创建错误列
             Cell cell = row.createCell(col);
             cell.setCellStyle(cellStyle);

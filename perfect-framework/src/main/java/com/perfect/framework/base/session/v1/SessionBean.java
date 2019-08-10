@@ -1,4 +1,4 @@
-package com.perfect.common.base.session.v1;
+package com.perfect.framework.base.session.v1;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
