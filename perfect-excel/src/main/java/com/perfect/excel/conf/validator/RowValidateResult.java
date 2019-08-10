@@ -1,30 +1,47 @@
 package com.perfect.excel.conf.validator;
 
+import com.perfect.excel.bean.importconfig.template.title.TitleRow;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by gordian on 2016/1/21.
+ *
+ * @author zxh
+ * @date 2016/1/21
  */
-public class RowValidateResult {
-  private int rowIndex;
+public class RowValidateResult implements Serializable {
 
-  private List<ColValidateResult> colValidateResults = new ArrayList<ColValidateResult>();
+    private static final long serialVersionUID = 6112948316876785169L;
 
-  public int getRowIndex() {
-    return rowIndex;
-  }
+    @Getter
+    @Setter
+    private int rowIndex;
+    @Setter
+    private String error;
 
-  public void setRowIndex(int rowIndex) {
-    this.rowIndex = rowIndex;
-  }
+    public String getErrors(List<TitleRow> titleRows) {
+        String rtn = "";
+        for (ColValidateResult colValidateResult : colValidateResults) {
+            String rowTitle = titleRows.get(0).getCol(colValidateResult.getDataCol().getIndex()).getTitle();
+            String error = colValidateResult.getErrorMsg();
+            rtn = rtn + String.format("第%s列\"%s\"：%s\n", colValidateResult.getDataCol().getIndex(), rowTitle, error);
+        }
 
-  public List<ColValidateResult> getColValidateResults() {
-    return colValidateResults;
-  }
+        return rtn;
+    }
 
-  public void addColValidateResult(ColValidateResult colValidateResult) {
-    colValidateResults.add(colValidateResult);
-  }
+    private List<ColValidateResult> colValidateResults = new ArrayList<ColValidateResult>();
+
+    public List<ColValidateResult> getColValidateResults() {
+        return colValidateResults;
+    }
+
+    public void addColValidateResult(ColValidateResult colValidateResult) {
+        colValidateResults.add(colValidateResult);
+    }
 
 }

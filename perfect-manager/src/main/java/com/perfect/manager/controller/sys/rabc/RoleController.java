@@ -9,25 +9,18 @@ import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.base.controller.v1.BaseController;
-import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
-import com.perfect.common.utils.JsonConvertUtil;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.system.rabc.ISRoleService;
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
+import com.perfect.excel.conf.validator.RowValidateResult;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.excel.upload.JxlExcelReader;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ooxml.POIXMLDocument;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.poifs.filesystem.FileMagic;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.util.TempFile;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +28,9 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author zhangxh
@@ -151,14 +142,16 @@ public class RoleController extends BaseController {
 
         // 文件导入
         // 1、获取模板配置类
-        String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}\n";
+        String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"param\":[{\"name\":\"dateFormat\",\"value\":\"yyyy-MM-dd HH:mm:ss\"}],\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
         ExcelTemplate et = JSON.parseObject(json, ExcelTemplate.class);
         // 初始化
         et.initValidator();
         JxlExcelReader reader = new JxlExcelReader(is);
         reader.setExcelTemplate(et);
         List<SRoleEntity> beans = reader.readBeans(SRoleEntity.class);
+        List<RowValidateResult> rowValidateResults = reader.getRowValidateResults();
 
+        is.close();
         System.out.println("uploadData");
     }
 }

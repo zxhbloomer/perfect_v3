@@ -1,13 +1,19 @@
 package com.perfect.excel.conf.validator;
 
 import com.perfect.excel.bean.importconfig.template.data.DataCol;
+import lombok.Data;
 
 /**
- * Created by gordian on 2016/1/12.
+ *
+ * @author zxh
+ * @date 2016/1/12
  */
+@Data
 public class ColValidateResult {
 
+
   private DataCol dataCol;
+
   private String errorMsg;
   private boolean isSuccess = true;
 
@@ -24,7 +30,4 @@ public class ColValidateResult {
     return !isSuccess;
   }
 
-  public void setDataCol(DataCol dataCol) {
-    this.dataCol = dataCol;
-  }
 }
