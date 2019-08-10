@@ -16,7 +16,7 @@ import com.perfect.core.service.system.rabc.ISRoleService;
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
 import com.perfect.excel.conf.validator.RowValidateResult;
 import com.perfect.excel.export.ExcelUtil;
-import com.perfect.excel.upload.JxlExcelReader;
+import com.perfect.excel.upload.PerfectExcelReader;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -121,7 +121,7 @@ public class RoleController extends BaseController {
     @ApiOperation("角色数据模板导入")
     @PostMapping("/import")
     public void importData(@RequestBody(required = false) SysRoleVo uploadData,
-        HttpServletResponse response) throws IOException {
+        HttpServletResponse response) throws Exception {
 
         // file bean 保存数据库
 
@@ -139,17 +139,18 @@ public class RoleController extends BaseController {
             // 非excel文档，报错
             throw new IllegalArgumentException("导入的文件不是office excel，请选择正确的文件来进行上传");
         }
-
         // 文件导入
         // 1、获取模板配置类
         String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"param\":[{\"name\":\"dateFormat\",\"value\":\"yyyy-MM-dd HH:mm:ss\"}],\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
         ExcelTemplate et = JSON.parseObject(json, ExcelTemplate.class);
         // 初始化
         et.initValidator();
-        JxlExcelReader reader = new JxlExcelReader(is);
+        PerfectExcelReader reader = new PerfectExcelReader(is);
         reader.setExcelTemplate(et);
         List<SRoleEntity> beans = reader.readBeans(SRoleEntity.class);
         List<RowValidateResult> rowValidateResults = reader.getRowValidateResults();
+
+        reader.getValidateResultsInFIle();
 
         is.close();
         System.out.println("uploadData");

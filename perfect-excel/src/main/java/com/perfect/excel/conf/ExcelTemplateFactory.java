@@ -7,7 +7,7 @@ import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
 import com.perfect.excel.bean.importconfig.template.title.TitleRow;
 import com.perfect.excel.conf.validator.Validator;
 import com.perfect.excel.conf.validator.ValidatorUtil;
-import com.perfect.excel.upload.JxlExcelException;
+import com.perfect.excel.upload.PerfectExcelException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.BeanUtilsBean2;
@@ -59,7 +59,7 @@ public class ExcelTemplateFactory {
             public void onFileChange(File file) {
                 try {
                     loadTemplates();
-                } catch (JxlExcelException e) {
+                } catch (PerfectExcelException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -79,7 +79,7 @@ public class ExcelTemplateFactory {
                 }
             });
         } catch (Exception e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         }
     }
 
@@ -92,7 +92,7 @@ public class ExcelTemplateFactory {
             for (HierarchicalConfiguration templateConf : templates) {
                 String templateName = templateConf.getString("[@name]");
                 if (StringUtil.isEmpty(templateName)) {
-                    throw new JxlExcelException("模板的名称属性name不能为空");
+                    throw new PerfectExcelException("模板的名称属性name不能为空");
                 }
                 ExcelTemplate excelTemplate = new ExcelTemplate();
                 excelTemplate.setName(templateName);
@@ -125,9 +125,9 @@ public class ExcelTemplateFactory {
                             try {
                                 BeanUtils.setProperty(validator, propertyConf.getString("[@name]"), propertyConf.getString(""));
                             } catch (IllegalAccessException e) {
-                                throw new JxlExcelException(e);
+                                throw new PerfectExcelException(e);
                             } catch (InvocationTargetException e) {
-                                throw new JxlExcelException(e);
+                                throw new PerfectExcelException(e);
                             }
                         }
                     }
@@ -144,7 +144,7 @@ public class ExcelTemplateFactory {
 
     public ExcelTemplate getTemplate(String templateName) {
         if (!templateMap.containsKey(templateName)) {
-            throw new JxlExcelException(String.format("名称为%s的模板不存在", templateName));
+            throw new PerfectExcelException(String.format("名称为%s的模板不存在", templateName));
         }
         return templateMap.get(templateName);
     }

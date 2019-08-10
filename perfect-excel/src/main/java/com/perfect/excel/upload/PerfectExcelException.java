@@ -4,27 +4,27 @@ package com.perfect.excel.upload;
  * 异常类
  * @author zxh
  */
-public class JxlExcelException extends RuntimeException {
+public class PerfectExcelException extends RuntimeException {
 
 	private static final long serialVersionUID = 1830974553436749465L;
 
-	public JxlExcelException() {
+	public PerfectExcelException() {
 
 	}
 
-	public JxlExcelException(String message) {
+	public PerfectExcelException(String message) {
 		super(message);
 	}
 
-	public JxlExcelException(Throwable cause) {
+	public PerfectExcelException(Throwable cause) {
 		super(cause);
 	}
 
-	public JxlExcelException(String message, Throwable cause) {
+	public PerfectExcelException(String message, Throwable cause) {
 		super(message, cause);
 	}
 
-	public JxlExcelException(String message, Throwable cause,
+	public PerfectExcelException(String message, Throwable cause,
 			boolean enableSuppression, boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 	}

@@ -1,6 +1,6 @@
 package com.perfect.excel.conf.validator;
 
-import com.perfect.excel.upload.JxlExcelException;
+import com.perfect.excel.upload.PerfectExcelException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,9 +60,9 @@ public class Validators {
         try {
             return (Validator) validatorMap.get(name).newInstance();
         } catch (InstantiationException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         } catch (IllegalAccessException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         }
     }
 

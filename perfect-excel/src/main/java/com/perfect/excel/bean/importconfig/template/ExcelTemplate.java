@@ -6,7 +6,7 @@ import com.perfect.excel.bean.importconfig.template.data.DataRow;
 import com.perfect.excel.bean.importconfig.template.title.TitleRow;
 import com.perfect.excel.conf.validator.Validator;
 import com.perfect.excel.conf.validator.ValidatorUtil;
-import com.perfect.excel.upload.JxlExcelException;
+import com.perfect.excel.upload.PerfectExcelException;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.beanutils.BeanUtils;
@@ -111,9 +111,9 @@ public class ExcelTemplate implements Serializable {
 //                                        MethodUtils.invokeMethod(validator, p.getName(), p.getValue());
                                         BeanUtils.setProperty(validator, p.getName(), p.getValue());
                                     } catch (IllegalAccessException e) {
-                                        throw new JxlExcelException(e);
+                                        throw new PerfectExcelException(e);
                                     } catch (InvocationTargetException e) {
-                                        throw new JxlExcelException(e);
+                                        throw new PerfectExcelException(e);
                                     }
                                 }
                             );
@@ -122,11 +122,11 @@ public class ExcelTemplate implements Serializable {
                         try {
                             MethodUtils.invokeMethod(bean, "addValidator", validator);
                         } catch (NoSuchMethodException e) {
-                            throw new JxlExcelException(e);
+                            throw new PerfectExcelException(e);
                         } catch (IllegalAccessException e) {
-                            throw new JxlExcelException(e);
+                            throw new PerfectExcelException(e);
                         } catch (InvocationTargetException e) {
-                            throw new JxlExcelException(e);
+                            throw new PerfectExcelException(e);
                         }
                     }
 

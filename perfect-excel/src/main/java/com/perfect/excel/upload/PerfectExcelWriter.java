@@ -28,15 +28,15 @@ import java.util.regex.Pattern;
 /**
  * excel导出，主要是负责把错误信息导出到excel中
  */
-public class JxlExcelWriter extends JxlExcel {
+public class PerfectExcelWriter extends PerfectExcelBase {
 
     private OutputStream os;
 
-    public JxlExcelWriter(File outFile) throws FileNotFoundException {
+    public PerfectExcelWriter(File outFile) throws FileNotFoundException {
         this(new FileOutputStream(outFile));
     }
 
-    public JxlExcelWriter(OutputStream os) {
+    public PerfectExcelWriter(OutputStream os) {
         this.os = os;
     }
 
@@ -50,11 +50,11 @@ public class JxlExcelWriter extends JxlExcel {
             autoResizeColumns(sheet);
             wb.write();
         } catch (IOException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         } catch (RowsExceededException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         } catch (WriteException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         } finally {
             close(wb);
         }
@@ -66,9 +66,9 @@ public class JxlExcelWriter extends JxlExcel {
             try {
                 wb.close();
             } catch (WriteException e) {
-                throw new JxlExcelException(e);
+                throw new PerfectExcelException(e);
             } catch (IOException e) {
-                throw new JxlExcelException(e);
+                throw new PerfectExcelException(e);
             }
         }
     }
@@ -146,11 +146,11 @@ public class JxlExcelWriter extends JxlExcel {
                                         dataCol.getName());
                             }
                         } catch (IllegalAccessException e) {
-                            throw new JxlExcelException(e);
+                            throw new PerfectExcelException(e);
                         } catch (InvocationTargetException e) {
-                            throw new JxlExcelException(e);
+                            throw new PerfectExcelException(e);
                         } catch (NoSuchMethodException e) {
-                            throw new JxlExcelException(e);
+                            throw new PerfectExcelException(e);
                         }
                     }
                 }
@@ -186,11 +186,11 @@ public class JxlExcelWriter extends JxlExcel {
             }
             wb.write();
         } catch (IOException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         } catch (RowsExceededException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         } catch (WriteException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         } finally {
             close(wb);
         }

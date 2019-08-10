@@ -1,5 +1,8 @@
 package com.perfect.common.utils.string.convert;
 
+import com.perfect.common.utils.string.StringUtil;
+import com.perfect.common.utils.string.charset.CharsetUtil;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -10,9 +13,6 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.text.NumberFormat;
 import java.util.Set;
-
-import com.perfect.common.utils.string.StringUtil;
-import com.perfect.common.utils.string.charset.CharsetUtil;
 
 /**
  * 类型转换器
@@ -1011,7 +1011,7 @@ public class Convert
      * @return
      * @throws Exception
      */
-    public ByteArrayOutputStream parse(final InputStream in) throws Exception {
+    public static ByteArrayOutputStream inputStream2OutputStream(final InputStream in) throws Exception {
         final ByteArrayOutputStream swapStream = new ByteArrayOutputStream();
         int ch;
         while ((ch = in.read()) != -1) {
@@ -1026,7 +1026,7 @@ public class Convert
      * @return
      * @throws Exception
      */
-    public ByteArrayInputStream parse(final OutputStream out) throws Exception {
+    public static ByteArrayInputStream onputStream2IutputStream(final OutputStream out) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         baos = (ByteArrayOutputStream) out;
         final ByteArrayInputStream swapStream = new ByteArrayInputStream(baos.toByteArray());

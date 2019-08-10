@@ -1,6 +1,6 @@
 package com.perfect.excel.conf.convertor;
 
-import com.perfect.excel.upload.JxlExcelException;
+import com.perfect.excel.upload.PerfectExcelException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +18,7 @@ public abstract class NameValueConvertor extends BaseConvertor {
     @Override
     public String doConvert(Object input) {
         if (!nvMap.containsKey(input)) {
-            throw new JxlExcelException(String.format("无效名：%s", input));
+            throw new PerfectExcelException(String.format("无效名：%s", input));
         }
         return nvMap.get(input);
     }
@@ -31,6 +31,6 @@ public abstract class NameValueConvertor extends BaseConvertor {
                 return key;
             }
         }
-        throw new JxlExcelException(String.format("无效值：%s", input));
+        throw new PerfectExcelException(String.format("无效值：%s", input));
     }
 }

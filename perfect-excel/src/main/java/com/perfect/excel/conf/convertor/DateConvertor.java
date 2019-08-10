@@ -1,7 +1,7 @@
 package com.perfect.excel.conf.convertor;
 
 import com.perfect.common.utils.DateTimeUtil;
-import com.perfect.excel.upload.JxlExcelException;
+import com.perfect.excel.upload.PerfectExcelException;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.ParseException;
@@ -25,7 +25,7 @@ public class DateConvertor extends BaseConvertor {
         try {
             return DateTimeUtil.parseDate(input, new String[]{DATE});
         } catch (ParseException e) {
-            throw new JxlExcelException(e);
+            throw new PerfectExcelException(e);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.perfect.excel.upload;
 
+import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.utils.string.StringUtil;
 import com.perfect.excel.bean.importconfig.template.data.DataCol;
 import com.perfect.excel.bean.importconfig.template.title.DummyTitleCol;
@@ -8,28 +9,18 @@ import com.perfect.excel.bean.importconfig.template.title.TitleRow;
 import com.perfect.excel.conf.convertor.ConvertorUtil;
 import com.perfect.excel.conf.validator.ColValidateResult;
 import com.perfect.excel.conf.validator.RowValidateResult;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.read.biff.BiffException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.FileMagic;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Font;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.util.TempFile;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * excel导入类
@@ -37,11 +28,20 @@ import java.util.Map;
  * @author zxh
  */
 @Slf4j
-public class JxlExcelReader extends JxlExcel {
+public class PerfectExcelReader extends PerfectExcelBase {
 
     private InputStream is;
-
     private List<RowValidateResult> rowValidateResults = new ArrayList<RowValidateResult>();
+
+    /**
+     * true:xlsx,false:xls
+     */
+    private boolean xlsOrXlsx;
+    /**
+     * Office 2003 ，xls:HSSFWorkbook
+     * Office 2007 ，xls:XSSFWorkbook
+     */
+    Workbook wb ;
 
     /**
      * 读取文件
@@ -49,7 +49,7 @@ public class JxlExcelReader extends JxlExcel {
      * @param excelFile
      * @throws FileNotFoundException
      */
-    public JxlExcelReader(File excelFile) throws FileNotFoundException {
+    public PerfectExcelReader(File excelFile) throws Exception {
         this(new FileInputStream(excelFile));
     }
 
@@ -58,7 +58,7 @@ public class JxlExcelReader extends JxlExcel {
      * 
      * @param is
      */
-    public JxlExcelReader(InputStream is) {
+    public PerfectExcelReader(InputStream is) throws Exception {
         this.is = is;
     }
 
@@ -80,6 +80,31 @@ public class JxlExcelReader extends JxlExcel {
         return rowValidateResults;
     }
 
+    public File getValidateResultsInFIle() throws IOException {
+        //生成UUID唯一标识，以防止文件覆盖
+        UUID uuid = UUID.randomUUID();
+        File tempFile = null;
+        OutputStream fos = null;
+        try {
+            // ws => outputstream
+            if(xlsOrXlsx){
+                wb.write(fos);
+            }
+            tempFile = TempFile.createTempFile(uuid.toString()+"filename", PerfectConstant.XLSX_SUFFIX);
+            fos = new FileOutputStream(tempFile);
+        } catch (IOException e) {
+            throw new PerfectExcelException(e);
+        } catch (Exception e) {
+            throw new PerfectExcelException(e);
+        } finally {
+            if(fos != null){
+                fos.close();
+            }
+        }
+
+        return tempFile;
+    }
+
     /**
      * 读取后，泛型返回
      * 
@@ -94,9 +119,9 @@ public class JxlExcelReader extends JxlExcel {
                 try {
                     return clasz.newInstance();
                 } catch (InstantiationException e) {
-                    throw new JxlExcelException(e);
+                    throw new PerfectExcelException(e);
                 } catch (IllegalAccessException e) {
-                    throw new JxlExcelException(e);
+                    throw new PerfectExcelException(e);
                 }
             }
 
@@ -105,9 +130,9 @@ public class JxlExcelReader extends JxlExcel {
                 try {
                     BeanUtils.setProperty(rowData, dataCol.getName(), colDataVal);
                 } catch (IllegalAccessException e) {
-                    throw new JxlExcelException(e);
+                    throw new PerfectExcelException(e);
                 } catch (InvocationTargetException e) {
-                    throw new JxlExcelException(e);
+                    throw new PerfectExcelException(e);
                 }
             }
 
@@ -163,42 +188,17 @@ public class JxlExcelReader extends JxlExcel {
         checkTemplate();
         // 文件分析，判断是否是excel文档
         if (FileMagic.valueOf(is) == FileMagic.OLE2) {
-            // Office 2003 ，xls
-            Workbook workbook = null;
-            try {
-                workbook = Workbook.getWorkbook(is);
-            } catch (BiffException e) {
-                throw new JxlExcelException(e);
-            } catch (IOException e) {
-                throw new JxlExcelException(e);
-            }
-            try {
-                Sheet sheet = workbook.getSheet(0);
-                readPolicy.checkTemplateTitles(sheet);
-                return readPolicy.readDatasFromSheet(sheet);
-            } finally {
-                if (workbook != null) {
-                    workbook.close();
-                }
-            }
+            // office 2003
+            xlsOrXlsx = false;
+            wb = new HSSFWorkbook(is);
         } else {
-            // Office 2007 +，xlsx
-            XSSFWorkbook xssfWorkbook;
-            try {
-                xssfWorkbook = new XSSFWorkbook(is);
-            } catch (Exception e) {
-                throw new JxlExcelException(e);
-            }
-            try {
-                XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
-                readPolicy.checkTemplateTitles(xssfSheet);
-                return readPolicy.readDatasFromSheet(xssfSheet, xssfWorkbook);
-            } finally {
-                if (xssfWorkbook != null) {
-                    xssfWorkbook.close();
-                }
-            }
+            // office 2007
+            xlsOrXlsx = true;
+            wb = new XSSFWorkbook(is);
         }
+        Sheet sheet =  wb.getSheetAt(0);
+        readPolicy.checkTemplateTitles(sheet);
+        return readPolicy.readDatasFromSheet(sheet);
     }
 
     /**
@@ -245,7 +245,7 @@ public class JxlExcelReader extends JxlExcel {
          * @param sheet
          * @return
          */
-        List<T> readDatasFromSheet(XSSFSheet sheet, XSSFWorkbook xssfWorkbook) {
+        List<T> readDatasFromSheet(Sheet sheet) {
             List<T> datas = new ArrayList<T>();
             for (int row = excelTemplate.getDataRowIndex(); row <= sheet.getLastRowNum(); row++) {
                 List<DataCol> dataCols = excelTemplate.getDataCols();
@@ -281,53 +281,7 @@ public class JxlExcelReader extends JxlExcel {
                 } else {
                     rowValidateResults.add(rowValidateResult);
                     // 添加错误数据
-                    setCellValue(xssfWorkbook, row, dataCols.size() + 1, sheet, rowValidateResult.getErrors(excelTemplate.getTitleRows()));
-                }
-            }
-            return datas;
-        }
-
-        /**
-         * 读取数据
-         * 
-         * @param sheet
-         * @return
-         */
-        List<T> readDatasFromSheet(Sheet sheet) {
-            List<T> datas = new ArrayList<T>();
-            for (int row = excelTemplate.getDataRowIndex(); row < sheet.getRows(); row++) {
-                List<DataCol> dataCols = excelTemplate.getDataCols();
-                T rowData = newRowData();
-
-                boolean isRowDataValid = true;
-                RowValidateResult rowValidateResult = new RowValidateResult();
-                for (int col = 0; col < dataCols.size(); col++) {
-                    String value = sheet.getCell(col, row).getContents().trim();
-                    DataCol dataCol = dataCols.get(col);
-                    if (dataCol.hasValidator()) {
-                        ColValidateResult colValidateResult = dataCol.validate(value);
-                        rowValidateResult.setRowIndex(row);
-                        boolean isColDataValid = colValidateResult.isSuccess();
-                        isRowDataValid = isRowDataValid && isColDataValid;
-                        if (!isColDataValid) {
-                            rowValidateResult.addColValidateResult(colValidateResult);
-                        }
-                    }
-                    if (isRowDataValid) {
-                        String convertor = dataCol.getConvertor();
-                        Object colDataVal = null;
-                        if (StringUtils.isNotEmpty(convertor)) {
-                            colDataVal = ConvertorUtil.convertToType(value, convertor);
-                        } else {
-                            colDataVal = value;
-                        }
-                        setColData(rowData, dataCol, colDataVal);
-                    }
-                }
-                if (isRowDataValid) {
-                    datas.add(rowData);
-                } else {
-                    rowValidateResults.add(rowValidateResult);
+                    setErrorCellValue(row, dataCols.size() + 1, sheet, rowValidateResult.getErrors(excelTemplate.getTitleRows()));
                 }
             }
             return datas;
@@ -339,40 +293,8 @@ public class JxlExcelReader extends JxlExcel {
          * @param sheet
          */
         void checkTemplateTitles(Sheet sheet) {
-            if (sheet.getColumns() != excelTemplate.getColSize()) {
-                throw new JxlExcelException(
-                    String.format("读取的excel与模板不匹配：期望%s列，实际为%s列", excelTemplate.getColSize(), sheet.getColumns()));
-            }
-            List<TitleRow> titleRows = excelTemplate.getTitleRows();
-            StringBuffer errorMsg = new StringBuffer();
-            for (int row = 0; row < titleRows.size(); row++) {
-                TitleRow titleRow = titleRows.get(row);
-                for (int col = 0; col < titleRow.colSize(); col++) {
-                    TitleCol titleCol = titleRow.getCol(col);
-                    if (titleCol instanceof DummyTitleCol) {
-                        continue;
-                    }
-                    String value = sheet.getCell(col, row).getContents().trim();
-                    if (!value.equals(titleCol.getTitle())) {
-                        errorMsg.append(
-                            String.format("第%s行第%s列期望[%s]，实际为[%s]\n", row + 1, col + 1, titleCol.getTitle(), value));
-                    }
-                }
-            }
-            if (errorMsg.length() > 0) {
-                errorMsg.deleteCharAt(errorMsg.length() - 1);
-                throw new JxlExcelException("读取的excel与模板不匹配：" + errorMsg);
-            }
-        }
-
-        /**
-         * 检查模板和excel是否匹配
-         * 
-         * @param sheet
-         */
-        void checkTemplateTitles(XSSFSheet sheet) {
             if (sheet.getRow(0).getPhysicalNumberOfCells() != excelTemplate.getColSize()) {
-                throw new JxlExcelException(String.format("读取的excel与模板不匹配：期望%s列，实际为%s列", excelTemplate.getColSize(),
+                throw new PerfectExcelException(String.format("读取的excel与模板不匹配：期望%s列，实际为%s列", excelTemplate.getColSize(),
                     sheet.getRow(0).getPhysicalNumberOfCells()));
             }
             List<TitleRow> titleRows = excelTemplate.getTitleRows();
@@ -394,7 +316,7 @@ public class JxlExcelReader extends JxlExcel {
             }
             if (errorMsg.length() > 0) {
                 errorMsg.deleteCharAt(errorMsg.length() - 1);
-                throw new JxlExcelException("读取的excel与模板不匹配：" + errorMsg);
+                throw new PerfectExcelException("读取的excel与模板不匹配：" + errorMsg);
             }
         }
 
@@ -403,15 +325,15 @@ public class JxlExcelReader extends JxlExcel {
          * 
          * @return
          */
-        private void setCellValue(XSSFWorkbook xssfWorkbook, int rowId, int col, XSSFSheet sheet, String error) {
-            Font font = xssfWorkbook.createFont();
+        private void setErrorCellValue(int rowId, int col, Sheet sheet, String error) {
+            Font font = wb.createFont();
             font.setFontName("微软雅黑");
             font.setColor(Font.COLOR_RED);
             font.setBold(true);
-            CellStyle cellStyle = xssfWorkbook.createCellStyle();
+            CellStyle cellStyle = wb.createCellStyle();
             cellStyle.setFont(font);
 
-            XSSFRow row = sheet.getRow(rowId);
+            Row row = sheet.getRow(rowId);
             // 创建头部head
             Cell cellHead = row.createCell(0);
             cellHead.setCellStyle(cellStyle);
@@ -427,9 +349,9 @@ public class JxlExcelReader extends JxlExcel {
          * 
          * @return
          */
-        String getCellValue(int rowId, int col, XSSFSheet sheet) {
-            XSSFRow row = sheet.getRow(rowId);
-            XSSFCell cell = row.getCell(col);
+        String getCellValue(int rowId, int col, Sheet sheet) {
+            Row row = sheet.getRow(rowId);
+            Cell cell = row.getCell(col);
 
             // 返回值
             String rtn = "";
