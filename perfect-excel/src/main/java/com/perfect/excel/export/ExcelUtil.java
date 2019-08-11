@@ -112,14 +112,14 @@ public class ExcelUtil<T> {
         /** 循环读取 */
         byte[] buff = new byte[1024];
         int len = 0;
-        while ((len = in.read()) > 0) {
-            out.write(len);
+//        while ((len = in.read()) > 0) {
+//            out.write(len);
+//        }
+//        out.flush();
+        while ((len = in.read(buff)) > 0) {
+            out.write(buff, 0, len);
             out.flush();
         }
-//        while ((len = in.read(buff)) > 0) {
-//            out.write(buff, 0, len);
-//            out.flush();
-//        }
 
         // 关闭流资源
         in.close();
