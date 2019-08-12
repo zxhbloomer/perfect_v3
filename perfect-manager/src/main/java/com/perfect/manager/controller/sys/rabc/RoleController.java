@@ -160,7 +160,7 @@ public class RoleController extends BaseController {
             return ResponseEntity.ok().body(ResultUtil.success(sysRoleVo));
         } else {
             // 读取失败，需要返回错误
-            File rtnFile = pr.getValidateResultsInFile("xxx.xls");
+            File rtnFile = pr.getValidateResultsInFile("xxx.xlsx");
             super.setErrorFile(rtnFile.getAbsolutePath(), "fuck.xlsx");
 
             ExcelUtil.download(rtnFile.getAbsolutePath(),"xx.xlsx" , response);
