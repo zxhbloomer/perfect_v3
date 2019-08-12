@@ -2,9 +2,11 @@ package com.perfect.framework.base.controller.v1;
 
 import com.alibaba.fastjson.JSON;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
-import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
+import com.perfect.common.exception.BusinessException;
 import com.perfect.common.properies.PerfectConfigProperies;
+import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
+import com.perfect.excel.export.ExcelUtil;
 import com.perfect.excel.upload.PerfectExcelReader;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.poifs.filesystem.FileMagic;
@@ -15,10 +17,12 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 /**
  * controller父类
@@ -35,32 +39,40 @@ public class BaseController {
     private PerfectConfigProperies perfectConfigProperies;
 
     /**
-     * 错误fileurl
+     * 通用文件上传
      * @param fileUrl
      * @return
      */
-    public UploadFileResultPojo setErrorFile(String fileUrl, String reName){
+    public <T> T uploadFile(String fileUrl, Class<T> classOfT) throws IllegalAccessException, InstantiationException {
         // 上传的url
         String uploadFileUrl = perfectConfigProperies.getFsUrl();
         FileSystemResource resource = new FileSystemResource(fileUrl);
         MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
         param.add("file", resource);
-        param.add("appid", "0");
-        param.add("username", "PROFECT");
-        param.add("groupid", "ONE");
+        param.add("appid", perfectConfigProperies.getFsAppid());
+        param.add("username", perfectConfigProperies.getFsUsername());
+        param.add("groupid", perfectConfigProperies.getFsGroupid());
         /**
          * request 头信息
          */
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("multipart/form-data; charset=UTF-8"));
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
         HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(param, headers);
-        UploadFileResultPojo uploadFileResultPojo = restTemplate.exchange(uploadFileUrl, HttpMethod.POST, httpEntity, SysRoleVo.class).getBody();
+        ResponseEntity<Map> re = restTemplate.exchange(uploadFileUrl, HttpMethod.POST, httpEntity, Map.class);
+        if (re.getStatusCode().value() != HttpStatus.OK.value()) {
+            throw new BusinessException("错误文件处理失败");
+        }
+        UploadFileResultPojo uploadFileResultPojo = JSON.parseObject(JSON.toJSONString(re.getBody().get("data")), UploadFileResultPojo.class);
         // 判断文件是否存在
         File file = new File(fileUrl);
         if (file.exists()) {
             file.delete();
         }
-        return uploadFileResultPojo;
+        // 复制UploadFileResultPojo类中的属性到，返回的bean中
+        T rtnBean = classOfT.newInstance();
+        BeanUtilsSupport.copyProperties(uploadFileResultPojo, rtnBean);
+
+        return rtnBean;
     }
 
     /**
@@ -104,6 +116,16 @@ public class BaseController {
         // 初始化
         et.initValidator();
         return et;
+    }
+
+    /**
+     * 通用文件下载
+     * @param filePath
+     * @param fileName
+     * @param response
+     */
+    public void fileDownLoad(String filePath, String fileName, HttpServletResponse response) throws IOException {
+        ExcelUtil.download(filePath, fileName , response);
     }
 
 

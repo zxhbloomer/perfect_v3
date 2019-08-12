@@ -10,6 +10,7 @@ public class PerfectConstant {
 
     // excel
     public static final String XLSX_SUFFIX = ".xlsx";
+    public static final String XLS_SUFFIX = ".xls";
     public static final String XLSX_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
     // 图形验证码 session key

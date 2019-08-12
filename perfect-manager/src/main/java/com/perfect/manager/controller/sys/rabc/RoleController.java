@@ -9,7 +9,6 @@ import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
-import com.perfect.common.properies.PerfectConfigProperies;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.system.rabc.ISRoleService;
 import com.perfect.excel.export.ExcelUtil;
@@ -19,10 +18,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -160,12 +157,9 @@ public class RoleController extends BaseController {
             return ResponseEntity.ok().body(ResultUtil.success(sysRoleVo));
         } else {
             // 读取失败，需要返回错误
-            File rtnFile = pr.getValidateResultsInFile("xxx.xlsx");
-            super.setErrorFile(rtnFile.getAbsolutePath(), "fuck.xlsx");
-
-            ExcelUtil.download(rtnFile.getAbsolutePath(),"xx.xlsx" , response);
-
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResultUtil.success(sysRoleVo));
+            File rtnFile = pr.getValidateResultsInFile("角色数据导入错误");
+            SysRoleVo errorInfo = super.uploadFile(rtnFile.getAbsolutePath(), SysRoleVo.class);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResultUtil.success(errorInfo));
         }
     }
 }

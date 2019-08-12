@@ -16,15 +16,16 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.FileMagic;
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.util.TempFile;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * excel导入类
@@ -107,12 +108,16 @@ public class PerfectExcelReader extends PerfectExcelBase {
      */
     public File getValidateResultsInFile(String fileName) throws IOException {
         //生成UUID唯一标识，以防止文件覆盖
-        UUID uuid = UUID.randomUUID();
         Path tempPath = null;
         OutputStream fos = null;
         File file = null;
         try {
             tempPath = Files.createTempDirectory("ExcelError");
+            if(xlsOrXlsx){
+                fileName = fileName + PerfectConstant.XLSX_SUFFIX;
+            } else {
+                fileName = fileName + PerfectConstant.XLS_SUFFIX;
+            }
             file = new File(tempPath.toString(), fileName);
             fos = new FileOutputStream(file);
             // ws => outputstream

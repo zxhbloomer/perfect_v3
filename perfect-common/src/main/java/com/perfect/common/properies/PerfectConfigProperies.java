@@ -25,5 +25,8 @@ public class PerfectConfigProperies {
      */
     private String fsUrl;
 
+    private String fsAppid;
+    private String fsUsername;
+    private String fsGroupid;
 
 }
