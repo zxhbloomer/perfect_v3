@@ -1,15 +1,22 @@
 package com.perfect.framework.base.controller.v1;
 
 import com.alibaba.fastjson.JSON;
+import com.perfect.bean.pojo.fs.UploadFileResultPojo;
+import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
+import com.perfect.common.properies.PerfectConfigProperies;
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
 import com.perfect.excel.upload.PerfectExcelReader;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.poifs.filesystem.FileMagic;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -24,8 +31,41 @@ public class BaseController {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private PerfectConfigProperies perfectConfigProperies;
+
     /**
-     * 下载文件，并check是否是excel文件
+     * 错误fileurl
+     * @param fileUrl
+     * @return
+     */
+    public UploadFileResultPojo setErrorFile(String fileUrl, String reName){
+        // 上传的url
+        String uploadFileUrl = perfectConfigProperies.getFsUrl();
+        FileSystemResource resource = new FileSystemResource(fileUrl);
+        MultiValueMap<String, Object> param = new LinkedMultiValueMap<>();
+        param.add("file", resource);
+        param.add("appid", "0");
+        param.add("username", "PROFECT");
+        param.add("groupid", "ONE");
+        /**
+         * request 头信息
+         */
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType("multipart/form-data; charset=UTF-8"));
+        HttpEntity<MultiValueMap<String, Object>> httpEntity = new HttpEntity<>(param, headers);
+        UploadFileResultPojo uploadFileResultPojo = restTemplate.exchange(uploadFileUrl, HttpMethod.POST, httpEntity, SysRoleVo.class).getBody();
+        // 判断文件是否存在
+        File file = new File(fileUrl);
+        if (file.exists()) {
+            file.delete();
+        }
+        return uploadFileResultPojo;
+    }
+
+    /**
+     * 下载excel导入文件，并check是否是excel文件，然后根据模板定义进行导入
+     * 如果有错误，则会生成错误excel，供客户下载查看。
      * @param fileUrl
      * @return
      * @throws IOException

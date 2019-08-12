@@ -96,7 +96,7 @@ public class ExcelUtil<T> {
         throws IOException {
         /** 获取下载文件的路径 */
         File file = new File(serverFile);
-        InputStream in = new FileInputStream(serverFile);
+        InputStream fis = new FileInputStream(serverFile);
         /** 获取输出流 */
         OutputStream out = response.getOutputStream();
 
@@ -112,17 +112,17 @@ public class ExcelUtil<T> {
         /** 循环读取 */
         byte[] buff = new byte[1024];
         int len = 0;
-//        while ((len = in.read()) > 0) {
-//            out.write(len);
+//        while ((len = fis.read(buff)) > 0) {
+//            out.write(buff, 0, len);
+//            out.flush();
 //        }
-//        out.flush();
-        while ((len = in.read(buff)) > 0) {
-            out.write(buff, 0, len);
-            out.flush();
+        while((len=fis.read(buff))!=-1){
+            out.write(buff,0,len);
         }
+        out.flush();
 
         // 关闭流资源
-        in.close();
+        fis.close();
         out.close();
         // 删除服务器端生成的下载文件,减轻服务器的压力
         // File file = new File(serverFile);
@@ -146,6 +146,7 @@ public class ExcelUtil<T> {
     }
 
     private void exportExcel(HttpServletResponse response) throws IOException {
+        // 调用excel文件生成逻辑，并返回文件路径
         String fileNamePath = doExport();
         /** 下载Excel文件 */
         download(fileNamePath, this.fileName, response);
@@ -378,6 +379,7 @@ public class ExcelUtil<T> {
         // 生成UUID唯一标识，以防止文件覆盖
         UUID uuid = UUID.randomUUID();
         File tempFile = TempFile.createTempFile(uuid.toString() + filename, PerfectConstant.XLSX_SUFFIX);
+        tempFile.deleteOnExit();
         log.debug("生成临时文件，路径为:" + tempFile.getAbsolutePath());
 
         // String downloadPath = "" + filename;

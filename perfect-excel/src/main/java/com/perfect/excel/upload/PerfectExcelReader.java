@@ -21,6 +21,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -102,14 +105,16 @@ public class PerfectExcelReader extends PerfectExcelBase {
      * @return
      * @throws IOException
      */
-    public File getValidateResultsInFile() throws IOException {
+    public File getValidateResultsInFile(String fileName) throws IOException {
         //生成UUID唯一标识，以防止文件覆盖
         UUID uuid = UUID.randomUUID();
-        File tempFile = null;
+        Path tempPath = null;
         OutputStream fos = null;
+        File file = null;
         try {
-            tempFile = TempFile.createTempFile(uuid.toString()+"filename", PerfectConstant.XLSX_SUFFIX);
-            fos = new FileOutputStream(tempFile);
+            tempPath = Files.createTempDirectory("ExcelError");
+            file = new File(tempPath.toString(), fileName);
+            fos = new FileOutputStream(file);
             // ws => outputstream
             if(xlsOrXlsx){
                 wb.write(fos);
@@ -124,7 +129,7 @@ public class PerfectExcelReader extends PerfectExcelBase {
             }
         }
 
-        return tempFile;
+        return file;
     }
 
     /**

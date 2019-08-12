@@ -9,6 +9,7 @@ import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
+import com.perfect.common.properies.PerfectConfigProperies;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.system.rabc.ISRoleService;
 import com.perfect.excel.export.ExcelUtil;
@@ -18,7 +19,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -112,10 +116,35 @@ public class RoleController extends BaseController {
         util.exportExcel("角色数据导出", "角色数据", rtnList, response);
     }
 
+//    @SysLog("角色数据导入")
+//    @ApiOperation("角色数据模板导入")
+//    @PostMapping("/import")
+//    public void importData(@RequestBody(required = false) SysRoleVo uploadData,
+//        HttpServletResponse response) throws Exception {
+//
+//        // file bean 保存数据库
+//
+//        // 文件下载并check类型
+//        // 1、获取模板配置类
+//        String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"param\":[{\"name\":\"dateFormat\",\"value\":\"yyyy-MM-dd HH:mm:ss\"}],\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
+//        PerfectExcelReader pr = super.downloadExcelAndImportData(uploadData.getFsType2Url(), json);
+//        List<SRoleEntity> beans = pr.readBeans(SRoleEntity.class);
+//
+//        if (pr.isDataValid()) {
+//            // 读取没有错误
+//            beans.size();
+//        } else {
+//            // 读取失败，需要返回错误
+//            File rtnFile = pr.getValidateResultsInFile();
+//            ExcelUtil.download(rtnFile.getAbsolutePath(),"xx.xlsx" , response);
+//        }
+//        pr.closeAll();
+//    }
+
     @SysLog("角色数据导入")
     @ApiOperation("角色数据模板导入")
     @PostMapping("/import")
-    public void importData(@RequestBody(required = false) SysRoleVo uploadData,
+    public ResponseEntity<JSONResult<SysRoleVo>> importData(@RequestBody(required = false) SysRoleVo uploadData,
         HttpServletResponse response) throws Exception {
 
         // file bean 保存数据库
@@ -125,15 +154,18 @@ public class RoleController extends BaseController {
         String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"param\":[{\"name\":\"dateFormat\",\"value\":\"yyyy-MM-dd HH:mm:ss\"}],\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
         PerfectExcelReader pr = super.downloadExcelAndImportData(uploadData.getFsType2Url(), json);
         List<SRoleEntity> beans = pr.readBeans(SRoleEntity.class);
-
+        SysRoleVo sysRoleVo = new SysRoleVo();
         if (pr.isDataValid()) {
-            // 读取没有错误
-            beans.size();
+            // 读取没有错误，开始插入
+            return ResponseEntity.ok().body(ResultUtil.success(sysRoleVo));
         } else {
             // 读取失败，需要返回错误
-            File rtnFile = pr.getValidateResultsInFile();
+            File rtnFile = pr.getValidateResultsInFile("xxx.xls");
+            super.setErrorFile(rtnFile.getAbsolutePath(), "fuck.xlsx");
+
             ExcelUtil.download(rtnFile.getAbsolutePath(),"xx.xlsx" , response);
+
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResultUtil.success(sysRoleVo));
         }
-        pr.closeAll();
     }
 }

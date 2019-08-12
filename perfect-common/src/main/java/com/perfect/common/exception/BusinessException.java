@@ -9,7 +9,11 @@ public class BusinessException extends RuntimeException
 {
     private static final long serialVersionUID = 1L;
 
-    protected final String message;
+    private String message;
+
+    public BusinessException(Throwable cause) {
+        super(cause);
+    }
 
     public BusinessException(String message)
     {
