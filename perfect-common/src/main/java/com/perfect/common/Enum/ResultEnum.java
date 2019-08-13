@@ -2,6 +2,7 @@ package com.perfect.common.Enum;
 
 
 public enum ResultEnum {
+    IMPORT_DATA_ERROR(20001, "导入数据出错"),
     UNKONW_ERROR(-9, "未知错误"),
     OK(0, "成功"),
     FAIL(-1, "失败"),

@@ -29,6 +29,12 @@ public class ResultUtil {
             .build();
     }
 
+    /**
+     * 无错误的返回
+     * @param data
+     * @param <T>
+     * @return
+     */
     public static <T>JSONResult<T> success(T data) {
         return JSONResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
@@ -40,6 +46,26 @@ public class ResultUtil {
                 .success(true)
                 .data(data)
                 .build();
+    }
+
+    /**
+     * 含code的无错误的返回
+     * @param data
+     * @param code
+     * @param <T>
+     * @return
+     */
+    public static <T>JSONResult<T> success(T data, int code) {
+        return JSONResult.<T>builder()
+            .timestamp(DateTimeUtil.getTime())
+            .http_status(HttpStatus.OK.value())
+            .code(code)
+            .message("调用成功")
+            .path(CommonUtil.getRequest().getRequestURL().toString())
+            .method(CommonUtil.getRequest().getMethod())
+            .success(true)
+            .data(data)
+            .build();
     }
 
 //    public static Object success(Integer status, String message, String path, String method, Object data) {

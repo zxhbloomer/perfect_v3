@@ -6,6 +6,7 @@ import com.perfect.bean.pojo.JSONResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
+import com.perfect.common.Enum.ResultEnum;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -113,53 +114,32 @@ public class RoleController extends BaseController {
         util.exportExcel("角色数据导出", "角色数据", rtnList, response);
     }
 
-//    @SysLog("角色数据导入")
-//    @ApiOperation("角色数据模板导入")
-//    @PostMapping("/import")
-//    public void importData(@RequestBody(required = false) SysRoleVo uploadData,
-//        HttpServletResponse response) throws Exception {
-//
-//        // file bean 保存数据库
-//
-//        // 文件下载并check类型
-//        // 1、获取模板配置类
-//        String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"param\":[{\"name\":\"dateFormat\",\"value\":\"yyyy-MM-dd HH:mm:ss\"}],\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
-//        PerfectExcelReader pr = super.downloadExcelAndImportData(uploadData.getFsType2Url(), json);
-//        List<SRoleEntity> beans = pr.readBeans(SRoleEntity.class);
-//
-//        if (pr.isDataValid()) {
-//            // 读取没有错误
-//            beans.size();
-//        } else {
-//            // 读取失败，需要返回错误
-//            File rtnFile = pr.getValidateResultsInFile();
-//            ExcelUtil.download(rtnFile.getAbsolutePath(),"xx.xlsx" , response);
-//        }
-//        pr.closeAll();
-//    }
-
     @SysLog("角色数据导入")
     @ApiOperation("角色数据模板导入")
     @PostMapping("/import")
-    public ResponseEntity<JSONResult<SysRoleVo>> importData(@RequestBody(required = false) SysRoleVo uploadData,
+    public ResponseEntity<JSONResult<Object>> importData(@RequestBody(required = false) SysRoleVo uploadData,
         HttpServletResponse response) throws Exception {
 
         // file bean 保存数据库
 
         // 文件下载并check类型
         // 1、获取模板配置类
-        String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"date\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"param\":[{\"name\":\"dateFormat\",\"value\":\"yyyy-MM-dd HH:mm:ss\"}],\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
+//        String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"convertor\":\"datetime\",\"index\":1,\"listValiDator\":[{\"validtorName\":\"required\"},{\"param\":[{\"name\":\"dateFormat\",\"value\":\"yyyy-MM-dd HH:mm:ss\"}],\"validtorName\":\"datetime\"}],\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
+        String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"index\":1,\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
         PerfectExcelReader pr = super.downloadExcelAndImportData(uploadData.getFsType2Url(), json);
         List<SRoleEntity> beans = pr.readBeans(SRoleEntity.class);
         SysRoleVo sysRoleVo = new SysRoleVo();
         if (pr.isDataValid()) {
+            pr.closeAll();
             // 读取没有错误，开始插入
-            return ResponseEntity.ok().body(ResultUtil.success(sysRoleVo));
+            isRoleService.saveBatches(beans);
+            return ResponseEntity.ok().body(ResultUtil.success(beans));
         } else {
             // 读取失败，需要返回错误
             File rtnFile = pr.getValidateResultsInFile("角色数据导入错误");
+            pr.closeAll();
             SysRoleVo errorInfo = super.uploadFile(rtnFile.getAbsolutePath(), SysRoleVo.class);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ResultUtil.success(errorInfo));
+            return ResponseEntity.ok().body(ResultUtil.success(errorInfo, ResultEnum.IMPORT_DATA_ERROR.getCode()));
         }
     }
 }

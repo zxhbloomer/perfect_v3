@@ -5,7 +5,9 @@ import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.formula.functions.T;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,4 +34,9 @@ public interface ISRoleService extends IService<SRoleEntity> {
      * 获取所选id的数据
      */
     List<SRoleEntity> selectIdsIn(List<SysRoleVo> searchCondition) throws InstantiationException, IllegalAccessException;
+
+    /**
+     * 获取所选id的数据
+     */
+    boolean saveBatches(List<SRoleEntity> entityList);
 }

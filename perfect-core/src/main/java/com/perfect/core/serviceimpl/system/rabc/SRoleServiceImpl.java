@@ -11,6 +11,7 @@ import com.perfect.core.service.system.rabc.ISRoleService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -74,5 +75,15 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
         return list;
     }
 
+    /**
+     * 批量导入逻辑
+     * @param entityList
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean saveBatches(List<SRoleEntity> entityList){
+        return super.saveBatch(entityList, 500);
+    }
 
 }

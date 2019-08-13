@@ -1,6 +1,7 @@
 package com.perfect.excel.upload;
 
 import com.perfect.common.constant.PerfectConstant;
+import com.perfect.common.utils.DateTimeUtil;
 import com.perfect.common.utils.string.StringUtil;
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
 import com.perfect.excel.bean.importconfig.template.data.DataCol;
@@ -22,6 +23,7 @@ import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +44,12 @@ public class PerfectExcelReader extends PerfectExcelBase {
      * true:xlsx,false:xls
      */
     private boolean xlsOrXlsx;
+
+    /**
+     * 临时文件夹
+     */
+    private Path tempPath;
+    private File errorFile;
     /**
      * Office 2003 ，xls:HSSFWorkbook
      * Office 2007 ，xls:XSSFWorkbook
@@ -65,7 +73,6 @@ public class PerfectExcelReader extends PerfectExcelBase {
      */
     public PerfectExcelReader(InputStream is, ExcelTemplate et) {
         this.is = is;
-        et.initValidator();
         super.setExcelTemplate(et);
     }
 
@@ -80,6 +87,16 @@ public class PerfectExcelReader extends PerfectExcelBase {
         try {
             is.close();
         } catch (IOException e) {
+        }
+        try {
+            if(errorFile != null && errorFile.exists()){
+                errorFile.delete();
+            }
+        } catch (Exception e) {
+        }
+        try {
+            Files.delete(tempPath);
+        } catch (Exception e) {
         }
     }
 
@@ -108,18 +125,16 @@ public class PerfectExcelReader extends PerfectExcelBase {
      */
     public File getValidateResultsInFile(String fileName) throws IOException {
         //生成UUID唯一标识，以防止文件覆盖
-        Path tempPath = null;
         OutputStream fos = null;
-        File file = null;
         try {
             tempPath = Files.createTempDirectory("ExcelError");
             if(xlsOrXlsx){
-                fileName = fileName + PerfectConstant.XLSX_SUFFIX;
+                fileName = fileName + "_" + DateTimeUtil.dateTimeNow() + PerfectConstant.XLSX_SUFFIX;
             } else {
-                fileName = fileName + PerfectConstant.XLS_SUFFIX;
+                fileName = fileName + "_" + DateTimeUtil.dateTimeNow() + PerfectConstant.XLS_SUFFIX;
             }
-            file = new File(tempPath.toString(), fileName);
-            fos = new FileOutputStream(file);
+            errorFile = new File(tempPath.toString(), fileName);
+            fos = new FileOutputStream(errorFile);
             // ws => outputstream
             if(xlsOrXlsx){
                 wb.write(fos);
@@ -134,7 +149,7 @@ public class PerfectExcelReader extends PerfectExcelBase {
             }
         }
 
-        return file;
+        return errorFile;
     }
 
     /**
@@ -395,7 +410,14 @@ public class PerfectExcelReader extends PerfectExcelBase {
             }
 
             if (cell.getCellType() == CellType.NUMERIC) {
-                rtn = String.valueOf(cell.getNumericCellValue());
+                // 判断是否为日期格式
+                if(DateUtil.isCellDateFormatted(cell)) {
+                    // 日期格式
+                    rtn = DateTimeUtil.parseDateToStr(DateTimeUtil.YYYY_MM_DD_HH_MM_SS, cell.getDateCellValue());
+                } else {
+                    // 非日期格式
+                    rtn = String.valueOf(cell.getNumericCellValue());
+                }
             } else if (cell.getCellType() == CellType.BOOLEAN) {
                 rtn = String.valueOf(cell.getBooleanCellValue());
             } else if (cell.getCellType() == CellType.STRING) {
