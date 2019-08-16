@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
+import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
 import com.perfect.core.mapper.client.user.MUserMapper;
 import com.perfect.core.mapper.system.rabc.SRoleMapper;
 import com.perfect.core.service.system.rabc.ISRoleService;
@@ -38,7 +38,7 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
      * @throws IllegalAccessException
      */
     @Override
-    public IPage<SRoleEntity> selectPage(SysRoleVo searchCondition) throws InstantiationException, IllegalAccessException {
+    public IPage<SRoleEntity> selectPage(SRoleVo searchCondition) throws InstantiationException, IllegalAccessException {
         // 分页条件
         Page<SRoleEntity> pageCondition = new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
@@ -53,7 +53,7 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
      * @throws InstantiationException
      * @throws IllegalAccessException
      */
-    @Override public List<SRoleEntity> select(SysRoleVo searchCondition)
+    @Override public List<SRoleEntity> select(SRoleVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         // 查询 数据
         List<SRoleEntity> list =sRoleMapper.select(searchCondition);
@@ -68,7 +68,7 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
      * @throws IllegalAccessException
      */
     @Override
-    public List<SRoleEntity> selectIdsIn(List<SysRoleVo> searchCondition)
+    public List<SRoleEntity> selectIdsIn(List<SRoleVo> searchCondition)
         throws InstantiationException, IllegalAccessException {
         // 查询 数据
         List<SRoleEntity> list =sRoleMapper.selectIdsIn(searchCondition);

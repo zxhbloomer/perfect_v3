@@ -1,13 +1,13 @@
-package com.perfect.bean.vo.sys.rabc.role;
+package com.perfect.bean.vo.sys.resource;
+
+import java.io.Serializable;
 
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.vo.condition.common.PageCondition;
+
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
-
-import java.io.Serializable;
 
 /**
  * @author zhangxh
@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @ApiModel(value = "角色返回信息", description = "角色返回vo_bean")
-public class SysRoleVo extends UploadFileResultPojo implements Serializable {
+public class SResourceVo extends UploadFileResultPojo implements Serializable {
 
     private static final long serialVersionUID = 2443084812232177470L;
 

@@ -1,10 +1,8 @@
 package com.perfect.bean.entity.system;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -60,6 +58,9 @@ public class SResourceEntity implements Serializable {
     @TableField("extension")
     private String extension;
 
+    @TableField("descr")
+    private String descr;
+
     /**
      * 租户代码
      */
@@ -72,32 +73,23 @@ public class SResourceEntity implements Serializable {
     @TableField("corp_name")
     private String corpName;
 
-    @TableField("descr")
-    private String descr;
-
-    /**
-     * 是否删除
-     */
-    @TableField("isdel")
-    private Boolean isdel;
-
-    @TableField("c_id")
+    @TableField(value="c_id", fill = FieldFill.INSERT)
     private Long cId;
 
-    @TableField("c_time")
+    @TableField(value="c_time", fill = FieldFill.INSERT)
     private LocalDateTime cTime;
 
-    @TableField("u_id")
+    @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
     private Long uId;
 
-    @TableField("u_time")
+    @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime uTime;
 
     /**
      * 数据版本，乐观锁使用
      */
-    @TableField("dbversion")
+    @Version
+    @TableField(value="dbversion", fill = FieldFill.INSERT_UPDATE)
     private Integer dbversion;
-
 
 }
