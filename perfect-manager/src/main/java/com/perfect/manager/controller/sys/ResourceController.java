@@ -1,4 +1,4 @@
-package com.perfect.manager.controller.sys.rabc;
+package com.perfect.manager.controller.sys;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.perfect.bean.entity.system.SResourceEntity;
+import com.perfect.bean.vo.sys.resource.SResourceExportVo;
 import com.perfect.bean.vo.sys.resource.SResourceVo;
 import com.perfect.core.service.system.ISResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,8 +104,8 @@ public class ResourceController extends BaseController {
         throws IllegalAccessException, InstantiationException, IOException {
         // List<SRoleExportVo> rtnList = new ArrayList<>();
         List<SResourceEntity> searchResult = isResourceService.select(searchCondition);
-        List<SRoleExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
-        ExcelUtil<SRoleExportVo> util = new ExcelUtil<>(SRoleExportVo.class);
+        List<SResourceExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
+        ExcelUtil<SResourceExportVo> util = new ExcelUtil<>(SResourceExportVo.class);
         util.exportExcel("角色数据导出", "角色数据", rtnList, response);
     }
 
@@ -115,8 +116,8 @@ public class ResourceController extends BaseController {
         HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
         List<SResourceEntity> searchResult = isResourceService.selectIdsIn(searchConditionList);
-        List<SRoleExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
-        ExcelUtil<SRoleExportVo> util = new ExcelUtil<>(SRoleExportVo.class);
+        List<SResourceExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
+        ExcelUtil<SResourceExportVo> util = new ExcelUtil<>(SResourceExportVo.class);
         util.exportExcel("角色数据导出", "角色数据", rtnList, response);
     }
 
