@@ -7,7 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.perfect.bean.entity.system.SResourceEntity;
-import com.perfect.bean.vo.sys.resource.SysResourceVo;
+import com.perfect.bean.vo.sys.resource.SResourceVo;
 import com.perfect.core.service.system.ISResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.pojo.JSONResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
-import com.perfect.bean.vo.sys.rabc.role.SysRoleVo;
+import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
 import com.perfect.common.Enum.ResultEnum;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.exception.InsertErrorException;
@@ -66,7 +66,7 @@ public class ResourceController extends BaseController {
     @PostMapping("/list")
     @ResponseBody
     public ResponseEntity<JSONResult<IPage<SResourceEntity>>> list(@RequestBody(required = false)
-        SysResourceVo searchCondition)
+        SResourceVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         IPage<SResourceEntity> sResourceEntity = isResourceService.selectPage(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.success(sResourceEntity));
@@ -99,7 +99,7 @@ public class ResourceController extends BaseController {
     @SysLog("角色数据导出")
     @ApiOperation("根据选择的数据，角色数据导出")
     @PostMapping("/export_all")
-    public void exportAll(@RequestBody(required = false) SysResourceVo searchCondition, HttpServletResponse response)
+    public void exportAll(@RequestBody(required = false) SResourceVo searchCondition, HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
         // List<SRoleExportVo> rtnList = new ArrayList<>();
         List<SResourceEntity> searchResult = isResourceService.select(searchCondition);
@@ -111,7 +111,7 @@ public class ResourceController extends BaseController {
     @SysLog("角色数据导出")
     @ApiOperation("根据选择的数据，角色数据导出")
     @PostMapping("/export_selection")
-    public void exportSelection(@RequestBody(required = false) List<SysResourceVo> searchConditionList,
+    public void exportSelection(@RequestBody(required = false) List<SResourceVo> searchConditionList,
         HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
         List<SResourceEntity> searchResult = isResourceService.selectIdsIn(searchConditionList);
@@ -123,7 +123,7 @@ public class ResourceController extends BaseController {
     @SysLog("角色数据导入")
     @ApiOperation("角色数据模板导入")
     @PostMapping("/import")
-    public ResponseEntity<JSONResult<Object>> importData(@RequestBody(required = false) SysResourceVo uploadData,
+    public ResponseEntity<JSONResult<Object>> importData(@RequestBody(required = false) SResourceVo uploadData,
         HttpServletResponse response) throws Exception {
 
         // file bean 保存数据库
@@ -134,7 +134,7 @@ public class ResourceController extends BaseController {
         String json = "{\"dataRows\":{\"dataCols\":[{\"index\":0,\"name\":\"type\"},{\"index\":1,\"name\":\"code\"},{\"index\":2,\"name\":\"name\"},{\"index\":3,\"name\":\"descr\"},{\"index\":4,\"name\":\"simpleName\"}]},\"titleRows\":[{\"cols\":[{\"colSpan\":1,\"title\":\"角色类型\"},{\"colSpan\":1,\"title\":\"角色编码\"},{\"colSpan\":1,\"title\":\"角色名称\"},{\"colSpan\":1,\"title\":\"描述\"},{\"colSpan\":1,\"title\":\"简称\"}]}]}";
         PerfectExcelReader pr = super.downloadExcelAndImportData(uploadData.getFsType2Url(), json);
         List<SResourceEntity> beans = pr.readBeans(SResourceEntity.class);
-        SysRoleVo sysRoleVo = new SysRoleVo();
+        SRoleVo SRoleVo = new SRoleVo();
         if (pr.isDataValid()) {
             pr.closeAll();
             // 读取没有错误，开始插入
@@ -144,7 +144,7 @@ public class ResourceController extends BaseController {
             // 读取失败，需要返回错误
             File rtnFile = pr.getValidateResultsInFile("角色数据导入错误");
             pr.closeAll();
-            SysRoleVo errorInfo = super.uploadFile(rtnFile.getAbsolutePath(), SysRoleVo.class);
+            SRoleVo errorInfo = super.uploadFile(rtnFile.getAbsolutePath(), SRoleVo.class);
             return ResponseEntity.ok().body(ResultUtil.success(errorInfo, ResultEnum.IMPORT_DATA_ERROR.getCode()));
         }
     }
