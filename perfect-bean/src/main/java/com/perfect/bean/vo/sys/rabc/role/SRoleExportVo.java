@@ -1,16 +1,11 @@
 package com.perfect.bean.vo.sys.rabc.role;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import com.perfect.common.annotation.Excel;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-import com.baomidou.mybatisplus.annotation.*;
-import com.perfect.bean.entity.base.entity.v1.BaseEntity;
 
 /**
  * <p>

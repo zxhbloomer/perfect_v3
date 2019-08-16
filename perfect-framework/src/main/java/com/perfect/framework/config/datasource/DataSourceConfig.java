@@ -1,4 +1,4 @@
-package com.perfect.managerstarter.config.datasource;
+package com.perfect.framework.config.datasource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

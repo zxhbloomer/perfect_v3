@@ -88,6 +88,11 @@
             <artifactId>perfect-excel</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.perfect</groupId>
+            <artifactId>perfect-core</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
         <!-- lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

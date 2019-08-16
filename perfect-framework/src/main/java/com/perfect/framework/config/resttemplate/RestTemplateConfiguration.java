@@ -1,11 +1,11 @@
-package com.perfect.managerstarter.config.resttemplate;
+package com.perfect.framework.config.resttemplate;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.perfect.common.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
+import com.perfect.framework.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

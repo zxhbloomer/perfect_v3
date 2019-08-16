@@ -1,4 +1,4 @@
-package com.perfect.managerstarter.spring.aspect;
+package com.perfect.framework.config.spring.aspect;
 
 
 import com.alibaba.fastjson.JSON;
@@ -24,6 +24,9 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * @author zxh
+ */
 @Aspect
 @Component
 @Slf4j

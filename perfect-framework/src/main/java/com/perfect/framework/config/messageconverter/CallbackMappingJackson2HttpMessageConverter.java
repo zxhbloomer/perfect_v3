@@ -1,15 +1,16 @@
-package com.perfect.common.config.messageconverter;
-
-import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import org.springframework.http.HttpOutputMessage;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageNotWritableException;
+package com.perfect.framework.config.messageconverter;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.HttpMessageNotWritableException;
+
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 
 /*public class CallbackMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
 
@@ -59,7 +60,6 @@ import java.util.List;
     public void setCallbackName(String callbackName) {
         this.callbackName = callbackName;
     }*/
-
 
 /**
  * @author zhangxh

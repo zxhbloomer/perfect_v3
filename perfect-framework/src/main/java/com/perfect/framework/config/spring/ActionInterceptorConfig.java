@@ -1,7 +1,7 @@
-package com.perfect.managerstarter.config.spring;
+package com.perfect.framework.config.spring;
 
-import com.perfect.common.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
-import com.perfect.managerstarter.config.interceptor.ActionInterceptor;
+import com.perfect.framework.config.interceptor.ActionInterceptor;
+import com.perfect.framework.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
@@ -10,6 +10,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+/**
+ * @author zxh
+ */
 @Configuration
 public class ActionInterceptorConfig implements WebMvcConfigurer {
 //public class ActionInterceptorConfig extends WebMvcConfigurationSupport {
