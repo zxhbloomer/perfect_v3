@@ -28,6 +28,10 @@ public class MyBatisAutoFillHandel implements MetaObjectHandler {
 
         this.setFieldValByName("cId", SecurityUtil.getLoginUserId(), metaObject);
         this.setFieldValByName("uId", SecurityUtil.getLoginUserId(), metaObject);
+        // 默认未删除
+        this.setFieldValByName("isdel", false, metaObject);
+        // 默认未启用
+        this.setFieldValByName("isforbidden", true, metaObject);
 
     }
 

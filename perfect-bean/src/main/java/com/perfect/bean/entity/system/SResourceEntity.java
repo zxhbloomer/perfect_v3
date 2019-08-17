@@ -1,12 +1,12 @@
 package com.perfect.bean.entity.system;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author zxh
- * @since 2019-08-16
+ * @since 2019-08-17
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -28,11 +28,17 @@ public class SResourceEntity implements Serializable {
     private Long id;
 
     /**
-     * excel导入模板文件：10，静态配置文件：20，静态图片文件：30
+     * excel导入模板文件：10，静态配置文件：20，静态图片文件：30，json
 
      */
     @TableField("type")
     private String type;
+
+    /**
+     * 资源名称
+     */
+    @TableField("name")
+    private String name;
 
     /**
      * 相对路径
@@ -58,8 +64,23 @@ public class SResourceEntity implements Serializable {
     @TableField("extension")
     private String extension;
 
+    /**
+     * 描述
+     */
     @TableField("descr")
     private String descr;
+
+    /**
+     * json配置文件
+     */
+    @TableField("context")
+    private String context;
+
+    /**
+     * 是否删除
+     */
+    @TableField("isdel")
+    private Boolean isdel;
 
     /**
      * 租户代码
@@ -91,5 +112,4 @@ public class SResourceEntity implements Serializable {
     @Version
     @TableField(value="dbversion", fill = FieldFill.INSERT_UPDATE)
     private Integer dbversion;
-
 }

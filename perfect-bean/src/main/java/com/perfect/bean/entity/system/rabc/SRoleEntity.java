@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.entity.base.entity.v1.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -58,6 +57,19 @@ public class SRoleEntity extends BaseEntity<SRoleEntity> implements Serializable
     private String simpleName;
 
     /**
+     * 是否是已经删除(1:true-已删除,0:false-未删除)
+     * 
+     */
+    @TableField(value = "isdel", fill = FieldFill.INSERT)
+    private Boolean isdel;
+
+    /**
+     * 是否禁用(1:true-未启用,0:false-已启用)
+     */
+    @TableField(value = "isforbidden", fill = FieldFill.INSERT)
+    private Boolean isforbidden;
+
+    /**
      * 租户代码
      */
     @TableField("corp_code")
@@ -69,22 +81,22 @@ public class SRoleEntity extends BaseEntity<SRoleEntity> implements Serializable
     @TableField("corp_name")
     private String corpName;
 
-    @TableField(value="c_id", fill = FieldFill.INSERT)
+    @TableField(value = "c_id", fill = FieldFill.INSERT)
     private Long cId;
 
-    @TableField(value="c_time", fill = FieldFill.INSERT)
+    @TableField(value = "c_time", fill = FieldFill.INSERT)
     private LocalDateTime cTime;
 
-    @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "u_id", fill = FieldFill.INSERT_UPDATE)
     private Long uId;
 
-    @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "u_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime uTime;
 
     /**
      * 数据版本，乐观锁使用
      */
     @Version
-    @TableField(value="dbversion", fill = FieldFill.INSERT_UPDATE)
+    @TableField(value = "dbversion", fill = FieldFill.INSERT_UPDATE)
     private Integer dbversion;
 }
