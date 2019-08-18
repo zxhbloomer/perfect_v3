@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.entity.base.entity.v1.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -82,8 +81,8 @@ public class MUserEntity extends BaseEntity<MUserEntity> implements Serializable
      * 是否禁用
 
      */
-    @TableField("forbidden")
-    private Boolean forbidden;
+    @TableField("isenable")
+    private Boolean isenable;
 
     /**
      * 生效时间

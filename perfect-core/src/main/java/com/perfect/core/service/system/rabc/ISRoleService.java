@@ -1,13 +1,10 @@
 package com.perfect.core.service.system.rabc;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
-import org.apache.ibatis.annotations.Param;
-import org.apache.poi.ss.formula.functions.T;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -39,4 +36,11 @@ public interface ISRoleService extends IService<SRoleEntity> {
      * 获取所选id的数据
      */
     boolean saveBatches(List<SRoleEntity> entityList);
+
+    /**
+     * 批量删除
+     * @param searchCondition
+     * @return
+     */
+    void deleteByIdsIn(List<SRoleVo> searchCondition);
 }

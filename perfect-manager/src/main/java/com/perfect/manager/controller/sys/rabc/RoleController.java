@@ -141,4 +141,13 @@ public class RoleController extends BaseController {
             return ResponseEntity.ok().body(ResultUtil.success(errorInfo, ResultEnum.IMPORT_DATA_ERROR.getCode()));
         }
     }
+
+    @SysLog("角色数据逻辑删除")
+    @ApiOperation("根据参数id，逻辑删除数据")
+    @PostMapping("/delete")
+    @ResponseBody
+    public ResponseEntity<JSONResult<String>> delete(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
+        isRoleService.deleteByIdsIn(searchConditionList);
+        return ResponseEntity.ok().body(ResultUtil.success("OK"));
+    }
 }
