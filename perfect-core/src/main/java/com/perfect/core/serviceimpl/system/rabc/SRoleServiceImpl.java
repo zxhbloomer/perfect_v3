@@ -90,7 +90,7 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
     }
 
     /**
-     * 批量删除
+     * 批量删除复原
      * @param searchCondition
      * @return
      */
@@ -100,7 +100,24 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
         List<SRoleEntity> list = sRoleMapper.selectIdsIn(searchCondition);
         list.forEach(
             bean -> {
-                bean.setIsdel(true);
+                bean.setIsdel(!bean.getIsdel());
+            }
+        );
+        saveOrUpdateBatch(list, 500);
+    }
+
+    /**
+     * 批量启用禁用
+     * @param searchCondition
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void enableByIdsIn(List<SRoleVo> searchCondition) {
+        List<SRoleEntity> list = sRoleMapper.selectIdsIn(searchCondition);
+        list.forEach(
+            bean -> {
+                bean.setIsenable(!bean.getIsenable());
             }
         );
         saveOrUpdateBatch(list, 500);

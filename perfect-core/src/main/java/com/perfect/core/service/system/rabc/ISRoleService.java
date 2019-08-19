@@ -38,9 +38,16 @@ public interface ISRoleService extends IService<SRoleEntity> {
     boolean saveBatches(List<SRoleEntity> entityList);
 
     /**
-     * 批量删除
+     * 批量删除复原
      * @param searchCondition
      * @return
      */
     void deleteByIdsIn(List<SRoleVo> searchCondition);
+
+    /**
+     * 批量启用禁用
+     * @param searchCondition
+     * @return
+     */
+    void enableByIdsIn(List<SRoleVo> searchCondition);
 }

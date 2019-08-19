@@ -142,12 +142,21 @@ public class RoleController extends BaseController {
         }
     }
 
-    @SysLog("角色数据逻辑删除")
-    @ApiOperation("根据参数id，逻辑删除数据")
+    @SysLog("角色数据逻辑删除复原")
+    @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
     public ResponseEntity<JSONResult<String>> delete(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
         isRoleService.deleteByIdsIn(searchConditionList);
+        return ResponseEntity.ok().body(ResultUtil.success("OK"));
+    }
+
+    @SysLog("角色数据逻辑启用禁用")
+    @ApiOperation("根据参数id，启用禁用数据")
+    @PostMapping("/enable")
+    @ResponseBody
+    public ResponseEntity<JSONResult<String>> enable(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
+        isRoleService.enableByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.success("OK"));
     }
 }
