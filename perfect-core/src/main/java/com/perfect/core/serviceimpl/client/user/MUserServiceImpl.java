@@ -6,13 +6,11 @@ import com.perfect.bean.entity.client.user.MStaffEntity;
 import com.perfect.bean.entity.client.user.MUserEntity;
 import com.perfect.bean.pojo.redis.user.UserInSessionPojo;
 import com.perfect.bean.vo.user.info.UserInfoVo;
-import com.perfect.common.constant.PerfectConstant;
 import com.perfect.core.mapper.client.user.MStaffMapper;
 import com.perfect.core.mapper.client.user.MUserMapper;
 import com.perfect.core.service.client.user.IMUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,7 +30,6 @@ import java.util.List;
  */
 @Service
 @Slf4j
-@CacheConfig(cacheNames={PerfectConstant.CACHE_NAMESPACE + "::" + "user_session_bean_cache"})
 public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUserEntity> implements IMUserService {
     @Autowired
     private MUserMapper mUserMapper;

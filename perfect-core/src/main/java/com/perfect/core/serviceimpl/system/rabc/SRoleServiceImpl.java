@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
+import com.perfect.common.constant.PerfectConstant;
 import com.perfect.core.mapper.system.rabc.SRoleMapper;
 import com.perfect.core.service.system.rabc.ISRoleService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +25,7 @@ import java.util.List;
  * @since 2019-07-11
  */
 @Service
+@CacheConfig(cacheNames={PerfectConstant.CACHE_PC_NAMESPACE + "::" + "role"})
 public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> implements ISRoleService {
 
     @Autowired
@@ -52,11 +55,9 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
      * 
      * @param searchCondition
      * @return
-     * @throws InstantiationException
-     * @throws IllegalAccessException
      */
     @Override
-    public List<SRoleEntity> select(SRoleVo searchCondition) throws InstantiationException, IllegalAccessException {
+    public List<SRoleEntity> select(SRoleVo searchCondition){
         // 查询 数据
         List<SRoleEntity> list = sRoleMapper.select(searchCondition);
         return list;
@@ -67,8 +68,6 @@ public class SRoleServiceImpl extends ServiceImpl<SRoleMapper, SRoleEntity> impl
      * 
      * @param searchCondition
      * @return
-     * @throws InstantiationException
-     * @throws IllegalAccessException
      */
     @Override
     public List<SRoleEntity> selectIdsIn(List<SRoleVo> searchCondition) {
