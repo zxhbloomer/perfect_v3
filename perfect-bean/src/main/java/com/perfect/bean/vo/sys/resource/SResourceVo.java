@@ -1,13 +1,12 @@
 package com.perfect.bean.vo.sys.resource;
 
-import java.io.Serializable;
-
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.vo.condition.common.PageCondition;
-
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @author zhangxh
@@ -29,7 +28,7 @@ public class SResourceVo extends UploadFileResultPojo implements Serializable {
     /**
      * 角色编码
      */
-    private String code;
+    private String [] code;
 
     /**
      * 角色名称
