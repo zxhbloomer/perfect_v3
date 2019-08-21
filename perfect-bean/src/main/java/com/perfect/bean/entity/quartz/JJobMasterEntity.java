@@ -83,7 +83,7 @@ public class JJobMasterEntity extends BaseEntity<JJobMasterEntity> implements Se
      * 是否是已经删除
 
      */
-    @TableField("isdel")
+    @TableField(value = "isdel", fill = FieldFill.INSERT)
     private Boolean isdel;
 
     /**

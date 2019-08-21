@@ -2,10 +2,8 @@ package com.perfect.bean.entity.quartz;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.entity.base.entity.v1.BaseEntity;
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -83,7 +81,7 @@ public class JJobLogEntity extends BaseEntity<JJobLogEntity> implements Serializ
      * 是否是已经删除
 
      */
-    @TableField("isdel")
+    @TableField(value = "isdel", fill = FieldFill.INSERT)
     private Boolean isdel;
 
     /**

@@ -79,7 +79,7 @@ public class SResourceEntity implements Serializable {
     /**
      * 是否删除
      */
-    @TableField("isdel")
+    @TableField(value = "isdel", fill = FieldFill.INSERT)
     private Boolean isdel;
 
     /**

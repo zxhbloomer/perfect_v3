@@ -67,7 +67,7 @@ public class MUserEntity extends BaseEntity<MUserEntity> implements Serializable
      * 是否是已经删除
 
      */
-    @TableField("isdel")
+    @TableField(value = "isdel", fill = FieldFill.INSERT)
     private Boolean isdel;
 
     /**
