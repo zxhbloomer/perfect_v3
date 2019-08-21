@@ -1,8 +1,8 @@
 package com.perfect.core.service.system;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.perfect.bean.entity.system.SResourceEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.perfect.bean.entity.system.SResourceEntity;
 import com.perfect.bean.vo.sys.resource.SResourceVo;
 
 import java.util.List;
@@ -35,4 +35,12 @@ public interface ISResourceService extends IService<SResourceEntity> {
      * 获取所选id的数据
      */
     boolean saveBatches(List<SResourceEntity> entityList);
+
+    /**
+     * 批量删除复原
+     * @param searchCondition
+     * @return
+     */
+    void deleteByIdsIn(List<SResourceVo> searchCondition);
+
 }

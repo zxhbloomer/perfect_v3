@@ -2,8 +2,8 @@ package com.perfect.core.serviceimpl.system;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.system.SResourceEntity;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.perfect.bean.entity.system.SResourceEntity;
 import com.perfect.bean.entity.system.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.resource.SResourceVo;
 import com.perfect.core.mapper.system.SResourceMapper;
@@ -90,5 +90,22 @@ public class SResourceServiceImpl extends ServiceImpl<SResourceMapper, SResource
     @Override
     public boolean saveBatches(List<SResourceEntity> entityList) {
         return super.saveBatch(entityList, 500);
+    }
+
+    /**
+     * 批量删除复原
+     * @param searchCondition
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteByIdsIn(List<SResourceVo> searchCondition) {
+        List<SResourceEntity> list = sResourceMapper.selectIdsIn(searchCondition);
+        list.forEach(
+            bean -> {
+                bean.setIsdel(!bean.getIsdel());
+            }
+        );
+        saveOrUpdateBatch(list, 500);
     }
 }
