@@ -1,10 +1,10 @@
-package com.perfect.core.mapper.system;
+package com.perfect.core.mapper.system.config;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.system.SResourceEntity;
-import com.perfect.bean.vo.sys.resource.SResourceVo;
+import com.perfect.bean.entity.system.config.SResourceEntity;
+import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -33,12 +33,13 @@ public interface SResourceMapper extends BaseMapper<SResourceEntity> {
         + "   from s_resource t "
         + "  where true "
         + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
-        + "   <if test='p1.code.length!=0' >"
+        + "   <if test='p1.code != null and p1.code.length!=0' >"
         + "    and t.type in "
         + "        <foreach collection='p1.code' item='item' index='index' open='(' separator=',' close=')'>"
         + "         #{item}  "
         + "        </foreach>"
         + "   </if>"
+        + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
         + "  </script>")
     IPage<SResourceEntity> selectPage(Page page, @Param("p1") SResourceVo searchCondition );
 
@@ -52,12 +53,13 @@ public interface SResourceMapper extends BaseMapper<SResourceEntity> {
         + "   from s_resource t "
         + "  where true "
         + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
-        + "   <if test='p1.code!=null' >"
+        + "   <if test='p1.code.length!=0' >"
         + "    and t.type in "
         + "        <foreach collection='p1.code' item='item' index='index' open='(' separator=',' close=')'>"
         + "         #{item}  "
         + "        </foreach>"
         + "   </if>"
+        + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
         + "  </script>")
     List<SResourceEntity> select(@Param("p1") SResourceVo searchCondition );
 

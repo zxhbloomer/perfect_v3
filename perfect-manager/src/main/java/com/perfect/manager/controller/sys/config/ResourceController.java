@@ -1,17 +1,17 @@
-package com.perfect.manager.controller.sys;
+package com.perfect.manager.controller.sys.config;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.perfect.bean.entity.system.SResourceEntity;
+import com.perfect.bean.entity.system.config.SResourceEntity;
 import com.perfect.bean.pojo.JSONResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
-import com.perfect.bean.vo.sys.resource.SResourceExportVo;
-import com.perfect.bean.vo.sys.resource.SResourceVo;
+import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
+import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
-import com.perfect.core.service.system.ISResourceService;
+import com.perfect.core.service.system.config.ISResourceService;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.framework.base.controller.v1.BaseController;
 import io.swagger.annotations.Api;

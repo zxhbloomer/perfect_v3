@@ -1,15 +1,11 @@
-package com.perfect.bean.vo.sys.resource;
+package com.perfect.bean.vo.sys.config.resource;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import com.baomidou.mybatisplus.annotation.*;
 
 import com.perfect.common.annotation.Excel;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
  * <p>

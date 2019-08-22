@@ -1,4 +1,4 @@
-package com.perfect.bean.vo.sys.resource;
+package com.perfect.bean.vo.sys.config.resource;
 
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.vo.condition.common.PageCondition;
@@ -59,4 +59,9 @@ public class SResourceVo extends UploadFileResultPojo implements Serializable {
      * 换页条件
      */
     private PageCondition pageCondition;
+
+    /**
+     * 是否删除
+     */
+    private Boolean isdel;
 }

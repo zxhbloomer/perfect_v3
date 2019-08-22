@@ -1,12 +1,11 @@
 package com.perfect.common.annotation;
 
-import com.perfect.common.Enum.LimitTypeEnum;
+import com.perfect.common.enumconfig.LimitTypeEnum;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
 
 /**
  * 接口限流注解，示例见 cc.mrbird.web.controller.test.TestController

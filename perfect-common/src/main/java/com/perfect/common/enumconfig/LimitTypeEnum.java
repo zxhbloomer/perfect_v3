@@ -1,4 +1,4 @@
-package com.perfect.common.Enum;
+package com.perfect.common.enumconfig;
 
 public enum LimitTypeEnum {
     // 传统类型
