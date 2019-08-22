@@ -1,13 +1,13 @@
-package com.perfect.core.serviceimpl.system.rabc;
+package com.perfect.core.serviceimpl.sys.rabc;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
+import com.perfect.bean.entity.sys.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
 import com.perfect.common.constant.PerfectConstant;
-import com.perfect.core.mapper.system.rabc.SRoleMapper;
-import com.perfect.core.service.system.rabc.ISRoleService;
+import com.perfect.core.mapper.sys.rabc.SRoleMapper;
+import com.perfect.core.service.sys.rabc.ISRoleService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;

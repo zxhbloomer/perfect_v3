@@ -1,9 +1,9 @@
-package com.perfect.core.serviceimpl.system;
+package com.perfect.core.serviceimpl.sys;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.perfect.bean.entity.system.SLogEntity;
-import com.perfect.core.mapper.system.SLogMapper;
-import com.perfect.core.service.system.ISLogService;
+import com.perfect.bean.entity.sys.SLogEntity;
+import com.perfect.core.mapper.sys.SLogMapper;
+import com.perfect.core.service.sys.ISLogService;
 import org.springframework.stereotype.Service;
 
 /**

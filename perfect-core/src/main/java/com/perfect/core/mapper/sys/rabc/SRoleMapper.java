@@ -1,9 +1,9 @@
-package com.perfect.core.mapper.system.rabc;
+package com.perfect.core.mapper.sys.rabc;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
+import com.perfect.bean.entity.sys.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

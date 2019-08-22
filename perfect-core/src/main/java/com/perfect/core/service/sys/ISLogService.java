@@ -1,7 +1,7 @@
-package com.perfect.core.service.system;
+package com.perfect.core.service.sys;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.perfect.bean.entity.system.SLogEntity;
+import com.perfect.bean.entity.sys.SLogEntity;
 
 /**
  * <p>

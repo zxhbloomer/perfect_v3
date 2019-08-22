@@ -1,7 +1,7 @@
-package com.perfect.core.mapper.system;
+package com.perfect.core.mapper.sys;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.perfect.bean.entity.system.SLogEntity;
+import com.perfect.bean.entity.sys.SLogEntity;
 import org.springframework.stereotype.Repository;
 
 /**

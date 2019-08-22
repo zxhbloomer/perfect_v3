@@ -3,11 +3,11 @@ package com.perfect.framework.config.spring.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.perfect.bean.bo.sys.SysLogBO;
-import com.perfect.bean.entity.system.SLogEntity;
+import com.perfect.bean.entity.sys.SLogEntity;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.properies.PerfectConfigProperies;
 import com.perfect.common.utils.IPUtil;
-import com.perfect.core.service.system.ISLogService;
+import com.perfect.core.service.sys.ISLogService;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

@@ -1,4 +1,4 @@
-package com.perfect.bean.entity.system.rabc;
+package com.perfect.bean.entity.sys.rabc;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.entity.base.entity.v1.BaseEntity;

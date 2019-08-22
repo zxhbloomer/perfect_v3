@@ -1,7 +1,7 @@
 package com.perfect.manager.controller.sys.rabc;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
+import com.perfect.bean.entity.sys.rabc.SRoleEntity;
 import com.perfect.bean.pojo.JSONResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
@@ -11,7 +11,7 @@ import com.perfect.common.enumconfig.ResultEnum;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
-import com.perfect.core.service.system.rabc.ISRoleService;
+import com.perfect.core.service.sys.rabc.ISRoleService;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.excel.upload.PerfectExcelReader;
 import com.perfect.framework.base.controller.v1.BaseController;

@@ -1,13 +1,13 @@
-package com.perfect.core.serviceimpl.system.config;
+package com.perfect.core.serviceimpl.sys.config;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.perfect.bean.entity.system.config.SResourceEntity;
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
+import com.perfect.bean.entity.sys.config.SResourceEntity;
+import com.perfect.bean.entity.sys.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
-import com.perfect.core.mapper.system.config.SResourceMapper;
-import com.perfect.core.service.system.config.ISResourceService;
+import com.perfect.core.mapper.sys.config.SResourceMapper;
+import com.perfect.core.service.sys.config.ISResourceService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,8 @@ import java.util.List;
  * @since 2019-08-16
  */
 @Service
-public class SResourceServiceImpl extends ServiceImpl<SResourceMapper, SResourceEntity> implements ISResourceService {
+public class SResourceServiceImpl extends ServiceImpl<SResourceMapper, SResourceEntity>
+    implements ISResourceService {
 
     @Autowired
     private SResourceMapper sResourceMapper;

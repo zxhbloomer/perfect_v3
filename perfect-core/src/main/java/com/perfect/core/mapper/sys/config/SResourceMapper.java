@@ -1,9 +1,9 @@
-package com.perfect.core.mapper.system.config;
+package com.perfect.core.mapper.sys.config;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.system.config.SResourceEntity;
+import com.perfect.bean.entity.sys.config.SResourceEntity;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -40,8 +40,7 @@ public interface SResourceMapper extends BaseMapper<SResourceEntity> {
         + "        </foreach>"
         + "   </if>"
         + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
-        + "  </script>")
-    IPage<SResourceEntity> selectPage(Page page, @Param("p1") SResourceVo searchCondition );
+        + "  </script>") IPage<SResourceEntity> selectPage(Page page, @Param("p1") SResourceVo searchCondition );
 
     /**
      * 按条件获取所有数据，没有分页

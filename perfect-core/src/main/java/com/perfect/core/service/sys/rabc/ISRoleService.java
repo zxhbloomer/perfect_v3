@@ -1,8 +1,8 @@
-package com.perfect.core.service.system.rabc;
+package com.perfect.core.service.sys.rabc;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.perfect.bean.entity.system.rabc.SRoleEntity;
+import com.perfect.bean.entity.sys.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
 
 import java.util.List;
