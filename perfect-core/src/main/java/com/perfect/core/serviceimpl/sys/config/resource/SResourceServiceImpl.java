@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
-import com.perfect.bean.entity.sys.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import com.perfect.core.mapper.sys.config.resource.SResourceMapper;
 import com.perfect.core.service.sys.config.resource.ISResourceService;
@@ -42,10 +41,10 @@ public class SResourceServiceImpl extends ServiceImpl<SResourceMapper, SResource
     public IPage<SResourceEntity> selectPage(SResourceVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         // 分页条件
-        Page<SRoleEntity> pageCondition =
+        Page<SResourceEntity> pageCondition =
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
-        PageUtil.setSort(pageCondition, SRoleEntity.class, searchCondition.getPageCondition().getSort());
+        PageUtil.setSort(pageCondition, SResourceEntity.class, searchCondition.getPageCondition().getSort());
         return sResourceMapper.selectPage(pageCondition, searchCondition);
     }
 

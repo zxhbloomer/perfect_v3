@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
+import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
+import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
+import com.perfect.core.service.sys.config.dict.ISDictTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,10 +40,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value = "/api/v1/dict")
 @Slf4j
 @Api("字典主表相关")
-public class DictController extends BaseController {
+public class DictTypeController extends BaseController {
 
     @Autowired
-    private ISResourceService isResourceService;
+    private ISDictTypeService isDictTypeService;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -48,32 +52,31 @@ public class DictController extends BaseController {
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("{ id }")
     @ResponseBody
-    public ResponseEntity<JSONResult<SResourceEntity>> info(@RequestParam("id") String id) {
+    public ResponseEntity<JSONResult<SDictTypeEntity>> info(@RequestParam("id") String id) {
 
-        SResourceEntity sResourceEntity = isResourceService.getById(id);
+        SDictTypeEntity entity = isDictTypeService.getById(id);
 
 //        ResponseEntity<OAuth2AccessToken
-        return ResponseEntity.ok().body(ResultUtil.success(sResourceEntity));
+        return ResponseEntity.ok().body(ResultUtil.success(entity));
     }
 
     @SysLog("根据查询条件，获取字典主表信息")
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JSONResult<IPage<SResourceEntity>>> list(@RequestBody(required = false)
-        SResourceVo searchCondition)
-        throws InstantiationException, IllegalAccessException {
-        IPage<SResourceEntity> sResourceEntity = isResourceService.selectPage(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.success(sResourceEntity));
+    public ResponseEntity<JSONResult<IPage<SDictTypeEntity>>> list(@RequestBody(required = false)
+        SDictTypeVo searchCondition) throws IllegalAccessException, InstantiationException {
+        IPage<SDictTypeEntity> entity = isDictTypeService.selectPage(searchCondition);
+        return ResponseEntity.ok().body(ResultUtil.success(entity));
     }
 
     @SysLog("字典主表数据更新保存")
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<JSONResult<SResourceEntity>> save(@RequestBody(required = false) SResourceEntity sResourceEntity) {
-        if(isResourceService.updateById(sResourceEntity)){
-            return ResponseEntity.ok().body(ResultUtil.success(isResourceService.getById(sResourceEntity.getId()),"更新成功"));
+    public ResponseEntity<JSONResult<SDictTypeEntity>> save(@RequestBody(required = false) SDictTypeEntity bean) {
+        if(isDictTypeService.updateById(bean)){
+            return ResponseEntity.ok().body(ResultUtil.success(isDictTypeService.getById(bean.getId()),"更新成功"));
         } else {
             throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
         }
@@ -83,9 +86,9 @@ public class DictController extends BaseController {
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("/insert")
     @ResponseBody
-    public ResponseEntity<JSONResult<SResourceEntity>> insert(@RequestBody(required = false) SResourceEntity sResourceEntity) {
-        if(isResourceService.save(sResourceEntity)){
-            return ResponseEntity.ok().body(ResultUtil.success(isResourceService.getById(sResourceEntity.getId()),"插入成功"));
+    public ResponseEntity<JSONResult<SDictTypeEntity>> insert(@RequestBody(required = false) SDictTypeEntity bean) {
+        if(isDictTypeService.save(bean)){
+            return ResponseEntity.ok().body(ResultUtil.success(isDictTypeService.getById(bean.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }
@@ -94,22 +97,22 @@ public class DictController extends BaseController {
     @SysLog("字典主表数据导出")
     @ApiOperation("根据选择的数据，字典主表数据导出")
     @PostMapping("/export_all")
-    public void exportAll(@RequestBody(required = false) SResourceVo searchCondition, HttpServletResponse response)
+    public void exportAll(@RequestBody(required = false) SDictTypeVo searchCondition, HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
         // List<SRoleExportVo> rtnList = new ArrayList<>();
-        List<SResourceEntity> searchResult = isResourceService.select(searchCondition);
-        List<SResourceExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
-        ExcelUtil<SResourceExportVo> util = new ExcelUtil<>(SResourceExportVo.class);
+        List<SDictTypeEntity> searchResult = isDictTypeService.select(searchCondition);
+        List<SDictTypeExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
+        ExcelUtil<SDictTypeExportVo> util = new ExcelUtil<>(SDictTypeExportVo.class);
         util.exportExcel("字典主表数据导出", "字典主表数据", rtnList, response);
     }
 
     @SysLog("字典主表数据导出")
     @ApiOperation("根据选择的数据，字典主表数据导出")
     @PostMapping("/export_selection")
-    public void exportSelection(@RequestBody(required = false) List<SResourceVo> searchConditionList,
+    public void exportSelection(@RequestBody(required = false) List<SDictTypeVo> searchConditionList,
         HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
-        List<SResourceEntity> searchResult = isResourceService.selectIdsIn(searchConditionList);
+        List<SDictTypeEntity> searchResult = isDictTypeService.selectIdsIn(searchConditionList);
         List<SResourceExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
         ExcelUtil<SResourceExportVo> util = new ExcelUtil<>(SResourceExportVo.class);
         util.exportExcel("字典主表数据导出", "字典主表数据", rtnList, response);
@@ -119,8 +122,8 @@ public class DictController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseEntity<JSONResult<String>> delete(@RequestBody(required = false) List<SResourceVo> searchConditionList) {
-        isResourceService.deleteByIdsIn(searchConditionList);
+    public ResponseEntity<JSONResult<String>> delete(@RequestBody(required = false) List<SDictTypeVo> searchConditionList) {
+        isDictTypeService.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.success("OK"));
     }
 }
