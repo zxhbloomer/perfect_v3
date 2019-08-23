@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.perfect.bean.entity.base.entity.v1.BaseEntity;
+import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -20,7 +23,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("s_dict_type")
-public class SDictTypeEntity implements Serializable {
+public class SDictTypeEntity extends BaseEntity<SDictTypeEntity> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

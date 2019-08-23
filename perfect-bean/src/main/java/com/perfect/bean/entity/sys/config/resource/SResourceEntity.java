@@ -1,6 +1,8 @@
 package com.perfect.bean.entity.sys.config.resource;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.perfect.bean.entity.base.entity.v1.BaseEntity;
+import com.perfect.bean.entity.sys.rabc.SRoleEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -20,7 +22,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("s_resource")
-public class SResourceEntity implements Serializable {
+public class SResourceEntity extends BaseEntity<SResourceEntity> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
