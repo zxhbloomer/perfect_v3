@@ -1,13 +1,13 @@
-package com.perfect.core.serviceimpl.sys.config;
+package com.perfect.core.serviceimpl.sys.config.resource;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.perfect.bean.entity.sys.config.SResourceEntity;
+import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import com.perfect.bean.entity.sys.rabc.SRoleEntity;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
-import com.perfect.core.mapper.sys.config.SResourceMapper;
-import com.perfect.core.service.sys.config.ISResourceService;
+import com.perfect.core.mapper.sys.config.resource.SResourceMapper;
+import com.perfect.core.service.sys.config.resource.ISResourceService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,9 +1,9 @@
-package com.perfect.core.mapper.sys.config;
+package com.perfect.core.mapper.sys.config.resource;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.sys.config.SResourceEntity;
+import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

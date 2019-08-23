@@ -1,8 +1,8 @@
-package com.perfect.core.service.sys.config;
+package com.perfect.core.service.sys.config.resource;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.perfect.bean.entity.sys.config.SResourceEntity;
+import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 
 import java.util.List;

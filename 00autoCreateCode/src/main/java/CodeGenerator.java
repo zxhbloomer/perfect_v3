@@ -100,8 +100,8 @@ public class CodeGenerator {
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         //需要包含的表名，允许正则表达式
         strategy.setInclude(
-                "s_role",
-                "m_user"
+                "s_dict_type",
+                "s_dict_data"
                 //,
 //                "oauth_access_token",
 //                "oauth_approvals",

@@ -1,4 +1,4 @@
-package com.perfect.bean.entity.sys.config;
+package com.perfect.bean.entity.sys.config.resource;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
