@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @Data
 @NoArgsConstructor
-@ApiModel(value = "角色返回信息", description = "角色返回vo_bean")
+@ApiModel(value = "资源返回信息", description = "资源返回vo_bean")
 public class SResourceVo extends UploadFileResultPojo implements Serializable {
 
     private static final long serialVersionUID = 2443084812232177470L;
@@ -21,17 +21,17 @@ public class SResourceVo extends UploadFileResultPojo implements Serializable {
     private Long id;
 
     /**
-     * 角色类型
+     * 资源类型
      */
     private String type;
 
     /**
-     * 角色编码
+     * 资源编码
      */
     private String [] code;
 
     /**
-     * 角色名称
+     * 名称
      */
     private String name;
 
@@ -39,11 +39,6 @@ public class SResourceVo extends UploadFileResultPojo implements Serializable {
      * 描述
      */
     private String descr;
-
-    /**
-     * 简称
-     */
-    private String simpleName;
 
     /**
      * 租户代码

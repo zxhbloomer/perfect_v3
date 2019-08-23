@@ -4,9 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
-import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -27,19 +25,14 @@ public interface SDictTypeMapper extends BaseMapper<SDictTypeEntity> {
      * @param searchCondition
      * @return
      */
-    @Select("<script>"
+    @Select("    "
         + " select t.* "
-        + "   from s_resource t "
+        + "   from s_dict_type t "
         + "  where true "
+        + "    and (t.code like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null) "
         + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
-        + "   <if test='p1.code != null and p1.code.length!=0' >"
-        + "    and t.type in "
-        + "        <foreach collection='p1.code' item='item' index='index' open='(' separator=',' close=')'>"
-        + "         #{item}  "
-        + "        </foreach>"
-        + "   </if>"
         + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
-        + "  </script>")
+        + "      ")
     IPage<SDictTypeEntity> selectPage(Page page, @Param("p1") SDictTypeVo searchCondition );
 
     /**
@@ -47,19 +40,14 @@ public interface SDictTypeMapper extends BaseMapper<SDictTypeEntity> {
      * @param searchCondition
      * @return
      */
-    @Select("<script>"
+    @Select("    "
         + " select t.* "
-        + "   from s_resource t "
+        + "   from s_dict_type t "
         + "  where true "
+        + "    and (t.code like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null) "
         + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
-        + "   <if test='p1.code.length!=0' >"
-        + "    and t.type in "
-        + "        <foreach collection='p1.code' item='item' index='index' open='(' separator=',' close=')'>"
-        + "         #{item}  "
-        + "        </foreach>"
-        + "   </if>"
         + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
-        + "  </script>")
+        + "      ")
     List<SDictTypeEntity> select(@Param("p1") SDictTypeVo searchCondition );
 
     /**
@@ -69,7 +57,7 @@ public interface SDictTypeMapper extends BaseMapper<SDictTypeEntity> {
      */
     @Select("<script>"
         + " select t.* "
-        + "   from s_resource t "
+        + "   from s_dict_type t "
         + "  where t.id in "
         + "        <foreach collection='p1' item='item' index='index' open='(' separator=',' close=')'>"
         + "         #{item.id}  "

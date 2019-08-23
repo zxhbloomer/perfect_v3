@@ -37,7 +37,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author zhangxh
  */
 @RestController
-@RequestMapping(value = "/api/v1/dict")
+@RequestMapping(value = "/api/v1/dicttype")
 @Slf4j
 @Api("字典主表相关")
 public class DictTypeController extends BaseController {
