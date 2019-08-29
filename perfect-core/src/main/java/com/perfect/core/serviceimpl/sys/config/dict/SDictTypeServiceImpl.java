@@ -2,13 +2,9 @@ package com.perfect.core.serviceimpl.sys.config.dict;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
-import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
+import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
-import com.perfect.bean.vo.sys.config.resource.SResourceVo;
-import com.perfect.core.mapper.sys.config.dict.SDictDataMapper;
 import com.perfect.core.mapper.sys.config.dict.SDictTypeMapper;
 import com.perfect.core.service.sys.config.dict.ISDictTypeService;
 import com.perfect.core.utils.mybatis.PageUtil;
@@ -108,5 +104,21 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
             }
         );
         saveOrUpdateBatch(list, 500);
+    }
+
+    /**
+     * 插入一条记录（选择字段，策略插入）
+     * @param entity 实体对象
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean insert(SDictTypeEntity entity) {
+        // ch
+        return super.save(entity);
+    }
+
+    public boolean checkLogic(){
+
     }
 }

@@ -1,11 +1,9 @@
 package com.perfect.core.service.sys.config.dict;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
+import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
-import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 
 import java.util.List;
 
@@ -44,4 +42,11 @@ public interface ISDictTypeService extends IService<SDictTypeEntity> {
      * @return
      */
     void deleteByIdsIn(List<SDictTypeVo> searchCondition);
+
+    /**
+     * 插入一条记录（选择字段，策略插入）
+     *
+     * @param entity 实体对象
+     */
+    boolean insert(SDictTypeEntity entity);
 }

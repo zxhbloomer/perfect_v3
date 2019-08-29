@@ -1,37 +1,31 @@
 package com.perfect.manager.controller.sys.config.dict;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
-import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
-import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
-import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
-import com.perfect.core.service.sys.config.dict.ISDictTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
+import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.pojo.JSONResult;
 import com.perfect.bean.result.v1.ResultUtil;
+import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
+import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
-import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
-import com.perfect.core.service.sys.config.resource.ISResourceService;
+import com.perfect.core.service.sys.config.dict.ISDictTypeService;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.framework.base.controller.v1.BaseController;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author zhangxh
@@ -87,7 +81,7 @@ public class DictTypeController extends BaseController {
     @PostMapping("/insert")
     @ResponseBody
     public ResponseEntity<JSONResult<SDictTypeEntity>> insert(@RequestBody(required = false) SDictTypeEntity bean) {
-        if(isDictTypeService.save(bean)){
+        if(isDictTypeService.insert(bean)){
             return ResponseEntity.ok().body(ResultUtil.success(isDictTypeService.getById(bean.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
