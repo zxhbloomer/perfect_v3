@@ -64,4 +64,17 @@ public interface SDictTypeMapper extends BaseMapper<SDictTypeEntity> {
         + "        </foreach>"
         + "  </script>")
     List<SDictTypeEntity> selectIdsIn(@Param("p1") List<SDictTypeVo> searchCondition );
+
+    /**
+     * 按条件获取所有数据，没有分页
+     * @param code
+     * @return
+     */
+    @Select("    "
+        + " select t.* "
+        + "   from s_dict_type t "
+        + "  where true "
+        + "    and t.code =  #{p1}"
+        + "      ")
+    List<SDictTypeEntity> selectByCode(@Param("p1") String code);
 }

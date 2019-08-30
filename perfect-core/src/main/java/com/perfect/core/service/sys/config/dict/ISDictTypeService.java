@@ -49,4 +49,10 @@ public interface ISDictTypeService extends IService<SDictTypeEntity> {
      * @param entity 实体对象
      */
     boolean insert(SDictTypeEntity entity);
+
+    /**
+     * 通过code查询
+     *
+     */
+    List<SDictTypeEntity> selectByCode(String code);
 }

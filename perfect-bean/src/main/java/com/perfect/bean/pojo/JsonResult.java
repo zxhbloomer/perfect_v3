@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @Builder
 @AllArgsConstructor
-public class JSONResult<T> implements Serializable {
+public class JsonResult<T> implements Serializable {
 
     private static final long serialVersionUID = -3548881362738874861L;
 

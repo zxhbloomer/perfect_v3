@@ -2,10 +2,10 @@ package com.perfect.bean.result.v1;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.perfect.bean.pojo.JsonResult;
 import com.perfect.common.enumconfig.ResultEnum;
 import org.springframework.http.HttpStatus;
 
-import com.perfect.bean.pojo.JSONResult;
 import com.perfect.common.utils.CommonUtil;
 import com.perfect.common.utils.DateTimeUtil;
 import com.perfect.common.utils.ExceptionUtil;
@@ -16,8 +16,8 @@ import com.perfect.common.utils.ExceptionUtil;
  */
 public class ResultUtil {
 
-    public static <T>JSONResult<T> success(T data, String message) {
-        return JSONResult.<T>builder()
+    public static <T> JsonResult<T> success(T data, String message) {
+        return JsonResult.<T>builder()
             .timestamp(DateTimeUtil.getTime())
             .http_status(HttpStatus.OK.value())
             .code(ResultEnum.OK.getCode())
@@ -35,8 +35,8 @@ public class ResultUtil {
      * @param <T>
      * @return
      */
-    public static <T>JSONResult<T> success(T data) {
-        return JSONResult.<T>builder()
+    public static <T>JsonResult<T> success(T data) {
+        return JsonResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
                 .http_status(HttpStatus.OK.value())
                 .code(ResultEnum.OK.getCode())
@@ -55,8 +55,8 @@ public class ResultUtil {
      * @param <T>
      * @return
      */
-    public static <T>JSONResult<T> success(T data, int code) {
-        return JSONResult.<T>builder()
+    public static <T>JsonResult<T> success(T data, int code) {
+        return JsonResult.<T>builder()
             .timestamp(DateTimeUtil.getTime())
             .http_status(HttpStatus.OK.value())
             .code(code)
@@ -85,9 +85,9 @@ public class ResultUtil {
 //        return (Result) success(null);
 //    }
 
-    public static <T>JSONResult<T> error(Integer status, Exception exception, String message, HttpServletRequest request) {
+    public static <T>JsonResult<T> error(Integer status, Exception exception, String message, HttpServletRequest request) {
 
-        return JSONResult.<T>builder()
+        return JsonResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
                 .http_status(status)
                 .code(ResultEnum.FAIL.getCode())
