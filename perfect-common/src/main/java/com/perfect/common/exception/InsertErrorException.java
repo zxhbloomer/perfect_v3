@@ -3,6 +3,7 @@ import org.springframework.security.core.AuthenticationException;
 
 /**
  * 插入出错异常
+ * @author zxh
  */
 public class InsertErrorException extends AuthenticationException {
 

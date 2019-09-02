@@ -2,8 +2,8 @@ package com.perfect.manager.controller.sys.rabc;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.rabc.SRoleEntity;
-import com.perfect.bean.pojo.JsonResult;
-import com.perfect.bean.result.v1.ResultUtil;
+import com.perfect.bean.pojo.result.JsonResult;
+import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
 import com.perfect.common.annotation.SysLog;
@@ -52,7 +52,7 @@ public class RoleController extends BaseController {
         SRoleEntity sRoleEntity = isRoleService.getById(id);
 
 //        ResponseEntity<OAuth2AccessToken
-        return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
+        return ResponseEntity.ok().body(ResultUtil.OK(sRoleEntity));
     }
 
     @SysLog("根据查询条件，获取角色信息")
@@ -62,7 +62,7 @@ public class RoleController extends BaseController {
     public ResponseEntity<JsonResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SRoleVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         IPage<SRoleEntity> sRoleEntity = isRoleService.selectPage(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
+        return ResponseEntity.ok().body(ResultUtil.OK(sRoleEntity));
     }
 
     @SysLog("角色数据更新保存")
@@ -71,7 +71,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<SRoleEntity>> save(@RequestBody(required = false) SRoleEntity sRoleEntity) {
         if(isRoleService.updateById(sRoleEntity)){
-            return ResponseEntity.ok().body(ResultUtil.success(isRoleService.getById(sRoleEntity.getId()),"更新成功"));
+            return ResponseEntity.ok().body(ResultUtil.OK(isRoleService.getById(sRoleEntity.getId()),"更新成功"));
         } else {
             throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
         }
@@ -83,7 +83,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<SRoleEntity>> insert(@RequestBody(required = false) SRoleEntity sRoleEntity) {
         if(isRoleService.save(sRoleEntity)){
-            return ResponseEntity.ok().body(ResultUtil.success(isRoleService.getById(sRoleEntity.getId()),"插入成功"));
+            return ResponseEntity.ok().body(ResultUtil.OK(isRoleService.getById(sRoleEntity.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }
@@ -132,13 +132,13 @@ public class RoleController extends BaseController {
             pr.closeAll();
             // 读取没有错误，开始插入
             isRoleService.saveBatches(beans);
-            return ResponseEntity.ok().body(ResultUtil.success(beans));
+            return ResponseEntity.ok().body(ResultUtil.OK(beans));
         } else {
             // 读取失败，需要返回错误
             File rtnFile = pr.getValidateResultsInFile("角色数据导入错误");
             pr.closeAll();
             SRoleVo errorInfo = super.uploadFile(rtnFile.getAbsolutePath(), SRoleVo.class);
-            return ResponseEntity.ok().body(ResultUtil.success(errorInfo, ResultEnum.IMPORT_DATA_ERROR.getCode()));
+            return ResponseEntity.ok().body(ResultUtil.OK(errorInfo, ResultEnum.IMPORT_DATA_ERROR.getCode()));
         }
     }
 
@@ -148,7 +148,7 @@ public class RoleController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
         isRoleService.deleteByIdsIn(searchConditionList);
-        return ResponseEntity.ok().body(ResultUtil.success("OK"));
+        return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
 
     @SysLog("角色数据逻辑启用禁用")
@@ -157,6 +157,6 @@ public class RoleController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<String>> enable(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
         isRoleService.enableByIdsIn(searchConditionList);
-        return ResponseEntity.ok().body(ResultUtil.success("OK"));
+        return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
 }

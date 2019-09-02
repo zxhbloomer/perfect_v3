@@ -2,8 +2,8 @@ package com.perfect.manager.controller.sys.config.resource;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
-import com.perfect.bean.pojo.JsonResult;
-import com.perfect.bean.result.v1.ResultUtil;
+import com.perfect.bean.pojo.result.JsonResult;
+import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
@@ -50,7 +50,7 @@ public class ResourceController extends BaseController {
         SResourceEntity sResourceEntity = isResourceService.getById(id);
 
 //        ResponseEntity<OAuth2AccessToken
-        return ResponseEntity.ok().body(ResultUtil.success(sResourceEntity));
+        return ResponseEntity.ok().body(ResultUtil.OK(sResourceEntity));
     }
 
     @SysLog("根据查询条件，获取资源表信息")
@@ -61,7 +61,7 @@ public class ResourceController extends BaseController {
         SResourceVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         IPage<SResourceEntity> sResourceEntity = isResourceService.selectPage(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.success(sResourceEntity));
+        return ResponseEntity.ok().body(ResultUtil.OK(sResourceEntity));
     }
 
     @SysLog("资源表数据更新保存")
@@ -70,7 +70,7 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<SResourceEntity>> save(@RequestBody(required = false) SResourceEntity sResourceEntity) {
         if(isResourceService.updateById(sResourceEntity)){
-            return ResponseEntity.ok().body(ResultUtil.success(isResourceService.getById(sResourceEntity.getId()),"更新成功"));
+            return ResponseEntity.ok().body(ResultUtil.OK(isResourceService.getById(sResourceEntity.getId()),"更新成功"));
         } else {
             throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
         }
@@ -82,7 +82,7 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<SResourceEntity>> insert(@RequestBody(required = false) SResourceEntity sResourceEntity) {
         if(isResourceService.save(sResourceEntity)){
-            return ResponseEntity.ok().body(ResultUtil.success(isResourceService.getById(sResourceEntity.getId()),"插入成功"));
+            return ResponseEntity.ok().body(ResultUtil.OK(isResourceService.getById(sResourceEntity.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }
@@ -118,6 +118,6 @@ public class ResourceController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SResourceVo> searchConditionList) {
         isResourceService.deleteByIdsIn(searchConditionList);
-        return ResponseEntity.ok().body(ResultUtil.success("OK"));
+        return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
 }

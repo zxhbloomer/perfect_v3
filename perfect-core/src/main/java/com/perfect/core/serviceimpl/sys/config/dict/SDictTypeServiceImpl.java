@@ -4,8 +4,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
-import com.perfect.bean.pojo.CheckResult;
-import com.perfect.bean.result.v1.CheckResultUtil;
+import com.perfect.bean.pojo.result.CheckResult;
+import com.perfect.bean.pojo.result.InsertResult;
+import com.perfect.bean.pojo.result.UpdateResult;
+import com.perfect.bean.result.utils.v1.CheckResultUtil;
+import com.perfect.bean.result.utils.v1.InsertResultUtil;
+import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.core.mapper.sys.config.dict.SDictTypeMapper;
@@ -115,14 +119,31 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean insert(SDictTypeEntity entity) {
+    public InsertResult<Integer> insert(SDictTypeEntity entity) {
         // 插入前check
         CheckResult cr = checkLogic(entity.getCode());
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
         // 插入逻辑保存
-        return super.save(entity);
+        return InsertResultUtil.OK(sDictTypeMapper.insert(entity));
+    }
+
+    /**
+     * 更新一条记录（选择字段，策略更新）
+     * @param entity 实体对象
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public UpdateResult<Integer> update(SDictTypeEntity entity) {
+        // 更新前check
+        CheckResult cr = checkLogic(entity.getCode());
+        if (cr.isSuccess() == false) {
+            throw new BusinessException(cr.getMessage());
+        }
+        // 更新逻辑保存
+        return UpdateResultUtil.OK(sDictTypeMapper.insert(entity));
     }
 
     /**

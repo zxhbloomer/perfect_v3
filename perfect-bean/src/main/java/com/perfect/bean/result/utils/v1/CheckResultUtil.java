@@ -1,6 +1,6 @@
-package com.perfect.bean.result.v1;
+package com.perfect.bean.result.utils.v1;
 
-import com.perfect.bean.pojo.CheckResult;
+import com.perfect.bean.pojo.result.CheckResult;
 
 /**
  * @author zxh

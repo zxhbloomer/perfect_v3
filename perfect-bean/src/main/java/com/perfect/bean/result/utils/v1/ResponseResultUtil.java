@@ -1,4 +1,4 @@
-package com.perfect.bean.result.v1;
+package com.perfect.bean.result.utils.v1;
 
 import java.io.IOException;
 
@@ -34,7 +34,7 @@ public class ResponseResultUtil {
         ObjectMapper objectMapper = new ObjectMapper();
 
         response.getWriter().write(objectMapper.writeValueAsString(
-            ResultUtil.success(data)
+            ResultUtil.OK(data)
         ));
     }
 
@@ -50,7 +50,7 @@ public class ResponseResultUtil {
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){
             message = "用户名或密码错误";
             response.getWriter().write(objectMapper.writeValueAsString(
-                    ResultUtil.error(HttpStatus.UNAUTHORIZED.value(),
+                    ResultUtil.NG(HttpStatus.UNAUTHORIZED.value(),
                                     exception,
                                     exception.getMessage(),
                                     request)
@@ -58,14 +58,14 @@ public class ResponseResultUtil {
             );
         }else if(exception instanceof ValidateCodeException){
             response.getWriter().write(objectMapper.writeValueAsString(
-                    ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                                     exception,
                                     exception.getMessage(),
                                     request)
             ));
         }else{
             response.getWriter().write(objectMapper.writeValueAsString(
-                    ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                                     exception,
                                     exception.getMessage(),
                                     request)

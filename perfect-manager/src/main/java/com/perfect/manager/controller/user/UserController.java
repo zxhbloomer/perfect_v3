@@ -1,12 +1,11 @@
 package com.perfect.manager.controller.user;
 
-import com.perfect.bean.pojo.JsonResult;
+import com.perfect.bean.pojo.result.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.perfect.bean.pojo.JsonResult;
-import com.perfect.bean.result.v1.ResultUtil;
+import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.user.info.UserInfoVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.core.service.client.user.IMUserService;
@@ -37,6 +36,6 @@ public class UserController extends BaseController {
         UserInfoVo userInfoVo = imUserService.getUserInfo(token);
 
 //        ResponseEntity<OAuth2AccessToken
-        return ResponseEntity.ok().body(ResultUtil.success(userInfoVo));
+        return ResponseEntity.ok().body(ResultUtil.OK(userInfoVo));
     }
 }

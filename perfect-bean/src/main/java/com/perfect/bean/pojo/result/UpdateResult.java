@@ -1,4 +1,4 @@
-package com.perfect.bean.pojo;
+package com.perfect.bean.pojo.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,14 +8,14 @@ import java.io.Serializable;
 
 /**
  * @author zxh
- * @date 2019/8/30
+ * @date 2019/9/2
  */
 @Data
 @Builder
 @AllArgsConstructor
-public class CheckResult implements Serializable {
+public class UpdateResult<T> implements Serializable {
 
-    private static final long serialVersionUID = -3879117049651813655L;
+    private static final long serialVersionUID = 3473646590534243209L;
 
     /** 返回消息：返回的消息 */
     private String message;
@@ -24,5 +24,5 @@ public class CheckResult implements Serializable {
     private boolean success;
 
     /** 返回数据 */
-    private Object data ;
+    private T data;
 }

@@ -1,6 +1,6 @@
 package com.perfect.security.handler;
 
-import com.perfect.bean.result.v1.ResponseResultUtil;
+import com.perfect.bean.result.utils.v1.ResponseResultUtil;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.core.service.client.user.IMUserService;
 import com.perfect.core.utils.security.SecurityUtil;

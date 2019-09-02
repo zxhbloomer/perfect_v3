@@ -1,6 +1,6 @@
 package com.perfect.security.session;
 
-import com.perfect.bean.result.v1.ResponseResultUtil;
+import com.perfect.bean.result.utils.v1.ResponseResultUtil;
 import com.perfect.common.exception.CredentialException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.perfect.bean.result.v1.ResultUtil;
+import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.common.exception.UpdateErrorException;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class GlobalDefaultExceptionHandler {
     public ResponseEntity<Object> defaultExceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception e){
         log.error("错误信息：",e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                 ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                 ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                         e,
                         e.getMessage(),
                         request)
@@ -52,7 +52,7 @@ public class GlobalDefaultExceptionHandler {
     public ResponseEntity<Object> updateErrorExceptionHandler(HttpServletRequest request, HttpServletResponse response, Exception e){
         log.error("错误信息：",e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-            ResultUtil.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 e,
                 e.getMessage(),
                 request)

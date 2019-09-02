@@ -1,4 +1,4 @@
-package com.perfect.bean.pojo;
+package com.perfect.bean.pojo.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package com.perfect.security.handler;
 
-import com.perfect.bean.result.v1.ResponseResultUtil;
+import com.perfect.bean.result.utils.v1.ResponseResultUtil;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.CredentialException;
 import com.perfect.common.utils.CommonUtil;
@@ -27,7 +27,7 @@ public class PerfectAuthenticationAccessDeniedHandler implements AccessDeniedHan
 
         if (CommonUtil.isAjaxRequest(request)) {
             response.setContentType(PerfectConstant.JSON_UTF8);
-//            response.getWriter().write(this.mapper.writeValueAsString(ResponseBo.error("没有该权限！")));
+//            response.getWriter().write(this.mapper.writeValueAsString(ResponseBo.NG("没有该权限！")));
             ResponseResultUtil.responseWriteError(request,response,new CredentialException("没有该权限！"), HttpStatus.UNAUTHORIZED.value());
         } else {
             redirectStrategy.sendRedirect(request, response, PerfectConstant.FEBS_ACCESS_DENY_URL);

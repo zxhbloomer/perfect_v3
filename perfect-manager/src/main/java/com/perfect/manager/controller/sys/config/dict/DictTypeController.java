@@ -2,8 +2,8 @@ package com.perfect.manager.controller.sys.config.dict;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
-import com.perfect.bean.pojo.JsonResult;
-import com.perfect.bean.result.v1.ResultUtil;
+import com.perfect.bean.pojo.result.JsonResult;
+import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
@@ -51,7 +51,7 @@ public class DictTypeController extends BaseController {
         SDictTypeEntity entity = isDictTypeService.getById(id);
 
 //        ResponseEntity<OAuth2AccessToken
-        return ResponseEntity.ok().body(ResultUtil.success(entity));
+        return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
 
     @SysLog("根据查询条件，获取字典主表信息")
@@ -61,7 +61,7 @@ public class DictTypeController extends BaseController {
     public ResponseEntity<JsonResult<IPage<SDictTypeEntity>>> list(@RequestBody(required = false)
         SDictTypeVo searchCondition) throws IllegalAccessException, InstantiationException {
         IPage<SDictTypeEntity> entity = isDictTypeService.selectPage(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.success(entity));
+        return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
 
     @SysLog("字典主表数据更新保存")
@@ -69,8 +69,9 @@ public class DictTypeController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public ResponseEntity<JsonResult<SDictTypeEntity>> save(@RequestBody(required = false) SDictTypeEntity bean) {
-        if(isDictTypeService.updateById(bean)){
-            return ResponseEntity.ok().body(ResultUtil.success(isDictTypeService.getById(bean.getId()),"更新成功"));
+
+        if(isDictTypeService.update(bean).isSuccess()){
+            return ResponseEntity.ok().body(ResultUtil.OK(isDictTypeService.getById(bean.getId()),"更新成功"));
         } else {
             throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
         }
@@ -81,8 +82,8 @@ public class DictTypeController extends BaseController {
     @PostMapping("/insert")
     @ResponseBody
     public ResponseEntity<JsonResult<SDictTypeEntity>> insert(@RequestBody(required = false) SDictTypeEntity bean) {
-        if(isDictTypeService.insert(bean)){
-            return ResponseEntity.ok().body(ResultUtil.success(isDictTypeService.getById(bean.getId()),"插入成功"));
+        if(isDictTypeService.insert(bean).isSuccess()){
+            return ResponseEntity.ok().body(ResultUtil.OK(isDictTypeService.getById(bean.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }
@@ -118,6 +119,6 @@ public class DictTypeController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SDictTypeVo> searchConditionList) {
         isDictTypeService.deleteByIdsIn(searchConditionList);
-        return ResponseEntity.ok().body(ResultUtil.success("OK"));
+        return ResponseEntity.ok().body(ResultUtil.OK("OK"));
     }
 }

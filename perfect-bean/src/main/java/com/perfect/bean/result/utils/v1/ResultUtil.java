@@ -1,8 +1,8 @@
-package com.perfect.bean.result.v1;
+package com.perfect.bean.result.utils.v1;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.perfect.bean.pojo.JsonResult;
+import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.common.enumconfig.ResultEnum;
 import org.springframework.http.HttpStatus;
 
@@ -16,7 +16,7 @@ import com.perfect.common.utils.ExceptionUtil;
  */
 public class ResultUtil {
 
-    public static <T> JsonResult<T> success(T data, String message) {
+    public static <T> JsonResult<T> OK(T data, String message) {
         return JsonResult.<T>builder()
             .timestamp(DateTimeUtil.getTime())
             .http_status(HttpStatus.OK.value())
@@ -35,7 +35,7 @@ public class ResultUtil {
      * @param <T>
      * @return
      */
-    public static <T>JsonResult<T> success(T data) {
+    public static <T>JsonResult<T> OK(T data) {
         return JsonResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
                 .http_status(HttpStatus.OK.value())
@@ -55,7 +55,7 @@ public class ResultUtil {
      * @param <T>
      * @return
      */
-    public static <T>JsonResult<T> success(T data, int code) {
+    public static <T>JsonResult<T> OK(T data, int code) {
         return JsonResult.<T>builder()
             .timestamp(DateTimeUtil.getTime())
             .http_status(HttpStatus.OK.value())
@@ -68,24 +68,24 @@ public class ResultUtil {
             .build();
     }
 
-//    public static Object success(Integer status, String message, String path, String method, Object data) {
+//    public static Object OK(Integer status, String message, String path, String method, Object data) {
 //        return JSONResult.builder()
 //                .timestamp(DateTimeUtil.getSystemDateYYYYMMDDHHMMSS())
 //                .status(status)
 //                .message(message)
 //                .path(path)
 //                .method(method)
-//                .success(true)
+//                .OK(true)
 //                .data(data)
 //                .build();
 //
 //    }
 //
-//    public static Result success() {
-//        return (Result) success(null);
+//    public static Result OK() {
+//        return (Result) OK(null);
 //    }
 
-    public static <T>JsonResult<T> error(Integer status, Exception exception, String message, HttpServletRequest request) {
+    public static <T>JsonResult<T> NG(Integer status, Exception exception, String message, HttpServletRequest request) {
 
         return JsonResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
