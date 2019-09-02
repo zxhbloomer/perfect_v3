@@ -1,7 +1,6 @@
 package com.perfect.bean.result.v1;
 
 import com.perfect.bean.pojo.CheckResult;
-import org.apache.poi.ss.formula.functions.T;
 
 /**
  * @author zxh
@@ -37,7 +36,7 @@ public class CheckResultUtil {
      * check有错
      * @return
      */
-    public static CheckResult NG(String msg, T _data ) {
+    public static CheckResult NG(String msg, Object _data ) {
         return CheckResult.builder()
             .data(_data)
             .message(msg)

@@ -2,7 +2,7 @@ package com.perfect.manager.controller.sys.config.resource;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
-import com.perfect.bean.pojo.JSONResult;
+import com.perfect.bean.pojo.JsonResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
@@ -45,7 +45,7 @@ public class ResourceController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("{ id }")
     @ResponseBody
-    public ResponseEntity<JSONResult<SResourceEntity>> info(@RequestParam("id") String id) {
+    public ResponseEntity<JsonResult<SResourceEntity>> info(@RequestParam("id") String id) {
 
         SResourceEntity sResourceEntity = isResourceService.getById(id);
 
@@ -57,7 +57,7 @@ public class ResourceController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JSONResult<IPage<SResourceEntity>>> list(@RequestBody(required = false)
+    public ResponseEntity<JsonResult<IPage<SResourceEntity>>> list(@RequestBody(required = false)
         SResourceVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         IPage<SResourceEntity> sResourceEntity = isResourceService.selectPage(searchCondition);
@@ -68,7 +68,7 @@ public class ResourceController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<JSONResult<SResourceEntity>> save(@RequestBody(required = false) SResourceEntity sResourceEntity) {
+    public ResponseEntity<JsonResult<SResourceEntity>> save(@RequestBody(required = false) SResourceEntity sResourceEntity) {
         if(isResourceService.updateById(sResourceEntity)){
             return ResponseEntity.ok().body(ResultUtil.success(isResourceService.getById(sResourceEntity.getId()),"更新成功"));
         } else {
@@ -80,7 +80,7 @@ public class ResourceController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/insert")
     @ResponseBody
-    public ResponseEntity<JSONResult<SResourceEntity>> insert(@RequestBody(required = false) SResourceEntity sResourceEntity) {
+    public ResponseEntity<JsonResult<SResourceEntity>> insert(@RequestBody(required = false) SResourceEntity sResourceEntity) {
         if(isResourceService.save(sResourceEntity)){
             return ResponseEntity.ok().body(ResultUtil.success(isResourceService.getById(sResourceEntity.getId()),"插入成功"));
         } else {
@@ -116,7 +116,7 @@ public class ResourceController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseEntity<JSONResult<String>> delete(@RequestBody(required = false) List<SResourceVo> searchConditionList) {
+    public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SResourceVo> searchConditionList) {
         isResourceService.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.success("OK"));
     }

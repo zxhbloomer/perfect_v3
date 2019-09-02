@@ -2,7 +2,7 @@ package com.perfect.manager.controller.sys.config.dict;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
-import com.perfect.bean.pojo.JSONResult;
+import com.perfect.bean.pojo.JsonResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
@@ -46,7 +46,7 @@ public class DictTypeController extends BaseController {
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("{ id }")
     @ResponseBody
-    public ResponseEntity<JSONResult<SDictTypeEntity>> info(@RequestParam("id") String id) {
+    public ResponseEntity<JsonResult<SDictTypeEntity>> info(@RequestParam("id") String id) {
 
         SDictTypeEntity entity = isDictTypeService.getById(id);
 
@@ -58,7 +58,7 @@ public class DictTypeController extends BaseController {
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JSONResult<IPage<SDictTypeEntity>>> list(@RequestBody(required = false)
+    public ResponseEntity<JsonResult<IPage<SDictTypeEntity>>> list(@RequestBody(required = false)
         SDictTypeVo searchCondition) throws IllegalAccessException, InstantiationException {
         IPage<SDictTypeEntity> entity = isDictTypeService.selectPage(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.success(entity));
@@ -68,7 +68,7 @@ public class DictTypeController extends BaseController {
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<JSONResult<SDictTypeEntity>> save(@RequestBody(required = false) SDictTypeEntity bean) {
+    public ResponseEntity<JsonResult<SDictTypeEntity>> save(@RequestBody(required = false) SDictTypeEntity bean) {
         if(isDictTypeService.updateById(bean)){
             return ResponseEntity.ok().body(ResultUtil.success(isDictTypeService.getById(bean.getId()),"更新成功"));
         } else {
@@ -80,7 +80,7 @@ public class DictTypeController extends BaseController {
     @ApiOperation("根据参数id，获取字典主表信息")
     @PostMapping("/insert")
     @ResponseBody
-    public ResponseEntity<JSONResult<SDictTypeEntity>> insert(@RequestBody(required = false) SDictTypeEntity bean) {
+    public ResponseEntity<JsonResult<SDictTypeEntity>> insert(@RequestBody(required = false) SDictTypeEntity bean) {
         if(isDictTypeService.insert(bean)){
             return ResponseEntity.ok().body(ResultUtil.success(isDictTypeService.getById(bean.getId()),"插入成功"));
         } else {
@@ -116,7 +116,7 @@ public class DictTypeController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseEntity<JSONResult<String>> delete(@RequestBody(required = false) List<SDictTypeVo> searchConditionList) {
+    public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SDictTypeVo> searchConditionList) {
         isDictTypeService.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.success("OK"));
     }

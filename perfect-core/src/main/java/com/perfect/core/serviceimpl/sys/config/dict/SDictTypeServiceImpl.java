@@ -7,6 +7,7 @@ import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.pojo.CheckResult;
 import com.perfect.bean.result.v1.CheckResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
+import com.perfect.common.exception.BusinessException;
 import com.perfect.core.mapper.sys.config.dict.SDictTypeMapper;
 import com.perfect.core.service.sys.config.dict.ISDictTypeService;
 import com.perfect.core.utils.mybatis.PageUtil;
@@ -115,7 +116,12 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean insert(SDictTypeEntity entity) {
-        // ch
+        // 插入前check
+        CheckResult cr = checkLogic(entity.getCode());
+        if (cr.isSuccess() == false) {
+            throw new BusinessException(cr.getMessage());
+        }
+        // 插入逻辑保存
         return super.save(entity);
     }
 
@@ -133,14 +139,16 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
     }
 
     /**
-     *
+     * check逻辑
      * @return
      */
     public CheckResult checkLogic(String _code){
         // code查重
         List<SDictTypeEntity> list = selectByCode(_code);
         if(list.size() > 1){
-            CheckResultUtil.NG("字典编号出现重复", list);
+            return CheckResultUtil.NG("字典编号出现重复", list);
         }
+
+        return CheckResultUtil.OK();
     }
 }

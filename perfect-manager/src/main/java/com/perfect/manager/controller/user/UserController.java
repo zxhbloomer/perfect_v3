@@ -1,10 +1,11 @@
 package com.perfect.manager.controller.user;
 
+import com.perfect.bean.pojo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.perfect.bean.pojo.JSONResult;
+import com.perfect.bean.pojo.JsonResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.user.info.UserInfoVo;
 import com.perfect.common.annotation.SysLog;
@@ -31,7 +32,7 @@ public class UserController extends BaseController {
     @ApiOperation("获取用户信息")
     @GetMapping("/info")
     @ResponseBody
-    public ResponseEntity<JSONResult<UserInfoVo>> userInfo(@RequestParam("token") String token) {
+    public ResponseEntity<JsonResult<UserInfoVo>> userInfo(@RequestParam("token") String token) {
 
         UserInfoVo userInfoVo = imUserService.getUserInfo(token);
 

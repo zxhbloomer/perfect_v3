@@ -3,7 +3,6 @@ package com.perfect.bean.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.apache.poi.ss.formula.functions.T;
 
 import java.io.Serializable;
 
@@ -25,5 +24,5 @@ public class CheckResult implements Serializable {
     private boolean success;
 
     /** 返回数据 */
-    private T data;
+    private Object data ;
 }

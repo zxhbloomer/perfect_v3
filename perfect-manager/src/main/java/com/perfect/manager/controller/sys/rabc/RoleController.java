@@ -2,7 +2,7 @@ package com.perfect.manager.controller.sys.rabc;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.rabc.SRoleEntity;
-import com.perfect.bean.pojo.JSONResult;
+import com.perfect.bean.pojo.JsonResult;
 import com.perfect.bean.result.v1.ResultUtil;
 import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.bean.vo.sys.rabc.role.SRoleVo;
@@ -47,7 +47,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("{ id }")
     @ResponseBody
-    public ResponseEntity<JSONResult<SRoleEntity>> info(@RequestParam("id") String id) {
+    public ResponseEntity<JsonResult<SRoleEntity>> info(@RequestParam("id") String id) {
 
         SRoleEntity sRoleEntity = isRoleService.getById(id);
 
@@ -59,7 +59,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JSONResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SRoleVo searchCondition)
+    public ResponseEntity<JsonResult<IPage<SRoleEntity>>> list(@RequestBody(required = false) SRoleVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         IPage<SRoleEntity> sRoleEntity = isRoleService.selectPage(searchCondition);
         return ResponseEntity.ok().body(ResultUtil.success(sRoleEntity));
@@ -69,7 +69,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<JSONResult<SRoleEntity>> save(@RequestBody(required = false) SRoleEntity sRoleEntity) {
+    public ResponseEntity<JsonResult<SRoleEntity>> save(@RequestBody(required = false) SRoleEntity sRoleEntity) {
         if(isRoleService.updateById(sRoleEntity)){
             return ResponseEntity.ok().body(ResultUtil.success(isRoleService.getById(sRoleEntity.getId()),"更新成功"));
         } else {
@@ -81,7 +81,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，获取角色信息")
     @PostMapping("/insert")
     @ResponseBody
-    public ResponseEntity<JSONResult<SRoleEntity>> insert(@RequestBody(required = false) SRoleEntity sRoleEntity) {
+    public ResponseEntity<JsonResult<SRoleEntity>> insert(@RequestBody(required = false) SRoleEntity sRoleEntity) {
         if(isRoleService.save(sRoleEntity)){
             return ResponseEntity.ok().body(ResultUtil.success(isRoleService.getById(sRoleEntity.getId()),"插入成功"));
         } else {
@@ -116,7 +116,7 @@ public class RoleController extends BaseController {
     @SysLog("角色数据导入")
     @ApiOperation("角色数据模板导入")
     @PostMapping("/import")
-    public ResponseEntity<JSONResult<Object>> importData(@RequestBody(required = false) SRoleVo uploadData,
+    public ResponseEntity<JsonResult<Object>> importData(@RequestBody(required = false) SRoleVo uploadData,
         HttpServletResponse response) throws Exception {
 
         // file bean 保存数据库
@@ -146,7 +146,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，逻辑删除复原数据")
     @PostMapping("/delete")
     @ResponseBody
-    public ResponseEntity<JSONResult<String>> delete(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
+    public ResponseEntity<JsonResult<String>> delete(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
         isRoleService.deleteByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.success("OK"));
     }
@@ -155,7 +155,7 @@ public class RoleController extends BaseController {
     @ApiOperation("根据参数id，启用禁用数据")
     @PostMapping("/enable")
     @ResponseBody
-    public ResponseEntity<JSONResult<String>> enable(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
+    public ResponseEntity<JsonResult<String>> enable(@RequestBody(required = false) List<SRoleVo> searchConditionList) {
         isRoleService.enableByIdsIn(searchConditionList);
         return ResponseEntity.ok().body(ResultUtil.success("OK"));
     }
