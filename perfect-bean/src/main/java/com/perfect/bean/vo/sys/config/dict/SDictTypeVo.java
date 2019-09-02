@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@ApiModel(value = "角色返回信息", description = "角色返回vo_bean")
+@ApiModel(value = "字典类型信息", description = "字典类型vo_bean")
 public class SDictTypeVo extends UploadFileResultPojo implements Serializable {
 
     private static final long serialVersionUID = 8149295048471235932L;

@@ -18,46 +18,22 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "资源表导出Bean", description = "资源表导出Bean")
+@ApiModel(value = "字典类型导出Bean", description = "字典类型导出Bean")
 public class SDictTypeExportVo implements Serializable {
 
     private static final long serialVersionUID = -6942475112738825609L;
     private Long id;
 
-    /**
-     * excel导入模板文件：10，静态配置文件：20，静态图片文件：30
-     */
-    @Excel(name = "资源类型")
-    private String type;
+    @Excel(name = "字典名称")
+    private String name;
 
-    /**
-     * 相对路径
-     */
-    @Excel(name = "相对路径")
-    private String uri;
+    @Excel(name = "字典编号")
+    private String code;
 
-    /**
-     * 文件系统的baseurl
-     */
-    @Excel(name = "baseurl")
-    private String base;
-
-    /**
-     * 文件大小
-     */
-    @Excel(name = "文件大小")
-    private Long size;
-
-    /**
-     * 文件扩展名
-     */
-    @Excel(name = "文件扩展名")
-    private String extension;
-
-    /**
-     * 描述
-     */
     @Excel(name = "描述")
     private String descr;
+
+    @Excel(name = "是否删除")
+    private String isdel;
 
 }
