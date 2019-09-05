@@ -38,7 +38,7 @@ public enum ResultEnum {
     SYSTEM_DELETE_FAIL(12,"数据删除失败"),
 
     // 201-300，用户模块
-    USER_LOGIN_ERROR(201, "用户名或密码错误"),
+    USER_LOGIN_ERROR(201, "登录名或登录密码不正确"),
     //
     USER_PASSWORD_LENGTH(202, "密码长度不符合要求"),
     //

@@ -28,7 +28,7 @@ public class PerfectAuthenticationAccessDeniedHandler implements AccessDeniedHan
         if (CommonUtil.isAjaxRequest(request)) {
             response.setContentType(PerfectConstant.JSON_UTF8);
 //            response.getWriter().write(this.mapper.writeValueAsString(ResponseBo.NG("没有该权限！")));
-            ResponseResultUtil.responseWriteError(request,response,new CredentialException("没有该权限！"), HttpStatus.UNAUTHORIZED.value());
+            ResponseResultUtil.responseWriteError(request,response,new CredentialException("没有该权限！"), HttpStatus.UNAUTHORIZED.value(), "没有该权限！");
         } else {
             redirectStrategy.sendRedirect(request, response, PerfectConstant.FEBS_ACCESS_DENY_URL);
         }

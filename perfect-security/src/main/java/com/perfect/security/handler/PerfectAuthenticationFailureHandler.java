@@ -27,7 +27,7 @@ public class PerfectAuthenticationFailureHandler implements AuthenticationFailur
         if (exception instanceof UsernameNotFoundException) {
             message = "用户不存在！";
         } else if (exception instanceof BadCredentialsException) {
-            message = "用户名或密码错误！";
+            message = "登录名或登录密码不正确！";
         } else if (exception instanceof LockedException) {
             message = "用户已被锁定！";
         } else if (exception instanceof DisabledException) {
@@ -42,7 +42,7 @@ public class PerfectAuthenticationFailureHandler implements AuthenticationFailur
             message = "认证失败，请联系网站管理员！";
         }
 //        response.getWriter().write(mapper.writeValueAsString(ResponseBo.NG(message)));
-        ResponseResultUtil.responseWriteError(request,response,exception, HttpStatus.UNAUTHORIZED.value());
+        ResponseResultUtil.responseWriteError(request,response,exception, HttpStatus.UNAUTHORIZED.value(), message);
     }
 }
 

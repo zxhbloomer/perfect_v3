@@ -20,7 +20,7 @@ public class PerfectExpiredSessionStrategy implements SessionInformationExpiredS
     public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException {
 //        event.getResponse().getWriter().write(mapper.writeValueAsString(ResponseBo.unAuthorized("登录已失效")));
         ResponseResultUtil
-            .responseWriteError(event.getRequest(),event.getResponse(),new CredentialException("登录已失效"), HttpStatus.UNAUTHORIZED.value());
+            .responseWriteError(event.getRequest(),event.getResponse(),new CredentialException("登录已失效"), HttpStatus.UNAUTHORIZED.value(), "登录已失效");
     }
 
 }

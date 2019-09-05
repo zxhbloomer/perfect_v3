@@ -42,17 +42,16 @@ public class ResponseResultUtil {
                                             HttpServletRequest request,
                                             HttpServletResponse response,
                                             Exception exception,
-                                            int httpStatus
-                                          ) throws IOException {
+                                            int httpStatus,
+                                            String errorMessage
+                                        ) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        String message = "";
         response.setContentType(PerfectConstant.JSON_UTF8);
         if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException){
-            message = "用户名或密码错误";
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.NG(HttpStatus.UNAUTHORIZED.value(),
                                     exception,
-                                    exception.getMessage(),
+                                    errorMessage,
                                     request)
                             )
             );
@@ -60,17 +59,18 @@ public class ResponseResultUtil {
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                                     exception,
-                                    exception.getMessage(),
+                                    errorMessage,
                                     request)
             ));
         }else{
             response.getWriter().write(objectMapper.writeValueAsString(
                     ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                                     exception,
-                                    exception.getMessage(),
+                                    errorMessage,
                                     request)
             ));
         }
+
         response.setStatus(httpStatus);
     }
 }

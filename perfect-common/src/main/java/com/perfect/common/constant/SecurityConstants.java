@@ -28,11 +28,4 @@ public interface SecurityConstants {
     String DEFAULT_SESSION_INVALID_URL = "/session/invalid";
 
     String DEFAULT_SESSION_EXPIRED_URL = "/session/expired";
-
-    /**
-     * 默认用户密码
-     */
-    String DEFAULT_PASSWORD="123456";
-
-
 }

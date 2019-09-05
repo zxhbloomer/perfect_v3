@@ -38,4 +38,12 @@ public class UserController extends BaseController {
 //        ResponseEntity<OAuth2AccessToken
         return ResponseEntity.ok().body(ResultUtil.OK(userInfoVo));
     }
+
+    @SysLog("登出")
+    @ApiOperation("登出")
+    @PostMapping("/logout")
+    @ResponseBody
+    public ResponseEntity<JsonResult<String>> logout() {
+        return ResponseEntity.ok().body(ResultUtil.OK("登出成功"));
+    }
 }
