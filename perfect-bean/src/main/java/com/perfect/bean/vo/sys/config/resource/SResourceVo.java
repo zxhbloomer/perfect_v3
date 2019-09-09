@@ -28,7 +28,12 @@ public class SResourceVo extends UploadFileResultPojo implements Serializable {
     /**
      * 资源编码
      */
-    private String [] code;
+    private String code;
+
+    /**
+     * 资源编码
+     */
+    private String [] types;
 
     /**
      * 名称
