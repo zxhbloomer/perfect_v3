@@ -2,8 +2,9 @@ package com.perfect.core.mapper.sys.config.module;
 
 import java.util.List;
 
+import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.entity.sys.config.module.SModuleEntity;
-import com.perfect.bean.vo.sys.module.SModuleVo;
+import com.perfect.bean.vo.sys.config.module.SModuleVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -78,4 +79,30 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
         + "        </foreach>"
         + "  </script>")
     List<SModuleEntity> selectIdsIn(@Param("p1") List<SModuleVo> searchCondition);
+
+    /**
+     * 按条件获取所有数据，没有分页
+     * @param code
+     * @return
+     */
+    @Select("    "
+        + " select t.* "
+        + "   from s_module t "
+        + "  where true "
+        + "    and t.code =  #{p1}"
+        + "      ")
+    List<SModuleEntity> selectByCode(@Param("p1") String code);
+
+    /**
+     * 按条件获取所有数据，没有分页
+     * @param name
+     * @return
+     */
+    @Select("    "
+        + " select t.* "
+        + "   from s_module t "
+        + "  where true "
+        + "    and t.name =  #{p1}"
+        + "      ")
+    List<SModuleEntity> selectByName(@Param("p1") String name);
 }

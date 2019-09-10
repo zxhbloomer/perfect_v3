@@ -9,6 +9,7 @@ import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @author zxh
  * @since 2019-08-23
  */
+@Repository
 public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
 
     /**

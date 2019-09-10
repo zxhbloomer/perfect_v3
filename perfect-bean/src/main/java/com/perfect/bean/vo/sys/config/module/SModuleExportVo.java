@@ -1,4 +1,4 @@
-package com.perfect.bean.vo.sys.module;
+package com.perfect.bean.vo.sys.config.module;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

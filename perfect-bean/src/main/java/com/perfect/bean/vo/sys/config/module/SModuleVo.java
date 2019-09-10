@@ -1,4 +1,4 @@
-package com.perfect.bean.vo.sys.module;
+package com.perfect.bean.vo.sys.config.module;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -37,6 +37,11 @@ public class SModuleVo implements Serializable {
      * 类型
      */
     private String type;
+
+    /**
+     * 资源编码
+     */
+    private String [] types;
 
     /**
      * 名称

@@ -15,6 +15,16 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CheckResult implements Serializable {
 
+    /**
+     * check的区分
+     */
+    public static final String INSERT_CHECK_TYPE = "INSERT_CHECK_TYPE";
+    public static final String UPDATE_CHECK_TYPE = "UPDATE_CHECK_TYPE";
+    public static final String DELETE_CHECK_TYPE = "DELETE_CHECK_TYPE";
+    public static final String SELECT_CHECK_TYPE = "SELECT_CHECK_TYPE";
+    public static final String COPY_INSERT_CHECK_TYPE = "COPY_INSERT_CHECK_TYPE";
+    public static final String OTHER_CHECK_TYPE = "OTHER_CHECK_TYPE";
+
     private static final long serialVersionUID = -3879117049651813655L;
 
     /** 返回消息：返回的消息 */

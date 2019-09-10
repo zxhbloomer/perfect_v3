@@ -32,7 +32,7 @@ import java.util.List;
 public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictTypeEntity> implements ISDictTypeService {
 
     @Autowired
-    private SDictTypeMapper sDictTypeMapper;
+    private SDictTypeMapper mapper;
 
     /**
      * 获取列表，页面查询
@@ -50,7 +50,7 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
         PageUtil.setSort(pageCondition, SDictTypeEntity.class, searchCondition.getPageCondition().getSort());
-        return sDictTypeMapper.selectPage(pageCondition, searchCondition);
+        return mapper.selectPage(pageCondition, searchCondition);
     }
 
     /**
@@ -64,7 +64,7 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
     @Override
     public List<SDictTypeEntity> select(SDictTypeVo searchCondition) {
         // 查询 数据
-        List<SDictTypeEntity> list = sDictTypeMapper.select(searchCondition);
+        List<SDictTypeEntity> list = mapper.select(searchCondition);
         return list;
     }
 
@@ -79,7 +79,7 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
     @Override
     public List<SDictTypeEntity> selectIdsIn(List<SDictTypeVo> searchCondition) {
         // 查询 数据
-        List<SDictTypeEntity> list = sDictTypeMapper.selectIdsIn(searchCondition);
+        List<SDictTypeEntity> list = mapper.selectIdsIn(searchCondition);
         return list;
     }
 
@@ -103,7 +103,7 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteByIdsIn(List<SDictTypeVo> searchCondition) {
-        List<SDictTypeEntity> list = sDictTypeMapper.selectIdsIn(searchCondition);
+        List<SDictTypeEntity> list = mapper.selectIdsIn(searchCondition);
         list.forEach(
             bean -> {
                 bean.setIsdel(!bean.getIsdel());
@@ -126,7 +126,7 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
             throw new BusinessException(cr.getMessage());
         }
         // 插入逻辑保存
-        return InsertResultUtil.OK(sDictTypeMapper.insert(entity));
+        return InsertResultUtil.OK(mapper.insert(entity));
     }
 
     /**
@@ -143,7 +143,7 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
             throw new BusinessException(cr.getMessage());
         }
         // 更新逻辑保存
-        return UpdateResultUtil.OK(sDictTypeMapper.insert(entity));
+        return UpdateResultUtil.OK(mapper.updateById(entity));
     }
 
     /**
@@ -155,7 +155,7 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
     @Override
     public List<SDictTypeEntity> selectByCode(String code) {
         // 查询 数据
-        List<SDictTypeEntity> list = sDictTypeMapper.selectByCode(code);
+        List<SDictTypeEntity> list = mapper.selectByCode(code);
         return list;
     }
 

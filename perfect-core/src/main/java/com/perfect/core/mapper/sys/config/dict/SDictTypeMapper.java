@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @author zxh
  * @since 2019-08-23
  */
+@Repository
 public interface SDictTypeMapper extends BaseMapper<SDictTypeEntity> {
     /**
      * 页面查询列表

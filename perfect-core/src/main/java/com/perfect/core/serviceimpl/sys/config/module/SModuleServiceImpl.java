@@ -2,8 +2,16 @@ package com.perfect.core.serviceimpl.sys.config.module;
 
 import java.util.List;
 
+import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.entity.sys.config.module.SModuleEntity;
-import com.perfect.bean.vo.sys.module.SModuleVo;
+import com.perfect.bean.pojo.result.CheckResult;
+import com.perfect.bean.pojo.result.InsertResult;
+import com.perfect.bean.pojo.result.UpdateResult;
+import com.perfect.bean.result.utils.v1.CheckResultUtil;
+import com.perfect.bean.result.utils.v1.InsertResultUtil;
+import com.perfect.bean.result.utils.v1.UpdateResultUtil;
+import com.perfect.bean.vo.sys.config.module.SModuleVo;
+import com.perfect.common.exception.BusinessException;
 import com.perfect.core.mapper.sys.config.module.SModuleMapper;
 import com.perfect.core.service.sys.config.module.IModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +32,7 @@ import com.perfect.core.utils.mybatis.PageUtil;
  * @since 2019-08-16
  */
 @Service
-public class SModuleServiceImpl extends ServiceImpl<SModuleMapper, SModuleEntity>
-    implements IModuleService {
+public class SModuleServiceImpl extends ServiceImpl<SModuleMapper, SModuleEntity> implements IModuleService {
 
     @Autowired
     private SModuleMapper mapper;
@@ -93,6 +100,7 @@ public class SModuleServiceImpl extends ServiceImpl<SModuleMapper, SModuleEntity
 
     /**
      * 批量删除复原
+     * 
      * @param searchCondition
      * @return
      */
@@ -100,11 +108,110 @@ public class SModuleServiceImpl extends ServiceImpl<SModuleMapper, SModuleEntity
     @Override
     public void deleteByIdsIn(List<SModuleVo> searchCondition) {
         List<SModuleEntity> list = mapper.selectIdsIn(searchCondition);
-        list.forEach(
-            bean -> {
-                bean.setIsdel(!bean.getIsdel());
-            }
-        );
+        list.forEach(bean -> {
+            bean.setIsdel(!bean.getIsdel());
+        });
         saveOrUpdateBatch(list, 500);
+    }
+
+    /**
+     * 插入一条记录（选择字段，策略插入）
+     * 
+     * @param entity 实体对象
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public InsertResult<Integer> insert(SModuleEntity entity) {
+        // 插入前check
+        CheckResult cr = checkLogic(entity, CheckResult.INSERT_CHECK_TYPE);
+        if (cr.isSuccess() == false) {
+            throw new BusinessException(cr.getMessage());
+        }
+        // 插入逻辑保存
+        return InsertResultUtil.OK(mapper.insert(entity));
+    }
+
+    /**
+     * 更新一条记录（选择字段，策略更新）
+     * 
+     * @param entity 实体对象
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public UpdateResult<Integer> update(SModuleEntity entity) {
+        // 更新前check
+        CheckResult cr = checkLogic(entity, CheckResult.UPDATE_CHECK_TYPE);
+        if (cr.isSuccess() == false) {
+            throw new BusinessException(cr.getMessage());
+        }
+        // 更新逻辑保存
+        return UpdateResultUtil.OK(mapper.updateById(entity));
+    }
+
+    /**
+     * 查询by code，返回结果
+     *
+     * @param code
+     * @return
+     */
+    @Override
+    public List<SModuleEntity> selectByCode(String code) {
+        // 查询 数据
+        List<SModuleEntity> list = mapper.selectByCode(code);
+        return list;
+    }
+
+    /**
+     * 查询by 名称，返回结果
+     *
+     * @param name
+     * @return
+     */
+    @Override
+    public List<SModuleEntity> selectByName(String name) {
+        // 查询 数据
+        List<SModuleEntity> list = mapper.selectByCode(name);
+        return list;
+    }
+
+    /**
+     * check逻辑，模块编号 or 模块名称 不能重复
+     * 
+     * @return
+     */
+    public CheckResult checkLogic(SModuleEntity entity, String moduleType) {
+        List<SModuleEntity> listCode = selectByCode(entity.getCode());
+        List<SModuleEntity> listName = selectByName(entity.getName());
+
+        switch(moduleType){
+            case CheckResult.INSERT_CHECK_TYPE :
+                // 新增场合，不能重复
+                if (listCode.size() >= 1) {
+                    // 模块编号不能重复
+                    return CheckResultUtil.NG("新增保存出错：模块编号出现重复", listCode);
+                }
+                if (listName.size() >= 1) {
+                    // 模块名称不能重复
+                    return CheckResultUtil.NG("新增保存出错：模块名称出现重复", listName);
+                }
+                break;
+            case CheckResult.UPDATE_CHECK_TYPE :
+                // 更新场合，不能重复设置
+                if (listCode.size() >= 2) {
+                    // 模块编号不能重复
+                    return CheckResultUtil.NG("更新保存出错：模块编号出现重复", listCode);
+                }
+                if (listName.size() >= 2) {
+                    // 模块名称不能重复
+                    return CheckResultUtil.NG("更新保存出错：模块名称出现重复", listName);
+                }
+                break;
+            default :
+
+        }
+
+        return CheckResultUtil.OK();
     }
 }

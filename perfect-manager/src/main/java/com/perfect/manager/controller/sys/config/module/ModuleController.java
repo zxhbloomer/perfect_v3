@@ -1,4 +1,4 @@
-package com.perfect.manager.controller.sys.module;
+package com.perfect.manager.controller.sys.config.module;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.module.SModuleEntity;
-import com.perfect.bean.vo.sys.module.SModuleExportVo;
-import com.perfect.bean.vo.sys.module.SModuleVo;
+import com.perfect.bean.vo.sys.config.module.SModuleExportVo;
+import com.perfect.bean.vo.sys.config.module.SModuleVo;
 import com.perfect.core.service.sys.config.module.IModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -63,17 +63,17 @@ public class ModuleController extends BaseController {
     public ResponseEntity<JsonResult<IPage<SModuleEntity>>> list(@RequestBody(required = false)
         SModuleVo searchCondition)
         throws InstantiationException, IllegalAccessException {
-        IPage<SModuleEntity> SModuleEntity = service.selectPage(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.OK(SModuleEntity));
+        IPage<SModuleEntity> entity = service.selectPage(searchCondition);
+        return ResponseEntity.ok().body(ResultUtil.OK(entity));
     }
 
     @SysLog("资源表数据更新保存")
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<JsonResult<SModuleEntity>> save(@RequestBody(required = false) SModuleEntity SModuleEntity) {
-        if(service.updateById(SModuleEntity)){
-            return ResponseEntity.ok().body(ResultUtil.OK(service.getById(SModuleEntity.getId()),"更新成功"));
+    public ResponseEntity<JsonResult<SModuleEntity>> save(@RequestBody(required = false) SModuleEntity bean) {
+        if(service.update(bean).isSuccess()){
+            return ResponseEntity.ok().body(ResultUtil.OK(service.getById(bean.getId()),"更新成功"));
         } else {
             throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
         }
@@ -83,9 +83,9 @@ public class ModuleController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/insert")
     @ResponseBody
-    public ResponseEntity<JsonResult<SModuleEntity>> insert(@RequestBody(required = false) SModuleEntity SModuleEntity) {
-        if(service.save(SModuleEntity)){
-            return ResponseEntity.ok().body(ResultUtil.OK(service.getById(SModuleEntity.getId()),"插入成功"));
+    public ResponseEntity<JsonResult<SModuleEntity>> insert(@RequestBody(required = false) SModuleEntity bean) {
+        if(service.insert(bean).isSuccess()){
+            return ResponseEntity.ok().body(ResultUtil.OK(service.getById(bean.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }
