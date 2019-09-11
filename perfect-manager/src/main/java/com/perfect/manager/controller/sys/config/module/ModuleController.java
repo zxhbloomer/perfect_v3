@@ -17,7 +17,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
-import com.perfect.bean.vo.sys.rabc.role.SRoleExportVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
@@ -96,9 +95,8 @@ public class ModuleController extends BaseController {
     @PostMapping("/export_all")
     public void exportAll(@RequestBody(required = false) SModuleVo searchCondition, HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
-        // List<SRoleExportVo> rtnList = new ArrayList<>();
         List<SModuleEntity> searchResult = service.select(searchCondition);
-        List<SModuleExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
+        List<SModuleExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SModuleExportVo.class);
         ExcelUtil<SModuleExportVo> util = new ExcelUtil<>(SModuleExportVo.class);
         util.exportExcel("资源表数据导出", "资源表数据", rtnList, response);
     }
@@ -110,7 +108,7 @@ public class ModuleController extends BaseController {
         HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
         List<SModuleEntity> searchResult = service.selectIdsIn(searchConditionList);
-        List<SModuleExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
+        List<SModuleExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SModuleExportVo.class);
         ExcelUtil<SModuleExportVo> util = new ExcelUtil<>(SModuleExportVo.class);
         util.exportExcel("资源数据导出", "资源数据", rtnList, response);
     }

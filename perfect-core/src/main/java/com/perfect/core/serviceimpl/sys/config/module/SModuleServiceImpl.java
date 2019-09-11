@@ -172,7 +172,7 @@ public class SModuleServiceImpl extends ServiceImpl<SModuleMapper, SModuleEntity
     @Override
     public List<SModuleEntity> selectByName(String name) {
         // 查询 数据
-        List<SModuleEntity> list = mapper.selectByCode(name);
+        List<SModuleEntity> list = mapper.selectByName(name);
         return list;
     }
 

@@ -1,5 +1,6 @@
 package com.perfect.bean.vo.sys.config.resource;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.vo.condition.common.PageCondition;
 import io.swagger.annotations.ApiModel;
@@ -24,11 +25,6 @@ public class SResourceVo extends UploadFileResultPojo implements Serializable {
      * 资源类型
      */
     private String type;
-
-    /**
-     * 资源编码
-     */
-    private String code;
 
     /**
      * 资源编码

@@ -29,12 +29,6 @@ public class SResourceEntity extends BaseEntity<SResourceEntity> implements Seri
     private Long id;
 
     /**
-     * 编码，页面id
-     */
-    @TableField("code")
-    private String code;
-
-    /**
      * excel导入模板文件：10，静态配置文件：20，静态图片文件：30，json
      */
     @TableField("type")

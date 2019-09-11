@@ -99,9 +99,8 @@ public class DictTypeController extends BaseController {
     @PostMapping("/export_all")
     public void exportAll(@RequestBody(required = false) SDictTypeVo searchCondition, HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
-        // List<SRoleExportVo> rtnList = new ArrayList<>();
         List<SDictTypeEntity> searchResult = isDictTypeService.select(searchCondition);
-        List<SDictTypeExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
+        List<SDictTypeExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SDictTypeExportVo.class);
         ExcelUtil<SDictTypeExportVo> util = new ExcelUtil<>(SDictTypeExportVo.class);
         util.exportExcel("字典主表数据导出", "字典主表数据", rtnList, response);
     }
@@ -113,7 +112,7 @@ public class DictTypeController extends BaseController {
         HttpServletResponse response)
         throws IllegalAccessException, InstantiationException, IOException {
         List<SDictTypeEntity> searchResult = isDictTypeService.selectIdsIn(searchConditionList);
-        List<SResourceExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SRoleExportVo.class);
+        List<SResourceExportVo> rtnList = BeanUtilsSupport.copyProperties(searchResult, SDictTypeExportVo.class);
         ExcelUtil<SResourceExportVo> util = new ExcelUtil<>(SResourceExportVo.class);
         util.exportExcel("字典主表数据导出", "字典主表数据", rtnList, response);
     }
