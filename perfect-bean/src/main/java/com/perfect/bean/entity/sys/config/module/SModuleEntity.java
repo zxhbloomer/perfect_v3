@@ -1,15 +1,13 @@
 package com.perfect.bean.entity.sys.config.module;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
 import com.perfect.bean.entity.base.entity.v1.BaseEntity;
-import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -53,6 +51,12 @@ public class SModuleEntity extends BaseEntity<SModuleEntity> implements Serializ
      */
     @TableField("descr")
     private String descr;
+
+    /**
+     * 模版id：资源文件中获取
+     */
+    @TableField("templateid")
+    private Long templateid;
 
     /**
      * 是否删除
