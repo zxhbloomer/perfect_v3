@@ -22,7 +22,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  * @since 2019-08-16
  */
 @Repository
-public interface SModuleMapper extends BaseMapper<SModuleEntity> {
+public interface SModuleListMapper extends BaseMapper<SModuleEntity> {
 
     /**
      * 页面查询列表

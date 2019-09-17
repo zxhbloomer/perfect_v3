@@ -22,7 +22,7 @@ public interface IModuleService extends IService<SModuleEntity> {
     /**
      * 获取列表，页面查询
      */
-    IPage<SModuleEntity> selectPage(SModuleVo searchCondition) throws InstantiationException, IllegalAccessException;
+    IPage<SModuleVo> selectPage(SModuleVo searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
      * 获取所有数据

@@ -49,6 +49,11 @@ public class SModuleVo implements Serializable {
     private String name;
 
     /**
+     * 模版id：资源文件中获取
+     */
+    private Long templateId;
+
+    /**
      * 描述
      */
     private String descr;
@@ -57,6 +62,26 @@ public class SModuleVo implements Serializable {
      * 是否删除
      */
     private Boolean isdel;
+
+    /**
+     * 资源类型
+     */
+    private String templateType;
+
+    /**
+     * 资源名称
+     */
+    private String templateName;
+
+    /**
+     * 资源描述
+     */
+    private String templateDescr;
+
+    /**
+     * json配置文件
+     */
+    private String templateContext;
 
     /**
      * 换页条件

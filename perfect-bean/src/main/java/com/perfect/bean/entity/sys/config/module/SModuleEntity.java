@@ -55,8 +55,8 @@ public class SModuleEntity extends BaseEntity<SModuleEntity> implements Serializ
     /**
      * 模版id：资源文件中获取
      */
-    @TableField("templateid")
-    private Long templateid;
+    @TableField("template_id")
+    private Long template_id;
 
     /**
      * 是否删除

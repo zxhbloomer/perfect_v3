@@ -59,11 +59,11 @@ public class ModuleController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/list")
     @ResponseBody
-    public ResponseEntity<JsonResult<IPage<SModuleEntity>>> list(@RequestBody(required = false)
+    public ResponseEntity<JsonResult<IPage<SModuleVo>>> list(@RequestBody(required = false)
         SModuleVo searchCondition)
         throws InstantiationException, IllegalAccessException {
-        IPage<SModuleEntity> entity = service.selectPage(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.OK(entity));
+        IPage<SModuleVo> vo = service.selectPage(searchCondition);
+        return ResponseEntity.ok().body(ResultUtil.OK(vo));
     }
 
     @SysLog("资源表数据更新保存")
