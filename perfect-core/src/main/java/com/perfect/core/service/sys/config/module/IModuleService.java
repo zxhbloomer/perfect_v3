@@ -61,6 +61,14 @@ public interface IModuleService extends IService<SModuleEntity> {
     UpdateResult<Integer> update(SModuleEntity entity);
 
     /**
+     * 查询by id，返回结果
+     *
+     * @param id
+     * @return
+     */
+    SModuleVo selectByid(Long id);
+
+    /**
      * 通过code查询
      *
      */

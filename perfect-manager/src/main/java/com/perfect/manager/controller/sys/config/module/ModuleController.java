@@ -47,9 +47,9 @@ public class ModuleController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("{ id }")
     @ResponseBody
-    public ResponseEntity<JsonResult<SModuleEntity>> info(@RequestParam("id") String id) {
+    public ResponseEntity<JsonResult<SModuleVo>> info(@RequestParam("id") Long id) {
 
-        SModuleEntity entity = service.getById(id);
+        SModuleVo entity = service.selectByid(id);
 
 //        ResponseEntity<OAuth2AccessToken
         return ResponseEntity.ok().body(ResultUtil.OK(entity));
@@ -70,9 +70,9 @@ public class ModuleController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/save")
     @ResponseBody
-    public ResponseEntity<JsonResult<SModuleEntity>> save(@RequestBody(required = false) SModuleEntity bean) {
+    public ResponseEntity<JsonResult<SModuleVo>> save(@RequestBody(required = false) SModuleEntity bean) {
         if(service.update(bean).isSuccess()){
-            return ResponseEntity.ok().body(ResultUtil.OK(service.getById(bean.getId()),"更新成功"));
+            return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"更新成功"));
         } else {
             throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
         }
@@ -82,9 +82,9 @@ public class ModuleController extends BaseController {
     @ApiOperation("根据参数id，获取资源表信息")
     @PostMapping("/insert")
     @ResponseBody
-    public ResponseEntity<JsonResult<SModuleEntity>> insert(@RequestBody(required = false) SModuleEntity bean) {
+    public ResponseEntity<JsonResult<SModuleVo>> insert(@RequestBody(required = false) SModuleEntity bean) {
         if(service.insert(bean).isSuccess()){
-            return ResponseEntity.ok().body(ResultUtil.OK(service.getById(bean.getId()),"插入成功"));
+            return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }

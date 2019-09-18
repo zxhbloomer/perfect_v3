@@ -151,6 +151,18 @@ public class SModuleServiceImpl extends ServiceImpl<SModuleMapper, SModuleEntity
     }
 
     /**
+     * 查询by id，返回结果
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public SModuleVo selectByid(Long id) {
+        // 查询 数据
+        return mapper.selectId(id);
+    }
+
+    /**
      * 查询by code，返回结果
      *
      * @param code

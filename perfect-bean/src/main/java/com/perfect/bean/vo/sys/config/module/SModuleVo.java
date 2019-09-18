@@ -34,12 +34,12 @@ public class SModuleVo implements Serializable {
     private String code;
 
     /**
-     * 类型
+     * 模块类型
      */
     private String type;
 
     /**
-     * 资源编码
+     * 模块类型选择，页面上
      */
     private String [] types;
 

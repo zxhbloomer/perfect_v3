@@ -91,8 +91,8 @@ public class CallbackMappingJackson2HttpMessageConverter extends FastJsonHttpMes
                                                         SerializerFeature.WriteNullStringAsEmpty,
                                                         SerializerFeature.WriteNullListAsEmpty,
                                                         SerializerFeature.WriteNullBooleanAsFalse,
-                                                        SerializerFeature.PrettyFormat,
-                                                        SerializerFeature.WriteNullNumberAsZero
+                                                        SerializerFeature.PrettyFormat//,
+//                                                        SerializerFeature.WriteNullNumberAsZero
                                                         );
         super.write(o, type, contentType, outputMessage);
     }

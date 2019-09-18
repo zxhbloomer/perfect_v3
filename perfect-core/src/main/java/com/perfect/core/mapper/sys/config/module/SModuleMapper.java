@@ -58,6 +58,7 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
         + "         LEFT JOIN s_resource AS t2 ON t1.template_id = t2.id    "
         + "  where true "
         + "    and (t1.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
+        + "    and (t1.code like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null) "
         + "   <if test='p1.types != null and p1.types.length!=0' >"
         + "    and t1.type in "
         + "        <foreach collection='p1.types' item='item' index='index' open='(' separator=',' close=')'>"
@@ -78,9 +79,10 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
         + "   from s_module t "
         + "  where true "
         + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
-        + "   <if test='p1.code.length!=0' >"
+        + "    and (t.code like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null) "
+        + "   <if test='p1.types.length!=0' >"
         + "    and t.type in "
-        + "        <foreach collection='p1.code' item='item' index='index' open='(' separator=',' close=')'>"
+        + "        <foreach collection='p1.types' item='item' index='index' open='(' separator=',' close=')'>"
         + "         #{item}  "
         + "        </foreach>"
         + "   </if>"
@@ -102,6 +104,42 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
         + "        </foreach>"
         + "  </script>")
     List<SModuleEntity> selectIdsIn(@Param("p1") List<SModuleVo> searchCondition);
+
+
+    /**
+     * 按id查询
+     * @param id
+     * @return
+     */
+    @Select(" "
+        + "     SELECT                                                        "
+        + "         t1.id,                                                  "
+        + "         t1.CODE,                                                "
+        + "         t1.type,                                                "
+        + "         t1.NAME,                                                "
+        + "         t1.template_id,                                         "
+        + "         t1.descr,                                               "
+        + "         t1.isdel,                                               "
+        + "         t1.c_id,                                                "
+        + "         t1.c_time,                                              "
+        + "         t1.u_id,                                                "
+        + "         t1.u_time,                                              "
+        + "         t1.dbversion,                                           "
+        + "         t2.type AS template_type,                               "
+        + "         t2.NAME AS template_name,                               "
+        + "         t2.uri AS template_uri,                                 "
+        + "         t2.base AS template_base,                               "
+        + "         t2.size AS template_size,                               "
+        + "         t2.extension AS template_extension,                     "
+        + "         t2.descr AS template_descr,                             "
+        + "         t2.context AS template_context,                         "
+        + "         t2.isdel AS template_isdel                              "
+        + "     FROM                                                        "
+        + "         s_module AS t1                                          "
+        + "         LEFT JOIN s_resource AS t2 ON t1.template_id = t2.id    "
+        + "  where t1.id =  #{p1}"
+        + "        ")
+    SModuleVo selectId(@Param("p1") Long id);
 
     /**
      * 按条件获取所有数据，没有分页
