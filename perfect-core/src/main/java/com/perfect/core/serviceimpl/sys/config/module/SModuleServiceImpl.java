@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.entity.sys.config.module.SModuleEntity;
+import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import com.perfect.bean.pojo.result.CheckResult;
 import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
@@ -225,5 +226,16 @@ public class SModuleServiceImpl extends ServiceImpl<SModuleMapper, SModuleEntity
         }
 
         return CheckResultUtil.OK();
+    }
+
+    /**
+     * 根据模块名称查询资源文件找到json进行转换成excel导出
+     * @param code
+     */
+    @Override
+    public SModuleVo getTemplateBeanByModuleName(String code){
+        // 查询 数据
+        SModuleVo vo = mapper.selectTemplateName(code);
+        return vo;
     }
 }

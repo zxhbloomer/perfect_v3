@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.entity.sys.config.module.SModuleEntity;
+import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.vo.sys.config.module.SModuleVo;
@@ -79,4 +80,11 @@ public interface IModuleService extends IService<SModuleEntity> {
      *
      */
     List<SModuleEntity> selectByName(String name);
+
+    /**
+     * 根据模块名称查询资源文件找到json进行转换成excel导出
+     * @param code
+     * @return
+     */
+    SModuleVo getTemplateBeanByModuleName(String code);
 }

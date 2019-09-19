@@ -6,6 +6,8 @@ import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.DateTimeUtil;
 import com.perfect.common.utils.string.StringUtil;
+import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
@@ -27,8 +29,8 @@ import java.util.*;
  * 
  * @author zxh
  */
+@Slf4j
 public class ExcelUtil<T> {
-    private static final Logger log = LoggerFactory.getLogger(ExcelUtil.class);
 
     /**
      * Excel sheet最大行数，默认65536
@@ -69,6 +71,9 @@ public class ExcelUtil<T> {
      * 实体对象
      */
     public Class<T> clazz;
+
+    public ExcelUtil() {
+    }
 
     public ExcelUtil(Class<T> clazz) {
         this.clazz = clazz;
@@ -133,6 +138,23 @@ public class ExcelUtil<T> {
 
     /**
      * 对list数据源将其里面的数据导入到excel表单
+     *
+     * @param exportFileName
+     * @param sheetName
+     * @param et
+     * @param response
+     */
+    public void exportExcelHead(String exportFileName, String sheetName, ExcelTemplate et, HttpServletResponse response)
+        throws IOException {
+        createWorkbook();
+        // 调用excel文件生成逻辑，并返回文件路径
+        String fileNamePath = doExport();
+        /** 下载Excel文件 */
+        download(fileNamePath, this.fileName, response);
+    }
+
+    /**
+     * 对list数据源将其里面的数据导入到excel表单
      * 
      * @param exportFileName
      * @param sheetName
@@ -174,6 +196,51 @@ public class ExcelUtil<T> {
                     this.createRowHeadCell(excel, row, column++);
                 }
                 fillExcelData(index, row);
+            }
+            String tmpFilename = getAbsoluteFile(this.fileName);
+            out = new FileOutputStream(tmpFilename);
+            wb.write(out);
+            return tmpFilename;
+        } catch (Exception e) {
+            log.error("导出Excel异常{}", e.getMessage());
+            throw new BusinessException("导出Excel失败，请联系网站管理员！");
+        } finally {
+            if (wb != null) {
+                try {
+                    wb.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 根据ExcelTemplate导出excel的导入模板
+     *
+     * @return 结果
+     */
+    public String doExport(ExcelTemplate et) {
+        OutputStream out = null;
+        try {
+            double sheetNo = 0;
+            int index = 0;
+            createSheet(sheetNo, index);
+            // 产生一行
+            Row row = sheet.createRow(0);
+
+            int column = 0;
+            // 写入各个字段的列头名称
+            for (Object[] os : fields) {
+                Excel excel = (Excel)os[1];
+                this.createRowHeadCell(excel, row, column++);
             }
             String tmpFilename = getAbsoluteFile(this.fileName);
             out = new FileOutputStream(tmpFilename);

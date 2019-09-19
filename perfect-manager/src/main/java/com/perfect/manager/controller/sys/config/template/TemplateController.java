@@ -5,6 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
+import com.perfect.bean.vo.sys.config.module.SModuleVo;
+import com.perfect.core.service.sys.config.module.IModuleService;
+import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +39,11 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping(value = "/api/v1/template.html")
 @Slf4j
-@Api("excel上传模板相关")
+@Api("excel模板相关")
 public class TemplateController extends BaseController {
 
     @Autowired
-    private ISResourceService isResourceService;
+    private IModuleService service;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -48,12 +52,14 @@ public class TemplateController extends BaseController {
     @ApiOperation("根据页面id，获取相应的下载模板")
     @GetMapping
     @ResponseBody
-    public ResponseEntity<JsonResult<SResourceEntity>> info(@RequestParam("id") String id) {
+    public void info(@RequestParam("id") String id, HttpServletResponse response) {
 
-        SResourceEntity sResourceEntity = isResourceService.getById(id);
-
-//        ResponseEntity<OAuth2AccessToken
-        return ResponseEntity.ok().body(ResultUtil.OK(sResourceEntity));
+        SModuleVo vo = service.getTemplateBeanByModuleName(id);
+        String excelName = vo.getTemplateName();
+        String jsonConfig = vo.getTemplateContext();
+        ExcelTemplate et = initExcelTemplate(jsonConfig);
+        ExcelUtil util = new ExcelUtil();
+//        util.exportExcelHead(excelName, "字典主表数据", "模板表格", et, response);
     }
 
 }

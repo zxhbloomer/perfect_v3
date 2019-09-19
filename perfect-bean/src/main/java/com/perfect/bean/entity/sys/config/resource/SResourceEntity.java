@@ -55,8 +55,8 @@ public class SResourceEntity extends BaseEntity<SResourceEntity> implements Seri
     /**
      * 文件大小
      */
-    @TableField("size")
-    private Long size;
+    @TableField("file_size")
+    private Long fileSize;
 
     /**
      * 文件扩展名

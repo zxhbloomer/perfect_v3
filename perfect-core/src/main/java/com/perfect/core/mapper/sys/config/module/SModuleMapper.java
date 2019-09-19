@@ -33,9 +33,9 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
     @Select("<script>"
         + "     SELECT                                                        "
         + "         t1.id,                                                  "
-        + "         t1.CODE,                                                "
+        + "         t1.code,                                                "
         + "         t1.type,                                                "
-        + "         t1.NAME,                                                "
+        + "         t1.name,                                                "
         + "         t1.template_id,                                         "
         + "         t1.descr,                                               "
         + "         t1.isdel,                                               "
@@ -45,10 +45,10 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
         + "         t1.u_time,                                              "
         + "         t1.dbversion,                                           "
         + "         t2.type AS template_type,                               "
-        + "         t2.NAME AS template_name,                               "
+        + "         t2.name AS template_name,                               "
         + "         t2.uri AS template_uri,                                 "
         + "         t2.base AS template_base,                               "
-        + "         t2.size AS template_size,                               "
+        + "         t2.file_size AS template_size,                               "
         + "         t2.extension AS template_extension,                     "
         + "         t2.descr AS template_descr,                             "
         + "         t2.context AS template_context,                         "
@@ -114,9 +114,9 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
     @Select(" "
         + "     SELECT                                                        "
         + "         t1.id,                                                  "
-        + "         t1.CODE,                                                "
+        + "         t1.code,                                                "
         + "         t1.type,                                                "
-        + "         t1.NAME,                                                "
+        + "         t1.name,                                                "
         + "         t1.template_id,                                         "
         + "         t1.descr,                                               "
         + "         t1.isdel,                                               "
@@ -129,14 +129,14 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
         + "         t2.NAME AS template_name,                               "
         + "         t2.uri AS template_uri,                                 "
         + "         t2.base AS template_base,                               "
-        + "         t2.size AS template_size,                               "
+        + "         t2.file_size AS template_size,                               "
         + "         t2.extension AS template_extension,                     "
         + "         t2.descr AS template_descr,                             "
         + "         t2.context AS template_context,                         "
         + "         t2.isdel AS template_isdel                              "
         + "     FROM                                                        "
         + "         s_module AS t1                                          "
-        + "         LEFT JOIN s_resource AS t2 ON t1.template_id = t2.id    "
+        + "         left join s_resource as t2 on t1.template_id = t2.id    "
         + "  where t1.id =  #{p1}"
         + "        ")
     SModuleVo selectId(@Param("p1") Long id);
@@ -166,4 +166,39 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
         + "    and t.name =  #{p1}"
         + "      ")
     List<SModuleEntity> selectByName(@Param("p1") String name);
+
+    /**
+     * 按id查询
+     * @param code
+     * @return
+     */
+    @Select(" "
+        + "     SELECT                                                        "
+        + "         t1.id,                                                  "
+        + "         t1.code,                                                "
+        + "         t1.type,                                                "
+        + "         t1.name,                                                "
+        + "         t1.template_id,                                         "
+        + "         t1.descr,                                               "
+        + "         t1.isdel,                                               "
+        + "         t1.c_id,                                                "
+        + "         t1.c_time,                                              "
+        + "         t1.u_id,                                                "
+        + "         t1.u_time,                                              "
+        + "         t1.dbversion,                                           "
+        + "         t2.type AS template_type,                               "
+        + "         t2.NAME AS template_name,                               "
+        + "         t2.uri AS template_uri,                                 "
+        + "         t2.base AS template_base,                               "
+        + "         t2.file_size AS template_size,                               "
+        + "         t2.extension AS template_extension,                     "
+        + "         t2.descr AS template_descr,                             "
+        + "         t2.context AS template_context,                         "
+        + "         t2.isdel AS template_isdel                              "
+        + "     FROM                                                        "
+        + "         s_module AS t1                                          "
+        + "         inner join s_resource AS t2 on t1.template_id = t2.id    "
+        + "  where t1.code =  #{p1}"
+        + "        ")
+    SModuleVo selectTemplateName(@Param("p1") String code);
 }

@@ -76,7 +76,7 @@ public class BaseController {
     }
 
     /**
-     * 下载excel导入文件，并check是否是excel文件，然后根据模板定义进行导入
+     * 获取excel导入文件，并check是否是excel文件，然后根据模板定义进行导入
      * 如果有错误，则会生成错误excel，供客户下载查看。
      * @param fileUrl
      * @return

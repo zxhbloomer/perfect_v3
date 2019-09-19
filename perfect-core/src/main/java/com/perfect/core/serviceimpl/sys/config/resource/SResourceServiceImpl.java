@@ -106,4 +106,5 @@ public class SResourceServiceImpl extends ServiceImpl<SResourceMapper, SResource
         );
         saveOrUpdateBatch(list, 500);
     }
+
 }

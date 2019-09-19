@@ -85,6 +85,10 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
             </dependency>
+            <dependency>
+                <groupId>com.github.jsqlparser</groupId>
+                <artifactId>jsqlparser</artifactId>
+            </dependency>
             <!-- perfect -->
             <dependency>
                 <groupId>com.perfect</groupId>

@@ -76,4 +76,19 @@ public interface SResourceMapper extends BaseMapper<SResourceEntity> {
         + "        </foreach>"
         + "  </script>")
     List<SResourceEntity> selectIdsIn(@Param("p1") List<SResourceVo> searchCondition );
+
+    /**
+     * 没有分页，按id筛选条件
+     * @param name
+     * @return
+     */
+    @Select("    "
+        + " select t.* "
+        + "   from s_resource t "
+        + "  where t.id in "
+        + "        <foreach collection='p1' item='item' index='index' open='(' separator=',' close=')'>"
+        + "         #{item.id}  "
+        + "        </foreach>"
+        + "      ")
+    SResourceEntity selectName(@Param("p1") String name );
 }
