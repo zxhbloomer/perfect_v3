@@ -7,14 +7,13 @@ import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.DateTimeUtil;
 import com.perfect.common.utils.string.StringUtil;
 import com.perfect.excel.bean.importconfig.template.ExcelTemplate;
+import com.perfect.excel.bean.importconfig.template.title.TitleCol;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.util.TempFile;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -146,9 +145,11 @@ public class ExcelUtil<T> {
      */
     public void exportExcelHead(String exportFileName, String sheetName, ExcelTemplate et, HttpServletResponse response)
         throws IOException {
+        this.sheetName = sheetName;
+        this.fileName = exportFileName;
         createWorkbook();
         // 调用excel文件生成逻辑，并返回文件路径
-        String fileNamePath = doExport();
+        String fileNamePath = doExport(et);
         /** 下载Excel文件 */
         download(fileNamePath, this.fileName, response);
     }
@@ -238,10 +239,10 @@ public class ExcelUtil<T> {
 
             int column = 0;
             // 写入各个字段的列头名称
-            for (Object[] os : fields) {
-                Excel excel = (Excel)os[1];
-                this.createRowHeadCell(excel, row, column++);
+            for(TitleCol col : et.getTitleRows().get(0).getCols()) {
+                this.createRowHeadCell(col.getTitle(), row, column++);
             }
+
             String tmpFilename = getAbsoluteFile(this.fileName);
             out = new FileOutputStream(tmpFilename);
             wb.write(out);
@@ -312,6 +313,21 @@ public class ExcelUtil<T> {
     }
 
     /**
+     * 创建head单元格
+     */
+    public Cell createRowHeadCell(String name, Row row, int column) {
+        // 创建列
+        Cell cell = row.createCell(column);
+        // 设置列中写入内容为String类型
+        cell.setCellType(CellType.STRING);
+        // 写入列名
+        cell.setCellValue(name);
+        CellStyle cellStyle = createHeadStyle(name, row, column);
+        cell.setCellStyle(cellStyle);
+        return cell;
+    }
+
+    /**
      * 创建head表格样式
      */
     public CellStyle createHeadStyle(Excel attr, Row row, int column) {
@@ -343,6 +359,36 @@ public class ExcelUtil<T> {
             // 这里默认设了2-101列提示.
             setXSSFPrompt(sheet, "", attr.prompt(), 1, 100, column, column);
         }
+        return cellStyle;
+    }
+
+    /**
+     * 创建head表格样式
+     */
+    public CellStyle createHeadStyle(String attr, Row row, int column) {
+        CellStyle cellStyle = wb.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        cellStyle.setBorderBottom(BorderStyle.THIN);
+        cellStyle.setBorderLeft(BorderStyle.THIN);
+        cellStyle.setBorderTop(BorderStyle.THIN);
+        cellStyle.setBorderRight(BorderStyle.THIN);
+
+        Font font = wb.createFont();
+        font.setFontName("微软雅黑");
+        // 粗体显示
+        font.setBold(true);
+        font.setColor(IndexedColors.WHITE.index);
+        // 选择需要用到的字体格式
+        cellStyle.setFont(font);
+        cellStyle.setFillForegroundColor(IndexedColors.ROYAL_BLUE.index);
+        cellStyle.setFillBackgroundColor(IndexedColors.GREY_40_PERCENT.index);
+        // 设置列宽
+        sheet.setColumnWidth(column, (int)((16 + 0.72) * 256));
+//        row.setHeight((short)(attr.height() * 20));
+
+        cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cellStyle.setWrapText(true);
         return cellStyle;
     }
 
