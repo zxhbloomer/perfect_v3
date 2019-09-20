@@ -52,8 +52,8 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "       s_dict_data AS t1                                                 "
         + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
         + "  where true "
-        + "    and (t2.code like CONCAT ('%',#{p1.dict_Type_code,jdbcType=VARCHAR},'%') or #{p1.dict_Type_code,jdbcType=VARCHAR} is null) "
-        + "    and (t2.name like CONCAT ('%',#{p1.dict_Type_name,jdbcType=VARCHAR},'%') or #{p1.dict_Type_name,jdbcType=VARCHAR} is null) "
+        + "    and (t2.code like CONCAT ('%',#{p1.dict_type_code,jdbcType=VARCHAR},'%') or #{p1.dict_type_code,jdbcType=VARCHAR} is null) "
+        + "    and (t2.name like CONCAT ('%',#{p1.dict_type_name,jdbcType=VARCHAR},'%') or #{p1.dict_type_name,jdbcType=VARCHAR} is null) "
         + "    and (t2.isdel = 0) "
         + "      ")
     IPage<SDictDataVo> selectPage(Page page, @Param("p1") SDictDataVo searchCondition );
@@ -85,8 +85,8 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "       s_dict_data AS t1                                                 "
         + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
         + "  where true "
-        + "    and (t2.code like CONCAT ('%',#{p1.dict_Type_code,jdbcType=VARCHAR},'%') or #{p1.dict_Type_code,jdbcType=VARCHAR} is null) "
-        + "    and (t2.name like CONCAT ('%',#{p1.dict_Type_name,jdbcType=VARCHAR},'%') or #{p1.dict_Type_name,jdbcType=VARCHAR} is null) "
+        + "    and (t2.code like CONCAT ('%',#{p1.dict_type_code,jdbcType=VARCHAR},'%') or #{p1.dict_type_code,jdbcType=VARCHAR} is null) "
+        + "    and (t2.name like CONCAT ('%',#{p1.dict_type_name,jdbcType=VARCHAR},'%') or #{p1.dict_type_name,jdbcType=VARCHAR} is null) "
         + "    and (t2.isdel = 0) "
         + "      ")
     List<SDictDataVo> select(@Param("p1") SDictDataVo searchCondition );

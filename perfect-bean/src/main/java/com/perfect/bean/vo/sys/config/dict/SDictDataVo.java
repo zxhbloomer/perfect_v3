@@ -24,9 +24,15 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     private Long id;
 
     /**
+     * 字典编码
+     */
+    @TableField("code")
+    private String code;
+
+    /**
      * 字典类型表id主键
      */
-    private Long dict_Type_Id;
+    private Long dict_type_id;
 
     /**
      * 字典排序
@@ -41,7 +47,7 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     /**
      * 字典键值
      */
-    private String value;
+    private String dict_value;
 
     /**
      * 描述
@@ -83,22 +89,22 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     /**
      * 字典名称
      */
-    private String dict_Type_name;
+    private String dict_type_name;
 
     /**
-     * 字典编号：唯一
+     * 字典类型：唯一
      */
-    private String dict_Type_code;
+    private String dict_type_code;
 
     /**
-     * 描述
+     * 字典类型描述
      */
-    private String dict_Type_descr;
+    private String dict_type_descr;
 
     /**
      * 是否删除
      */
-    private Boolean dict_Type_isdel;
+    private Boolean dict_type_isdel;
 
 
     /**

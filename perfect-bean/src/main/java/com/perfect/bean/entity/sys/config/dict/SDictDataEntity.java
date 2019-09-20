@@ -30,6 +30,12 @@ public class SDictDataEntity extends BaseEntity<SDictDataEntity> implements Seri
     private Long id;
 
     /**
+     * 字典编码
+     */
+    @TableField("code")
+    private String code;
+
+    /**
      * 字典类型表id主键
      */
     @TableField("dict_type_id")
