@@ -24,11 +24,11 @@ public class SDictTypeExportVo implements Serializable {
     private static final long serialVersionUID = -6942475112738825609L;
     private Long id;
 
+    @Excel(name = "字典类型")
+    private String code;
+
     @Excel(name = "字典名称")
     private String name;
-
-    @Excel(name = "字典编号")
-    private String code;
 
     @Excel(name = "描述")
     private String descr;

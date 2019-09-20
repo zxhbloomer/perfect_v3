@@ -1,7 +1,9 @@
 package com.perfect.bean.vo.sys.config.dict;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.vo.condition.common.PageCondition;
 
@@ -14,26 +16,32 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@ApiModel(value = "角色返回信息", description = "角色返回vo_bean")
+@ApiModel(value = "字典数据信息", description = "字典数据vo_bean")
 public class SDictDataVo extends UploadFileResultPojo implements Serializable {
 
     private static final long serialVersionUID = 835262693681898034L;
+
     private Long id;
 
     /**
-     * 角色类型
+     * 字典类型表id主键
      */
-    private String type;
+    private Long dict_Type_Id;
 
     /**
-     * 角色编码
+     * 字典排序
      */
-    private String [] code;
+    private Integer sort;
 
     /**
-     * 角色名称
+     * 字典标签
      */
-    private String name;
+    private String label;
+
+    /**
+     * 字典键值
+     */
+    private String value;
 
     /**
      * 描述
@@ -41,9 +49,9 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     private String descr;
 
     /**
-     * 简称
+     * 是否删除
      */
-    private String simpleName;
+    private Boolean isdel;
 
     /**
      * 租户代码
@@ -55,13 +63,47 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
      */
     private String corpName;
 
+    private Long cId;
+
+    private LocalDateTime cTime;
+
+    private Long uId;
+
+    private LocalDateTime uTime;
+
+    /**
+     * 数据版本，乐观锁使用
+     */
+    private Integer dbversion;
+
+    /**
+     * 以下是字典分类属性
+     */
+
+    /**
+     * 字典名称
+     */
+    private String dict_Type_name;
+
+    /**
+     * 字典编号：唯一
+     */
+    private String dict_Type_code;
+
+    /**
+     * 描述
+     */
+    private String dict_Type_descr;
+
+    /**
+     * 是否删除
+     */
+    private Boolean dict_Type_isdel;
+
+
     /**
      * 换页条件
      */
     private PageCondition pageCondition;
 
-    /**
-     * 是否删除
-     */
-    private Boolean isdel;
 }

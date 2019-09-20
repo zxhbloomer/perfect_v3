@@ -5,9 +5,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
+import com.perfect.bean.pojo.result.CheckResult;
+import com.perfect.bean.pojo.result.InsertResult;
+import com.perfect.bean.pojo.result.UpdateResult;
+import com.perfect.bean.result.utils.v1.CheckResultUtil;
+import com.perfect.bean.result.utils.v1.InsertResultUtil;
+import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
+import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceVo;
+import com.perfect.common.exception.BusinessException;
+import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.mapper.sys.config.dict.SDictDataMapper;
 import com.perfect.core.mapper.sys.config.dict.SDictTypeMapper;
 import com.perfect.core.service.sys.config.dict.ISDictDataService;
@@ -30,7 +39,7 @@ import java.util.List;
 public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictDataEntity> implements ISDictDataService {
 
     @Autowired
-    private SDictDataMapper sDictDataMapper;
+    private SDictDataMapper mapper;
 
     /**
      * 获取列表，页面查询
@@ -41,14 +50,14 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
      * @throws IllegalAccessException
      */
     @Override
-    public IPage<SDictDataEntity> selectPage(SDictDataVo searchCondition)
+    public IPage<SDictDataVo> selectPage(SDictDataVo searchCondition)
         throws InstantiationException, IllegalAccessException {
         // 分页条件
         Page<SDictTypeEntity> pageCondition =
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
         PageUtil.setSort(pageCondition, SDictTypeEntity.class, searchCondition.getPageCondition().getSort());
-        return sDictDataMapper.selectPage(pageCondition, searchCondition);
+        return mapper.selectPage(pageCondition, searchCondition);
     }
 
     /**
@@ -60,9 +69,9 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
      * @throws IllegalAccessException
      */
     @Override
-    public List<SDictDataEntity> select(SDictDataVo searchCondition) {
+    public List<SDictDataVo> select(SDictDataVo searchCondition) {
         // 查询 数据
-        List<SDictDataEntity> list = sDictDataMapper.select(searchCondition);
+        List<SDictDataVo> list = mapper.select(searchCondition);
         return list;
     }
 
@@ -75,9 +84,9 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
      * @throws IllegalAccessException
      */
     @Override
-    public List<SDictDataEntity> selectIdsIn(List<SDictDataVo> searchCondition) {
+    public List<SDictDataVo> selectIdsIn(List<SDictDataVo> searchCondition) {
         // 查询 数据
-        List<SDictDataEntity> list = sDictDataMapper.selectIdsIn(searchCondition);
+        List<SDictDataVo> list = mapper.selectIdsIn(searchCondition);
         return list;
     }
 
@@ -101,12 +110,94 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteByIdsIn(List<SDictDataVo> searchCondition) {
-        List<SDictDataEntity> list = sDictDataMapper.selectIdsIn(searchCondition);
+        List<SDictDataVo> list = mapper.selectIdsIn(searchCondition);
         list.forEach(
             bean -> {
                 bean.setIsdel(!bean.getIsdel());
             }
         );
-        saveOrUpdateBatch(list, 500);
+        List<SDictDataEntity> entityList = BeanUtilsSupport.copyProperties(list, SDictDataEntity.class);
+        super.saveOrUpdateBatch(entityList, 500);
+    }
+
+    /**
+     * 插入一条记录（选择字段，策略插入）
+     * @param entity 实体对象
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public InsertResult<Integer> insert(SDictDataEntity entity) {
+        // 插入前check
+        CheckResult cr = checkLogic(entity.getDictValue(),entity.getLabel());
+        if (cr.isSuccess() == false) {
+            throw new BusinessException(cr.getMessage());
+        }
+        // 插入逻辑保存
+        return InsertResultUtil.OK(mapper.insert(entity));
+    }
+
+    /**
+     * 更新一条记录（选择字段，策略更新）
+     * @param entity 实体对象
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public UpdateResult<Integer> update(SDictDataEntity entity) {
+        // 更新前check
+        CheckResult cr = checkLogic(entity.getDictValue(),entity.getLabel());
+        if (cr.isSuccess() == false) {
+            throw new BusinessException(cr.getMessage());
+        }
+        // 更新逻辑保存
+        return UpdateResultUtil.OK(mapper.updateById(entity));
+    }
+
+    /**
+     * 获取列表，查询所有数据
+     *
+     * @param dict_value
+     * @return
+     */
+    @Override
+    public List<SDictDataEntity> selectByDictValue(String dict_value) {
+        // 查询 数据
+        List<SDictDataEntity> list = mapper.selectByDictValue(dict_value);
+        return list;
+    }
+
+    /**
+     * 获取列表，查询所有数据
+     *
+     * @param lable
+     * @return
+     */
+    @Override
+    public List<SDictDataEntity> selectByLabel(String lable) {
+        // 查询 数据
+        List<SDictDataEntity> list = mapper.selectByLabel(lable);
+        return list;
+    }
+
+    /**
+     * check逻辑
+     * @return
+     */
+    public CheckResult checkLogic(String dict_value,String label){
+
+        List<SDictDataEntity> list;
+        // dict_value查重
+        list = selectByDictValue(dict_value);
+        if(list.size() > 1){
+            return CheckResultUtil.NG("字典键值出现重复", list);
+        }
+        // label查重
+        list = selectByLabel(label);
+        if(list.size() > 1){
+            return CheckResultUtil.NG("字典标签出现重复", list);
+        }
+
+        return CheckResultUtil.OK();
     }
 }

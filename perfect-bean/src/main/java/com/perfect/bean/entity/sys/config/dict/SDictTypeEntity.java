@@ -40,7 +40,7 @@ public class SDictTypeEntity extends BaseEntity<SDictTypeEntity> implements Seri
     private String name;
 
     /**
-     * 字典编号：唯一
+     * 字典类型：唯一
      */
     @TableField("code")
     private String code;

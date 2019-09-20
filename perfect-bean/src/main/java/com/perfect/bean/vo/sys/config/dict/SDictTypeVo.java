@@ -31,7 +31,7 @@ public class SDictTypeVo extends UploadFileResultPojo implements Serializable {
     private String name;
 
     /**
-     * 字典编号：唯一
+     * 字典类型：唯一
      */
     private String code;
 

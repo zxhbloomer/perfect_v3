@@ -167,7 +167,7 @@ public class SDictTypeServiceImpl extends ServiceImpl<SDictTypeMapper, SDictType
         // code查重
         List<SDictTypeEntity> list = selectByCode(_code);
         if(list.size() > 1){
-            return CheckResultUtil.NG("字典编号出现重复", list);
+            return CheckResultUtil.NG("字典类型出现重复", list);
         }
 
         return CheckResultUtil.OK();

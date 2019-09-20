@@ -30,40 +30,66 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
      * @param searchCondition
      * @return
      */
-    @Select("<script>"
-        + " select t.* "
-        + "   from s_resource t "
+    @Select("    "
+        + "  SELECT                                                             "
+        + "       t1.id,                                                            "
+        + "       t1.dict_type_id,                                                  "
+        + "       t1.sort,                                                          "
+        + "       t1.label,                                                         "
+        + "       t1.dict_value ,                                                   "
+        + "       t1.descr,                                                         "
+        + "       t1.isdel,                                                         "
+        + "       t1.c_id,                                                          "
+        + "       t1.c_time,                                                        "
+        + "       t1.u_id,                                                          "
+        + "       t1.u_time,                                                        "
+        + "       t1.dbversion,                                                     "
+        + "       t2.name  dict_type_name,                                          "
+        + "       t2.code  dict_type_code,                                          "
+        + "       t2.descr dict_type_descr,                                         "
+        + "       t2.isdel dict_type_isdel                                          "
+        + "  FROM                                                              "
+        + "       s_dict_data AS t1                                                 "
+        + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
         + "  where true "
-        + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
-        + "   <if test='p1.code != null and p1.code.length!=0' >"
-        + "    and t.type in "
-        + "        <foreach collection='p1.code' item='item' index='index' open='(' separator=',' close=')'>"
-        + "         #{item}  "
-        + "        </foreach>"
-        + "   </if>"
-        + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
-        + "  </script>")
-    IPage<SDictDataEntity> selectPage(Page page, @Param("p1") SDictDataVo searchCondition );
+        + "    and (t2.code like CONCAT ('%',#{p1.dict_Type_code,jdbcType=VARCHAR},'%') or #{p1.dict_Type_code,jdbcType=VARCHAR} is null) "
+        + "    and (t2.name like CONCAT ('%',#{p1.dict_Type_name,jdbcType=VARCHAR},'%') or #{p1.dict_Type_name,jdbcType=VARCHAR} is null) "
+        + "    and (t2.isdel = 0) "
+        + "      ")
+    IPage<SDictDataVo> selectPage(Page page, @Param("p1") SDictDataVo searchCondition );
 
     /**
      * 按条件获取所有数据，没有分页
      * @param searchCondition
      * @return
      */
-    @Select("<script>"
-        + " select t.* "
-        + "   from s_resource t "
+    @Select("    "
+        + "  SELECT                                                             "
+        + "       t1.id,                                                            "
+        + "       t1.dict_type_id,                                                  "
+        + "       t1.sort,                                                          "
+        + "       t1.label,                                                         "
+        + "       t1.dict_value ,                                                   "
+        + "       t1.descr,                                                         "
+        + "       t1.isdel,                                                         "
+        + "       t1.c_id,                                                          "
+        + "       t1.c_time,                                                        "
+        + "       t1.u_id,                                                          "
+        + "       t1.u_time,                                                        "
+        + "       t1.dbversion,                                                     "
+        + "       t2.name  dict_type_name,                                          "
+        + "       t2.code  dict_type_code,                                          "
+        + "       t2.descr dict_type_descr,                                         "
+        + "       t2.isdel dict_type_isdel                                          "
+        + "  FROM                                                              "
+        + "       s_dict_data AS t1                                                 "
+        + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
         + "  where true "
-        + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
-        + "   <if test='p1.code.length!=0' >"
-        + "    and t.type in "
-        + "        <foreach collection='p1.code' item='item' index='index' open='(' separator=',' close=')'>"
-        + "         #{item}  "
-        + "        </foreach>"
-        + "   </if>"
-        + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
-        + "  </script>")
-    List<SDictDataEntity> select(@Param("p1") SDictDataVo searchCondition );
+        + "    and (t2.code like CONCAT ('%',#{p1.dict_Type_code,jdbcType=VARCHAR},'%') or #{p1.dict_Type_code,jdbcType=VARCHAR} is null) "
+        + "    and (t2.name like CONCAT ('%',#{p1.dict_Type_name,jdbcType=VARCHAR},'%') or #{p1.dict_Type_name,jdbcType=VARCHAR} is null) "
+        + "    and (t2.isdel = 0) "
+        + "      ")
+    List<SDictDataVo> select(@Param("p1") SDictDataVo searchCondition );
 
     /**
      * 没有分页，按id筛选条件
@@ -71,12 +97,56 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
      * @return
      */
     @Select("<script>"
-        + " select t.* "
-        + "   from s_resource t "
+        + "  SELECT                                                             "
+        + "       t1.id,                                                            "
+        + "       t1.dict_type_id,                                                  "
+        + "       t1.sort,                                                          "
+        + "       t1.label,                                                         "
+        + "       t1.dict_value ,                                                   "
+        + "       t1.descr,                                                         "
+        + "       t1.isdel,                                                         "
+        + "       t1.c_id,                                                          "
+        + "       t1.c_time,                                                        "
+        + "       t1.u_id,                                                          "
+        + "       t1.u_time,                                                        "
+        + "       t1.dbversion,                                                     "
+        + "       t2.name  dict_type_name,                                          "
+        + "       t2.code  dict_type_code,                                          "
+        + "       t2.descr dict_type_descr,                                         "
+        + "       t2.isdel dict_type_isdel                                          "
+        + "  FROM                                                              "
+        + "       s_dict_data AS t1                                                 "
+        + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
         + "  where t.id in "
         + "        <foreach collection='p1' item='item' index='index' open='(' separator=',' close=')'>"
         + "         #{item.id}  "
         + "        </foreach>"
         + "  </script>")
-    List<SDictDataEntity> selectIdsIn(@Param("p1") List<SDictDataVo> searchCondition );
+    List<SDictDataVo> selectIdsIn(@Param("p1") List<SDictDataVo> searchCondition );
+
+    /**
+     * 按条件获取所有数据，没有分页
+     * @param dict_value
+     * @return
+     */
+    @Select("    "
+        + " select t.* "
+        + "   from s_dict_data t "
+        + "  where true "
+        + "    and t.dict_value =  #{p1}"
+        + "      ")
+    List<SDictDataEntity> selectByDictValue(@Param("p1") String dict_value);
+
+    /**
+     * 按条件获取所有数据，没有分页
+     * @param label
+     * @return
+     */
+    @Select("    "
+        + " select t.* "
+        + "   from s_dict_data t "
+        + "  where true "
+        + "    and t.label =  #{p1}"
+        + "      ")
+    List<SDictDataEntity> selectByLabel(@Param("p1") String label);
 }
