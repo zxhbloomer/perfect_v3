@@ -1,16 +1,14 @@
 package com.perfect.bean.vo.sys.config.module;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.perfect.bean.vo.condition.common.PageCondition;
-
 import com.perfect.common.annotation.Excel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -65,13 +63,13 @@ public class SModuleExportVo implements Serializable {
      */
     private PageCondition pageCondition;
 
-    private Long cId;
+    private Long c_id;
 
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
-    private Long uId;
+    private Long u_id;
 
-    private LocalDateTime uTime;
+    private LocalDateTime u_time;
 
     /**
      * 数据版本，乐观锁使用

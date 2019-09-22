@@ -1,14 +1,13 @@
 package com.perfect.bean.vo.sys.config.dict;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.vo.condition.common.PageCondition;
-
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author zhangxh
@@ -48,20 +47,20 @@ public class SDictTypeVo extends UploadFileResultPojo implements Serializable {
     /**
      * 租户代码
      */
-    private String corpCode;
+    private String corp_code;
 
     /**
      * 租户名称
      */
-    private String corpName;
+    private String corp_name;
 
-    private Long cId;
+    private Long c_id;
 
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
-    private Long uId;
+    private Long u_id;
 
-    private LocalDateTime uTime;
+    private LocalDateTime u_time;
 
     /**
      * 数据版本，乐观锁使用

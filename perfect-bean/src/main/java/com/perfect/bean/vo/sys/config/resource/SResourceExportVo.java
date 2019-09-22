@@ -47,7 +47,7 @@ public class SResourceExportVo implements Serializable {
      * 文件大小
      */
     @Excel(name = "文件大小")
-    private Long fileSize;
+    private Long file_size;
 
     /**
      * 文件扩展名

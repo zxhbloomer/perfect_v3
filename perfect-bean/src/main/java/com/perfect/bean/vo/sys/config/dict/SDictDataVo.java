@@ -1,15 +1,13 @@
 package com.perfect.bean.vo.sys.config.dict;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
 import com.perfect.bean.vo.condition.common.PageCondition;
-
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author zhangxh
@@ -22,12 +20,6 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     private static final long serialVersionUID = 835262693681898034L;
 
     private Long id;
-
-    /**
-     * 字典编码
-     */
-    @TableField("code")
-    private String code;
 
     /**
      * 字典类型表id主键
@@ -62,20 +54,20 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     /**
      * 租户代码
      */
-    private String corpCode;
+    private String corp_code;
 
     /**
      * 租户名称
      */
-    private String corpName;
+    private String corp_name;
 
-    private Long cId;
+    private Long c_id;
 
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
-    private Long uId;
+    private Long u_id;
 
-    private LocalDateTime uTime;
+    private LocalDateTime u_time;
 
     /**
      * 数据版本，乐观锁使用
@@ -89,22 +81,22 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     /**
      * 字典名称
      */
-    private String dict_type_name;
+    private String dictTypeName;
 
     /**
      * 字典类型：唯一
      */
-    private String dict_type_code;
+    private String dictTypeCode;
 
     /**
      * 字典类型描述
      */
-    private String dict_type_descr;
+    private String dictTypeDescr;
 
     /**
      * 是否删除
      */
-    private Boolean dict_type_isdel;
+    private Boolean dictTypeIsdel;
 
 
     /**

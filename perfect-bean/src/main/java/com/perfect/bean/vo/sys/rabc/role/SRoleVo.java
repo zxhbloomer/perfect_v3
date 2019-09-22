@@ -5,7 +5,6 @@ import com.perfect.bean.vo.condition.common.PageCondition;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -44,17 +43,17 @@ public class SRoleVo extends UploadFileResultPojo implements Serializable {
     /**
      * 简称
      */
-    private String simpleName;
+    private String simple_name;
 
     /**
      * 租户代码
      */
-    private String corpCode;
+    private String corp_code;
 
     /**
      * 租户名称
      */
-    private String corpName;
+    private String corp_name;
 
     /**
      * 换页条件

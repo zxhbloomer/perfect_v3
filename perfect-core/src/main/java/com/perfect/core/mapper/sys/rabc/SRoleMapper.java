@@ -33,7 +33,7 @@ public interface SRoleMapper extends BaseMapper<SRoleEntity> {
         + "   from s_role t "
         + "  where (t.name        like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
         + "    and (t.code        like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null) "
-        + "    and (t.simple_name like CONCAT ('%',#{p1.simpleName,jdbcType=VARCHAR},'%') or #{p1.simpleName,jdbcType=VARCHAR} is null) ")
+        + "    and (t.simple_name like CONCAT ('%',#{p1.simple_name,jdbcType=VARCHAR},'%') or #{p1.simple_name,jdbcType=VARCHAR} is null) ")
     IPage<SRoleEntity> selectPage(Page page, @Param("p1") SRoleVo searchCondition );
 
     /**
@@ -46,7 +46,7 @@ public interface SRoleMapper extends BaseMapper<SRoleEntity> {
         + "   from s_role t "
         + "  where (t.name        like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
         + "    and (t.code        like CONCAT ('%',#{p1.code,jdbcType=VARCHAR},'%') or #{p1.code,jdbcType=VARCHAR} is null) "
-        + "    and (t.simple_name like CONCAT ('%',#{p1.simpleName,jdbcType=VARCHAR},'%') or #{p1.simpleName,jdbcType=VARCHAR} is null) ")
+        + "    and (t.simple_name like CONCAT ('%',#{p1.simple_name,jdbcType=VARCHAR},'%') or #{p1.simple_name,jdbcType=VARCHAR} is null) ")
     List<SRoleEntity> select(@Param("p1") SRoleVo searchCondition );
 
     /**

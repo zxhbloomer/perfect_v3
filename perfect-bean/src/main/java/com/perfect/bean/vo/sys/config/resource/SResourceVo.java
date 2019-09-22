@@ -44,12 +44,12 @@ public class SResourceVo extends UploadFileResultPojo implements Serializable {
     /**
      * 租户代码
      */
-    private String corpCode;
+    private String corp_code;
 
     /**
      * 租户名称
      */
-    private String corpName;
+    private String corp_name;
 
     /**
      * 换页条件

@@ -2,10 +2,8 @@ package com.perfect.bean.entity.client.user;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.perfect.bean.entity.base.entity.v1.BaseEntity;
-import com.perfect.bean.entity.quartz.JJobLogEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -82,17 +80,17 @@ public class MStaffEntity extends BaseEntity<MStaffEntity> implements Serializab
     private Boolean service;
 
     @TableField(value="c_id", fill = FieldFill.INSERT)
-    private Long cId;
+    private Long c_id;
 
     @TableField(value="c_time", fill = FieldFill.INSERT)
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
     @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
-    private Long uId;
+    private Long u_id;
 
     @Version
     @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime uTime;
+    private LocalDateTime u_time;
 
     /**
      * 数据版本，乐观锁使用

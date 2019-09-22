@@ -5,14 +5,15 @@ import com.perfect.bean.entity.quartz.JJobMasterEntity;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.service.quartz.IJJobLogService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * 定时任务
@@ -40,8 +41,8 @@ public class ScheduleJob extends QuartzJobBean {
         try {
             // 执行任务
             log.debug("任务准备执行，任务ID：{}", scheduleJob.getId());
-            log.debug("任务准备执行，任务名称：{}", scheduleJob.getJobName());
-            ScheduleRunnable task = new ScheduleRunnable(scheduleJob.getBeanName(), scheduleJob.getMethodName(),
+            log.debug("任务准备执行，任务名称：{}", scheduleJob.getJob_name());
+            ScheduleRunnable task = new ScheduleRunnable(scheduleJob.getBean_name(), scheduleJob.getMethod_name(),
                     scheduleJob.getParams());
             Future<?> future = service.submit(task);
             future.get();

@@ -52,6 +52,6 @@ public class SRoleExportVo implements Serializable {
      * 简称
      */
     @Excel(name = "简称")
-    private String simpleName;
+    private String simple_name;
 
 }

@@ -81,12 +81,12 @@ public class SysLogAspect {
                 sLogEntity.setOperation(sysLogBO.getRemark());
                 sLogEntity.setUrl(sysLogBO.getUrl());
                 sLogEntity.setTime(sysLogBO.getExecTime());
-                sLogEntity.setHttpMethod(sysLogBO.getHttpMethod());
-                sLogEntity.setClassName(sysLogBO.getClassName());
-                sLogEntity.setClassMethod(sysLogBO.getClassMethod());
+                sLogEntity.setHttp_method(sysLogBO.getHttpMethod());
+                sLogEntity.setClass_name(sysLogBO.getClassName());
+                sLogEntity.setClass_method(sysLogBO.getClassMethod());
                 sLogEntity.setIp(sysLogBO.getIp());
                 sLogEntity.setParams(sysLogBO.getParams());
-                sLogEntity.setCTime(sysLogBO.getCreateDate());
+                sLogEntity.setC_time(sysLogBO.getCreateDate());
                 iSLogService.save(sLogEntity);
             }
 

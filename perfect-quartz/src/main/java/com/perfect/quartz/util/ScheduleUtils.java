@@ -2,18 +2,7 @@ package com.perfect.quartz.util;
 
 import com.perfect.bean.entity.quartz.JJobMasterEntity;
 import com.perfect.common.constant.PerfectConstant;
-import org.apache.commons.lang3.StringUtils;
-import org.quartz.CronScheduleBuilder;
-import org.quartz.CronTrigger;
-import org.quartz.Job;
-import org.quartz.JobBuilder;
-import org.quartz.JobDataMap;
-import org.quartz.JobDetail;
-import org.quartz.JobKey;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.TriggerBuilder;
-import org.quartz.TriggerKey;
+import org.quartz.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,7 +57,7 @@ public class ScheduleUtils {
                     .build();
 
             // 表达式调度构建器
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCron_expression())
                     .withMisfireHandlingInstructionDoNothing();
 
             // 按新的cronExpression表达式构建一个新的trigger
@@ -81,7 +70,7 @@ public class ScheduleUtils {
             scheduler.scheduleJob(jobDetail, trigger);
 
             // 暂停任务判断，“true：激活，false暂停”
-            if (!scheduleJob.getIsEffected()){
+            if (!scheduleJob.getIs_effected()){
                 pauseJob(scheduler, scheduleJob.getId());
             }
 
@@ -98,7 +87,7 @@ public class ScheduleUtils {
             TriggerKey triggerKey = getTriggerKey(scheduleJob.getId());
 
             // 表达式调度构建器
-            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
+            CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCron_expression())
                     .withMisfireHandlingInstructionDoNothing();
 
             CronTrigger trigger = getCronTrigger(scheduler, scheduleJob.getId());
@@ -115,7 +104,7 @@ public class ScheduleUtils {
             scheduler.rescheduleJob(triggerKey, trigger);
 
             // 暂停任务判断，“true：激活，false暂停”
-            if (!scheduleJob.getIsEffected()){
+            if (!scheduleJob.getIs_effected()){
                 pauseJob(scheduler, scheduleJob.getId());
             }
 

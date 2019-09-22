@@ -2,8 +2,8 @@ package com.perfect.core.serviceimpl.sys.config.dict;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.pojo.result.CheckResult;
 import com.perfect.bean.pojo.result.InsertResult;
@@ -12,13 +12,9 @@ import com.perfect.bean.result.utils.v1.CheckResultUtil;
 import com.perfect.bean.result.utils.v1.InsertResultUtil;
 import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
-import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
-import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
-import com.perfect.bean.vo.sys.config.resource.SResourceVo;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.mapper.sys.config.dict.SDictDataMapper;
-import com.perfect.core.mapper.sys.config.dict.SDictTypeMapper;
 import com.perfect.core.service.sys.config.dict.ISDictDataService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,10 +125,13 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     @Override
     public InsertResult<Integer> insert(SDictDataEntity entity) {
         // 插入前check
-        CheckResult cr = checkLogic(entity.getDictValue(),entity.getLabel());
+        CheckResult cr = checkLogic(entity.getDict_value(),entity.getLabel());
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
+        // 设置：字典键值和字典排序
+        SDictDataEntity data = mapper.getSortNum(entity.getDict_type_id());
+        entity.setSort(data.getSort());
         // 插入逻辑保存
         return InsertResultUtil.OK(mapper.insert(entity));
     }
@@ -146,7 +145,7 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     @Override
     public UpdateResult<Integer> update(SDictDataEntity entity) {
         // 更新前check
-        CheckResult cr = checkLogic(entity.getDictValue(),entity.getLabel());
+        CheckResult cr = checkLogic(entity.getDict_value(),entity.getLabel());
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }

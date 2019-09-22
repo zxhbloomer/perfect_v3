@@ -33,37 +33,37 @@ public class JJobMasterEntity extends BaseEntity<JJobMasterEntity> implements Se
      * 任务名称
      */
     @TableField("job_name")
-    private String jobName;
+    private String job_name;
 
     /**
      * 任务编号
      */
     @TableField("job_serial_code")
-    private String jobSerialCode;
+    private String job_serial_code;
 
     /**
      * 任务描述
      */
     @TableField("job_desc")
-    private String jobDesc;
+    private String job_desc;
 
     /**
      * 任务简称
      */
     @TableField("job_simple_name")
-    private String jobSimpleName;
+    private String job_simple_name;
 
     /**
      * Bean名称
      */
     @TableField("bean_name")
-    private String beanName;
+    private String bean_name;
 
     /**
      * 方法名称
      */
     @TableField("method_name")
-    private String methodName;
+    private String method_name;
 
     /**
      * 参数
@@ -75,7 +75,7 @@ public class JJobMasterEntity extends BaseEntity<JJobMasterEntity> implements Se
      * 表达式
      */
     @TableField("cron_expression")
-    private String cronExpression;
+    private String cron_expression;
 
     /**
      * 是否是已经删除
@@ -88,7 +88,7 @@ public class JJobMasterEntity extends BaseEntity<JJobMasterEntity> implements Se
      * 是否有效
      */
     @TableField("is_effected")
-    private Boolean isEffected;
+    private Boolean is_effected;
 
     /**
      * 下次运行时间
@@ -100,37 +100,37 @@ public class JJobMasterEntity extends BaseEntity<JJobMasterEntity> implements Se
      * 上次运行时间
      */
     @TableField("last_run_time")
-    private LocalDateTime lastRunTime;
+    private LocalDateTime last_run_time;
 
     /**
      * 起始有效时间
      */
     @TableField("begin_date")
-    private LocalDateTime beginDate;
+    private LocalDateTime begin_date;
 
     /**
      * 结束有效时间
      */
     @TableField("end_date")
-    private LocalDateTime endDate;
+    private LocalDateTime end_date;
 
     /**
      * 运行次数
      */
     @TableField("run_times")
-    private Integer runTimes;
+    private Integer run_times;
 
     @TableField(value="c_id", fill = FieldFill.INSERT)
-    private Long cId;
+    private Long c_id;
 
     @TableField(value="c_time", fill = FieldFill.INSERT)
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
     @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
-    private Long uId;
+    private Long u_id;
 
     @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime uTime;
+    private LocalDateTime u_time;
 
 
 }

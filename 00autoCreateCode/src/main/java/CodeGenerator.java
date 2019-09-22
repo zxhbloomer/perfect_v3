@@ -86,9 +86,9 @@ public class CodeGenerator {
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         //数据库表映射到实体的命名策略
-        strategy.setNaming(NamingStrategy.underline_to_camel);
+        strategy.setNaming(NamingStrategy.no_change);
         //数据库表字段映射到实体的命名策略, 未指定按照 naming 执行
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+        strategy.setColumnNaming(NamingStrategy.no_change);
         //自定义继承的Entity类全称，带包名
 //        strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
         strategy.setEntityLombokModel(true);
@@ -100,7 +100,7 @@ public class CodeGenerator {
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         //需要包含的表名，允许正则表达式
         strategy.setInclude(
-                "s_dict_data"
+                "m_staff"
                 //,
 //                "oauth_access_token",
 //                "oauth_approvals",

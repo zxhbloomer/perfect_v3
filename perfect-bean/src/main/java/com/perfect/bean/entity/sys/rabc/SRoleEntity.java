@@ -54,7 +54,7 @@ public class SRoleEntity extends BaseEntity<SRoleEntity> implements Serializable
      * 简称
      */
     @TableField("simple_name")
-    private String simpleName;
+    private String simple_name;
 
     /**
      * 是否是已经删除(1:true-已删除,0:false-未删除)
@@ -73,25 +73,25 @@ public class SRoleEntity extends BaseEntity<SRoleEntity> implements Serializable
      * 租户代码
      */
     @TableField("corp_code")
-    private String corpCode;
+    private String corp_code;
 
     /**
      * 租户名称
      */
     @TableField("corp_name")
-    private String corpName;
+    private String corp_name;
 
     @TableField(value = "c_id", fill = FieldFill.INSERT)
-    private Long cId;
+    private Long c_id;
 
     @TableField(value = "c_time", fill = FieldFill.INSERT)
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
     @TableField(value = "u_id", fill = FieldFill.INSERT_UPDATE)
-    private Long uId;
+    private Long u_id;
 
     @TableField(value = "u_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime uTime;
+    private LocalDateTime u_time;
 
     /**
      * 数据版本，乐观锁使用

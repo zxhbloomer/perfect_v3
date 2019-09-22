@@ -32,7 +32,7 @@ public class SLogEntity extends BaseEntity<SLogEntity> implements Serializable {
      * 操作用户
      */
     @TableField("user_name")
-    private String userName;
+    private String user_name;
 
     /**
      * 操作描述
@@ -47,16 +47,16 @@ public class SLogEntity extends BaseEntity<SLogEntity> implements Serializable {
     private Long time;
 
     @TableField("class_name")
-    private String className;
+    private String class_name;
 
     @TableField("class_method")
-    private String classMethod;
+    private String class_method;
 
     /**
      * HTTP方法
      */
     @TableField("http_method")
-    private String httpMethod;
+    private String http_method;
 
     /**
      * 参数
@@ -77,7 +77,7 @@ public class SLogEntity extends BaseEntity<SLogEntity> implements Serializable {
     private String ip;
 
     @TableField("c_time")
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
 
 }

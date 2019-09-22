@@ -1,14 +1,13 @@
 package com.perfect.bean.entity.sys.config.dict;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
 import com.perfect.bean.entity.base.entity.v1.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -30,16 +29,10 @@ public class SDictDataEntity extends BaseEntity<SDictDataEntity> implements Seri
     private Long id;
 
     /**
-     * 字典编码
-     */
-    @TableField("code")
-    private String code;
-
-    /**
      * 字典类型表id主键
      */
     @TableField("dict_type_id")
-    private Long dictTypeId;
+    private Long dict_type_id;
 
     /**
      * 字典排序
@@ -57,7 +50,7 @@ public class SDictDataEntity extends BaseEntity<SDictDataEntity> implements Seri
      * 字典键值
      */
     @TableField("dict_value")
-    private String dictValue;
+    private String dict_value;
 
     /**
      * 描述
@@ -71,29 +64,17 @@ public class SDictDataEntity extends BaseEntity<SDictDataEntity> implements Seri
     @TableField(value = "isdel", fill = FieldFill.INSERT)
     private Boolean isdel;
 
-    /**
-     * 租户代码
-     */
-    @TableField("corp_code")
-    private String corpCode;
-
-    /**
-     * 租户名称
-     */
-    @TableField("corp_name")
-    private String corpName;
-
     @TableField(value="c_id", fill = FieldFill.INSERT)
-    private Long cId;
+    private Long c_id;
 
     @TableField(value="c_time", fill = FieldFill.INSERT)
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
     @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
-    private Long uId;
+    private Long u_id;
 
     @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime uTime;
+    private LocalDateTime u_time;
 
     /**
      * 数据版本，乐观锁使用

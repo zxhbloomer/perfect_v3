@@ -1,12 +1,10 @@
 package com.perfect.core.mapper.sys.config.dict;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
-import com.perfect.bean.vo.sys.config.dict.SDictTypeVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -44,16 +42,16 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "       t1.u_id,                                                          "
         + "       t1.u_time,                                                        "
         + "       t1.dbversion,                                                     "
-        + "       t2.name  dict_type_name,                                          "
-        + "       t2.code  dict_type_code,                                          "
+        + "       t2.name  dictTypeName ,                                          "
+        + "       t2.code  dictTypeCode,                                          "
         + "       t2.descr dict_type_descr,                                         "
-        + "       t2.isdel dict_type_isdel                                          "
+        + "       t2.isdel dictTypeIsdel                                          "
         + "  FROM                                                              "
         + "       s_dict_data AS t1                                                 "
         + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
         + "  where true "
-        + "    and (t2.code like CONCAT ('%',#{p1.dict_type_code,jdbcType=VARCHAR},'%') or #{p1.dict_type_code,jdbcType=VARCHAR} is null) "
-        + "    and (t2.name like CONCAT ('%',#{p1.dict_type_name,jdbcType=VARCHAR},'%') or #{p1.dict_type_name,jdbcType=VARCHAR} is null) "
+        + "    and (t2.code like CONCAT ('%',#{p1.dictTypeCode,jdbcType=VARCHAR},'%') or #{p1.dictTypeCode,jdbcType=VARCHAR} is null) "
+        + "    and (t2.name like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
         + "    and (t2.isdel = 0) "
         + "      ")
     IPage<SDictDataVo> selectPage(Page page, @Param("p1") SDictDataVo searchCondition );
@@ -77,16 +75,16 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "       t1.u_id,                                                          "
         + "       t1.u_time,                                                        "
         + "       t1.dbversion,                                                     "
-        + "       t2.name  dict_type_name,                                          "
-        + "       t2.code  dict_type_code,                                          "
-        + "       t2.descr dict_type_descr,                                         "
-        + "       t2.isdel dict_type_isdel                                          "
+        + "       t2.name  dictTypeName,                                          "
+        + "       t2.code  dictTypeCode,                                          "
+        + "       t2.descr dictTypeDescr,                                         "
+        + "       t2.isdel dictTypeIsdel                                          "
         + "  FROM                                                              "
         + "       s_dict_data AS t1                                                 "
         + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
         + "  where true "
-        + "    and (t2.code like CONCAT ('%',#{p1.dict_type_code,jdbcType=VARCHAR},'%') or #{p1.dict_type_code,jdbcType=VARCHAR} is null) "
-        + "    and (t2.name like CONCAT ('%',#{p1.dict_type_name,jdbcType=VARCHAR},'%') or #{p1.dict_type_name,jdbcType=VARCHAR} is null) "
+        + "    and (t2.code like CONCAT ('%',#{p1.dictTypeCode,jdbcType=VARCHAR},'%') or #{p1.dictTypeCode,jdbcType=VARCHAR} is null) "
+        + "    and (t2.name like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
         + "    and (t2.isdel = 0) "
         + "      ")
     List<SDictDataVo> select(@Param("p1") SDictDataVo searchCondition );
@@ -110,10 +108,10 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "       t1.u_id,                                                          "
         + "       t1.u_time,                                                        "
         + "       t1.dbversion,                                                     "
-        + "       t2.name  dict_type_name,                                          "
-        + "       t2.code  dict_type_code,                                          "
-        + "       t2.descr dict_type_descr,                                         "
-        + "       t2.isdel dict_type_isdel                                          "
+        + "       t2.name  dictTypeName,                                          "
+        + "       t2.code  dictTypeCode,                                          "
+        + "       t2.descr dictTypeDescr,                                         "
+        + "       t2.isdel dictTypeIsdel                                          "
         + "  FROM                                                              "
         + "       s_dict_data AS t1                                                 "
         + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
@@ -149,4 +147,16 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "    and t.label =  #{p1}"
         + "      ")
     List<SDictDataEntity> selectByLabel(@Param("p1") String label);
+
+    /**
+     * 获取排序最大序号
+     */
+    @Select("    "
+        + "   SELECT  "
+        + "     (MAX(IFNULL(t.sort, 0)) + 1) AS sort "
+        + "     FROM s_dict_data t "
+        + "    WHERE t.dict_type_id =  #{p1}"
+        + " GROUP BY t.dict_type_id"
+        + "      ")
+    SDictDataEntity getSortNum(@Param("p1") Long dict_type_id);
 }

@@ -20,14 +20,14 @@ public class MyBatisAutoFillHandel implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         log.info(" ....新增的时候自动填充 ....");
-//        Object cTime = this.getFieldValByName("cTime", metaObject);
-//        Object cId = this.getFieldValByName("cId", metaObject);
-        this.setFieldValByName("cTime", LocalDateTime.now(), metaObject);
-        this.setFieldValByName("uTime", LocalDateTime.now(), metaObject);
+//        Object c_time = this.getFieldValByName("c_time", metaObject);
+//        Object c_id = this.getFieldValByName("c_id", metaObject);
+        this.setFieldValByName("c_time", LocalDateTime.now(), metaObject);
+        this.setFieldValByName("u_time", LocalDateTime.now(), metaObject);
         this.setFieldValByName("dbversion", 0, metaObject);
 
-        this.setFieldValByName("cId", SecurityUtil.getLoginUserId(), metaObject);
-        this.setFieldValByName("uId", SecurityUtil.getLoginUserId(), metaObject);
+        this.setFieldValByName("c_id", SecurityUtil.getLoginUserId(), metaObject);
+        this.setFieldValByName("u_id", SecurityUtil.getLoginUserId(), metaObject);
         // 默认未删除
         this.setFieldValByName("isdel", false, metaObject);
         // 默认未启用
@@ -42,12 +42,12 @@ public class MyBatisAutoFillHandel implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         log.info(" ....更新的时候自动填充 ....");
-//        Object uTime = this.getFieldValByName("uTime", metaObject);
-//        Object uId = this.getFieldValByName("uId", metaObject);
+//        Object u_time = this.getFieldValByName("u_time", metaObject);
+//        Object u_id = this.getFieldValByName("u_id", metaObject);
 //        Object dbversion = this.getFieldValByName("dbversion", metaObject);
 
-        this.setFieldValByName("uTime", LocalDateTime.now(), metaObject);
-        this.setFieldValByName("uId", SecurityUtil.getLoginUserId(), metaObject);
+        this.setFieldValByName("u_time", LocalDateTime.now(), metaObject);
+        this.setFieldValByName("u_id", SecurityUtil.getLoginUserId(), metaObject);
 //        this.setFieldValByName("dbversion", Integer.valueOf(dbversion.toString()) + 1, metaObject);
 
 

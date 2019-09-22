@@ -1,15 +1,13 @@
 package com.perfect.bean.entity.sys.config.dict;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
 import com.perfect.bean.entity.base.entity.v1.BaseEntity;
-import com.perfect.bean.entity.sys.config.resource.SResourceEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -61,25 +59,25 @@ public class SDictTypeEntity extends BaseEntity<SDictTypeEntity> implements Seri
      * 租户代码
      */
     @TableField("corp_code")
-    private String corpCode;
+    private String corp_code;
 
     /**
      * 租户名称
      */
     @TableField("corp_name")
-    private String corpName;
+    private String corp_name;
 
     @TableField(value="c_id", fill = FieldFill.INSERT)
-    private Long cId;
+    private Long c_id;
 
     @TableField(value="c_time", fill = FieldFill.INSERT)
-    private LocalDateTime cTime;
+    private LocalDateTime c_time;
 
     @TableField(value="u_id", fill = FieldFill.INSERT_UPDATE)
-    private Long uId;
+    private Long u_id;
 
     @TableField(value="u_time", fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime uTime;
+    private LocalDateTime u_time;
 
     /**
      * 数据版本，乐观锁使用
