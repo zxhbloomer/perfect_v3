@@ -7,6 +7,7 @@ import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
 import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
+import com.perfect.bean.vo.sys.config.module.SModuleVo;
 
 import java.util.List;
 
@@ -33,6 +34,14 @@ public interface ISDictDataService extends IService<SDictDataEntity> {
      * 获取所选id的数据
      */
     List<SDictDataVo> selectIdsIn(List<SDictDataVo> searchCondition) throws InstantiationException, IllegalAccessException;
+
+    /**
+     * 查询by id，返回结果
+     *
+     * @param id
+     * @return
+     */
+    SDictDataVo selectByid(Long id);
 
     /**
      * 获取所选id的数据
@@ -64,11 +73,11 @@ public interface ISDictDataService extends IService<SDictDataEntity> {
      * 通过dict_value查询
      *
      */
-    List<SDictDataEntity> selectByDictValue(String dict_value);
+    List<SDictDataEntity> selectByDictValue(String dict_value, Long dict_type_id);
 
     /**
      * 通过label查询
      *
      */
-    List<SDictDataEntity> selectByLabel(String label);
+    List<SDictDataEntity> selectByLabel(String label, Long dict_type_id);
 }

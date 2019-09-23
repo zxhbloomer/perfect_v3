@@ -86,9 +86,9 @@ public class DictDataController extends BaseController {
     @ApiOperation("根据参数id，获取字典数据表信息")
     @PostMapping("/insert")
     @ResponseBody
-    public ResponseEntity<JsonResult<SDictDataEntity>> insert(@RequestBody(required = false) SDictDataEntity bean) {
+    public ResponseEntity<JsonResult<SDictDataVo>> insert(@RequestBody(required = false) SDictDataEntity bean) {
         if(service.insert(bean).isSuccess()){
-            return ResponseEntity.ok().body(ResultUtil.OK(service.getById(bean.getId()),"插入成功"));
+            return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }

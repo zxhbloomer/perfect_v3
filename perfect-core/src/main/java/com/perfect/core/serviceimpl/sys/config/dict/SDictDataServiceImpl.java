@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
+import com.perfect.bean.entity.sys.config.module.SModuleEntity;
 import com.perfect.bean.pojo.result.CheckResult;
 import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
@@ -12,6 +13,7 @@ import com.perfect.bean.result.utils.v1.CheckResultUtil;
 import com.perfect.bean.result.utils.v1.InsertResultUtil;
 import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
+import com.perfect.bean.vo.sys.config.module.SModuleVo;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.mapper.sys.config.dict.SDictDataMapper;
@@ -87,6 +89,18 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     }
 
     /**
+     * 查询by id，返回结果
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public SDictDataVo selectByid(Long id) {
+        // 查询 数据
+        return mapper.selectId(id);
+    }
+
+    /**
      * 批量导入逻辑
      *
      * @param entityList
@@ -125,13 +139,17 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     @Override
     public InsertResult<Integer> insert(SDictDataEntity entity) {
         // 插入前check
-        CheckResult cr = checkLogic(entity.getDict_value(),entity.getLabel());
+        CheckResult cr = checkLogic(entity.getDict_value(),entity.getLabel(), CheckResult.INSERT_CHECK_TYPE, entity.getDict_type_id());
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
         // 设置：字典键值和字典排序
         SDictDataEntity data = mapper.getSortNum(entity.getDict_type_id());
-        entity.setSort(data.getSort());
+        if(null == data) {
+            entity.setSort(0);
+        } else {
+            entity.setSort(data.getSort());
+        }
         // 插入逻辑保存
         return InsertResultUtil.OK(mapper.insert(entity));
     }
@@ -145,7 +163,7 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     @Override
     public UpdateResult<Integer> update(SDictDataEntity entity) {
         // 更新前check
-        CheckResult cr = checkLogic(entity.getDict_value(),entity.getLabel());
+        CheckResult cr = checkLogic(entity.getDict_value(),entity.getLabel(), CheckResult.UPDATE_CHECK_TYPE, entity.getDict_type_id());
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
@@ -160,9 +178,9 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
      * @return
      */
     @Override
-    public List<SDictDataEntity> selectByDictValue(String dict_value) {
+    public List<SDictDataEntity> selectByDictValue(String dict_value, Long dict_type_id) {
         // 查询 数据
-        List<SDictDataEntity> list = mapper.selectByDictValue(dict_value);
+        List<SDictDataEntity> list = mapper.selectByDictValue(dict_value, dict_type_id);
         return list;
     }
 
@@ -173,9 +191,9 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
      * @return
      */
     @Override
-    public List<SDictDataEntity> selectByLabel(String lable) {
+    public List<SDictDataEntity> selectByLabel(String lable, Long dict_type_id) {
         // 查询 数据
-        List<SDictDataEntity> list = mapper.selectByLabel(lable);
+        List<SDictDataEntity> list = mapper.selectByLabel(lable, dict_type_id);
         return list;
     }
 
@@ -183,20 +201,35 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
      * check逻辑
      * @return
      */
-    public CheckResult checkLogic(String dict_value,String label){
+    public CheckResult checkLogic(String dict_value,String label, String moduleType, Long dict_type_id){
+        List<SDictDataEntity> listDictValue = selectByDictValue(dict_value, dict_type_id);
+        List<SDictDataEntity> listLable = selectByLabel(label, dict_type_id);
 
-        List<SDictDataEntity> list;
-        // dict_value查重
-        list = selectByDictValue(dict_value);
-        if(list.size() > 1){
-            return CheckResultUtil.NG("字典键值出现重复", list);
+        switch(moduleType) {
+            case CheckResult.INSERT_CHECK_TYPE:
+                // 新增场合，不能重复
+                if (listDictValue.size() >= 1) {
+                    // 模块编号不能重复
+                    return CheckResultUtil.NG("新增保存出错：字典键值出现重复", dict_value);
+                }
+                if (listLable.size() >= 1) {
+                    // 模块名称不能重复
+                    return CheckResultUtil.NG("新增保存出错：字典标签出现重复", label);
+                }
+                break;
+            case CheckResult.UPDATE_CHECK_TYPE:
+                // 更新场合，不能重复设置
+                if (listDictValue.size() >= 2) {
+                    // 模块编号不能重复
+                    return CheckResultUtil.NG("更新保存出错：字典键值出现重复", dict_value);
+                }
+                if (listLable.size() >= 2) {
+                    // 模块名称不能重复
+                    return CheckResultUtil.NG("更新保存出错：字典标签出现重复", label);
+                }
+                break;
+            default:
         }
-        // label查重
-        list = selectByLabel(label);
-        if(list.size() > 1){
-            return CheckResultUtil.NG("字典标签出现重复", list);
-        }
-
         return CheckResultUtil.OK();
     }
 }

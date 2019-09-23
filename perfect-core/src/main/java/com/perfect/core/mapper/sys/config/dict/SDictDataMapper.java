@@ -22,13 +22,7 @@ import java.util.List;
 @Repository
 public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
 
-    /**
-     * 页面查询列表
-     * @param page
-     * @param searchCondition
-     * @return
-     */
-    @Select("    "
+    String common_select = ""
         + "  SELECT                                                             "
         + "       t1.id,                                                            "
         + "       t1.dict_type_id,                                                  "
@@ -48,7 +42,16 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "       t2.isdel dictTypeIsdel                                          "
         + "  FROM                                                              "
         + "       s_dict_data AS t1                                                 "
-        + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
+        + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            ";
+
+    /**
+     * 页面查询列表
+     * @param page
+     * @param searchCondition
+     * @return
+     */
+    @Select("    "
+        + common_select
         + "  where true "
         + "    and (t2.code like CONCAT ('%',#{p1.dictTypeCode,jdbcType=VARCHAR},'%') or #{p1.dictTypeCode,jdbcType=VARCHAR} is null) "
         + "    and (t2.name like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
@@ -62,26 +65,7 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
      * @return
      */
     @Select("    "
-        + "  SELECT                                                             "
-        + "       t1.id,                                                            "
-        + "       t1.dict_type_id,                                                  "
-        + "       t1.sort,                                                          "
-        + "       t1.label,                                                         "
-        + "       t1.dict_value ,                                                   "
-        + "       t1.descr,                                                         "
-        + "       t1.isdel,                                                         "
-        + "       t1.c_id,                                                          "
-        + "       t1.c_time,                                                        "
-        + "       t1.u_id,                                                          "
-        + "       t1.u_time,                                                        "
-        + "       t1.dbversion,                                                     "
-        + "       t2.name  dictTypeName,                                          "
-        + "       t2.code  dictTypeCode,                                          "
-        + "       t2.descr dictTypeDescr,                                         "
-        + "       t2.isdel dictTypeIsdel                                          "
-        + "  FROM                                                              "
-        + "       s_dict_data AS t1                                                 "
-        + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
+        + common_select
         + "  where true "
         + "    and (t2.code like CONCAT ('%',#{p1.dictTypeCode,jdbcType=VARCHAR},'%') or #{p1.dictTypeCode,jdbcType=VARCHAR} is null) "
         + "    and (t2.name like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
@@ -95,26 +79,7 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
      * @return
      */
     @Select("<script>"
-        + "  SELECT                                                             "
-        + "       t1.id,                                                            "
-        + "       t1.dict_type_id,                                                  "
-        + "       t1.sort,                                                          "
-        + "       t1.label,                                                         "
-        + "       t1.dict_value ,                                                   "
-        + "       t1.descr,                                                         "
-        + "       t1.isdel,                                                         "
-        + "       t1.c_id,                                                          "
-        + "       t1.c_time,                                                        "
-        + "       t1.u_id,                                                          "
-        + "       t1.u_time,                                                        "
-        + "       t1.dbversion,                                                     "
-        + "       t2.name  dictTypeName,                                          "
-        + "       t2.code  dictTypeCode,                                          "
-        + "       t2.descr dictTypeDescr,                                         "
-        + "       t2.isdel dictTypeIsdel                                          "
-        + "  FROM                                                              "
-        + "       s_dict_data AS t1                                                 "
-        + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            "
+        + common_select
         + "  where t.id in "
         + "        <foreach collection='p1' item='item' index='index' open='(' separator=',' close=')'>"
         + "         #{item.id}  "
@@ -132,8 +97,9 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "   from s_dict_data t "
         + "  where true "
         + "    and t.dict_value =  #{p1}"
+        + "    and t.dict_type_id =  #{p2}"
         + "      ")
-    List<SDictDataEntity> selectByDictValue(@Param("p1") String dict_value);
+    List<SDictDataEntity> selectByDictValue(@Param("p1") String dict_value, @Param("p2") Long dict_type_id);
 
     /**
      * 按条件获取所有数据，没有分页
@@ -145,8 +111,20 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "   from s_dict_data t "
         + "  where true "
         + "    and t.label =  #{p1}"
+        + "    and t.dict_type_id =  #{p2}"
         + "      ")
-    List<SDictDataEntity> selectByLabel(@Param("p1") String label);
+    List<SDictDataEntity> selectByLabel(@Param("p1") String label, @Param("p2") Long dict_type_id);
+
+    /**
+     * 按条件获取所有数据，没有分页
+     * @param id
+     * @return
+     */
+    @Select("    "
+        + common_select
+        + "  where t1.id =  #{p1}"
+        + "      ")
+    SDictDataVo selectId(@Param("p1") Long id);
 
     /**
      * 获取排序最大序号
