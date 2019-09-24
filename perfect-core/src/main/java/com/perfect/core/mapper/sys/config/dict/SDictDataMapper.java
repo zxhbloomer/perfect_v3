@@ -22,7 +22,7 @@ import java.util.List;
 @Repository
 public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
 
-    String common_select = ""
+    String common_select = "  "
         + "  SELECT                                                             "
         + "       t1.id,                                                            "
         + "       t1.dict_type_id,                                                  "

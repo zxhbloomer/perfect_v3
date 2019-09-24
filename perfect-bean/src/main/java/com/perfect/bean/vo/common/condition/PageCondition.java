@@ -1,4 +1,4 @@
-package com.perfect.bean.vo.condition.common;
+package com.perfect.bean.vo.common.condition;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

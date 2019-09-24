@@ -1,7 +1,7 @@
 package com.perfect.bean.vo.sys.config.module;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.perfect.bean.vo.condition.common.PageCondition;
+import com.perfect.bean.vo.common.condition.PageCondition;
 import com.perfect.common.annotation.Excel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

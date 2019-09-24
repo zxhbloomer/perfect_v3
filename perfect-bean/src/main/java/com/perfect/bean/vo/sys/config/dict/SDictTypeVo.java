@@ -1,7 +1,7 @@
 package com.perfect.bean.vo.sys.config.dict;
 
 import com.perfect.bean.pojo.fs.UploadFileResultPojo;
-import com.perfect.bean.vo.condition.common.PageCondition;
+import com.perfect.bean.vo.common.condition.PageCondition;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

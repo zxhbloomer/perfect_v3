@@ -1,0 +1,29 @@
+package com.perfect.bean.vo.common.component;
+
+import io.swagger.annotations.ApiModel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * @author zxh
+ * @date 2019/9/24
+ */
+@Data
+@NoArgsConstructor
+@ApiModel(value = "共通组件数据，下拉选项", description = "共通组件数据，下拉选项")
+public class PerfectComponentVo implements Serializable {
+    private static final long serialVersionUID = -5919960965277527060L;
+
+    /**
+     * 下拉选项卡：删除类型字典
+     */
+    private List<NameAndValueVo> select_component_delete_map_normal;
+
+    /**
+     * 下拉选项卡：删除类型字典，不包含删除
+     */
+    private List<NameAndValueVo> select_component_delete_map_only_used_data;
+}
