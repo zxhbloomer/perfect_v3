@@ -11,18 +11,24 @@ import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.CheckResultUtil;
 import com.perfect.bean.result.utils.v1.InsertResultUtil;
+import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
+import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
 import com.perfect.bean.vo.sys.config.module.SModuleVo;
 import com.perfect.common.exception.BusinessException;
+import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
 import com.perfect.core.mapper.sys.config.dict.SDictDataMapper;
 import com.perfect.core.service.sys.config.dict.ISDictDataService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -114,6 +120,7 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
 
     /**
      * 批量删除复原
+     * 
      * @param searchCondition
      * @return
      */
@@ -121,17 +128,16 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     @Override
     public void deleteByIdsIn(List<SDictDataVo> searchCondition) {
         List<SDictDataVo> list = mapper.selectIdsIn(searchCondition);
-        list.forEach(
-            bean -> {
-                bean.setIsdel(!bean.getIsdel());
-            }
-        );
+        list.forEach(bean -> {
+            bean.setIsdel(!bean.getIsdel());
+        });
         List<SDictDataEntity> entityList = BeanUtilsSupport.copyProperties(list, SDictDataEntity.class);
         super.saveOrUpdateBatch(entityList, 500);
     }
 
     /**
      * 插入一条记录（选择字段，策略插入）
+     * 
      * @param entity 实体对象
      * @return
      */
@@ -139,13 +145,14 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     @Override
     public InsertResult<Integer> insert(SDictDataEntity entity) {
         // 插入前check
-        CheckResult cr = checkLogic(entity.getDict_value(),entity.getLabel(), CheckResult.INSERT_CHECK_TYPE, entity.getDict_type_id());
+        CheckResult cr = checkLogic(entity.getDict_value(), entity.getLabel(), CheckResult.INSERT_CHECK_TYPE,
+            entity.getDict_type_id());
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
         // 设置：字典键值和字典排序
         SDictDataEntity data = mapper.getSortNum(entity.getDict_type_id());
-        if(null == data) {
+        if (null == data) {
             entity.setSort(0);
         } else {
             entity.setSort(data.getSort());
@@ -156,6 +163,7 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
 
     /**
      * 更新一条记录（选择字段，策略更新）
+     * 
      * @param entity 实体对象
      * @return
      */
@@ -163,7 +171,8 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     @Override
     public UpdateResult<Integer> update(SDictDataEntity entity) {
         // 更新前check
-        CheckResult cr = checkLogic(entity.getDict_value(),entity.getLabel(), CheckResult.UPDATE_CHECK_TYPE, entity.getDict_type_id());
+        CheckResult cr = checkLogic(entity.getDict_value(), entity.getLabel(), CheckResult.UPDATE_CHECK_TYPE,
+            entity.getDict_type_id());
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
@@ -199,13 +208,14 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
 
     /**
      * check逻辑
+     * 
      * @return
      */
-    public CheckResult checkLogic(String dict_value,String label, String moduleType, Long dict_type_id){
+    public CheckResult checkLogic(String dict_value, String label, String moduleType, Long dict_type_id) {
         List<SDictDataEntity> listDictValue = selectByDictValue(dict_value, dict_type_id);
         List<SDictDataEntity> listLable = selectByLabel(label, dict_type_id);
 
-        switch(moduleType) {
+        switch (moduleType) {
             case CheckResult.INSERT_CHECK_TYPE:
                 // 新增场合，不能重复
                 if (listDictValue.size() >= 1) {
@@ -231,5 +241,28 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
             default:
         }
         return CheckResultUtil.OK();
+    }
+
+    /**
+     * sort保存
+     *
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public UpdateResult<List<SDictDataVo>> saveList(List<SDictDataVo> data) {
+        List<SDictDataVo> resultList = new ArrayList<>();
+        // 乐观锁 dbversion
+        for(SDictDataVo bean:data){
+            // 复制到新的entity
+            SDictDataEntity entity = (SDictDataEntity)BeanUtilsSupport.copyProperties(bean, SDictDataEntity.class);
+            UpdateResult updateResult = this.update(entity);
+            if(updateResult.isSuccess()){
+                SDictDataVo searchData = this.selectByid(bean.getId());
+                resultList.add(searchData);
+            } else {
+                throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
+            }
+        }
+        return UpdateResultUtil.OK(resultList);
     }
 }

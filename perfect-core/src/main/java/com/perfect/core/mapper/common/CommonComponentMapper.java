@@ -36,6 +36,7 @@ public interface CommonComponentMapper extends BaseMapper<NameAndValueVo> {
         + "       AND t1.isdel = 0                                               "
         + "       AND t2.isdel = 0                                               "
         + "       and t1.code = #{p1}                                             "
+        + "     order by t2.sort    "
         + "      ")
     List<NameAndValueVo> getSelectDictDataNormal(@Param("p1") String dict_type_code);
 }

@@ -80,4 +80,10 @@ public interface ISDictDataService extends IService<SDictDataEntity> {
      *
      */
     List<SDictDataEntity> selectByLabel(String label, Long dict_type_id);
+
+    /**
+     * sort保存
+     *
+     */
+    UpdateResult<List<SDictDataVo>>  saveList(List<SDictDataVo> data);
 }

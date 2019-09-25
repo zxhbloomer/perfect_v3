@@ -94,6 +94,12 @@ public class SDictDataVo extends UploadFileResultPojo implements Serializable {
     private String dictTypeDescr;
 
     /**
+     * 排序的最大最小值
+     */
+    private int max_sort;
+    private int min_sort;
+
+    /**
      * 是否删除
      */
     private Boolean dictTypeIsdel;

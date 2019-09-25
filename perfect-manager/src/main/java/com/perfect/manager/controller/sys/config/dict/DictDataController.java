@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
+import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
 import com.perfect.core.service.sys.config.dict.ISDictDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +75,6 @@ public class DictDataController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public ResponseEntity<JsonResult<SDictDataEntity>> save(@RequestBody(required = false) SDictDataEntity bean) {
-
         if(service.update(bean).isSuccess()){
             return ResponseEntity.ok().body(ResultUtil.OK(service.getById(bean.getId()),"更新成功"));
         } else {
@@ -153,5 +153,19 @@ public class DictDataController extends BaseController {
             SRoleVo errorInfo = super.uploadFile(rtnFile.getAbsolutePath(), SRoleVo.class);
             return ResponseEntity.ok().body(ResultUtil.OK(errorInfo, ResultEnum.IMPORT_DATA_ERROR.getCode()));
         }
+    }
+
+    @SysLog("字典数据表排序后保存")
+    @ApiOperation("list数据的保存")
+    @PostMapping("/save_list")
+    @ResponseBody
+    public ResponseEntity<JsonResult<List<SDictDataVo>>> saveList(@RequestBody(required = false) List<SDictDataVo> beanList) {
+        UpdateResult<List<SDictDataVo>> result = service.saveList(beanList);
+        if(result.isSuccess()){
+            return ResponseEntity.ok().body(ResultUtil.OK(result.getData(),"更新成功"));
+        } else {
+            throw new UpdateErrorException("保存的数据已经被修改，请查询后重新编辑更新。");
+        }
+
     }
 }

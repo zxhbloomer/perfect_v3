@@ -39,10 +39,24 @@ public interface SDictDataMapper extends BaseMapper<SDictDataEntity> {
         + "       t2.name  dictTypeName ,                                          "
         + "       t2.code  dictTypeCode,                                          "
         + "       t2.descr dict_type_descr,                                         "
-        + "       t2.isdel dictTypeIsdel                                          "
-        + "  FROM                                                              "
-        + "       s_dict_data AS t1                                                 "
-        + "       LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id            ";
+        + "       t2.isdel dictTypeIsdel,                                          "
+        + "       t3.max_sort,                                                      "
+        + "       t3.min_sort                                                     "
+        + "  FROM                                                                   "
+        + "  	s_dict_data AS t1                                             "
+        + "  	LEFT JOIN s_dict_type AS t2 ON t1.dict_type_id = t2.id        "
+        + "  	INNER JOIN (                                                  "
+        + "  		SELECT                                                    "
+        + "  			MAX( subt1.sort ) AS max_sort,                        "
+        + "  			min( subt1.sort ) AS min_sort,                        "
+        + "  			subt1.dict_type_id                                    "
+        + "  		FROM                                                      "
+        + "  			s_dict_data subt1                                     "
+        + "  		GROUP BY                                                  "
+        + "  			subt1.dict_type_id                                    "
+        + "  	) t3 ON t1.dict_type_id = t3.dict_type_id                     "
+        + "                                                                   "
+        ;
 
     /**
      * 页面查询列表
