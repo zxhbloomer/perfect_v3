@@ -1,13 +1,15 @@
-package com.perfect.core.service.sys.config.dict;
+package com.perfect.core.service.sys.config.config;
+
+import java.util.List;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.perfect.bean.entity.sys.config.config.SConfigEntity;
 import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
 import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
+import com.perfect.bean.vo.sys.config.config.SConfigVo;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
-
-import java.util.List;
 
 /**
  * <p>
@@ -17,21 +19,21 @@ import java.util.List;
  * @author zxh
  * @since 2019-08-23
  */
-public interface ISDictDataService extends IService<SDictDataEntity> {
+public interface ISConfigDataService extends IService<SConfigEntity> {
     /**
      * 获取列表，页面查询
      */
-    IPage<SDictDataVo> selectPage(SDictDataVo searchCondition) throws InstantiationException, IllegalAccessException;
+    IPage<SConfigVo> selectPage(SConfigVo searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
      * 获取所有数据
      */
-    List<SDictDataVo> select(SDictDataVo searchCondition) throws InstantiationException, IllegalAccessException;
+    List<SConfigVo> select(SConfigVo searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
      * 获取所选id的数据
      */
-    List<SDictDataVo> selectIdsIn(List<SDictDataVo> searchCondition) throws InstantiationException, IllegalAccessException;
+    List<SConfigVo> selectIdsIn(List<SConfigVo> searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
      * 查询by id，返回结果
@@ -39,49 +41,50 @@ public interface ISDictDataService extends IService<SDictDataEntity> {
      * @param id
      * @return
      */
-    SDictDataVo selectByid(Long id);
+    SConfigVo selectByid(Long id);
 
     /**
      * 获取所选id的数据
      */
-    boolean saveBatches(List<SDictDataEntity> entityList);
+    boolean saveBatches(List<SConfigEntity> entityList);
 
     /**
      * 批量删除复原
      * @param searchCondition
      * @return
      */
-    void deleteByIdsIn(List<SDictDataVo> searchCondition);
+    void enableByIdsIn(List<SConfigVo> searchCondition);
 
     /**
      * 插入一条记录（选择字段，策略插入）
      * @param entity 实体对象
      * @return
      */
-    InsertResult<Integer> insert(SDictDataEntity entity);
+    InsertResult<Integer> insert(SConfigEntity entity);
 
     /**
      * 更新一条记录（选择字段，策略更新）
      * @param entity 实体对象
      * @return
      */
-    UpdateResult<Integer> update(SDictDataEntity entity);
+    UpdateResult<Integer> update(SConfigEntity entity);
 
     /**
-     * 通过dict_value查询
+     * 通过name查询
      *
      */
-    List<SDictDataEntity> selectByDictValue(String dict_value, Long dict_type_id);
+    List<SConfigEntity> selectByName(String name);
 
     /**
-     * 通过label查询
+     * 通过key查询
      *
      */
-    List<SDictDataEntity> selectByLabel(String label, Long dict_type_id);
+    List<SConfigEntity> selectByKey(String key);
 
     /**
-     * sort保存
+     * 通过value查询:参数键值
      *
      */
-    UpdateResult<List<SDictDataVo>>  saveList(List<SDictDataVo> data);
+    List<SConfigEntity> selectByValue(String value);
+
 }
