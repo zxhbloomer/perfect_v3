@@ -132,8 +132,8 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .logout() // 配置登出
                 .addLogoutHandler(logoutHandler()) // 配置登出处理器
-                .logoutUrl(perfectSecurityProperties.getLogoutUrl()) // 处理登出 url
-                .logoutSuccessUrl("/") // 登出后跳转到 /
+//                .logoutUrl(perfectSecurityProperties.getLogoutUrl()) // 处理登出 url
+//                .logoutSuccessUrl("/") // 登出后跳转到 /
                 .deleteCookies("JSESSIONID") // 删除 JSESSIONID
             .and()
                 .authorizeRequests() // 授权配置

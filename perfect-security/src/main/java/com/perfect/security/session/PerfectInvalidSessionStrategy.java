@@ -1,10 +1,7 @@
 package com.perfect.security.session;
 
 import com.perfect.bean.result.utils.v1.ResponseResultUtil;
-import com.perfect.common.enumconfig.PerfectHttpStatusEnum;
-import com.perfect.common.exception.CredentialException;
 import com.perfect.common.exception.PerfectInvalidSessionStrategyException;
-import com.perfect.common.utils.CommonUtil;
 import com.perfect.security.properties.PerfectSecurityProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -33,10 +30,11 @@ public class PerfectInvalidSessionStrategy implements InvalidSessionStrategy {
             request.getSession();
         }
         // if (CommonUtil.isAjaxRequest(request)) {
-        response.setStatus(PerfectHttpStatusEnum.SESSION_TIME_OUT.value());
+
         ResponseResultUtil.responseWriteError(request, response,
             new PerfectInvalidSessionStrategyException("session会话超时，请登陆后重试！"),
-            PerfectHttpStatusEnum.SESSION_TIME_OUT.value(), "session会话超时，请登陆后重试！");
+            HttpStatus.UNAUTHORIZED.value(), "session会话超时，请登陆后重试！");
+
         // }
         // redirectStrategy.sendRedirect(request, response, perfectSecurityProperties.getLogoutUrl());
     }
