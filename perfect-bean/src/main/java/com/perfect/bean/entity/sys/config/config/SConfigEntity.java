@@ -42,8 +42,8 @@ public class SConfigEntity implements Serializable {
     /**
      * 参数键值
      */
-    @TableField("value")
-    private String value;
+    @TableField("config_key")
+    private String config_key;
 
     /**
      * 是否禁用(1:true-未启用,0:false-已启用)
@@ -58,12 +58,6 @@ public class SConfigEntity implements Serializable {
      */
     @TableField("descr")
     private String descr;
-
-    /**
-     * 是否删除
-     */
-    @TableField(value = "isdel", fill = FieldFill.INSERT)
-    private Boolean isdel;
 
     @TableField(value="c_id", fill = FieldFill.INSERT)
     private Long c_id;

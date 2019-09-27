@@ -57,14 +57,14 @@ public class ResponseResultUtil {
             );
         }else if(exception instanceof ValidateCodeException){
             response.getWriter().write(objectMapper.writeValueAsString(
-                    ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    ResultUtil.NG(httpStatus,
                                     exception,
                                     errorMessage,
                                     request)
             ));
         }else{
             response.getWriter().write(objectMapper.writeValueAsString(
-                    ResultUtil.NG(HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    ResultUtil.NG(httpStatus,
                                     exception,
                                     errorMessage,
                                     request)

@@ -2,16 +2,13 @@ package com.perfect.framework.handler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.common.exception.UpdateErrorException;
-
 import lombok.extern.slf4j.Slf4j;
 
 /**

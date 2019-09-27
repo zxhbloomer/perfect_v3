@@ -30,7 +30,7 @@ public class SConfigVo extends UploadFileResultPojo implements Serializable {
     /**
      * 参数键名
      */
-    private String key;
+    private String config_key;
 
     /**
      * 参数键名

@@ -19,7 +19,7 @@ import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
  * @author zxh
  * @since 2019-08-23
  */
-public interface ISConfigDataService extends IService<SConfigEntity> {
+public interface ISConfigService extends IService<SConfigEntity> {
     /**
      * 获取列表，页面查询
      */

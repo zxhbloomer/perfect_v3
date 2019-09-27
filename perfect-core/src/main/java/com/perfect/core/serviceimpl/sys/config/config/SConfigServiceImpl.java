@@ -3,8 +3,8 @@ package com.perfect.core.serviceimpl.sys.config.config;
 import java.util.List;
 import com.perfect.bean.entity.sys.config.config.SConfigEntity;
 import com.perfect.bean.vo.sys.config.config.SConfigVo;
-import com.perfect.core.mapper.sys.config.config.SConfigDataMapper;
-import com.perfect.core.service.sys.config.config.ISConfigDataService;
+import com.perfect.core.mapper.sys.config.config.SConfigMapper;
+import com.perfect.core.service.sys.config.config.ISConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,10 +18,8 @@ import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.CheckResultUtil;
 import com.perfect.bean.result.utils.v1.InsertResultUtil;
 import com.perfect.bean.result.utils.v1.UpdateResultUtil;
-import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
-import com.perfect.core.mapper.sys.config.dict.SDictDataMapper;
 import com.perfect.core.utils.mybatis.PageUtil;
 
 /**
@@ -33,10 +31,10 @@ import com.perfect.core.utils.mybatis.PageUtil;
  * @since 2019-08-23
  */
 @Service
-public class SConfigDataServiceImpl extends ServiceImpl<SConfigDataMapper, SConfigEntity> implements ISConfigDataService {
+public class SConfigServiceImpl extends ServiceImpl<SConfigMapper, SConfigEntity> implements ISConfigService {
 
     @Autowired
-    private SConfigDataMapper mapper;
+    private SConfigMapper mapper;
 
     /**
      * 获取列表，页面查询
@@ -138,7 +136,7 @@ public class SConfigDataServiceImpl extends ServiceImpl<SConfigDataMapper, SConf
     @Override
     public InsertResult<Integer> insert(SConfigEntity entity) {
         // 插入前check
-        CheckResult cr = checkLogic(entity.getName(), entity.getKey(), entity.getValue(), CheckResult.INSERT_CHECK_TYPE);
+        CheckResult cr = checkLogic(entity.getName(), entity.getKey(), entity.getConfig_key(), CheckResult.INSERT_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
@@ -156,7 +154,7 @@ public class SConfigDataServiceImpl extends ServiceImpl<SConfigDataMapper, SConf
     @Override
     public UpdateResult<Integer> update(SConfigEntity entity) {
         // 更新前check
-        CheckResult cr = checkLogic(entity.getName(), entity.getKey(), entity.getValue(), CheckResult.UPDATE_CHECK_TYPE);
+        CheckResult cr = checkLogic(entity.getName(), entity.getKey(), entity.getConfig_key(), CheckResult.UPDATE_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
@@ -167,13 +165,13 @@ public class SConfigDataServiceImpl extends ServiceImpl<SConfigDataMapper, SConf
     /**
      * 获取列表，查询所有数据
      *
-     * @param dict_value
+     * @param name
      * @return
      */
     @Override
-    public List<SConfigEntity> selectByName(String dict_value) {
+    public List<SConfigEntity> selectByName(String name) {
         // 查询 数据
-        List<SConfigEntity> list = mapper.selectByName(dict_value);
+        List<SConfigEntity> list = mapper.selectByName(name);
         return list;
     }
 

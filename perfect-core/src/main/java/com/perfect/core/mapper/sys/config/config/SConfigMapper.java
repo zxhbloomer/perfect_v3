@@ -20,7 +20,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
  * @since 2019-08-23
  */
 @Repository
-public interface SConfigDataMapper extends BaseMapper<SConfigEntity> {
+public interface SConfigMapper extends BaseMapper<SConfigEntity> {
 
     String common_select = "  "
         + "  SELECT                                                             "
@@ -39,10 +39,9 @@ public interface SConfigDataMapper extends BaseMapper<SConfigEntity> {
     @Select("    "
         + common_select
         + "  where true "
-        + "    and (t.name like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
-        + "    and (t.key  like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
-        + "    and (t.value  like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
-        + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
+        + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
+        + "    and (t.config_key  like CONCAT ('%',#{p1.config_key,jdbcType=VARCHAR},'%') or #{p1.config_key,jdbcType=VARCHAR} is null) "
+        + "    and (t.value  like CONCAT ('%',#{p1.value,jdbcType=VARCHAR},'%') or #{p1.value,jdbcType=VARCHAR} is null) "
         + "      ")
     IPage<SConfigVo> selectPage(Page page, @Param("p1") SConfigVo searchCondition);
 
@@ -54,10 +53,9 @@ public interface SConfigDataMapper extends BaseMapper<SConfigEntity> {
     @Select("    "
         + common_select
         + "  where true "
-        + "    and (t.name like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
-        + "    and (t.key  like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
-        + "    and (t.value  like CONCAT ('%',#{p1.dictTypeName,jdbcType=VARCHAR},'%') or #{p1.dictTypeName,jdbcType=VARCHAR} is null) "
-        + "    and (t.isdel =#{p1.isdel,jdbcType=VARCHAR} or #{p1.isdel,jdbcType=VARCHAR} is null) "
+        + "    and (t.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
+        + "    and (t.config_key  like CONCAT ('%',#{p1.config_key,jdbcType=VARCHAR},'%') or #{p1.config_key,jdbcType=VARCHAR} is null) "
+        + "    and (t.value  like CONCAT ('%',#{p1.value,jdbcType=VARCHAR},'%') or #{p1.value,jdbcType=VARCHAR} is null) "
         + "      ")
     List<SConfigVo> select(@Param("p1") SConfigVo searchCondition);
 
@@ -89,15 +87,15 @@ public interface SConfigDataMapper extends BaseMapper<SConfigEntity> {
 
     /**
      * 按条件获取所有数据，没有分页
-     * @param key
+     * @param config_key
      * @return
      */
     @Select("    "
         + common_select
         + "  where true "
-        + "    and t.key =  #{p1}"
+        + "    and t.config_key =  #{p1}"
         + "      ")
-    List<SConfigEntity> selectByKey(@Param("p1") String key);
+    List<SConfigEntity> selectByKey(@Param("p1") String config_key);
 
     /**
      * 按条件获取所有数据，没有分页

@@ -10,7 +10,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties({PerfectSecurityProperties.class})
 @ConfigurationProperties(prefix = "perfect.security")
 public class PerfectSecurityProperties {
-
+    // session过期后自动获取
+    private boolean createNewSession;
     // 登录 URL
     private String loginUrl;
     // 免认证静态资源路径
@@ -107,5 +108,14 @@ public class PerfectSecurityProperties {
 
     public void setIndexUrl(String indexUrl) {
         this.indexUrl = indexUrl;
+    }
+
+
+    public boolean getCreateNewSession() {
+        return createNewSession;
+    }
+
+    public void setCreateNewSession(boolean createNewSession) {
+        this.createNewSession = createNewSession;
     }
 }
