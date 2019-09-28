@@ -1,29 +1,30 @@
 package com.perfect.manager.controller.sys.config.config;
 
-import java.io.IOException;
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-import com.perfect.bean.entity.sys.config.config.SConfigEntity;
-import com.perfect.bean.vo.sys.config.config.SConfigVo;
-import com.perfect.core.service.sys.config.config.ISConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.perfect.bean.entity.sys.config.config.SConfigEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
+import com.perfect.bean.vo.sys.config.config.SConfigVo;
 import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
 import com.perfect.bean.vo.sys.config.resource.SResourceExportVo;
 import com.perfect.common.annotation.SysLog;
 import com.perfect.common.exception.InsertErrorException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
+import com.perfect.core.service.sys.config.config.ISConfigService;
 import com.perfect.excel.export.ExcelUtil;
 import com.perfect.framework.base.controller.v1.BaseController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author zhangxh
@@ -58,8 +59,8 @@ public class ConfigController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<IPage<SConfigVo>>> list(@RequestBody(required = false)
         SConfigVo searchCondition) throws IllegalAccessException, InstantiationException {
-        IPage<SConfigVo> entity = service.selectPage(searchCondition);
-        return ResponseEntity.ok().body(ResultUtil.OK(entity));
+        IPage<SConfigVo> vo = service.selectPage(searchCondition);
+        return ResponseEntity.ok().body(ResultUtil.OK(vo));
     }
 
     @SysLog("系统参数数据更新保存")

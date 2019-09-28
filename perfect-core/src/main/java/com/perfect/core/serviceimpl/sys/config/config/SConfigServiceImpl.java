@@ -1,16 +1,9 @@
 package com.perfect.core.serviceimpl.sys.config.config;
 
-import java.util.List;
-import com.perfect.bean.entity.sys.config.config.SConfigEntity;
-import com.perfect.bean.vo.sys.config.config.SConfigVo;
-import com.perfect.core.mapper.sys.config.config.SConfigMapper;
-import com.perfect.core.service.sys.config.config.ISConfigService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.perfect.bean.entity.sys.config.config.SConfigEntity;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
 import com.perfect.bean.pojo.result.CheckResult;
 import com.perfect.bean.pojo.result.InsertResult;
@@ -18,9 +11,17 @@ import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.CheckResultUtil;
 import com.perfect.bean.result.utils.v1.InsertResultUtil;
 import com.perfect.bean.result.utils.v1.UpdateResultUtil;
+import com.perfect.bean.vo.sys.config.config.SConfigVo;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
+import com.perfect.core.mapper.sys.config.config.SConfigMapper;
+import com.perfect.core.service.sys.config.config.ISConfigService;
 import com.perfect.core.utils.mybatis.PageUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * <p>
@@ -136,7 +137,7 @@ public class SConfigServiceImpl extends ServiceImpl<SConfigMapper, SConfigEntity
     @Override
     public InsertResult<Integer> insert(SConfigEntity entity) {
         // 插入前check
-        CheckResult cr = checkLogic(entity.getName(), entity.getKey(), entity.getConfig_key(), CheckResult.INSERT_CHECK_TYPE);
+        CheckResult cr = checkLogic(entity.getName(), entity.getConfig_key(), entity.getConfig_key(), CheckResult.INSERT_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
@@ -154,7 +155,7 @@ public class SConfigServiceImpl extends ServiceImpl<SConfigMapper, SConfigEntity
     @Override
     public UpdateResult<Integer> update(SConfigEntity entity) {
         // 更新前check
-        CheckResult cr = checkLogic(entity.getName(), entity.getKey(), entity.getConfig_key(), CheckResult.UPDATE_CHECK_TYPE);
+        CheckResult cr = checkLogic(entity.getName(), entity.getConfig_key(), entity.getConfig_key(), CheckResult.UPDATE_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
