@@ -33,12 +33,12 @@ public class SConfigVo extends UploadFileResultPojo implements Serializable {
     private String config_key;
 
     /**
-     * 参数键名
+     * 参数键值
      */
     private String value;
 
     /**
-     * 是否禁用(1:true-未启用,0:false-已启用)
+     * 是否禁用(1:false-未启用,0:true-已启用)
      */
     private Boolean isenable;
 

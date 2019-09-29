@@ -78,8 +78,7 @@ public class MUserEntity extends BaseEntity<MUserEntity> implements Serializable
     private Boolean islock;
 
     /**
-     * 是否禁用
-
+     * 是否禁用 1:false-未启用,0:true-已启用
      */
     @TableField("isenable")
     private Boolean isenable;

@@ -1,12 +1,12 @@
 package com.perfect.bean.entity.sys.config.config;
 
 import com.baomidou.mybatisplus.annotation.*;
+
+import java.time.LocalDateTime;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -36,17 +36,17 @@ public class SConfigEntity implements Serializable {
     /**
      * 参数键名
      */
-    @TableField("value")
-    private String value;
-
-    /**
-     * 参数键值
-     */
     @TableField("config_key")
     private String config_key;
 
     /**
-     * 是否禁用(1:true-未启用,0:false-已启用)
+     * 参数键值
+     */
+    @TableField("value")
+    private String value;
+
+    /**
+     * 是否禁用(1:false-未启用,0:true-已启用)
      */
     @TableField("isenable")
     private Boolean isenable;

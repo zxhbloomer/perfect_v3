@@ -1,6 +1,7 @@
 package com.perfect.framework.config.spring;
 
-import com.perfect.framework.config.interceptor.ActionInterceptor;
+import com.perfect.framework.config.interceptor.ActionInterceptorAbstract;
+import com.perfect.framework.config.interceptor.impl.ActionInterceptor;
 import com.perfect.framework.config.messageconverter.CallbackMappingJackson2HttpMessageConverter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
