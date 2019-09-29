@@ -136,7 +136,7 @@ public class SConfigServiceImpl extends ServiceImpl<SConfigMapper, SConfigEntity
     @Override
     public InsertResult<Integer> insert(SConfigEntity entity) {
         // 插入前check
-        CheckResult cr = checkLogic(entity.getName(), entity.getKey(), entity.getConfig_key(), CheckResult.INSERT_CHECK_TYPE);
+        CheckResult cr = checkLogic(entity.getName(), entity.getConfig_key(), CheckResult.INSERT_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
@@ -154,7 +154,7 @@ public class SConfigServiceImpl extends ServiceImpl<SConfigMapper, SConfigEntity
     @Override
     public UpdateResult<Integer> update(SConfigEntity entity) {
         // 更新前check
-        CheckResult cr = checkLogic(entity.getName(), entity.getKey(), entity.getConfig_key(), CheckResult.UPDATE_CHECK_TYPE);
+        CheckResult cr = checkLogic(entity.getName(), entity.getConfig_key(), CheckResult.UPDATE_CHECK_TYPE);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
@@ -206,10 +206,9 @@ public class SConfigServiceImpl extends ServiceImpl<SConfigMapper, SConfigEntity
      * 
      * @return
      */
-    public CheckResult checkLogic(String name, String key, String value, String moduleType) {
+    public CheckResult checkLogic(String name, String key, String moduleType) {
         List<SConfigEntity> selectByName = selectByName(name);
         List<SConfigEntity> selectByKey = selectByKey(key);
-        List<SConfigEntity> selectByValue = selectByValue(value);
 
         switch (moduleType) {
             case CheckResult.INSERT_CHECK_TYPE:
@@ -220,9 +219,6 @@ public class SConfigServiceImpl extends ServiceImpl<SConfigMapper, SConfigEntity
                 if (selectByKey.size() >= 1) {
                     return CheckResultUtil.NG("新增保存出错：参数键名出现重复", key);
                 }
-                if (selectByValue.size() >= 1) {
-                    return CheckResultUtil.NG("新增保存出错：参数键值出现重复", value);
-                }
                 break;
             case CheckResult.UPDATE_CHECK_TYPE:
                 // 更新场合，不能重复设置
@@ -231,9 +227,6 @@ public class SConfigServiceImpl extends ServiceImpl<SConfigMapper, SConfigEntity
                 }
                 if (selectByKey.size() >= 2) {
                     return CheckResultUtil.NG("新增保存出错：参数键名出现重复", key);
-                }
-                if (selectByValue.size() >= 2) {
-                    return CheckResultUtil.NG("新增保存出错：参数键值出现重复", value);
                 }
                 break;
             default:

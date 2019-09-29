@@ -36,19 +36,17 @@ public class SConfigEntity implements Serializable {
     /**
      * 参数键名
      */
-    @TableField("key")
-    private String key;
-
-    /**
-     * 参数键值
-     */
     @TableField("config_key")
     private String config_key;
 
     /**
-     * 是否禁用(1:true-未启用,0:false-已启用)
+     * 参数键值
+     */
+    @TableField("value")
+    private String value;
 
-
+    /**
+     * 是否禁用(1:false-未启用,0:true-已启用)
      */
     @TableField("isenable")
     private Boolean isenable;

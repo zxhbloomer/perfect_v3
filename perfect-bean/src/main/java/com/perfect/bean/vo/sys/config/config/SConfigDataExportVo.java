@@ -32,7 +32,7 @@ public class SConfigDataExportVo implements Serializable {
      * 参数键名
      */
     @Excel(name = "参数键名")
-    private String key;
+    private String config_key;
 
     /**
      * 参数键值
@@ -41,7 +41,7 @@ public class SConfigDataExportVo implements Serializable {
     private String value;
 
     /**
-     * 是否禁用(1:true-未启用,0:false-已启用)
+     * 是否禁用(1:false-未启用,0:true-已启用)
      */
     @Excel(name = "是否禁用")
     private Boolean isenable;
