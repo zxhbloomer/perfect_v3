@@ -1,12 +1,13 @@
 package com.perfect.framework.config.interceptor.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import com.alibaba.fastjson.JSON;
 import com.perfect.framework.config.interceptor.ActionInterceptorAbstract;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 判断请求url和数据是否和上一次相同， 如果和上次相同，则是重复提交表单。 有效时间为10秒内。
@@ -26,7 +27,7 @@ public class ActionInterceptor extends ActionInterceptorAbstract {
      * 
      * 两次相同参数的请求，如果间隔时间大于该参数，系统不会认定为重复提交的数据
      */
-    private int intervalTime = 10;
+    private int intervalTime = 2;
 
     public void setIntervalTime(int intervalTime) {
         this.intervalTime = intervalTime;
@@ -75,9 +76,6 @@ public class ActionInterceptor extends ActionInterceptorAbstract {
     private boolean compareTime(Map<String, Object> nowMap, Map<String, Object> preMap) {
         long time1 = (Long)nowMap.get(REPEAT_TIME);
         long time2 = (Long)preMap.get(REPEAT_TIME);
-        if ((time1 - time2) < (this.intervalTime * 1000)) {
-            return true;
-        }
-        return false;
+        return (time1 - time2) < (this.intervalTime * 1000);
     }
 }

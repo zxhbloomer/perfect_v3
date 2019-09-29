@@ -1,10 +1,8 @@
 package com.perfect.framework.config.interceptor;
 
-import com.alibaba.fastjson.JSON;
 import com.perfect.bean.result.utils.v1.ResponseResultUtil;
 import com.perfect.common.annotation.RepeatSubmit;
 import com.perfect.common.exception.BusinessException;
-import com.perfect.common.exception.CredentialException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
@@ -71,14 +69,13 @@ public abstract class ActionInterceptorAbstract extends HandlerInterceptorAdapte
             HandlerMethod handlerMethod = (HandlerMethod)handler;
             Method method = handlerMethod.getMethod();
             RepeatSubmit annotation = method.getAnnotation(RepeatSubmit.class);
-            RepeatSubmit annotationType = ((HandlerMethod)handler).getBeanType().getAnnotation(RepeatSubmit.class);
-            if (annotation != null || annotationType != null) {
+            if (annotation != null ) {
                 if (this.isRepeatSubmit(request)) {
                     ResponseResultUtil.responseWriteError(
                         request,
                         response,
                         new BusinessException("不允许重复提交，请稍后再试！"),
-                        HttpStatus.OK.value(), "不允许重复提交，请稍后再试!");
+                        HttpStatus.SERVICE_UNAVAILABLE.value(), "不允许重复提交，请稍后再试!");
                     log.debug("===========Controller前进行调用preHandle操作 结束===========");
                     // 只有返回true才会继续向下执行，返回false取消当前请求
                     return false;
