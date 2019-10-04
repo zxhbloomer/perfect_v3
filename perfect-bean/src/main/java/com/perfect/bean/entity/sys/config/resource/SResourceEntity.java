@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @TableName("s_resource")
 public class SResourceEntity extends BaseEntity<SResourceEntity> implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 6090334147779080116L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
