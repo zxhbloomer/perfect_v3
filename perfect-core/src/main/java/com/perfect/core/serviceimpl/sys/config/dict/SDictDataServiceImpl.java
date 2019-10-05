@@ -5,17 +5,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.perfect.bean.entity.sys.config.dict.SDictDataEntity;
 import com.perfect.bean.entity.sys.config.dict.SDictTypeEntity;
-import com.perfect.bean.entity.sys.config.module.SModuleEntity;
 import com.perfect.bean.pojo.result.CheckResult;
 import com.perfect.bean.pojo.result.InsertResult;
 import com.perfect.bean.pojo.result.UpdateResult;
 import com.perfect.bean.result.utils.v1.CheckResultUtil;
 import com.perfect.bean.result.utils.v1.InsertResultUtil;
-import com.perfect.bean.result.utils.v1.ResultUtil;
 import com.perfect.bean.result.utils.v1.UpdateResultUtil;
 import com.perfect.bean.vo.sys.config.dict.SDictDataVo;
-import com.perfect.bean.vo.sys.config.dict.SDictTypeExportVo;
-import com.perfect.bean.vo.sys.config.module.SModuleVo;
 import com.perfect.common.exception.BusinessException;
 import com.perfect.common.exception.UpdateErrorException;
 import com.perfect.common.utils.bean.BeanUtilsSupport;
@@ -23,12 +19,10 @@ import com.perfect.core.mapper.sys.config.dict.SDictDataMapper;
 import com.perfect.core.service.sys.config.dict.ISDictDataService;
 import com.perfect.core.utils.mybatis.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -196,13 +190,13 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
     /**
      * 获取列表，查询所有数据
      *
-     * @param lable
+     * @param label
      * @return
      */
     @Override
-    public List<SDictDataEntity> selectByLabel(String lable, Long dict_type_id) {
+    public List<SDictDataEntity> selectByLabel(String label, Long dict_type_id) {
         // 查询 数据
-        List<SDictDataEntity> list = mapper.selectByLabel(lable, dict_type_id);
+        List<SDictDataEntity> list = mapper.selectByLabel(label, dict_type_id);
         return list;
     }
 

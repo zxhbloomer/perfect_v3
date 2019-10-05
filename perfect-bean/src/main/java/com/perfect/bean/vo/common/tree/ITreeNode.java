@@ -24,12 +24,13 @@ public interface ITreeNode<T extends ITreeNode> {
      */
     String getName();
 
-    /**
-     * 获取父节点
-     *
-     * @return
-     */
-    T getParent();
+//    /**
+//     * 获取父节点
+//     *
+//     * @return
+//     */
+//    T getParent();
+//    void setParent(T parent);
 
     /**
      * 获取子节点

@@ -28,7 +28,7 @@ public class TreeUtil {
         }
 
         /**
-         * 循环上述map，逆序循环 key=level，所以只可能从1层开始
+         * 循环上述map，逆序循环 key=level，设置子节点，与父节点
          */
         List<T> rtnList = new ArrayList<>();
         ListIterator<Map.Entry<Integer, List<T>>> lt =
@@ -43,7 +43,7 @@ public class TreeUtil {
                    rtnList.add(bean);
                    continue;
                } else {
-                   // 获取父亲节点，设置子节点数据
+                   // 1：获取父亲节点，设置子节点数据
                    int parentLevel = level - 1;
                    List<T> parentList = differentLevelData.get(parentLevel);
                    T parentBean = getParentLevelData(parentList, bean.getParentid());
@@ -54,6 +54,8 @@ public class TreeUtil {
                    } else {
                        parentBean.getChildren().addAll(childrenList);
                    }
+                   // 2：设置父节点发生错误，2json时发生递归
+//                   bean.setParent(parentBean);
                }
            }
        }

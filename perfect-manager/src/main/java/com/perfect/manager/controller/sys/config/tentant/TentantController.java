@@ -47,7 +47,7 @@ public class TentantController extends BaseController {
         SConfigVo searchCondition) throws IllegalAccessException, InstantiationException {
         List<STentantTreeVo> vo = service.getTreeList(Long.valueOf(1));
         List<STentantTreeVo> rtnVo = TreeUtil.getTreeList(vo);
-        return ResponseEntity.ok().body(ResultUtil.OK(vo));
+        return ResponseEntity.ok().body(ResultUtil.OK(rtnVo));
     }
 
     @SysLog("根据参数id，获取系统参数信息")

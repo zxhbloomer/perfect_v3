@@ -18,12 +18,12 @@ import java.util.List;
 public class TreeNode implements ITreeNode<TreeNode>, Comparable<TreeNode> {
 
     private Long id;
-    private String lable;
+    private String label;
     /** 节点名称 */
     private String name;
     private Long parentid;
     /** 父节点 */
-    private TreeNode parent;
+//    private TreeNode parent;
     /** 子节点 */
     private List<TreeNode> children;
     private int level;
@@ -41,46 +41,46 @@ public class TreeNode implements ITreeNode<TreeNode>, Comparable<TreeNode> {
      * 
      * @param entity
      */
-    public TreeNode(ITreeNode entity) {
-        init(entity, Integer.MAX_VALUE);
-    }
+//    public TreeNode(ITreeNode entity) {
+//        init(entity, Integer.MAX_VALUE);
+//    }
 
     /**
      * 构建时按指定层数递归构建父子节点
      * 
      * @param entity
      */
-    public TreeNode(ITreeNode entity, int maxLevel) {
-        init(entity, maxLevel);
-    }
+//    public TreeNode(ITreeNode entity, int maxLevel) {
+//        init(entity, maxLevel);
+//    }
 
-    private void init(ITreeNode node, int maxLevel) {
-        this.id = node.getId();
-        this.name = node.getName();
-        this.sort = node.getSort();
-        generateParent(this, node, maxLevel, 1);
-        generateChildren(this, node, maxLevel, 1);
-    }
+//    private void init(ITreeNode node, int maxLevel) {
+//        this.id = node.getId();
+//        this.name = node.getName();
+//        this.sort = node.getSort();
+//        generateParent(this, node, maxLevel, 1);
+//        generateChildren(this, node, maxLevel, 1);
+//    }
 
-    /**
-     * 递归父节点
-     * 
-     * @param node
-     * @param entity
-     */
-    private void generateParent(TreeNode node, ITreeNode entity, int maxLevel, int currentLevel) {
-        if (currentLevel > maxLevel) {
-            return;
-        }
-        if (entity.getParent() != null) {
-            TreeNode parentNode = new TreeNode();
-            parentNode.id = entity.getParent().getId();
-            parentNode.name = entity.getParent().getName();
-            parentNode.sort = entity.getParent().getSort();
-            node.setParent(parentNode);
-            generateParent(parentNode, entity.getParent(), maxLevel, ++currentLevel);
-        }
-    }
+//    /**
+//     * 递归父节点
+//     *
+//     * @param node
+//     * @param entity
+//     */
+//    private void generateParent(TreeNode node, ITreeNode entity, int maxLevel, int currentLevel) {
+//        if (currentLevel > maxLevel) {
+//            return;
+//        }
+//        if (entity.getParent() != null) {
+//            TreeNode parentNode = new TreeNode();
+//            parentNode.id = entity.getParent().getId();
+//            parentNode.name = entity.getParent().getName();
+//            parentNode.sort = entity.getParent().getSort();
+//            node.setParent(parentNode);
+//            generateParent(parentNode, entity.getParent(), maxLevel, ++currentLevel);
+//        }
+//    }
 
     /**
      * 递归子节点
