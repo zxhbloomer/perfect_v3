@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.perfect.bean.entity.sys.config.tenant.STentantEntity;
 import com.perfect.bean.pojo.result.JsonResult;
 import com.perfect.bean.result.utils.v1.ResultUtil;
+import com.perfect.bean.utils.common.tree.TreeUtil;
 import com.perfect.bean.vo.sys.config.config.SConfigVo;
 import com.perfect.bean.vo.sys.config.tenant.STentantTreeVo;
 import com.perfect.bean.vo.sys.config.tenant.STentantVo;
@@ -45,8 +46,7 @@ public class TentantController extends BaseController {
     public ResponseEntity<JsonResult<List<STentantTreeVo>>> treeList(@RequestBody(required = false)
         SConfigVo searchCondition) throws IllegalAccessException, InstantiationException {
         List<STentantTreeVo> vo = service.getTreeList(Long.valueOf(1));
-//        System.out.println(JSON.toJSONString(TreeUtil.getTreeList(1,vo)));
-//        List<STentantTreeVo> xx = TreeUtil.getTreeList(1,vo);
+        List<STentantTreeVo> rtnVo = TreeUtil.getTreeList(vo);
         return ResponseEntity.ok().body(ResultUtil.OK(vo));
     }
 

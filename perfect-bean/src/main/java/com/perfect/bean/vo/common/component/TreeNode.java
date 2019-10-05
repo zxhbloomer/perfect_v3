@@ -21,7 +21,7 @@ public class TreeNode implements ITreeNode<TreeNode>, Comparable<TreeNode> {
     private String lable;
     /** 节点名称 */
     private String name;
-    private long parentid;
+    private Long parentid;
     /** 父节点 */
     private TreeNode parent;
     /** 子节点 */

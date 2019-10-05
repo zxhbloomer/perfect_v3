@@ -37,10 +37,23 @@ public interface ITreeNode<T extends ITreeNode> {
      * @return
      */
     List<T> getChildren();
+    void setChildren(List<T> children);
 
     /**
      * 获取排序序号
      * @return
      */
     int getSort();
+
+    /**
+     * 获取深度
+     * @return
+     */
+    int getLevel();
+
+    /**
+     * 获取父id
+     * @return
+     */
+    Long getParentid();
 }
