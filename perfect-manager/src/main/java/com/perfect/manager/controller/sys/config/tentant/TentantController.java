@@ -39,13 +39,24 @@ public class TentantController extends BaseController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @SysLog("根据查询条件，获取系统参数信息")
-    @ApiOperation("根据参数id，获取系统参数信息")
+    @SysLog("根据查询条件，获取租户信息")
+    @ApiOperation("获取租户树数据")
     @PostMapping("/tree/list")
     @ResponseBody
     public ResponseEntity<JsonResult<List<STentantTreeVo>>> treeList(@RequestBody(required = false)
         SConfigVo searchCondition) throws IllegalAccessException, InstantiationException {
-        List<STentantTreeVo> vo = service.getTreeList(Long.valueOf(1));
+        List<STentantTreeVo> vo = service.getTreeList(Long.valueOf(1),"根");
+        List<STentantTreeVo> rtnVo = TreeUtil.getTreeList(vo);
+        return ResponseEntity.ok().body(ResultUtil.OK(rtnVo));
+    }
+
+    @SysLog("根据查询条件，获取租户信息")
+    @ApiOperation("获取租户树数据")
+    @PostMapping("/grid/list")
+    @ResponseBody
+    public ResponseEntity<JsonResult<List<STentantTreeVo>>> gridList(@RequestBody(required = false)
+        SConfigVo searchCondition) throws IllegalAccessException, InstantiationException {
+        List<STentantTreeVo> vo = service.getTreeList(Long.valueOf(1),"根");
         List<STentantTreeVo> rtnVo = TreeUtil.getTreeList(vo);
         return ResponseEntity.ok().body(ResultUtil.OK(rtnVo));
     }

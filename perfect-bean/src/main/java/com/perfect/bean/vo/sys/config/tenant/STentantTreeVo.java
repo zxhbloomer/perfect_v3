@@ -48,4 +48,9 @@ public class STentantTreeVo extends TreeNode implements Serializable {
      */
     private String descr;
 
+    /**
+     * 树节点名称：按深度显示名称 xx>...>xx
+     */
+    private String depth_name;
+
 }

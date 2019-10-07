@@ -43,8 +43,8 @@ public class STentantServiceImpl extends ServiceImpl<STentantMapper, STentantEnt
      * @return
      */
     @Override
-    public List<STentantTreeVo> getTreeList(Long id) {
-        List<STentantTreeVo> listVo = mapper.getTreeList(id);
+    public List<STentantTreeVo> getTreeList(Long id, String name) {
+        List<STentantTreeVo> listVo = mapper.getTreeList(id, name);
         return listVo;
     }
 
@@ -257,8 +257,8 @@ public class STentantServiceImpl extends ServiceImpl<STentantMapper, STentantEnt
      * @return
      */
     @Override
-    public List<STentantTreeVo> getChildren(Long id) {
-        List<STentantTreeVo> list = mapper.getTreeList(Long.valueOf(1));
+    public List<STentantTreeVo> getChildren(Long id, String name) {
+        List<STentantTreeVo> list = mapper.getTreeList(id, name);
         return null;
     }
 }

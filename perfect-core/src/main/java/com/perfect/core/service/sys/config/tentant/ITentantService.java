@@ -26,7 +26,7 @@ public interface ITentantService extends IService<STentantEntity> {
      * @param id
      * @return
      */
-    List<STentantTreeVo> getTreeList(Long id);
+    List<STentantTreeVo> getTreeList(Long id, String nam);
 
     /**
      * 获取列表，页面查询
@@ -107,5 +107,5 @@ public interface ITentantService extends IService<STentantEntity> {
      * @param id
      * @return
      */
-     List<STentantTreeVo> getChildren(Long id);
+     List<STentantTreeVo> getChildren(Long id, String name);
 }
