@@ -34,7 +34,7 @@ public interface ISDictTypeService extends IService<SDictTypeEntity> {
     List<SDictTypeEntity> selectIdsIn(List<SDictTypeVo> searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
-     * 获取所选id的数据
+     * 批量导入
      */
     boolean saveBatches(List<SDictTypeEntity> entityList);
 

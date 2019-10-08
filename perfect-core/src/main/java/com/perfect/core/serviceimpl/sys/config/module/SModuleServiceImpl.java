@@ -53,7 +53,7 @@ public class SModuleServiceImpl extends ServiceImpl<SModuleMapper, SModuleEntity
         Page<SModuleVo> pageCondition =
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
-        PageUtil.setSort(pageCondition, SModuleEntity.class, searchCondition.getPageCondition().getSort());
+        PageUtil.setSort(pageCondition, searchCondition.getPageCondition().getSort());
         return mapper.selectPage(pageCondition, searchCondition);
     }
 

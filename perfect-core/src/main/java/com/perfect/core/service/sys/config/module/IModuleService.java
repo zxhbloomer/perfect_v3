@@ -36,7 +36,7 @@ public interface IModuleService extends IService<SModuleEntity> {
     List<SModuleEntity> selectIdsIn(List<SModuleVo> searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
-     * 获取所选id的数据
+     * 批量导入
      */
     boolean saveBatches(List<SModuleEntity> entityList);
 

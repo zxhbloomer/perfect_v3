@@ -1,5 +1,7 @@
 package com.perfect.bean.vo.sys.config.tenant;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.perfect.bean.config.base.v1.BaseBean;
 import com.perfect.bean.vo.common.condition.PageCondition;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -28,6 +30,11 @@ public class STentantVo implements Serializable {
     private Long parentid;
 
     /**
+     * 系统编码
+     */
+    private String serial_no;
+
+    /**
      * 编码
      */
     private String code;
@@ -36,6 +43,11 @@ public class STentantVo implements Serializable {
      * 名称
      */
     private String name;
+
+    /**
+     * 简称
+     */
+    private String simple_name;
 
     private Boolean isenable;
 

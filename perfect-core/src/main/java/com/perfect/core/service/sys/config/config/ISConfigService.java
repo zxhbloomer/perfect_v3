@@ -44,7 +44,7 @@ public interface ISConfigService extends IService<SConfigEntity> {
     SConfigVo selectByid(Long id);
 
     /**
-     * 获取所选id的数据
+     * 批量导入
      */
     boolean saveBatches(List<SConfigEntity> entityList);
 

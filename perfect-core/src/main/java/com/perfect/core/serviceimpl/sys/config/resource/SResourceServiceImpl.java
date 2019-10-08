@@ -44,7 +44,7 @@ public class SResourceServiceImpl extends ServiceImpl<SResourceMapper, SResource
         Page<SResourceEntity> pageCondition =
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
-        PageUtil.setSort(pageCondition, SResourceEntity.class, searchCondition.getPageCondition().getSort());
+        PageUtil.setSort(pageCondition, searchCondition.getPageCondition().getSort());
         return sResourceMapper.selectPage(pageCondition, searchCondition);
     }
 

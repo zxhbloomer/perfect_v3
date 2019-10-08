@@ -63,23 +63,8 @@ public class STentantServiceImpl extends ServiceImpl<STentantMapper, STentantEnt
         Page<STentantVo> pageCondition =
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
-        PageUtil.setSort(pageCondition, STentantEntity.class, searchCondition.getPageCondition().getSort());
+        PageUtil.setSort(pageCondition, searchCondition.getPageCondition().getSort());
         return mapper.selectPage(pageCondition, searchCondition);
-    }
-
-    /**
-     * 获取列表，查询所有数据
-     * 
-     * @param searchCondition
-     * @return
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     */
-    @Override
-    public List<STentantEntity> select(STentantVo searchCondition) {
-        // 查询 数据
-        List<STentantEntity> list = mapper.select(searchCondition);
-        return list;
     }
 
     /**
@@ -95,34 +80,6 @@ public class STentantServiceImpl extends ServiceImpl<STentantMapper, STentantEnt
         // 查询 数据
         List<STentantEntity> list = mapper.selectIdsIn(searchCondition);
         return list;
-    }
-
-    /**
-     * 批量导入逻辑
-     * 
-     * @param entityList
-     * @return
-     */
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public boolean saveBatches(List<STentantEntity> entityList) {
-        return super.saveBatch(entityList, 500);
-    }
-
-    /**
-     * 批量删除复原
-     * 
-     * @param searchCondition
-     * @return
-     */
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void deleteByIdsIn(List<STentantVo> searchCondition) {
-        List<STentantEntity> list = mapper.selectIdsIn(searchCondition);
-        list.forEach(bean -> {
-            bean.setIsdel(!bean.getIsdel());
-        });
-        saveOrUpdateBatch(list, 500);
     }
 
     /**
@@ -236,18 +193,6 @@ public class STentantServiceImpl extends ServiceImpl<STentantMapper, STentantEnt
         }
 
         return CheckResultUtil.OK();
-    }
-
-    /**
-     * 根据模块名称查询资源文件找到json进行转换成excel导出
-     * 
-     * @param code
-     */
-    @Override
-    public STentantVo getTemplateBeanByModuleName(String code) {
-        // 查询 数据
-        STentantVo vo = mapper.selectTemplateName(code);
-        return vo;
     }
 
     /**

@@ -31,6 +31,12 @@ public class STentantEntity implements Serializable {
     private Long parentid;
 
     /**
+     * 系统编码
+     */
+    @TableField("serial_no")
+    private String serial_no;
+
+    /**
      * 编码
      */
     @TableField("code")
@@ -41,6 +47,12 @@ public class STentantEntity implements Serializable {
      */
     @TableField("name")
     private String name;
+
+    /**
+     * 简称
+     */
+    @TableField("simple_name")
+    private String simple_name;
 
     @TableField("isenable")
     private Boolean isenable;

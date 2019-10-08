@@ -42,7 +42,7 @@ public interface ISDictDataService extends IService<SDictDataEntity> {
     SDictDataVo selectByid(Long id);
 
     /**
-     * 获取所选id的数据
+     * 批量导入
      */
     boolean saveBatches(List<SDictDataEntity> entityList);
 

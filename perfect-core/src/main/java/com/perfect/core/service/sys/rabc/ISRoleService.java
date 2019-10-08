@@ -33,7 +33,7 @@ public interface ISRoleService extends IService<SRoleEntity> {
     List<SRoleEntity> selectIdsIn(List<SRoleVo> searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
-     * 获取所选id的数据
+     * 批量导入
      */
     boolean saveBatches(List<SRoleEntity> entityList);
 

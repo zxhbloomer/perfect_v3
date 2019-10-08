@@ -168,7 +168,7 @@ public interface SModuleMapper extends BaseMapper<SModuleEntity> {
     List<SModuleEntity> selectByName(@Param("p1") String name);
 
     /**
-     * 按id查询
+     * 参照资源信息
      * @param code
      * @return
      */

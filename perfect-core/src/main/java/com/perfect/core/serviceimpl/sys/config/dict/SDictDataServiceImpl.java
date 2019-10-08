@@ -54,7 +54,7 @@ public class SDictDataServiceImpl extends ServiceImpl<SDictDataMapper, SDictData
         Page<SDictTypeEntity> pageCondition =
             new Page(searchCondition.getPageCondition().getCurrent(), searchCondition.getPageCondition().getSize());
         // 通过page进行排序
-        PageUtil.setSort(pageCondition, SDictTypeEntity.class, searchCondition.getPageCondition().getSort());
+        PageUtil.setSort(pageCondition, searchCondition.getPageCondition().getSort());
         return mapper.selectPage(pageCondition, searchCondition);
     }
 

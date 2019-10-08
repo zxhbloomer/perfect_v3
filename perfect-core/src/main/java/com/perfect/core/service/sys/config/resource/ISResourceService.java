@@ -32,7 +32,7 @@ public interface ISResourceService extends IService<SResourceEntity> {
     List<SResourceEntity> selectIdsIn(List<SResourceVo> searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
-     * 获取所选id的数据
+     * 批量导入
      */
     boolean saveBatches(List<SResourceEntity> entityList);
 

@@ -34,28 +34,10 @@ public interface ITentantService extends IService<STentantEntity> {
     IPage<STentantVo> selectPage(STentantVo searchCondition) throws InstantiationException, IllegalAccessException;
 
     /**
-     * 获取所有数据
-     */
-    List<STentantEntity> select(STentantVo searchCondition) throws InstantiationException, IllegalAccessException;
-
-    /**
      * 获取所选id的数据
      */
     List<STentantEntity> selectIdsIn(List<STentantVo> searchCondition)
         throws InstantiationException, IllegalAccessException;
-
-    /**
-     * 获取所选id的数据
-     */
-    boolean saveBatches(List<STentantEntity> entityList);
-
-    /**
-     * 批量删除复原
-     * 
-     * @param searchCondition
-     * @return
-     */
-    void deleteByIdsIn(List<STentantVo> searchCondition);
 
     /**
      * 插入一条记录（选择字段，策略插入）
@@ -92,14 +74,6 @@ public interface ITentantService extends IService<STentantEntity> {
      *
      */
     List<STentantEntity> selectByName(String name);
-
-    /**
-     * 根据模块名称查询资源文件找到json进行转换成excel导出
-     * 
-     * @param code
-     * @return
-     */
-    STentantVo getTemplateBeanByModuleName(String code);
 
     /**
      * 根据ID获取子节点数组
