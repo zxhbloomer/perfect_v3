@@ -29,6 +29,14 @@ public interface ITentantService extends IService<STentantEntity> {
     List<STentantTreeVo> getTreeList(Long id, String nam);
 
     /**
+     * 获取数据，级联结构
+     *
+     * @param id
+     * @return
+     */
+    List<STentantTreeVo> getCascaderList(Long id, String nam);
+
+    /**
      * 获取列表，页面查询
      */
     IPage<STentantVo> selectPage(STentantVo searchCondition) throws InstantiationException, IllegalAccessException;

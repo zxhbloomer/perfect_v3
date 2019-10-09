@@ -27,7 +27,11 @@ public class STentantVo implements Serializable {
 
     private Long id;
 
+    /**
+     * 父节点
+     */
     private Long parentid;
+    private String parent_name;
 
     /**
      * 系统编码

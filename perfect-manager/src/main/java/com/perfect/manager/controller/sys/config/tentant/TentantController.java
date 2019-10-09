@@ -45,9 +45,20 @@ public class TentantController extends BaseController {
     @ResponseBody
     public ResponseEntity<JsonResult<List<STentantTreeVo>>> treeList(@RequestBody(required = false)
         SConfigVo searchCondition) throws IllegalAccessException, InstantiationException {
-        List<STentantTreeVo> vo = service.getTreeList(Long.valueOf(1),"根");
+        List<STentantTreeVo> vo = service.getTreeList(null,null);
         List<STentantTreeVo> rtnVo = TreeUtil.getTreeList(vo);
         return ResponseEntity.ok().body(ResultUtil.OK(rtnVo));
+    }
+
+    @SysLog("根据查询条件，获取租户信息")
+    @ApiOperation("获取级联数据")
+    @PostMapping("/cascader/list")
+    @ResponseBody
+    public ResponseEntity<JsonResult<List<STentantTreeVo>>> cascaderList(@RequestBody(required = false)
+        SConfigVo searchCondition) throws IllegalAccessException, InstantiationException {
+        List<STentantTreeVo> vo = service.getCascaderList(null,null);
+        List<STentantTreeVo> rtnVo = TreeUtil.getTreeList(vo);
+        return ResponseEntity.ok().body(ResultUtil.OK(rtnVo,true));
     }
 
 //    @SysLog("根据查询条件，获取租户信息")

@@ -35,7 +35,7 @@ public class ResultUtil {
      * @param <T>
      * @return
      */
-    public static <T>JsonResult<T> OK(T data) {
+    public static <T>JsonResult<T> OK(T data, boolean json_null_out) {
         return JsonResult.<T>builder()
                 .timestamp(DateTimeUtil.getTime())
                 .http_status(HttpStatus.OK.value())
@@ -44,8 +44,30 @@ public class ResultUtil {
                 .path(CommonUtil.getRequest().getRequestURL().toString())
                 .method(CommonUtil.getRequest().getMethod())
                 .success(true)
+                .json_null_out(json_null_out)
                 .data(data)
                 .build();
+    }
+
+    /**
+     * 无错误的返回
+     * @param data
+     * @param <T>
+     * @return
+     */
+    public static <T>JsonResult<T> OK(T data) {
+        return ResultUtil.OK(data, false);
+//        return JsonResult.<T>builder()
+//            .timestamp(DateTimeUtil.getTime())
+//            .http_status(HttpStatus.OK.value())
+//            .code(ResultEnum.OK.getCode())
+//            .message("调用成功")
+//            .path(CommonUtil.getRequest().getRequestURL().toString())
+//            .method(CommonUtil.getRequest().getMethod())
+//            .success(true)
+//            .json_null_out(false)
+//            .data(data)
+//            .build();
     }
 
     /**

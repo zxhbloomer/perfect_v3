@@ -53,4 +53,25 @@ public class STentantTreeVo extends TreeNode implements Serializable {
      */
     private String depth_name;
 
+    /**
+     * 系统编码：如：第一层：0001
+     *              第二层：00010001
+     */
+    private String serial_no;
+
+    /**
+     * 父亲节点编码
+     */
+    private String parent_code;
+
+    /**
+     * 父亲节点系统编码
+     */
+    private String parent_serial_no;
+
+    /**
+     * 级联控件使用，父节点id
+     */
+    private Long value;
+
 }

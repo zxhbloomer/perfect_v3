@@ -5,12 +5,15 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.perfect.bean.pojo.result.JsonResult;
+import com.perfect.common.exception.ValidateCodeException;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import org.springframework.web.context.request.ServletWebRequest;
 
 /*public class CallbackMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
 
@@ -87,13 +90,28 @@ public class CallbackMappingJackson2HttpMessageConverter extends FastJsonHttpMes
          * WriteNullBooleanAsFalse–Boolean字段如果为null,输出为false,而非null
          *
          * */
-        super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
-                                                        SerializerFeature.WriteNullStringAsEmpty,
-                                                        SerializerFeature.WriteNullListAsEmpty,
-                                                        SerializerFeature.WriteNullBooleanAsFalse,
-                                                        SerializerFeature.PrettyFormat//,
-//                                                        SerializerFeature.WriteNullNumberAsZero
-                                                        );
+        JsonResult jsonResult = null;
+        try {
+            jsonResult = (JsonResult)o;
+        } catch (Exception e) {
+        }
+        if(jsonResult != null && jsonResult.isJson_null_out() ){
+            super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
+                                                            SerializerFeature.WriteNullStringAsEmpty,
+//                                                            SerializerFeature.WriteNullListAsEmpty,
+                                                            SerializerFeature.WriteNullBooleanAsFalse,
+                                                            SerializerFeature.PrettyFormat
+            );
+        } else {
+            super.getFastJsonConfig().setSerializerFeatures(SerializerFeature.DisableCircularReferenceDetect,
+                                                            SerializerFeature.WriteNullStringAsEmpty,
+                                                            SerializerFeature.WriteNullListAsEmpty,
+                                                            SerializerFeature.WriteNullBooleanAsFalse,
+                                                            SerializerFeature.PrettyFormat
+                                                            //,
+                                                            // SerializerFeature.WriteNullNumberAsZero
+            );
+        }
         super.write(o, type, contentType, outputMessage);
     }
 

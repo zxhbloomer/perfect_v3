@@ -49,6 +49,18 @@ public class STentantServiceImpl extends ServiceImpl<STentantMapper, STentantEnt
     }
 
     /**
+     * 获取数据，级联结构
+     *
+     * @param id
+     * @return
+     */
+    @Override
+    public List<STentantTreeVo> getCascaderList(Long id, String name) {
+        List<STentantTreeVo> listVo = mapper.getCascaderList(id, name);
+        return listVo;
+    }
+
+    /**
      * 获取列表，页面查询
      * 
      * @param searchCondition
@@ -170,22 +182,22 @@ public class STentantServiceImpl extends ServiceImpl<STentantMapper, STentantEnt
                 // 新增场合，不能重复
                 if (listCode.size() >= 1) {
                     // 模块编号不能重复
-                    return CheckResultUtil.NG("新增保存出错：模块编号出现重复", listCode);
+                    return CheckResultUtil.NG("新增保存出错：租户编码出现重复", listCode);
                 }
                 if (listName.size() >= 1) {
                     // 模块名称不能重复
-                    return CheckResultUtil.NG("新增保存出错：模块名称出现重复", listName);
+                    return CheckResultUtil.NG("新增保存出错：租户名称出现重复", listName);
                 }
                 break;
             case CheckResult.UPDATE_CHECK_TYPE:
                 // 更新场合，不能重复设置
                 if (listCode.size() >= 2) {
                     // 模块编号不能重复
-                    return CheckResultUtil.NG("更新保存出错：模块编号出现重复", listCode);
+                    return CheckResultUtil.NG("更新保存出错：租户编码出现重复", listCode);
                 }
                 if (listName.size() >= 2) {
                     // 模块名称不能重复
-                    return CheckResultUtil.NG("更新保存出错：模块名称出现重复", listName);
+                    return CheckResultUtil.NG("更新保存出错：租户名称出现重复", listName);
                 }
                 break;
             default:

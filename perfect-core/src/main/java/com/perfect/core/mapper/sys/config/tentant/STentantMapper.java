@@ -44,9 +44,13 @@ public interface STentantMapper extends BaseMapper<STentantEntity> {
         + "             )                                                               "
         + "                select t1.id,                              "
         + "                   t1.parentid,                            "
+        + "                   t1.id as value,                         "  //级联使用，父节点id
         + "                   t1.level,                               "
         + "                   t1.name,                                "
         + "                   t1.depth_name,                          "
+        + "                   t3.code as parent_code,                 "
+        + "                   t3.serial_no as parent_serial_no,       "
+        + "                   t2.serial_no,                           "
         + "                   t2.code,                                "
         + "                   t2.name as label,                       "
         + "                   t2.isenable,                            "
@@ -63,8 +67,10 @@ public interface STentantMapper extends BaseMapper<STentantEntity> {
         + "                   t2.u_time,                              "
         + "                   t2.dbversion                            "
         + "              from tab1 t1                                 "
-        + "        inner join s_tenant t2 "
-        + "                on t1.id = t2.id            "
+        + "        inner join s_tenant t2                             "
+        + "                on t1.id = t2.id                           "
+        + "        LEFT JOIN s_tenant t3                              "
+        + "                ON t1.parentid = t3.id                     "
         + "           ";
 
     /**
@@ -89,6 +95,27 @@ public interface STentantMapper extends BaseMapper<STentantEntity> {
     List<STentantTreeVo> getTreeList(@Param("p1") Long id, @Param("p2") String name);
 
     /**
+     * 获取树的数据，级联
+     * @param id
+     * @return
+     */
+    @Select(
+        "       "
+            + commonTreeSql
+            + "  where (                                                             "
+            + "          case                                                        "
+            + "             when t1.id = #{p1} then true                             "
+            + "             when t1.id <> #{p1} then t1.parentid = #{p1}             "
+            + "             else false                                               "
+            + "         end                                                          "
+            + "         or #{p1} is null                                             "
+            + "        )                                                             "
+            + "    and (t1.depth_name like CONCAT ('%',#{p2},'%') or #{p2} is null)                                                             "
+            + "        ;"
+    )
+    List<STentantTreeVo> getCascaderList(@Param("p1") Long id, @Param("p2") String name);
+
+    /**
      * 页面查询列表
      * 
      * @param page
@@ -96,11 +123,35 @@ public interface STentantMapper extends BaseMapper<STentantEntity> {
      * @return
      */
     @Select("<script>"
-        + "     SELECT                                                      "
-        + "         t1.*                                                    "
-        + "     FROM                                                        "
-        + "         s_tenant AS t1                                          "
-        + "  where true "
+        + "    SELECT                               "
+        + "    		t1.id,                          "
+        + "    		t1.parentid,                    "
+        + "         (case                           "
+        + "            when t1.parentid is null then '根节点'  "
+        + "            else t2.name                 "
+        + "          end) as parent_name,           "
+        + "    		t1.serial_no,                   "
+        + "    		t1.`code`,                      "
+        + "    		t1.`name`,                      "
+        + "    		t1.simple_name,                 "
+        + "    		t1.isenable,                    "
+        + "    		t1.enable_time,                 "
+        + "    		t1.disable_time,                "
+        + "    		t1.isfreeze,                    "
+        + "    		t1.isleaf,                      "
+        + "    		t1.`level`,                     "
+        + "    		t1.sort,                        "
+        + "    		t1.descr,                       "
+        + "    		t1.isdel,                       "
+        + "    		t1.c_id,                        "
+        + "    		t1.c_time,                      "
+        + "    		t1.u_id,                        "
+        + "    		t1.u_time,                      "
+        + "    		t1.dbversion                    "
+        + "    FROM                                  "
+        + "    		s_tenant AS t1                  "
+        + "    		LEFT JOIN s_tenant t2 on t1.parentid = t2.id                  "
+        + "  where true                                                     "
         + "    and (t1.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
         + "  </script>")
     IPage<STentantVo> selectPage(Page<STentantVo> page, @Param("p1") STentantVo searchCondition);
