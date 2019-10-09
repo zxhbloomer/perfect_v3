@@ -23,6 +23,9 @@ import java.util.List;
 @Repository
 public interface STentantMapper extends BaseMapper<STentantEntity> {
 
+    /**
+     * 树查询使用
+     */
     String commonTreeSql = "   "
         + "           with recursive tab1  as (               "
         + "           select t0.id,                                                     "
@@ -74,55 +77,9 @@ public interface STentantMapper extends BaseMapper<STentantEntity> {
         + "           ";
 
     /**
-     * 获取树的数据
-     * @param id
-     * @return
+     * 表格查询使用
      */
-    @Select(
-        "       "
-        + commonTreeSql
-        + "  where (                                                             "
-        + "          case                                                        "
-        + "             when t1.id = #{p1} then true                             "
-        + "             when t1.id <> #{p1} then t1.parentid = #{p1}             "
-        + "             else false                                               "
-        + "         end                                                          "
-        + "         or #{p1} is null                                             "
-        + "        )                                                             "
-        + "    and (t1.depth_name like CONCAT ('%',#{p2},'%') or #{p2} is null)                                                             "
-        + "        ;"
-    )
-    List<STentantTreeVo> getTreeList(@Param("p1") Long id, @Param("p2") String name);
-
-    /**
-     * 获取树的数据，级联
-     * @param id
-     * @return
-     */
-    @Select(
-        "       "
-            + commonTreeSql
-            + "  where (                                                             "
-            + "          case                                                        "
-            + "             when t1.id = #{p1} then true                             "
-            + "             when t1.id <> #{p1} then t1.parentid = #{p1}             "
-            + "             else false                                               "
-            + "         end                                                          "
-            + "         or #{p1} is null                                             "
-            + "        )                                                             "
-            + "    and (t1.depth_name like CONCAT ('%',#{p2},'%') or #{p2} is null)                                                             "
-            + "        ;"
-    )
-    List<STentantTreeVo> getCascaderList(@Param("p1") Long id, @Param("p2") String name);
-
-    /**
-     * 页面查询列表
-     * 
-     * @param page
-     * @param searchCondition
-     * @return
-     */
-    @Select("<script>"
+    String commonGridSql = "   "
         + "    SELECT                               "
         + "    		t1.id,                          "
         + "    		t1.parentid,                    "
@@ -151,7 +108,59 @@ public interface STentantMapper extends BaseMapper<STentantEntity> {
         + "    FROM                                  "
         + "    		s_tenant AS t1                  "
         + "    		LEFT JOIN s_tenant t2 on t1.parentid = t2.id                  "
-        + "  where true                                                     "
+        + "  where true                                                     ";
+
+    /**
+     * 获取树的数据
+     * @param id
+     * @return
+     */
+    @Select(
+        "       "
+        + commonTreeSql
+        + "  where (                                                             "
+        + "          case                                                        "
+        + "             when t1.id = #{p1} then true                             "
+        + "             when t1.id <> #{p1} then t1.parentid = #{p1}             "
+        + "             else false                                               "
+        + "         end                                                          "
+        + "         or #{p1} is null                                             "
+        + "        )                                                             "
+        + "    and (t1.depth_name like CONCAT ('%',#{p2},'%') or #{p2} is null)                                                             "
+        + "        ;"
+    )
+    List<STentantTreeVo> getTreeList(@Param("p1") Long id, @Param("p2") String name);
+
+    /**
+     * 获取树的数据，级联
+     * @param id
+     * @return
+     */
+    @Select(
+              "       "
+            + commonTreeSql
+            + "  where (                                                             "
+            + "          case                                                        "
+            + "             when t1.id = #{p1} then true                             "
+            + "             when t1.id <> #{p1} then t1.parentid = #{p1}             "
+            + "             else false                                               "
+            + "         end                                                          "
+            + "         or #{p1} is null                                             "
+            + "        )                                                             "
+            + "    and (t1.depth_name like CONCAT ('%',#{p2},'%') or #{p2} is null)                                                             "
+            + "        ;"
+    )
+    List<STentantTreeVo> getCascaderList(@Param("p1") Long id, @Param("p2") String name);
+
+    /**
+     * 页面查询列表
+     * 
+     * @param page
+     * @param searchCondition
+     * @return
+     */
+    @Select(" <script> "
+        + commonGridSql
         + "    and (t1.name like CONCAT ('%',#{p1.name,jdbcType=VARCHAR},'%') or #{p1.name,jdbcType=VARCHAR} is null) "
         + "  </script>")
     IPage<STentantVo> selectPage(Page<STentantVo> page, @Param("p1") STentantVo searchCondition);
@@ -180,9 +189,8 @@ public interface STentantMapper extends BaseMapper<STentantEntity> {
      * @return
      */
     @Select(" "
-        + " select t.* "
-        + "   from s_tenant t1 "
-        + "  where t1.id =  #{p1}"
+        + commonGridSql
+        + "  and t1.id =  #{p1} "
         + "        ")
     STentantVo selectId(@Param("p1") Long id);
 
