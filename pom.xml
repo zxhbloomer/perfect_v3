@@ -43,6 +43,8 @@
         <project.build.springbootversion>2.1.7.RELEASE</project.build.springbootversion>
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <poi.version>4.1.0</poi.version>
+        <fastjson.version>1.2.62</fastjson.version>
+        <druid.version>1.1.14</druid.version>
     </properties>
 
     <dependencyManagement>
@@ -148,7 +150,17 @@
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
-                <version>1.2.58</version>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>
