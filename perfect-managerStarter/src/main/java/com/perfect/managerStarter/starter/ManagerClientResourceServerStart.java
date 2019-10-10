@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootApplication(scanBasePackages =
         {
                 "com.perfect.*",
+                "com.perfect.framework",
                 "com.perfect.security.*",
                 "com.perfect.redis",
                 "com.perfect.manager.controller",

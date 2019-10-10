@@ -3,13 +3,12 @@ package com.perfect.framework.config.spring.aspect;
 import com.perfect.common.annotation.DataSource;
 import com.perfect.common.config.datasource.DynamicDataSourceContextHolder;
 import com.perfect.common.utils.string.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -23,8 +22,8 @@ import java.lang.reflect.Method;
 @Aspect
 @Order(1)
 @Component
+@Slf4j
 public class DataSourceAspect {
-    protected Logger logger = LoggerFactory.getLogger(getClass());
 
     @Pointcut("@annotation(com.perfect.common.annotation.DataSource)")
     public void dsPointCut() {
