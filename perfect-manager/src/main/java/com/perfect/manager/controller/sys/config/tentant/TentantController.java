@@ -113,11 +113,11 @@ public class TentantController extends BaseController {
     @PostMapping("/insert")
     @ResponseBody
     @RepeatSubmit
-    public ResponseEntity<JsonResult<STentantEntity>> insert(@RequestBody(required = false) STentantEntity bean) {
+    public ResponseEntity<JsonResult<STentantVo>> insert(@RequestBody(required = false) STentantEntity bean) {
         // 默认启用
         bean.setIsenable(true);
         if(service.insert(bean).isSuccess()){
-            return ResponseEntity.ok().body(ResultUtil.OK(service.getById(bean.getId()),"插入成功"));
+            return ResponseEntity.ok().body(ResultUtil.OK(service.selectByid(bean.getId()),"插入成功"));
         } else {
             throw new InsertErrorException("新增保存失败。");
         }

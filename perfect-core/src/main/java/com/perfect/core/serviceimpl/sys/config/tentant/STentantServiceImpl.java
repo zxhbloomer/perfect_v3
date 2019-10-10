@@ -105,6 +105,10 @@ public class STentantServiceImpl extends ServiceImpl<STentantMapper, STentantEnt
     public InsertResult<Integer> insert(STentantEntity entity) {
         // 插入前check
         CheckResult cr = checkLogic(entity, CheckResult.INSERT_CHECK_TYPE);
+
+        // 初始化值
+        entity.setIsenable(false);
+        entity.setIsfreeze(false);
         if (cr.isSuccess() == false) {
             throw new BusinessException(cr.getMessage());
         }
