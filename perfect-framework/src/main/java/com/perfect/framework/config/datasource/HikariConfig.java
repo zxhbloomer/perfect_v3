@@ -24,7 +24,7 @@ public class HikariConfig {
 
     @Bean("db1")
     @ConfigurationProperties(prefix ="spring.datasource.hikari.db1")
-    public DataSource masterDataSource(HikariProperties properties) {
+    public DataSource db1DataSource(HikariProperties properties) {
         HikariDataSource dataSource = DataSourceBuilder.create().type(HikariDataSource.class).build();
         return properties.dataSource(dataSource);
     }
@@ -32,7 +32,7 @@ public class HikariConfig {
     @Bean("db2")
     @ConfigurationProperties(prefix ="spring.datasource.hikari.db2")
     @ConditionalOnProperty(prefix = "spring.datasource.hikari.db2", name = "enabled", havingValue = "true")
-    public DataSource slaveDataSource(HikariProperties properties) {
+    public DataSource db2DataSource(HikariProperties properties) {
         HikariDataSource dataSource = DataSourceBuilder.create().type(HikariDataSource.class).build();
         return properties.dataSource(dataSource);
     }
