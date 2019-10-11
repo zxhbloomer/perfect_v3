@@ -48,7 +48,7 @@
         <mybatis-plus.version>3.2.0</mybatis-plus.version>
         <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
         <mybatis.version>3.5.0</mybatis.version>
-        <mybatis-spring-boot-starter.version>2.0.0</mybatis-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>2.1.0</mybatis-spring-boot-starter.version>
 
         </properties>
 
@@ -246,11 +246,11 @@
                 <version>2.9.3</version>
             </dependency>
             <!-- mybatis-->
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${mybatis.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.mybatis</groupId>-->
+<!--                <artifactId>mybatis</artifactId>-->
+<!--                <version>${mybatis.version}</version>-->
+<!--            </dependency>-->
             <!-- mybatis-plus-->
             <dependency>
                 <groupId>com.baomidou</groupId>
