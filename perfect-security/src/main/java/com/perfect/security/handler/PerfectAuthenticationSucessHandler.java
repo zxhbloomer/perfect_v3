@@ -4,7 +4,11 @@ import com.perfect.bean.result.utils.v1.ResponseResultUtil;
 import com.perfect.common.constant.PerfectConstant;
 import com.perfect.core.service.client.user.IMUserService;
 import com.perfect.core.utils.security.SecurityUtil;
+import com.perfect.framework.config.properties.DruidProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionRegistry;
@@ -36,7 +40,6 @@ public class PerfectAuthenticationSucessHandler implements AuthenticationSuccess
         response.setContentType(PerfectConstant.JSON_UTF8);
 //        response.getWriter().write(mapper.writeValueAsString(ResponseBo.ok()));
         Map<String,String> token = new HashMap<String,String>();
-        Authentication xxx = SecurityContextHolder.getContext().getAuthentication();
         token.put("token",getSessionId(authentication, request.getSession().getId()));
 
         // 处理缓存

@@ -16,14 +16,15 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * @author zxh
  */
-@SpringBootApplication(scanBasePackages =
-        {
-                "com.perfect.*",
-                "com.perfect.framework",
-                "com.perfect.security.*",
-                "com.perfect.redis",
-                "com.perfect.manager.controller",
-        },exclude = { DataSourceAutoConfiguration.class })
+@SpringBootApplication(
+    exclude = { DataSourceAutoConfiguration.class },
+    scanBasePackages = {
+            "com.perfect.framework",
+            "com.perfect.*",
+            "com.perfect.security",
+            "com.perfect.redis",
+            "com.perfect.manager.controller",
+        })
 @EnableTransactionManagement
 @EntityScan(basePackages = {"com.perfect.*"})
 @Slf4j

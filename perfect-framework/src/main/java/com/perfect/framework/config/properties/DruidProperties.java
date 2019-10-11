@@ -1,16 +1,25 @@
 package com.perfect.framework.config.properties;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
+
+import java.io.Serializable;
 
 /**
  * druid 配置属性
  *
- * @author ruoyi
+ * @author
  */
 @Configuration
-public class DruidProperties {
+public class DruidProperties implements Serializable {
+
+    private static final long serialVersionUID = -8374942539718940542L;
+
     @Value("${spring.datasource.druid.initialSize}")
     private int initialSize;
 

@@ -67,7 +67,7 @@ public class PerfectSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PerfectSmsCodeAuthenticationSecurityConfig perfectSmsCodeAuthenticationSecurityConfig;
 
-    @Qualifier("perfectDataSource")
+    @Qualifier("db1")
     @Autowired
     private DataSource dataSource;
 

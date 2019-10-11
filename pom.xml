@@ -44,8 +44,10 @@
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <poi.version>4.1.0</poi.version>
         <fastjson.version>1.2.62</fastjson.version>
-        <druid.version>1.1.14</druid.version>
-    </properties>
+        <druid.version>1.1.20</druid.version>
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <mybatis-plus-boot-starter.version>3.2.0</mybatis-plus-boot-starter.version>  <!--解决druid的bug-->
+        </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -144,7 +146,7 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
-                <version>3.2.0</version>
+                <version>${mybatis-plus.version}</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
@@ -243,17 +245,17 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-generator</artifactId>
-                <version>3.2.0</version>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>3.2.0</version>
+                <version>${mybatis-plus-boot-starter.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
-                <version>3.2.0</version>
+                <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.github.jsqlparser</groupId>
