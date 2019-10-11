@@ -19,5 +19,5 @@ public @interface DataSource {
     /**
      * 切换数据源名称
      */
-    DataSourceTypeEnum value() default DataSourceTypeEnum.MASTER;
+    DataSourceTypeEnum value() default DataSourceTypeEnum.db1;
 }
