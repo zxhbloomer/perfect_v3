@@ -43,7 +43,7 @@
         <project.build.springbootversion>2.1.7.RELEASE</project.build.springbootversion>
         <spring.social.version>1.1.6.RELEASE</spring.social.version>
         <poi.version>4.1.0</poi.version>
-        <fastjson.version>1.2.62</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <druid.version>1.1.20</druid.version>
         <mybatis-plus.version>3.2.0</mybatis-plus.version>
         <mysql-connector-java.version>8.0.17</mysql-connector-java.version>
